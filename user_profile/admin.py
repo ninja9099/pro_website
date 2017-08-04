@@ -1,6 +1,20 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import User
 from .models import UserProfile
 
-admin.site.register(UserProfile, UserAdmin)
+
+class ProfileInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+    verbose_name_plural = 'User Profiles'
+    fk_name = 'user'
+
+
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ['username', 'first_name', 'last_name', 'email']
+    inlines = (ProfileInline, )
+
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
