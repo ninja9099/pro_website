@@ -13,13 +13,12 @@ def login(request):
         else:
             return render('user_profile/login.html')
     else:
-        return render('user_profile/index.html', {})
+        return render(request, 'user_profile/index.html')
+
 
 def index(request):
-    ## ---> Set BreakPoint
-    import pdb;
-    pdb.set_trace()
-    return HttpResponse('Hello World')
+    return render(request, 'user_profile/index.html')
+
 
 def logout(request):
     return HttpResponse()

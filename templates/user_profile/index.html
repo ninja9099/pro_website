@@ -1,75 +1,15 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<title>bootstrap</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<style type="text/css">
-			.primestrip:nth-child(odd){
-				background:yellow;
-				height: 200px;
-				border: 1px dashed black;
+{% extends "../base.html" %}
 
-			}
-			.primestrip:nth-child(even){
-				background:lime;
-				height: 200px;
-				border: 1px dashed black;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<div class="jumbotron"><h1>grid demonstrations</h1></div>
-			<div class="row">
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-				<div class="col-md-1 primestrip"></div>
-			</div>
-			<div class="row">
-				<div class="col-md-8" style="background:tomato; border: 1px dashed black; height: 200px">
-					<div class="col-md-4 primestrip">
-						<div class="col-md-4 primestrip"></div>
-						<div class="col-md-4 primestrip"></div>
-						<div class="col-md-4 primestrip"></div>
-					</div>
-					<div class="col-md-4 primestrip">
-						<div class="col-md-4 primestrip"></div>
-						<div class="col-md-4 primestrip"></div>
-						<div class="col-md-4 primestrip"></div>
-					</div>
-					<div class="col-md-4 primestrip">
-						<div class="col-md-4 primestrip"></div>
-						<div class="col-md-4 primestrip"></div>
-						<div class="col-md-4 primestrip"></div>
-					</div>
-					
-				</div>
-				<div class="col-md-4" style="background:beige; border: 1px dashed black; height: 200px">
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-					<div class="col-md-1 primestrip"></div>
-				</div>
-			</div>
-		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</body>
-</html>
+
+ {% block main_slider %}
+    {% load static %}
+    <div class="banner"><img src="{% static '/src/images/1.JPG' %}"/></div>
+    <div class="banner"><img src="{% static '/src/images/2.JPG' %}"/></div>
+    <div class="banner"><img src="{% static '/src/images/3.JPG' %}"/></div>
+    <div class="banner"><img src="{% static '/src/images/4.JPG' %}"/></div>
+    <div class="banner"><img src="{% static '/src/images/5.JPG' %}"/></div>
+    <div class="banner"><img src="{% static '/src/images/6.JPG' %}"/></div>
+    <div class="banner"><img src="{% static '/src/images/7.JPG' %}"/></div>
+    <div class="banner"><img src="{% static '/src/images/8.JPG' %}"/></div>
+    <div class="banner"><img src="{% static '/src/images/9.JPG' %}"/></div>
+ {% endblock %}
