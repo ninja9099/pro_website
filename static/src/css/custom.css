@@ -1,27 +1,50 @@
 .navbar-inverse {
-    background-color: #06595a !important;
-    border-color: #06595a !important;
+    background-color: #fff !important;
+    border-color: #fff !important;
+    margin-bottom: 0px ! important;
 }
 .navbar {
     border-radius: 0px !important;
 }
 .navbar-nav > .active > a:focus  {
-	background-color: #06595a !important;
+
+}
+.navbar-inverse .navbar-nav>.active>a{
+	color:rgba(0, 0, 0, 0.66) !important;
+    background-color: #fff ! important;
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #106fd5 ! important;
+    background-color: transparent;
 }
 .navbar-nav > .active > a {
-	background-color: #06595a !important;
+	border-bottom: 1px solid  rgba(0, 0, 0, 0.5) ! important;
 }
+.navbar-nav>li>.dropdown-menu{
+    margin-top: 10px !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 5px !important; 
 
+}
+.dropdown-menu li:nth-child(even){
+    background: red;
+}
+.navbar-right .dropdown-menu{
+    right: 0px; 
+    left: 9px;
+}
 .banner > img{
 	width: 100%;
 	height: 605px;	
 }
 .navbar-inverse .navbar-nav>.open>a{
-    background-color: #b4182e !important;
+    background-color: #D8D8D8 !important;
 }
 .navbar-inverse .navbar-nav>li>a {
     color: #9d9d9d;
-    border-radius: 5px;
+    border-radius: 0px;
+    margin-right: 10px;
+    margin-left: 10px
 }
 .slick-dots{
 	position: absolute;
@@ -33,5 +56,165 @@
 	display: inline-block;
 	text-align: center;
 	margin:0px 15px;
+	border-radius: 50%
 
+}
+.features{
+	height: 300px !important;
+	margin:20px 0px;
+
+}
+.main-slider {
+	max-height: 768x;
+    overflow: hidden;
+}
+
+
+/* flip css*/
+.hover{
+	cursor: pointer;
+}
+.panel {
+    float: left;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    position: relative;
+    font-size: .8em;
+    -webkit-perspective: 600px;
+    perspective: 600px;
+    background: none !important;
+}
+.panel .front {
+    float: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    width: inherit;
+    height: inherit;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+    -webkit-transform: rotateX(0) rotateY(0);
+    transform: rotateX(0) rotateY(0);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: all .9s ease-in-out;
+    transition: all .6s ease-in-out;
+}
+.panel .back {
+    float: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 800;
+    width: inherit;
+    height: inherit;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+    -webkit-transform: rotateY(-179deg);
+    transform: rotateY(-179deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: all .9s ease-in-out;
+    transition: all .6s ease-in-out;
+}
+.panel.flip .front {
+    z-index: 900;
+    border-color: #eee;
+    background: #fff;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+
+    -webkit-transform: rotateY(179deg);
+            transform: rotateY(179deg);
+  }
+  .panel.flip .back {
+    z-index: 1000;
+    background: #fff;
+
+    -webkit-transform: rotateX(0) rotateY(0);
+            transform: rotateX(0) rotateY(0);
+
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+  }
+
+.pad {
+	margin: 90px 20px;
+}
+
+body{
+	background: linear-gradient(#C9D6FF, #E2E2E2)
+}
+
+
+/*login form css*/
+.form-signin {
+  width: 300px;
+  margin-top: 20px;
+  padding: 15px 35px 34px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition-property: width;
+  transition-duration: 2s;
+  transition-timing-function: linear;
+  transition-delay: 2s;
+
+
+}
+.form-signin .form-signin-heading, .form-signin .checkbox {
+  margin-bottom: 30px;
+  vertical-align: text-bottom;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+label.checkbox{
+    display: inline;
+}
+/* dropdown css*/
+
+.dropdown .dropdown-menu {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.dropdown.open .dropdown-menu {
+    max-height: 300px;
+    opacity: 1;
 }

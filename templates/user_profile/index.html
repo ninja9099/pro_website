@@ -1,15 +1,52 @@
 {% extends "../base.html" %}
-
-
  {% block main_slider %}
     {% load static %}
     <div class="banner"><img src="{% static '/src/images/1.JPG' %}"/></div>
-    <div class="banner"><img src="{% static '/src/images/2.JPG' %}"/></div>
-    <div class="banner"><img src="{% static '/src/images/3.JPG' %}"/></div>
-    <div class="banner"><img src="{% static '/src/images/4.JPG' %}"/></div>
-    <div class="banner"><img src="{% static '/src/images/5.JPG' %}"/></div>
-    <div class="banner"><img src="{% static '/src/images/6.JPG' %}"/></div>
-    <div class="banner"><img src="{% static '/src/images/7.JPG' %}"/></div>
-    <div class="banner"><img src="{% static '/src/images/8.JPG' %}"/></div>
-    <div class="banner"><img src="{% static '/src/images/9.JPG' %}"/></div>
+ {% endblock %}
+ {% block our_service %}
+    <div class="col-xs-12 col-md-4 features">
+        <div class="hover panel">
+          <div class="front">
+            <div class="pad">
+              <h1>Odoo</h1>
+              <h2>Odoo Open erp customizations</h2>
+            </div>
+          </div>
+            <div class="back">
+                <div class="pad">
+                   <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4 features">
+        <div class="hover panel">
+          <div class="front">
+            <div class="pad">
+              <h1>Django</h1>
+              <h2>Web development using Python-Django</h2>
+            </div>
+          </div>
+            <div class="back">
+                <div class="pad">
+                   <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4 features">
+        <div class="hover panel">
+          <div class="front">
+            <div class="pad">
+              <h1>Html & Css</h1>
+              <h2>Beautiful Web using HTML5 & CSS3</h2>
+            </div>
+          </div>
+            <div class="back">
+                <div class="pad">
+                   <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
  {% endblock %}
