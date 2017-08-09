@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
         <title>{% block title %}My amazing site{% endblock %}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% load static %}
         <link rel="stylesheet" href="{% static '/src/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static '/third_party/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-
         <link rel="stylesheet" type="text/css" href='{% static "/src/css/custom.css" %}'/>
+        <link rel="stylesheet" type="text/css" href='{% static "/src/css/testimonial.css" %}'/>
         <link rel="stylesheet" type="text/css" href='{% static "/src/css/slick.css" %}'/>
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+ 
         <script src="{% static '/src/js/jquery.min.js'%}"></script>
         <script src="{% static '/src/js/bootstrap.min.js' %}"></script>
     </head>
     <body>
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse opaque-navbar navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -27,7 +29,7 @@
           <a class="navbar-brand" href="/"><img style="width: 50px;height: 50px;" src='{% static "/src/images/logo.png" %}'/></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-        <form class="navbar-form navbar-right">
+        <form class="navbar-form navbar-right ">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search">
             <div class="input-group-btn">
@@ -39,7 +41,7 @@
         </form>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"  href="#"><i class="fa fa-user" aria-hidden="true"></i> Login </a>
-                <form class="form-signin dropdown-menu">
+                <form class="form-signin dropdown-menu arrow_box">
                   <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
                   <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      
                   <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" />
@@ -47,7 +49,7 @@
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
                 </form>
             </li>
-            <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign Up</a></li>
+            <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="/"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a></li>
@@ -59,26 +61,25 @@
                 <li><a href="#">Gadgets</a></li>
               </ul>
             </li>
-            <!--  for direct login -->
-            <!-- direct login for endsup here -->
             <li><a href="#">About Us</a></li>
             <li><a href="#">Contact Us</a></li>
           </ul>
         </div>
       </div>
     </nav>
-    <div class="main-slider">
-        {% block main_slider %}{% endblock %}
-    </div>
+    {% block banner %}{% endblock %}
     <div class="container">
-    <div class="row">
-        {% block our_service %}{% endblock %}
-    </div>
-        <div class="content">
-            {% block content %}{% endblock %}
+        <div class="row">
+            {% block our_service %}{% endblock %}
         </div>
     </div>
-         <script src="{% static 'src/js/slick.js' %}"></script>
-        <script src="{% static 'src/js/man.js' %}"></script> 
+    {% block content %}{% endblock %}
+    {% block testimonials %}{% endblock %}
+        <script src="{% static 'src/js/man.js' %}"></script>
+        <script src="{% static 'src/js/owl.js' %}"></script>
+        <script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-3311815518700050.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
     </body>
 </html>

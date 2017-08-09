@@ -5,16 +5,18 @@
 }
 .navbar {
     border-radius: 0px !important;
+    animation: slide 0.5s forwards;
+    animation-delay: 2s;
 }
 .navbar-nav > .active > a:focus  {
-
+  color: green;
 }
 .navbar-inverse .navbar-nav>.active>a{
 	color:rgba(0, 0, 0, 0.66) !important;
-    background-color: #fff ! important;
+  background-color: rgba(0, 0, 0, 0) ! important;
 }
 .navbar-inverse .navbar-nav>li>a:hover {
-    color: #106fd5 ! important;
+    color: #f35014 ! important;
     background-color: transparent;
 }
 .navbar-nav > .active > a {
@@ -33,9 +35,13 @@
     right: 0px; 
     left: 9px;
 }
-.banner > img{
+.banner{
 	width: 100%;
-	height: 605px;	
+	height: 605px;
+  background: #6a3093;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #a044ff, #6a3093);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #a044ff, #6a3093); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 .navbar-inverse .navbar-nav>.open>a{
     background-color: #D8D8D8 !important;
@@ -68,7 +74,10 @@
 	max-height: 768x;
     overflow: hidden;
 }
-
+ .btn-default{
+    padding: 7px 11px ! important;
+    font-size: 13px ! important;
+}
 
 /* flip css*/
 .hover{
@@ -148,12 +157,6 @@
 .pad {
 	margin: 90px 20px;
 }
-
-body{
-	background: linear-gradient(#C9D6FF, #E2E2E2)
-}
-
-
 /*login form css*/
 .form-signin {
   width: 300px;
@@ -199,22 +202,124 @@ body{
 label.checkbox{
     display: inline;
 }
-/* dropdown css*/
+/* dropdown css
 
-.dropdown .dropdown-menu {
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s;
-
-    max-height: 0;
+/* tooltip css*/
+.arrow_box:before {
+  top: -11%;
+  left: 5%;
+  border: solid transparent;
+  content: " ";
+  height: 19px;
+  width: 10px;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: #88b7d5;
+  border-width: 13px;
+  margin-left: -13px;
+} 
+.odoo {
+}
+.odoo:before {
+    content: ' ';
     display: block;
-    overflow: hidden;
-    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.5;
+    background-image: url(/static/src/images/odoo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: 385px 211px;
+
+}
+.django:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.5;
+    background-image: url(/static/src/images/odoo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: 385px 211px;
+
+}
+.odoo-back {
+  background:#a24689 ! important;
 }
 
-.dropdown.open .dropdown-menu {
-    max-height: 300px;
-    opacity: 1;
+.django-back {
+  background:#0C3C26 ! important;
+}
+#myNavbar {
+  font-size: 16px;
+  font-family: monospace;
+
+}
+.navbar-nav > ul>li, .navbar-nav >li>a, .navbar-nav > li > a > i{
+  color: #ff7f50 !important;
+}
+
+.content-banner{
+    width: 100%;
+    height:300px;
+    padding: 10px 10px;
+    text-align: center;
+    background: #B993D6;
+    background: -webkit-linear-gradient(to right, #8CA6DB, #B993D6);
+    background: linear-gradient(to right, #8CA6DB, #B993D6);
+}
+.content-banner h1{
+  font-size: 100px;
+  font-family: ubuntu;
+  font-weight: 600;
+}
+
+
+/*opaque navbar settings*/
+.opaque-navbar {
+    background-color: rgba(0,0,0,0) !important;
+  /* Transparent = rgba(0,0,0,0) / Translucent = (0,0,0,0.5)  */
+    height: 60px;
+    border-bottom: 0px;
+    transition: background-color .5s ease 0s;
+}
+
+.opaque-navbar.opaque {
+    background-color: black !important;
+    height: 60px !important;
+    transition: background-color .5s ease 0s !important;
+}
+
+ul.dropdown-menu {
+    background-color: black;
+}
+
+
+@media (max-width: 992px) {
+  body
+  {
+    background:red;
+  }
+  .opaque-navbar {
+    background-color: black;
+    height: 60px;
+    transition: background-color .5s ease 0s;
 }
