@@ -1,20 +1,25 @@
 {% extends "../base.html" %}
 {% block banner %}
 {% load static %}
-<section class="banner"></section>
+<section class="banner">
+<div class="col-xs-12 placeholder">
+    <h1 class="col-xs-12">Welcome to Web</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum rhoncus erat pharetra aliquet. Etiam volutp</p>
+</div>
+</section>
 {% endblock %}
  {% block our_service %}
+    <div class="service-header"><h1 >Services We Offer</h1></div>
     <div class="col-xs-12 col-md-4 features">
         <div class="hover panel">
           <div class="front odoo">
             <div class="pad">
               <h1>Odoo</h1>
-              <h2>Odoo Open erp customizations</h2>
             </div>
           </div>
             <div class="back odoo-back">
                 <div class="pad">
-                   <p>Our Team Is Dedcated to work toward the requirement of your project</p>
+                   <p>Our Team Is Dedicated to work toward the requirement of your project</p>
                 </div>
             </div>
         </div>
@@ -24,7 +29,6 @@
           <div class="front django">
             <div class="pad">
               <h1>Django</h1>
-              <h2>Web development using Python-Django</h2>
             </div>
           </div>
             <div class="back django-back">
@@ -39,7 +43,6 @@
           <div class="front">
             <div class="pad">
               <h1>Html & Css</h1>
-              <h2>Beautiful Web using HTML5 & CSS3</h2>
             </div>
           </div>
             <div class="back">
@@ -61,6 +64,42 @@
     <div class="row">
         <div class="col-md-12">
             <div id="testimonial-slider" class="owl-carousel">
+                <div class="testimonial">
+                    <div class="pic">
+                        <img src="{% static '/src/images/img-1.jpg' %}">
+                    </div>
+                    <p class="description">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto commodi dolorum earum fugiat, fugit hic id, ipsum laborum minus nostrum numquam perspiciatis saepe velit.
+                    </p>
+                    <div class="testimonial-profile">
+                        <h3 class="title">williamson-</h3>
+                        <span class="post">Web Developer</span>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="pic">
+                        <img src="{% static '/src/images/img-1.jpg' %}">
+                    </div>
+                    <p class="description">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto commodi dolorum earum fugiat, fugit hic id, ipsum laborum minus nostrum numquam perspiciatis saepe velit.
+                    </p>
+                    <div class="testimonial-profile">
+                        <h3 class="title">williamson-</h3>
+                        <span class="post">Web Developer</span>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="pic">
+                        <img src="{% static '/src/images/img-1.jpg' %}">
+                    </div>
+                    <p class="description">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto commodi dolorum earum fugiat, fugit hic id, ipsum laborum minus nostrum numquam perspiciatis saepe velit.
+                    </p>
+                    <div class="testimonial-profile">
+                        <h3 class="title">williamson-</h3>
+                        <span class="post">Web Developer</span>
+                    </div>
+                </div>
                 <div class="testimonial">
                     <div class="pic">
                         <img src="{% static '/src/images/img-1.jpg' %}">

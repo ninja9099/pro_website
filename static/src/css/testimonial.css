@@ -6,6 +6,7 @@
     background: #f9f9f9;
     box-shadow: 8px 4px 0 0 #ff7f50;
     position: relative;
+    min-height: 364px;
 }
 .testimonial .pic{
     width: 120px;
