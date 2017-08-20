@@ -1,83 +1,121 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
-        <title>{% block title %}My amazing site{% endblock %}</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% load static %}
-        <link rel="stylesheet" href="{% static '/src/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static '/third_party/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-        <link rel="stylesheet" type="text/css" href='{% static "/src/css/custom.css" %}'/>
-        <link rel="stylesheet" type="text/css" href='{% static "/src/css/testimonial.css" %}'/>
-        <link rel="stylesheet" type="text/css" href='{% static "/src/css/slick.css" %}'/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Monda" rel="stylesheet">
-    </head>
-    <body>
-    <nav class="navbar navbar-inverse opaque-navbar navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>                        
-          </button>
-          <a class="navbar-brand" href="/"><img style="width: 50px;height: 50px;" src='{% static "/src/images/logo.png" %}'/></a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-        <form class="navbar-form navbar-right ">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-               <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"  href="#"><i class="fa fa-user" aria-hidden="true"></i> Login </a>
-                <form class="form-signin dropdown-menu arrow_box">
-                  <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
-                  <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      
-                  <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" />
-                  <label class="checkbox" for="rememberMe">Remember me</label>
-                  <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
-                </form>
-            </li>
-            <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up</a></li>
+<html lang="en_us">
+<head>
+<title>{%block title%}{% endblock %}</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+{% load static %}
+<link href="{% static 'src/css/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+{% block  navbar%}
+<div class="wrapper row1">
+  <header id="header" class="hoc clear"> 
+    <div id="logo" class="fl_left">
+      <h1><a href="/">Pankaj Kamani</a></h1>
+    </div>
+    <nav id="mainav" class="fl_right">
+      <ul class="clear">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/">Blog</a></li>
+        <li><a class="drop" href="#">Categories</a>
+          <ul>
+            <li><a href="pages/gallery.html">Gallery</a></li>
+            <li><a href="pages/full-width.html">Full Width</a></li>
+            <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
+            <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
+            <li><a href="pages/basic-grid.html">Basic Grid</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="/"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
-              <ul class="dropdown-menu categories">
-                <li><a href="#">Coading</a></li>
-                <li><a href="#">Cooking</a></li>
-                <li><a href="#">Gadgets</a></li>
+        </li>
+        <li><a class="drop" href="#">Dropdown</a>
+          <ul>
+            <li><a href="#">Level 2</a></li>
+            <li><a class="drop" href="#">Level 2 + Drop</a>
+              <ul>
+                <li><a href="#">Level 3</a></li>
+                <li><a href="#">Level 3</a></li>
+                <li><a href="#">Level 3</a></li>
               </ul>
             </li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Level 2</a></li>
           </ul>
-        </div>
-      </div>
-    </nav>
-    {% block banner %}{% endblock %}
-    <div class="container">
-        <div class="row">
-            {% block our_service %}{% endblock %}
-        </div>
+        </li>
+        <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a></li>
+        <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> Signup</a></li>
+      </ul>
+    </nav> 
+  </header>
+</div>
+{% endblock %}
+<!-- content goes in here -->
+{% block content%}{% endblock %}
+<!--  footer goes in here -->
+{% block footer%}
+<div class="wrapper row4">
+  <footer id="footer" class="hoc clear"> 
+    <div class="one_third first">
+      <h6 class="heading">Vitae vehicula aliquam</h6>
+      <ul class="nospace btmspace-30 linklist contact">
+        <li><i class="fa fa-map-marker"></i>
+          <address>
+          Street Name &amp; Number, Town, Postcode/Zip
+          </address>
+        </li>
+        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
+        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+      </ul>
+      <ul class="faico clear">
+        <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
+        <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+        <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
+      </ul>
     </div>
-    {% block content %}{% endblock %}
-    {% block testimonials %}{% endblock %}
-        <script src="{% static '/src/js/jquery.min.js'%}"></script>
-        <script src="{% static '/src/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'src/js/owl.js' %}"></script>
-        <script src="{% static 'src/js/man.js' %}"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-    </body>
+    <div class="one_third">
+      <h6 class="heading">Eget efficitur sodales</h6>
+      <ul class="nospace linklist">
+        <li>
+          <article>
+            <h2 class="nospace font-x1"><a href="#">Ac mauris egestas ipsum</a></h2>
+            <time class="font-xs block btmspace-10" datetime="2045-04-06">Friday, 6<sup>th</sup> April 2045</time>
+            <p class="nospace">At commodo dolor nulla eu eleifend velit eu posuere neque phasellus ut [&hellip;]</p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h2 class="nospace font-x1"><a href="#">Pretium tempus interdum</a></h2>
+            <time class="font-xs block btmspace-10" datetime="2045-04-05">Thursday, 5<sup>th</sup> April 2045</time>
+            <p class="nospace">Risus luctus dapibus libero in bibendum nulla ut sodales fermentum eros [&hellip;]</p>
+          </article>
+        </li>
+      </ul>
+    </div>
+    <div class="one_third">
+      <h6 class="heading">Pretium eleifend mauris</h6>
+      <p class="nospace btmspace-30">Lobortis aliquam eu placerat dui sed fermentum nibh eu nunc semper non.</p>
+      <form method="post" action="#">
+        <fieldset>
+          <legend>Newsletter:</legend>
+          <input class="btmspace-15" type="text" value="" placeholder="Name">
+          <input class="btmspace-15" type="text" value="" placeholder="Email">
+          <button type="submit" value="submit">Submit</button>
+        </fieldset>
+      </form>
+    </div>
+  </footer>
+</div>
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+    <p class="fl_left">Copyright &copy; 2017 - All Rights Reserved - <a href="#">KamInfo</a></p>
+  </div>
+</div>
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+{% load static %}
+<script src="/static/src/js/jquery.min.js"></script>
+<script src="/static/src/js/jquery.backtotop.js"></script>
+<script src="/static/src/js/jquery.mobilemenu.js"></script>
+{% endblock %}
+</body>
 </html>

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 from django.conf import settings
 
-profile_folder = 'static/user_profile/img/'
+profile_folder = 'static/src/images/user_profile/img/'
 user_type_choices = [(1, 'Admin'), (2, 'Moderator'), (3, 'Normal')]
 
 class UserProfile(models.Model):
