@@ -24,7 +24,7 @@ SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+LOGIN_URL = '/login/'
 
 # Application definition
 
@@ -35,7 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'user_profile',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +76,13 @@ STATICFILES_FINDERS = (
 
 WSGI_APPLICATION = 'pro_website.wsgi.application'
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+]
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -88,7 +97,13 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -137,3 +152,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

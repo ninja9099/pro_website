@@ -12,7 +12,7 @@
 <div class="wrapper row1">
   <header id="header" class="hoc clear"> 
     <div id="logo" class="fl_left">
-      <h1><a href="/">Pankaj Kamani</a></h1>
+      <h1><a href="/"><img class="brand-logo" src="{% static 'src/images/logo.png'%}"></a></h1>
     </div>
     <nav id="mainav" class="fl_right">
       <ul class="clear">
@@ -40,8 +40,18 @@
             <li><a href="#">Level 2</a></li>
           </ul>
         </li>
+        {% if user.is_authenticated %}
+        {% load static %}
+        <li class="profile-image"><a><img src="{{user.userprofile.profile_picture.url}}"></a>
+          <ul>
+              <li><a href="/profile/{{user.id}}">{{user.get_full_name}}</a></li>
+              <li><a href="/logout">Logout</a></li>
+          </ul> 
+        </li>
+        {% else %}
         <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a></li>
         <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> Signup</a></li>
+        {% endif %}
       </ul>
     </nav> 
   </header>
@@ -116,6 +126,8 @@
 <script src="/static/src/js/jquery.min.js"></script>
 <script src="/static/src/js/jquery.backtotop.js"></script>
 <script src="/static/src/js/jquery.mobilemenu.js"></script>
+<script src="/static/src/js/man.js"></script>
+
 {% endblock %}
 </body>
 </html>

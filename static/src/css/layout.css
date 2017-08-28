@@ -10,7 +10,10 @@ File: Layout CSS
 
 @import url("font-awesome.min.css");
 @import url("framework.css");
-
+/* user profile image  style*/
+li.profile-image img{width: 35px; height: 35px;border-radius: 50%; overflow: hidden;}
+.profile-image ul{margin-top: 5px !important;}
+.brand-logo{width: 50px;}
 /* Rows
 --------------------------------------------------------------------------------------------------------------- */
 .row1, .row1 a{}
@@ -18,13 +21,14 @@ File: Layout CSS
 .row3, .row3 a{}
 .row4, .row4 a{}
 .row5, .row5 a{}
-.row1 {position: sticky; top: -24px; z-index: 20; background: #214b4a;}
+.row1 {background: #0f2221;}
+.fix {position: fixed ! important; width: 100% ! important; left: 0px ! important; z-index: 9999 !important; background-color: #214b4a ! important; top: 0px ! important}
 
 /* Header
 --------------------------------------------------------------------------------------------------------------- */
-#header{}
+#header{padding-top: 10px; padding-bottom: 10px;}
 
-#header #logo{margin:30px 0 0 0;}
+#header #logo{margin:0px 0 0 0;}
 #header #logo h1{margin:0; padding:0; line-height:1; font-size:22px;}
 
 
@@ -151,7 +155,7 @@ Delete it completely to stop fading
 nav ul, nav ol{margin:0; padding:0; list-style:none;}
 
 #mainav, #breadcrumb, .sidebar nav{line-height:normal;}
-#mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{position:absolute; font-family:"FontAwesome"; font-size:10px; line-height:10px;}
+#mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{font-family:"FontAwesome"; font-size:10px; line-height:10px;}
 
 /* Top Navigation */
 #mainav{}
@@ -162,7 +166,7 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav li{display:inline-block; position:relative; margin:0 15px 0 15px; padding:0;}
 #mainav li:last-child{margin-right:0;}
 #mainav li li{width:100%; margin:0;}
-#mainav li a{display:block; padding:30px 0;}
+#mainav li a{display:block; padding:8px 0;}
 #mainav li li a{border:solid; border-width:0 0 1px 0;}
 #mainav .drop{padding-left:15px;}
 #mainav li li a, #mainav li li .drop{display:block; margin:0; padding:10px 15px;}
@@ -274,7 +278,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#59A209;}
 
 
 /* Header */
-#header #logo a{color:inherit;}
+#header #logo a{color:inherit; line-height: normal;}
 
 
 /* Content Area */
