@@ -50,29 +50,27 @@
         </table>
       </div>
       <div id="comments">
-        <h4>Your recent Reads</h4>
+        <h4>Recent History</h4>
         <ul>
         {% for item in article_reads|slice:":4" %}
-        	
-        	
-
-       
           <li>
             <article>
               <header>
                 <figure class="avatar"><img src="{{item.article_image.url}}" alt=""></figure>
+                <h5 class="article-title">{{item.article_title}}</h5>
                 <address>
                 By <a href="#">{{item.article_author}}</a>
                 </address>
-                <h5>{{item.article_title}}</h5>
-                <time datetime="2045-04-06T08:15+00:00">Friday, 6<sup>th</sup> April 2045 @08:15:00</time>
+                <time datetime="{{item.created}}"><i>{{item.created}}</i>
+                </time>
               </header>
               <div class="comcont">
-                <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
+                <p>{{item.article_content}}</p>
               </div>
             </article>
           </li>
         {% endfor %}
+        <a href="/articles/">see more <b>+</b></a>
         </ul>
       </div>
     </div>
@@ -129,5 +127,6 @@
 <!-- overriding the jquery  --> 
 <script src="{% static 'src/js/jquery.min.js' %}"></script>
 <script src="{% static 'src/js/bootstrap.min.js' %}"></script>
+<script src="//cdn.ckeditor.com/4.7.2/full/ckeditor.js"></script>
 
 {% endblock %}

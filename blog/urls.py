@@ -18,8 +18,9 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from . import views as BlogView
+from . import views
 print "in blogs.url files"
 urlpatterns=[
-	url(r'^$', BlogView.BlogIndex, name="blog_home"),
+	url(r'^$',views.BlogIndex, name="blog_home" ),
+	url(r'^article_submitt$', views.article_edit, name="article_edit"),
 ]

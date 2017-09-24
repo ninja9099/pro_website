@@ -11,9 +11,18 @@ File: Layout CSS
 @import url("font-awesome.min.css");
 @import url("framework.css");
 /* user profile image  style*/
-li.profile-image img{width: 35px; height: 35px;border-radius: 50%; overflow: hidden;}
+li.profile-image img{width: 35px; height: 35px;border-radius: 5px; overflow: hidden;}
 .profile-image ul{margin-top: 5px !important;}
 .brand-logo{width: 50px;}
+.dropdown::before{
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 74px;
+    border: 8px solid rgba(87, 4, 4, 0.01);
+    border-bottom-color: #1a3c3b;
+    }.
+
 /* Rows
 --------------------------------------------------------------------------------------------------------------- */
 .row1, .row1 a{}
@@ -21,13 +30,13 @@ li.profile-image img{width: 35px; height: 35px;border-radius: 50%; overflow: hid
 .row3, .row3 a{}
 .row4, .row4 a{}
 .row5, .row5 a{}
-.row1 {background: #0f2221;}
-.fix {position: fixed ! important; width: 100% ! important; left: 0px ! important; z-index: 9999 !important; background-color: #214b4a ! important; top: 0px ! important}
-
+.row1 {background:#0f2221; color:#dfdfdf;}
+.fix {color: black! important; background:#dfdfdf; position: fixed; z-index: 999; top: 0px ! important;}
+.fix  #mainav li a {color: #d21321 !important;}
 /* Header
 --------------------------------------------------------------------------------------------------------------- */
 #header{padding-top: 10px; padding-bottom: 10px;}
-
+.clear li {color: #ddd;}
 #header #logo{margin:0px 0 0 0;}
 #header #logo h1{margin:0; padding:0; line-height:1; font-size:22px;}
 
@@ -139,8 +148,8 @@ This gives a smooth transition to "ALL" elements used in the layout - other than
 If you don't want it to fade all elements, you have to list the ones you want to be faded individually
 Delete it completely to stop fading
 --------------------------------------------------------------------------------------------------------------- */
-*, *::before, *::after{transition:all .3s ease-in-out;}
-#mainav form *{transition:none !important;}
+/**, *::before, *::after{transition:all .3s ease-in-out;}*/
+/*#mainav form *{transition:none !important;}*/
 
 
 /* ------------------------------------------------------------------------------------------------------------ */
@@ -160,7 +169,7 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 /* Top Navigation */
 #mainav{}
 #mainav ul.clear{}
-#mainav ul{text-transform:uppercase;}
+#mainav ul{text-transform:uppercase; color: black;}
 #mainav ul ul{z-index:9999; position:absolute; width:180px; text-transform:none;}
 #mainav ul ul ul{left:180px; top:0;}
 #mainav li{display:inline-block; position:relative; margin:0 15px 0 15px; padding:0;}
@@ -170,10 +179,12 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav li li a{border:solid; border-width:0 0 1px 0;}
 #mainav .drop{padding-left:15px;}
 #mainav li li a, #mainav li li .drop{display:block; margin:0; padding:10px 15px;}
-#mainav .drop::after, #mainav li li .drop::after{content:"\f0d7";}
+#mainav .drop::after, #mainav li li .drop::after{}
 #mainav .drop::after{top:35px; left:5px;}
 #mainav li li .drop::after{top:15px; left:5px;}
-#mainav ul ul{visibility:hidden; opacity:0;}
+#mainav ul ul{visibility:hidden; opacity:0;margin-left: -24%;margin-right: auto;}
+#mainav ul ul.profile-dropdown{margin-left: -185%;margin-right: auto;}
+
 #mainav ul li:hover > ul{visibility:visible; opacity:1;}
 
 #mainav form{display:none; margin:0; padding:0;}

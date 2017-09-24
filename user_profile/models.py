@@ -29,3 +29,13 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return "%s  %s --> %s" % (self.user.first_name, self.user.last_name, self.user.username)
+
+
+
+    def get_articles_written(self):
+        import pdb
+        pdb.set_trace()
+        user = self.user
+        articles_written = user.article_set.all()
+        return articles_written
+

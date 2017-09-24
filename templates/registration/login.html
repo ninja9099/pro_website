@@ -3,13 +3,13 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+
 {% load static %}
-<link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
-<link href="{% static '/src/css/bootstrap.min.css' %}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/login.css' %}">
+<script data-main="{% static 'src/js/login' %}" src="{%static '/src/js/require.js' %}"></script>
 <div class="row">
     <div class="container login-container">
-        <form method="POST" action="/login/">
+        <form method="POST">
           {% csrf_token %}
           {{form.non_field_errors}}
           <div class="form-group">
@@ -24,6 +24,9 @@
           </div>
           <div class="checkbox">
             <label>{{form.remember_me}} {{form.remember_me.label_tag}}</label>
+             {% if next %}
+              <input type="hidden" name="next" value="{{ next }}" />
+             {% endif %}
           </div>
           <button type="submit" class="login-button btn btn-default">Submit</button>
         </form>
@@ -31,6 +34,7 @@
 </div>
 <script type="text/javascript" src="{% static 'src/js/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'src/js/bootstrap.min.js' %}"></script>
+
 <script>
     $(document).ready(function(){
         $('#id_username').addClass('form-control')

@@ -5,6 +5,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 {% load static %}
+<link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
+<link href="{% static '/src/css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'src/css/layout.css' %}" rel="stylesheet" type="text/css" media="all">
 </head>
 <body id="top">
@@ -16,41 +18,20 @@
     </div>
     <nav id="mainav" class="fl_right">
       <ul class="clear">
-        <li class="active"><a href="/">Home</a></li>
-        <li><a href="/">Blog</a></li>
-        <li><a class="drop" href="#">Categories</a>
-          <ul>
-            <li><a href="pages/gallery.html">Gallery</a></li>
-            <li><a href="pages/full-width.html">Full Width</a></li>
-            <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
-            <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
-            <li><a href="pages/basic-grid.html">Basic Grid</a></li>
-          </ul>
-        </li>
-        <li><a class="drop" href="#">Dropdown</a>
-          <ul>
-            <li><a href="#">Level 2</a></li>
-            <li><a class="drop" href="#">Level 2 + Drop</a>
-              <ul>
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Level 2</a></li>
-          </ul>
-        </li>
+        <li><a href="blog/">Blog</a></li>
+        <li><a class="drop" href="articles/">Write for us</a></li>
+        <li><a class="drop" href="profile/">About us</a></li>
         {% if user.is_authenticated %}
         {% load static %}
         <li class="profile-image"><a><img src="{{user.userprofile.profile_picture.url}}"></a>
-          <ul>
+          <ul class="dropdown profile-dropdown">
               <li><a href="/profile/{{user.id}}">{{user.get_full_name}}</a></li>
               <li><a href="/logout">Logout</a></li>
           </ul> 
         </li>
         {% else %}
-        <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a></li>
-        <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> Signup</a></li>
+        <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i></a></li>
+        <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
         {% endif %}
       </ul>
     </nav> 
@@ -122,12 +103,7 @@
   </div>
 </div>
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
-{% load static %}
-<script src="/static/src/js/jquery.min.js"></script>
-<script src="/static/src/js/jquery.backtotop.js"></script>
-<script src="/static/src/js/jquery.mobilemenu.js"></script>
-<script src="/static/src/js/man.js"></script>
-
 {% endblock %}
+<script type="text/javascript" data-main="{% static 'src/js/index.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
 </body>
 </html>

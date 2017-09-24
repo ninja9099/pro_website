@@ -2,3 +2,5 @@
 img.imgr, img.imgl {max-width: 137px !important; max-height: 137px !important;}
 .personal-info{color: #007bff}
 .avatar {width: 50px;}
+.article-title {color:#59a209; font-size: 14px; font-weight: bold;}
+.author{float: left !important;}
