@@ -35,7 +35,7 @@ class Category(models.Model):
         return self.category_name
 
 class SubCategory(models.Model):
-    catagory_id = models.OneToOneField('Category', on_delete=models.CASCADE)
+    catagory_id = models.ForeignKey('Category', on_delete=models.CASCADE)
     category_name = models.CharField(max_length=255)
 
     def __str__(self):
