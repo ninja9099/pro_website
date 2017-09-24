@@ -23,7 +23,8 @@ class Article(TimeStampedModel):
     article_author = models.ForeignKey(User, blank=True)
     article_state= models.CharField(choices=article_states, default='draft', max_length=20)
 
-    
+    def get_author_profile(self):
+        return self.article_author.userprofile
     
     def __str__(self):
         return self.article_title
