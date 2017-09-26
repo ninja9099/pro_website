@@ -11,6 +11,21 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from . models import UserProfile
+from django.views.generic.edit import UpdateView
+
+class ProfileUpdateView(UpdateView):
+    model = UserProfile
+    fields = [
+            'profile_picture',
+            'birth_date',
+            'address',
+            'mobile',
+            'is_active',
+            'gender',
+            'about_me',
+        ]
+    template_name_suffix = '_update_form'
+
 
 def index(request):
     return render(request, 'index.html')
@@ -32,8 +47,6 @@ def _login_ajax(request,username, password, remember):
 
 @csrf_exempt
 def login(request):
-    import pdb
-    pdb.set_trace()
     if not request.user.is_anonymous():
         return HttpResponseRedirect('/')
     

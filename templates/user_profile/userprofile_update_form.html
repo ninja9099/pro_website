@@ -5,49 +5,48 @@
 {% block content %}
 
 {% load static %}
-<script  src="{% static 'src/js/signup.js' %}"></script>
-
+{% load pdb_debug %}
 <div id="login-box">
   <div class="left">
     <form enctype="multipart/form-data" action="" method="post">
-        {% csrf_token %}
+       {% csrf_token %}
       {{ form.non_field_errors }}
       <div class="fieldWrapper">
-          {{ form.article_title.errors }}
-          <label for="{{ form.article_title.id_for_label }}">Title</label>
-          {{ form.article_title }}
+          <img src="{{ form.instance.profile_picture.url }}" />
       </div>
       <div class="fieldWrapper">
-          {{ form.article_image.errors }}
-          <label for="{{ form.article_image.id_for_label }}">Image</label>
-          {{ form.article_image }}
+          {{ form.birth_date.errors }}
+          <label for="{{ form.birth_date.id_for_label }}">Birth Date</label>
+          {{ form.birth_date }}
       </div>
       <div class="fieldWrapper">
-          {{ form.article_category.errors }}
-          <label for="{{ form.article_category.id_for_label }}">Category</label>
-          {{ form.article_category }}
+          {{ form.address.errors }}
+          <label for="{{ form.address.id_for_label }}">Address</label>
+          {{ form.address }}
       </div>
       <div class="fieldWrapper">
-          {{ form.article_subcategory.errors }}
-          <label for="{{ form.article_subcategory.id_for_label }}">Sub Category</label>
-          {{ form.article_subcategory }}
+          {{ form.mobile.errors }}
+          <label for="{{ form.mobile.id_for_label }}">Mobile No</label>
+          {{ form.mobile }}
       </div>
       <input type="submit" name="signup_submit" value="save">
-      <input type="submit" name="signup_submit" value="submit">
-      <input type="submit" name="signup_submit" value="preview">
   </div>
   <div class="right">
+   
+     <div class="fieldWrapper">
+        {{ form.gender.errors }}
+        <label class="id_gender" for="{{ form.gender.id_for_label }}">Gender</label>
+        {{ form.gender}}
+    </div>
     <div class="fieldWrapper">
-        {{ form.article_content.errors }}
-        <label class="id_article_content" for="{{ form.article_content.id_for_label }}">Article Body</label>
-        {{ form.article_content }}
+        {{ form.about_me.errors }}
+        <label  for="{{ form.about_me.id_for_label }}">About Me</label>
+        {{ form.about_me }}
     </div>
   </div>
 </form>
-  <div class="or"></div>
 </div>
 {% load static %}
-<script data-main="{% static 'src/js/article' %}" src="{%static '/src/js/lib/require.js' %}"></script>
 <style type="text/css">
 	@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 *:focus {

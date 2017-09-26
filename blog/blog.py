@@ -26,8 +26,12 @@ class Article(TimeStampedModel):
     def get_author_profile(self):
         return self.article_author.userprofile
     
+    def get_absolute_url(self):
+        return u'/article-edit/%d' % self.id 
+        
     def __str__(self):
         return self.article_title
+
 
 class Category(models.Model):
     category_name = models.CharField('Category',max_length=255, unique=True)
