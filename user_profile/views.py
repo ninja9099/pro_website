@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.urls import reverse
-from .forms import LoginForm
+from .forms import LoginForm,UserProfileForm
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -25,10 +25,15 @@ def _login_ajax(request,username, password, remember):
             if not request.POST.get('next'): # FIXME Find some  batter way to do this
                 next_url = '/'
             return JsonResponse({'login':True,})
+        else:
+            return JsonResponse({"error":'Username or password is incorrect'})
+    else:
+        return JsonResponse({"error":'Username & password required'})
 
 @csrf_exempt
 def login(request):
-        
+    import pdb
+    pdb.set_trace()
     if not request.user.is_anonymous():
         return HttpResponseRedirect('/')
     
@@ -59,6 +64,8 @@ def login(request):
                     return render(request, 'registration/login.html', {'form': form})
                 
                 return  HttpResponseRedirect(reverse('homepage'))
+        else:     
+            return render(request, 'registration/login.html', {'form': form})
     else:
         next_url = request.GET.get('next') or '/'
         form = LoginForm()    # A empty, unbound form
@@ -70,7 +77,16 @@ def logout(request):
     return HttpResponseRedirect(reverse('homepage'))
 
 
-
+def sign_up(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            clean_form =form.cleaned_data
+            import pdb
+            pdb.set_trace()
+    else:
+        form = UserProfileForm()
+    return render(request, 'registration/signup.html', {'form': form})
 @login_required
 def ManageProfile(request, profile_id):
     if request.method=='GET':

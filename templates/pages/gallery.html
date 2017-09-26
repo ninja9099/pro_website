@@ -1,14 +1,7 @@
 {% extends '../base.html' %}
-
 {% block content%}
 {% load static %}
 <div class="wrapper row2">
-  <div id="breadcrumb" class="hoc clear"> 
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Blog</a></li>
-    </ul>
-  </div>
 </div>
 <div class="wrapper row3">
   <main class="hoc container clear"> 
@@ -35,20 +28,20 @@
               </div>
             <div class="card__meta">
               <a href="#">{{article.article_subcategory}}</a>
-                        <time>17th March</time>
+                        <time>{{article.created}}</time>
             </div>
             <article class="card__article">
               <h2><a href="#">{{article.article_title}}</a></h2>
                {% autoescape off %}
-              <p class="article-content">{{article.article_content}}</p>
-            {% endautoescape %}
+                <div class="article-content">{{article.article_content}}</div>
+                {% endautoescape %}
             </article>
           </div>
           <div class="card__action">
             <div class="card__author">
               <img style="width: 40px; height: 40px;" src="{{article.get_author_profile.profile_picture.url}}" alt="user">
               <div class="card__author-content">
-                By <a href="#">{{article.article_author}}</a>
+                By <a href="/profile/{{article.article_author.id}}">{{article.article_author}}</a>
               </div>
             </div>
           </div>
@@ -66,9 +59,6 @@
             box-sizing: border-box;
           }
 
-          /**
-           * Basics Styles
-           */
           html {
             font-size: 62.5%;
           }
@@ -97,9 +87,7 @@
             line-height: 1.2;
             margin-bottom: 1.6rem;
           }
-          /**
-           * Helpers
-           */
+
           .border-tlr-radius { 
             border-top-left-radius: 2px;
             border-top-right-radius: 2px; 

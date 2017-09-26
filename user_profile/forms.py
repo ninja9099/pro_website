@@ -7,8 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 
 class LoginForm(forms.Form):
 
-	username = forms.CharField(required=True,label='Login Id', max_length=100, help_text="id to login in the system ie. John_Doe")
-	password = forms.CharField(required=True, label='Password', widget=forms.PasswordInput)
+	username = forms.CharField(error_messages={'required': 'username is required'}, required=True,label='Login Id', max_length=100, help_text="id to login in the system ie. John_Doe")
+	password = forms.CharField(error_messages={'required': 'password is required'}, required=True, label='Password', widget=forms.PasswordInput)
 	remember_me = forms.BooleanField(required=False, label='Remember Me on this device', widget=forms.CheckboxInput)
 	
 	def clean_username(self):
@@ -26,7 +26,7 @@ class LoginForm(forms.Form):
 class UserProfileForm(forms.ModelForm):
 	class Meta:
 		model=UserProfile
-		fields = ['user',
+		fields = [
 			'profile_picture',
 			'birth_date',
 			'address',

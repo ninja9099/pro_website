@@ -1,7 +1,7 @@
 requirejs.config({
     baseUrl: '/static/src/js',
     paths: {
-        jquery: 'jquery.min',
+        jquery: 'jquery',
         ck: 'lib/ckeditor/ckeditor'
     }
 });

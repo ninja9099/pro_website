@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import compress_string
 from django.db.models.signals import post_init
 
+
 def uncompress_string(s):
     """helper function to reverse django.utils.text.compress_string"""
     import cStringIO, gzip
@@ -69,3 +70,8 @@ class CompressedTextField(models.TextField):
         args, kwargs = introspector(self)
         # That's our definition!
         return (field_class, args, kwargs)
+
+
+
+
+

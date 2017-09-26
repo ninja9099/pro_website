@@ -1,0 +1,45 @@
+{% extends '../base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/login.css' %}">
+<script data-main="{% static 'src/js/login' %}" src="{%static '/src/js/require.js' %}"></script>
+<div class="row">
+    <div class="container login-container">
+        <form method="POST">
+          {% csrf_token %}
+          {{form.non_field_errors}}
+          <div class="form-group">
+            <label for="email">Email address:</label>
+              {{form.username}}
+              {{form.username.errors}}
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+              {{form.password}}
+              {{form.password.errors}}
+          </div>
+          <div class="checkbox">
+            <label>{{form.remember_me}} {{form.remember_me.label_tag}}</label>
+             {% if next %}
+              <input type="hidden" name="next" value="{{ next }}" />
+             {% endif %}
+          </div>
+          <button type="submit" class="login-button btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript" src="{% static 'src/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'src/js/bootstrap.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $('#id_username').addClass('form-control')
+        $('#id_password').addClass('form-control')
+    });
+</script>
+{% endblock %}

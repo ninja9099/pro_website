@@ -1,8 +1,8 @@
-define(['jquery.min', 'app'], function(jquery) {
+define(['jquery', 'app'], function(jquery) {
 	$(document).ready(function(){
 		$( window ).scroll(function() {
 			var height = $(window).scrollTop()
-			if (height >= 50){
+			if (height >= 30){
 	  			$( ".row1" ).addClass('fix');
 			}
 			else{

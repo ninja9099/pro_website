@@ -1,6 +1,6 @@
 require(['jquery'], function ($) {
 	$(document).ready(function(){
-		$('button').on('click', function(e){
+		$('.send').on('click', function(e){
 			
 			e.preventDefault()
 			$.ajax({
@@ -16,21 +16,24 @@ require(['jquery'], function ($) {
 				success:function(response){
 					debugger;
 					if (response.login){
+						$('div.send').removeClass('loader');
 						window.location.reload($("[name='next']").val())
 					}
-					alert('Logged in successfully');
+					else{
+						alert(response.error);
+						$('div.send').removeClass('loader');
+					}
 				},
 				error:function(errorType, errorMessage){
-					alert('error occured please after sometime');
+					alert('error occured please after sometime' + errorMessage);
 				},
 				beforeSend:function(){
-					$('.login-button').text('Please Wait ...');
+					debugger;
+					$('div.send').addClass('loader');
 				},
 				complete:function(){
 					$('.login-button').text('Submit');
 				}
-
-
 			})
 		});
 

@@ -1,19 +1,12 @@
 @charset "utf-8";
-/*
-Template Name: Kiraric
-Author: <a href="http://www.os-templates.com/">OS Templates</a>
-Author URI: http://www.os-templates.com/
-Licence: Free to use under our free template licence terms
-Licence URI: http://www.os-templates.com/template-terms
-File: Layout CSS
-*/
 
 @import url("font-awesome.min.css");
 @import url("framework.css");
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 /* user profile image  style*/
 li.profile-image img{width: 35px; height: 35px;border-radius: 5px; overflow: hidden;}
 .profile-image ul{margin-top: 5px !important;}
-.brand-logo{width: 50px;}
+.brand-logo{width: 40px; margin-top: 4px}
 .dropdown::before{
     content: '';
     position: absolute;
@@ -30,12 +23,12 @@ li.profile-image img{width: 35px; height: 35px;border-radius: 5px; overflow: hid
 .row3, .row3 a{}
 .row4, .row4 a{}
 .row5, .row5 a{}
-.row1 {background:#0f2221; color:#dfdfdf;}
-.fix {color: black! important; background:#dfdfdf; position: fixed; z-index: 999; top: 0px ! important;}
-.fix  #mainav li a {color: #d21321 !important;}
+.row1 {background:rgb(49, 57, 50); color:#dfdfdf;}
+.fix {color: black! important; background:rgba(35, 34, 34, 0.37); position: fixed; z-index: 999; top: 0px ! important;}
+.fix  #mainav li a {color: #f19508 !important;}
 /* Header
 --------------------------------------------------------------------------------------------------------------- */
-#header{padding-top: 10px; padding-bottom: 10px;}
+/*#header{padding-top: 10px; padding-bottom: 10px;}*/
 .clear li {color: #ddd;}
 #header #logo{margin:0px 0 0 0;}
 #header #logo h1{margin:0; padding:0; line-height:1; font-size:22px;}
@@ -43,11 +36,11 @@ li.profile-image img{width: 35px; height: 35px;border-radius: 5px; overflow: hid
 
 /* Page Intro
 --------------------------------------------------------------------------------------------------------------- */
-#pageintro{padding:150px 0;}
+#pageintro{padding-top: 221px; padding-bottom: 23px;}
 
 #pageintro article{display:block; max-width:60%;}
 #pageintro article *{margin:0; line-height:normal;}
-#pageintro article .heading{margin-bottom:50px; font-size:4rem;}
+#pageintro article .heading{margin-bottom:5px; font-size:3rem;}
 #pageintro article p{font-size:1.4rem;}
 #pageintro article footer{margin-top:50px;}
 
@@ -143,31 +136,15 @@ li.profile-image img{width: 35px; height: 35px;border-radius: 5px; overflow: hid
 #copyright *{margin:0; padding:0;}
 
 
-/* Transition Fade
-This gives a smooth transition to "ALL" elements used in the layout - other than the navigation form used in mobile devices
-If you don't want it to fade all elements, you have to list the ones you want to be faded individually
-Delete it completely to stop fading
---------------------------------------------------------------------------------------------------------------- */
-/**, *::before, *::after{transition:all .3s ease-in-out;}*/
-/*#mainav form *{transition:none !important;}*/
 
 
-/* ------------------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------------------ */
-/* ------------------------------------------------------------------------------------------------------------ */
-
-
-/* Navigation
---------------------------------------------------------------------------------------------------------------- */
 nav ul, nav ol{margin:0; padding:0; list-style:none;}
 
 #mainav, #breadcrumb, .sidebar nav{line-height:normal;}
 #mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{font-family:"FontAwesome"; font-size:10px; line-height:10px;}
 
 /* Top Navigation */
-#mainav{}
+#mainav{margin-top: 5px;}
 #mainav ul.clear{}
 #mainav ul{text-transform:uppercase; color: black;}
 #mainav ul ul{z-index:9999; position:absolute; width:180px; text-transform:none;}
@@ -276,8 +253,8 @@ input:focus, textarea:focus, *:required:focus{border-color:#59A209;}
 .overlay{color:#FFFFFF; background-color:inherit;}
 .overlay::after{color:inherit; background-color:rgba(0,0,0,.55);}
 
-.btn, .btn.inverse:hover{color:#FFFFFF; background-color:#59A209; border-color:#59A209;}
-.btn:hover, .btn.inverse{color:inherit; background-color:transparent; border-color:inherit;}
+.btn:hover, .btn.inverse{color:#FFFFFF; background-color:#59A209; border-color:#59A209;}
+.btn, .btn.inverse:hover{color:inherit; background-color:transparent; border-color:inherit;}
 
 
 /* Rows */
@@ -319,7 +296,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#59A209;}
 
 /* Navigation */
 #mainav li a{color:inherit;}
-#mainav .active a, #mainav a:hover, #mainav li:hover > a{color:#59A209; background-color:inherit;}
+#mainav .active a, #mainav a:hover, #mainav li:hover > a{color:#59A209; background-color:inherit; text-decoration: none;}
 #mainav li li a, #mainav .active li a{color:inherit; background-color:rgba(33,75,74,.65); border-color:rgba(33,75,74,.65);}
 #mainav li li:hover > a, #mainav .active .active > a{color:#FFFFFF; background-color:#59A209;}
 #mainav form select{color:#FFFFFF; background-color:#142E2D; border-color:rgba(0,0,0,.5);}

@@ -17,8 +17,6 @@ def article_edit(request, **kwargs):
 		return render(request, 'blog/article_template.html', {"form":article_form})
 
 	if request.method =='POST':
-		import pdb
-		pdb.set_trace()
 		form = ArticleFrom(request.POST, request.FILES)
 		if form.is_valid() and form.is_multipart():
 			article_instance = form.save(commit=False)
@@ -29,6 +27,7 @@ def article_edit(request, **kwargs):
 
 @login_required
 def BlogIndex(request, **kwargs):
+	
 	articles = Article.objects.all()
 	if request.method == "GET":
-		return render_to_response('pages/gallery.html',{"articles": articles})
+		return render_to_response('pages/gallery.html',{"articles": articles, 'user':request.user})
