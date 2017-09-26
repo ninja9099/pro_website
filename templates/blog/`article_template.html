@@ -1,0 +1,66 @@
+{% extends '../base.html' %}
+
+{% block content%}
+{% load static %}
+<div class="container article-container">
+	<div class="wrapper col-xs-12, col-md-2 left-part">
+		<form enctype="multipart/form-data" action="" method="post">
+		    {% csrf_token %}
+			{{ form.non_field_errors }}
+			<div class="fieldWrapper">
+			    {{ form.article_title.errors }}
+			    <label for="{{ form.article_title.id_for_label }}">Title</label>
+			    {{ form.article_title }}
+			</div>
+			<div class="fieldWrapper">
+			    {{ form.article_image.errors }}
+			    <label for="{{ form.article_image.id_for_label }}">Image</label>
+			    {{ form.article_image }}
+			</div>
+			<div class="fieldWrapper">
+			    {{ form.article_category.errors }}
+			    <label for="{{ form.article_category.id_for_label }}">Category</label>
+			    {{ form.article_category }}
+			</div>
+			<div class="fieldWrapper">
+			    {{ form.article_subcategory.errors }}
+			    <label for="{{ form.article_subcategory.id_for_label }}">Sub Category</label>
+			    {{ form.article_subcategory }}
+			</div>
+	</div>
+	<div class="wrapper col-xs-12 col-md-9 right-part">
+		<div class="fieldWrapper">
+		    {{ form.article_content.errors }}
+		    <label for="{{ form.article_content.id_for_label }}">Article Body</label>
+		    {{ form.article_content }}
+		</div>
+	</div>
+	</div>
+    <div class="last-part col-xs-12 col-md-12">
+    	<input class="btn btn-primary article-submit-button" type="submit" value="Submit" />
+		</form>
+	</div>
+</div>
+{% load static %}
+<script data-main="{% static 'src/js/article' %}" src="{%static '/src/js/lib/require.js' %}"></script>
+<style type="text/css">
+	body{background-color: #ddd}
+	.container-fluid{margin: 20px 20px;}
+	.left-part{
+		float: left;
+	    padding: 10px;
+	    margin: 10px;
+	    color: black;
+	}
+	.right-part{
+		float: left;
+    	display: inline-block;
+    	margin: 10px;
+    	padding: 10px;}
+	.last-part{clear: both;
+    text-align: center;
+    padding: 20px;
+	}
+	.article-submit-button {width: 152px; padding: 14px; font-size: 20px; color: #000; background:transparent;}
+</style>
+{% endblock %}

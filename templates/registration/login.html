@@ -19,7 +19,7 @@
             <label style="display: inline-block; vertical-align: baseline;" for="id_remember_me">Remember? </label>
             <input type="submit" class="send" value="Go">
             <div class="send"></div>
-            <p style="display: inline-block;">Forgot it? <a class="login-a" href="#">click here</a></p>
+            <p style="display: inline-block;">Forgot it? <a class="login-a" href="{% url 'password_reset'%}">click here</a></p>
             {% if next %}
               <input type="hidden" name="next" value="{{ next }}" />
             {% endif %}
@@ -41,7 +41,6 @@
 }
 div.send{
   background: transparent;
-  border-top: 5px solid red;
 }
 .login-welcome{  color: black;
     text-align: center;
@@ -136,17 +135,9 @@ body{
   -webkit-animation: in 0.3s ease-in-out;
 
 }
-.send:hover {
-  animation: out 0.3s ease-in-out;
-  -webkit-animation: out 0.3s ease-in-out;
-  -moz-animation: out 0.3s ease-in-out;
-  -ms-animation: out 0.3s ease-in-out;
-  -o-animation: out 0.3s ease-in-out;
-  cursor: pointer;
-}
-
 .loader{
-  animation-name: out; 
+  border-top:5px solid rgb(255, 193, 7);
+  animation-name: in; 
   animation-duration: 0.5s; 
   animation-iteration-count: infinite;
   animation-timing-function: linear;

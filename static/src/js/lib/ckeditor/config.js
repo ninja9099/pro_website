@@ -4,6 +4,8 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
+	config.height = '23em'; 
+	config.removePlugins = 'autogrow';
 	config.extraPlugins= 'codesnippet';
 	config.codeSnippet_theme = 'monokai_sublime';
 	config.extraPlugins = 'uploadimage';
