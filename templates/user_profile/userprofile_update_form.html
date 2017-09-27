@@ -1,11 +1,12 @@
 {% extends '../base.html' %}
 
-{% block title %}Article{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block content %}
 
 {% load static %}
 {% load pdb_debug %}
+<div><h1>Profile</h1></div>
 <div id="login-box">
   <div class="left">
     <form enctype="multipart/form-data" action="" method="post">
@@ -19,11 +20,7 @@
           <label for="{{ form.birth_date.id_for_label }}">Birth Date</label>
           {{ form.birth_date }}
       </div>
-      <div class="fieldWrapper">
-          {{ form.address.errors }}
-          <label for="{{ form.address.id_for_label }}">Address</label>
-          {{ form.address }}
-      </div>
+      
       <div class="fieldWrapper">
           {{ form.mobile.errors }}
           <label for="{{ form.mobile.id_for_label }}">Mobile No</label>
@@ -39,6 +36,11 @@
         {{ form.gender}}
     </div>
     <div class="fieldWrapper">
+          {{ form.address.errors }}
+          <label for="{{ form.address.id_for_label }}">Address</label>
+          {{ form.address }}
+      </div>
+    <div class="fieldWrapper">
         {{ form.about_me.errors }}
         <label  for="{{ form.about_me.id_for_label }}">About Me</label>
         {{ form.about_me }}
@@ -51,6 +53,9 @@
 	@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 *:focus {
   outline: none;
+}
+.fieldWrapper img {
+  margin-bottom:10px; 
 }
 
 body {
@@ -95,6 +100,18 @@ input[type="text"], input[type="password"] {
   padding: 4px;
   width: 220px;
   height: 32px;
+  border: none;
+  border-bottom: 1px solid #AAA;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+textarea,select{
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  padding: 4px;
   border: none;
   border-bottom: 1px solid #AAA;
   font-family: 'Roboto', sans-serif;
@@ -148,6 +165,7 @@ input[type="submit"]:active {
 }
 
 .right {
+  text-align: left !important;
   position: absolute;
   top: 0;
   left: 310px;

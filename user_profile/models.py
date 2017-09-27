@@ -13,7 +13,7 @@ class UserProfile(models.Model):
 
     """Stores the additional information about the user 
     which will be usefull in running web blog"""
-    
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     profile_picture = models.ImageField(upload_to=profile_folder, height_field=None, width_field=None, max_length=100)
     birth_date = models.DateField('Birth Date', default='1900-01-01', blank=True, null=True)

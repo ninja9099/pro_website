@@ -3,28 +3,17 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
+from django.shortcuts import render, render_to_response,redirect
+from django.http import HttpResponse, HttpResponseRedirect,JsonResponse 
 from django.urls import reverse
 from .forms import LoginForm,UserProfileForm
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from . models import UserProfile
+from django.forms import ModelForm, Textarea
 from django.views.generic.edit import UpdateView
-
-class ProfileUpdateView(UpdateView):
-    model = UserProfile
-    fields = [
-            'profile_picture',
-            'birth_date',
-            'address',
-            'mobile',
-            'is_active',
-            'gender',
-            'about_me',
-        ]
-    template_name_suffix = '_update_form'
+from user_profile.forms import UserProfileForm, SignUpForm
 
 
 def index(request):
@@ -84,7 +73,6 @@ def login(request):
         form = LoginForm()    # A empty, unbound form
     return render(request, 'registration/login.html', {'form': form, "next":next_url})
 
-
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect(reverse('homepage'))
@@ -92,14 +80,24 @@ def logout(request):
 
 def sign_up(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            clean_form =form.cleaned_data
-            import pdb
-            pdb.set_trace()
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            auth_login(request, user)
+            return redirect('homepage')
     else:
-        form = UserProfileForm()
+        form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+class ProfileUpdateView(UpdateView):
+    model = UserProfile
+    template_name_suffix = '_update_form'
+    form_class = UserProfileForm
+
+
 @login_required
 def ManageProfile(request, profile_id):
     if request.method=='GET':
