@@ -1,0 +1,15 @@
+{% extends '../base.html' %}
+
+{% block content%}
+{% load static%}
+<div class="error-container">
+<h1 class="error-message">we are looking for your page...but we can't find it</h1>
+</div>
+<style type="text/css">@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+	body{color: #000; background-color: #fff;}
+	.error-container{background-image:url({% static 'src/images/banner/404.jpg'%});background-size: cover; height: 600px;}
+	.error-message {text-align: center; font-size: 50px; font-family: 'Roboto', sans-serif; padding:24px;color: #fff;}
+
+</style>
+{% endblock%}

@@ -36,7 +36,6 @@ class ArticleListView(ListView):
 
 @login_required
 def article_edit(request, **kwargs):
-
     if request.method == 'GET':
         article_form = ArticleFrom()
         return render(request, 'blog/article_template.html', {"form":article_form})
@@ -58,3 +57,9 @@ def BlogIndex(request, **kwargs):
         return render_to_response('pages/gallery.html',{"articles": articles, 'user':request.user})
 
 
+def ArticleView(request, pk):
+    try:
+        article = Article.objects.get(id=pk, article_state='published')
+    except Exception as e:
+        return render_to_response('misc/404.html',)
+    return render_to_response('blog/article.html',{"article": article})

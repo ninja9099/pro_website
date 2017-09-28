@@ -38,7 +38,7 @@ class SignUpForm(UserCreationForm):
             user = User.objects.filter(email=email)
         except User.DoesNotExist:
             pass
-
+            
         if user:
             raise forms.ValidationError(_('User with email  "%s" already exists.' % email))
         return email

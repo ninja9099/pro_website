@@ -22,5 +22,6 @@ from . import views
 
 urlpatterns=[
 	url(r'^$',views.BlogIndex, name="blog_home" ),
+	url(r'^article/(?P<pk>\d+)', views.ArticleView, name="article"),
 	url(r'^article_submitt$', views.article_edit, name="article_edit"),
 ]
