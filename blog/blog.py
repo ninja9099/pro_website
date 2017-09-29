@@ -30,7 +30,7 @@ class Article(TimeStampedModel):
         return u'/article-edit/%d' % self.id 
         
     def __str__(self):
-        return self.article_title
+        return self.article_title 
 
 
 class Category(models.Model):
@@ -54,3 +54,6 @@ class ArticleLikes(TimeStampedModel):
         verbose_name = 'Article like'
         verbose_name_plural = 'Article Likes'
         unique_together = (("article_id", "user_id"),)
+
+
+

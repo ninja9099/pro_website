@@ -24,6 +24,7 @@ from blog import blog, views as article_views
 urlpatterns = [
     
     url(r'^$', views.index, name='homepage'),
+    url('', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', custom_auth_views.login, name='login'),
     url(r'^logout/$', custom_auth_views.logout, name='logout'),

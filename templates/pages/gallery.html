@@ -11,11 +11,11 @@
           <ul class="nospace clear">
             {% load static %}
             {% for article in articles %}  
+          <a href="/blog/article/{{article.id}}">  
           <div class="card radius shadowDepth1 one_quarter">
           <div class="card__image border-tlr-radius">
             <img src="{{article.article_image.url}}" alt="image" class="border-tlr-radius">
                 </div>
-
           <div class="card__content card__padding">
               <div class="card__share">
                   <div class="card__social">  
@@ -46,6 +46,7 @@
             </div>
           </div>
         </div>
+      </a>
       {% endfor %}
       </ul>
         <style type="text/css">

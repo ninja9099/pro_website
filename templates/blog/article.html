@@ -73,33 +73,33 @@
             </div>
             <div class="note">Click the button or hit enter.</div>
         </div>
-        <!-- for the great thougth -->
+        <!-- for the great thought -->
         <div class="thought-container search-container">
             <p>
                Innovation is the thing that differentiate leader and follower
             </p>
         </div>
+    <div class="archive-contents">
+    <ul class="file-tree">
+      {% for key, value in article_analytics.items %}
+        <li><a href="#">{{key}}</a>
+            <ul>
+            {% for month, value in value.items %}
+              <li><a href="#">{{months|get_item:month}} ({{value.count}})</a>
+                <ul>
+                {% for item in value %}
+                    <li><a href="/blog/article/{{item.id}}">{{item}}</a>
+                {% endfor %}
+                </ul>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endfor %}
+    </ul>
     </div>
+  </div>
 </div>
-<script type="text/javascript">
-    var search = document.getElementById('search');
-var button = document.getElementById('button');
-var input = document.getElementById('input');
-
-function loading() {
-    search.classList.add('loading');
-    
-    setTimeout(function() {
-        search.classList.remove('loading');
-    }, 1500);
-}
-
-button.addEventListener('click', loading);
-
-input.addEventListener('keydown', function() {
-    if(event.keyCode == 13) loading();
-});
-</script>
 <script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script>
 <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
 <style type="text/css">
@@ -109,7 +109,7 @@ input.addEventListener('keydown', function() {
     .blog-archive{width: 24%;display: inline-block; float: right; height: 600px; background-color: #fff;}
     .tags{width: 15%; display: inline-block;}
     .card-post-author{background-color: #f5f5dc; box-sizing: border-box; padding: 10px;box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.05); max-height: 164px;}
-    .author-img {display: inline-block; position: relative;top: -54px; margin-right: 5px}
+    .author-img {display: inline-block; position: relative;top: -41px; margin-right: 5px}
     .author-info{display: inline-block; margin-left: 5px; max-width: 79%;color: #999;}
     .author-img img{width: 130px;height: 130px;}
     .img-wrapper {margin-bottom: 20px;}
@@ -123,6 +123,8 @@ input.addEventListener('keydown', function() {
     .contact a:hover{color: #0056b3;}
     .search-container {height: 100px; background-color: #f1f1f1;padding: 20px 0px;margin: 8px;}
     .thought-container {color: #000; padding: 5px 5px;}
+    .archive-contents{padding: 2px; color: #999;}
+    .archive-contents ul > li{padding: 0px;}
 </style>
 <!-- style for searchbox -->
 <style type="text/css">
@@ -227,5 +229,75 @@ input.addEventListener('keydown', function() {
   }
 }
 
+</style>
+
+<!-- style for tree  -->
+<style type="text/css">
+  .file-list, .file-list ul{
+    list-style-type: none;
+    font-size:1em;
+    line-height:1.8em;
+    margin-left:20px;
+    padding-left:18px;
+    border-left:1px dotted #aaa;
+}
+.file-list li{
+    position: relative;
+    padding-left:25px;
+}
+.file-list li a{
+    text-decoration: none;
+    color:#444;  
+}
+.file-list li a:before{
+    display:block;
+    content: " ";
+    width:10px;
+    height:1px;
+    position:absolute;
+    border-bottom:1px dotted #aaa;
+    top:.6em;
+    left:-14px;
+}
+.file-list li:before{
+    list-style-type: none;
+    font-family: FontAwesome;
+    display:block;
+    content:'\f0f6';
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:20px;
+    height:20px;
+    font-size:1.3em;
+    color:#555;
+}
+.file-list .folder-root{
+    list-style-type: none;
+}
+.file-list .folder-root a{
+    text-decoration:none;
+    margin-left: 20px !important;
+}
+.file-list .folder-root:before{
+    color:#FFD04E;
+    content: "\f07b";
+}
+.file-list .folder-root.open:before{
+    content: "\f07c";
+}
+li.folder-root ul{
+    transition: all .3s ease-in-out;
+    overflow:hidden;
+}
+li.folder-root.closed>ul{
+   opacity:0;
+   max-height:0px;
+}
+li.folder-root.open>ul{
+   opacity:1;
+   display:block;
+   max-height:1000px;
+}
 </style>
 {% endblock %}

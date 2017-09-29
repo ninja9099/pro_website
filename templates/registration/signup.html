@@ -24,6 +24,15 @@
         {% endfor %}
     {% endfor %}
     <input type="submit" name="signup_submit" value="Sign me up" />
+    <li>
+       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
+     </li>
   </form>
   </div>
 </div>
@@ -115,6 +124,8 @@ input[type="submit"]:active {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.1s ease;
 }
+
+
 button.social-signin {
   margin-bottom: 20px;
   width: 220px;
