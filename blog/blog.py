@@ -21,8 +21,7 @@ class Article(TimeStampedModel):
     article_views = models.IntegerField(default=0)
     article_content = CompressedTextField(blank=True)
     article_author = models.ForeignKey(User, blank=True)
-    article_state= models.CharField(choices=article_states, default='draft', max_length=20)
-
+    article_state = models.CharField(choices=article_states, default='draft', max_length=20)
     def get_author_profile(self):
         return self.article_author.userprofile
     
@@ -32,6 +31,9 @@ class Article(TimeStampedModel):
     def __str__(self):
         return self.article_title 
 
+    def count_likes(self):
+
+        return len(ArticleLikes.objects.filter(article_id=self.id))
 
 class Category(models.Model):
     category_name = models.CharField('Category',max_length=255, unique=True)
@@ -54,6 +56,4 @@ class ArticleLikes(TimeStampedModel):
         verbose_name = 'Article like'
         verbose_name_plural = 'Article Likes'
         unique_together = (("article_id", "user_id"),)
-
-
 

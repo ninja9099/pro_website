@@ -52,10 +52,12 @@ def article_edit(request, **kwargs):
 
 @login_required
 def BlogIndex(request, **kwargs):
-    
-    articles = Article.objects.all()
     if request.method == "GET":
-        return render_to_response('pages/gallery.html',{"articles": articles, 'user':request.user})
+        context = {}
+        most_popular = Article.objects.order_by('-article_views')[0]
+        articles = Article.objects.order_by('-created')
+        context.update({'popular': most_popular, 'articles':articles, 'user':request.user})
+        return render_to_response('blog/gallery.html',{'context':context})
 
 
 def ArticleView(request, pk):
@@ -67,9 +69,7 @@ def ArticleView(request, pk):
     return render_to_response('blog/article.html',{"months": months, "article": article, "article_analytics": article_analytics(request)})
 
 def article_analytics(request):
-    import pdb
-    pdb.set_trace()
-    query_set = Article.objects.order_by('-created') 
+    query_set = Article.objects.order_by('-created')
     newest = query_set[0].created.year
     oldest = query_set.reverse()[0].created.year
     article_by_year = dict()

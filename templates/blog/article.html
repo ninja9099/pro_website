@@ -13,7 +13,7 @@
             <li><i class="fa fa-calendar"></i> {{article.article_followed}}</li>
             <li><i class="fa fa-calendar"></i> {{article.article_ratings}}</li>
             <li><i class="fa fa-eye"></i> {{article.article_views}}</li>
-            <li><i class="fa fa-comments"></i><a href="#disqus_thread"></a></li>
+            <li><i class="fa fa-comments"></i><a href="/blog/article/{{article.id}}#disqus_thread"></a></li>
         </ul>
         <div class="img-wrapper"><img src="{{article.article_image.url}}"/></div>
         {% autoescape off %}
