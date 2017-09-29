@@ -147,6 +147,7 @@
             top: 50%;
             transform: translate(0, -50%);
             transition: all 0.3s;
+            font-size: 21px;
           }
           .example-2 .button:hover::after {
             transform: translate(5px, -50%);
@@ -161,79 +162,92 @@
           }
           /*css for .small-card*/
           .card-small {
-  float: left;
-  width: 100%;
-}
-.card-small .menu-content {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-.card-small .menu-content::before, .card-small .menu-content::after {
-  content: '';
-  display: table;
-}
-.card-small .menu-content::after {
-  clear: both;
-}
-.card-small .menu-content li {
-  display: inline-block;
-}
-.card-small .menu-content a {
-  color: #fff;
-}
-.card-small .menu-content span {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  font-size: 10px;
-  font-weight: 700;
-  font-family: 'Open Sans';
-  transform: translate(-50%, 0);
-}
-.card-small .wrapper {
-  background-color: #fff;
-  min-height: 183px;
-  position: relative;
-  overflow: hidden;
-}
-.card-small .wrapper:hover .data {
-  transform: translateY(0);
-}
-.card-small .data {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  transform: translateY(calc(70px + 1em));
-  transition: transform 0.3s;
-}
-.card-small .data .content {
-  padding: 1em;
-  position: relative;
-  z-index: 1;
-}
-.card-small .author {
-  font-size: 12px;
-  color: #F44336;
-}
-.card-small .title {
-  margin-top: 10px;
-  font-size: 19px;
-  text-overflow: ellipsis;
-  height: 51px;
-  overflow: hidden;
-  color: #000
-}
-.card-small .text {
-  height: 70px;
-  margin: 0;
-}
-.card-small input[type='checkbox'] {
-  display: none;
-}
-.card-small input[type='checkbox']:checked + .menu-content {
-  transform: translateY(-60px);
-}
+            float: left;
+            width: 100%;
+          }
+          .card-small .menu-content {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+          }
+          .card-small .menu-content::before, .card-small .menu-content::after {
+            content: '';
+            display: table;
+          }
+          .card-small .menu-content::after {
+            clear: both;
+          }
+          .card-small .menu-content li {
+            display: inline-block;
+          }
+          .card-small .menu-content a {
+            color: #fff;
+          }
+          .card-small .menu-content span {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            font-size: 10px;
+            font-weight: 700;
+            font-family: 'Open Sans';
+            transform: translate(-50%, 0);
+          }
+          .card-small .wrapper {
+            background-color: #fff;
+            min-height: 183px;
+            position: relative;
+            overflow: hidden;
+          }
+          .card-small .wrapper:hover .data {
+            transform: translateY(0);
+          }
+          .card-small .data {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            transform: translateY(calc(70px + 1em));
+            transition: transform 0.3s;
+          }
+          .card-small .data .content {
+            padding: 1em;
+            position: relative;
+            z-index: 1;
+          }
+          .card-small .author {
+            font-size: 12px;
+            color: #F44336;
+          }
+          .card-small .title {
+            margin-top: 10px;
+            font-size: 19px;
+            text-overflow: ellipsis;
+            height: 51px;
+            overflow: hidden;
+            color: #000
+          }
+          .card-small .text {
+            height: 70px;
+            margin: 0;
+          }
+          .card-small input[type='checkbox'] {
+            display: none;
+          }
+          .card-small input[type='checkbox']:checked + .menu-content {
+            transform: translateY(-60px);
+          }
+          .bottom-container{
+              position: relative;
+              width: 39%;
+              clear: both;
+              float: left;
+              height: 186px;
+              background: #CB356B;
+              background: -webkit-linear-gradient(to right, #BD3F32, #CB356B);
+              background: linear-gradient(to right, #BD3F32, #CB356B);
+              display: inline-block;
+              top: -194px;
+              margin-left: 5px;
+          }
       </style>
       <!-- login-box starts here -->
       <div id="login-box">

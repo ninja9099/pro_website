@@ -53,9 +53,10 @@ def article_edit(request, **kwargs):
 @login_required
 def BlogIndex(request, **kwargs):
     if request.method == "GET":
+        query_set = Article.objects.all()
         context = {}
-        most_popular = Article.objects.order_by('-article_views')[0]
-        articles = Article.objects.order_by('-created')
+        most_popular = query_set.order_by('-article_views')[0]
+        articles = query_set.order_by('-created')
         context.update({'popular': most_popular, 'articles':articles, 'user':request.user})
         return render_to_response('blog/gallery.html',{'context':context})
 
