@@ -71,7 +71,3 @@ class CompressedTextField(models.TextField):
         # That's our definition!
         return (field_class, args, kwargs)
 
-
-
-
-

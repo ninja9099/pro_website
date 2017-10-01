@@ -8,12 +8,12 @@
 <script  src="{% static 'src/js/signup.js' %}"></script>
 
 <div id="login-box">
-  <div class="left">
-    <h2>Sign up</h2>
   <form method="post">
+  <div class="left flipInY animated">
+    <h2>Sign up</h2>
     {% csrf_token %}
     {% for field in form %}
-
+        
         {{ field.label_tag }}
         {{ field }}
         {% if field.help_text %}
@@ -22,21 +22,25 @@
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
+        {% if field.name == 'email'%}
+            </div>
+            <div class="right flipInY animated">
+          {% endif %}
     {% endfor %}
-    <input type="submit" name="signup_submit" value="Sign me up" />
-    <li>
-       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
-     </li>
-     <li>
-       <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
-     </li>
-     <li>
-       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
-     </li>
-  </form>
+    <input type="submit" name="signup_submit" value="Sign me up" class="animated" />
   </div>
+  <div class="or">OR</div>
+</form>
+<div class="social">
+     <a class="btn social-signin facebook" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+ 
+ 
+     <a class="btn social-signin google" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
+   
+  
+     <a class="btn social-signin twitter " href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
 </div>
-
+</div>
 <style type="text/css">
 	@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 *:focus {
@@ -52,11 +56,15 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }
+.dob {
+  width: 100px;
+  display: inline-block;
+}
 
 #login-box {
   margin: 44px 31px;
   position: relative;
-  height: 700px;
+  height: 536px;
   background: #FFF;
   border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -69,8 +77,15 @@ body {
   left: 0;
   box-sizing: border-box;
   padding: 40px;
-  width: 100%;
-  height: 400px;
+  width: 40%;
+  height: 300px;
+}
+.right{
+
+    text-align: left;
+    margin-left: 50%;
+    padding: 40px;
+    height: 300px;
 }
 
 h1 {
@@ -126,8 +141,13 @@ input[type="submit"]:active {
   transition: 0.1s ease;
 }
 
+.social{
+  position: relative;
+    margin-top: 164px;
+    text-align: center;
+}
 
-button.social-signin {
+a.social-signin {
   margin-bottom: 20px;
   width: 220px;
   height: 36px;
@@ -140,26 +160,37 @@ button.social-signin {
   cursor: pointer;
 }
 
-button.social-signin:hover, button.social-signin:focus {
+a.social-signin:hover, button.social-signin:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   transition: 0.2s ease;
 }
 
-button.social-signin:active {
+a.social-signin:active {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.2s ease;
 }
 
-button.social-signin.facebook {
+a.social-signin.facebook {
   background: #32508E;
 }
 
-button.social-signin.twitter {
+a.social-signin.twitter {
   background: #55ACEE;
 }
 
-button.social-signin.google {
+a.social-signin.google {
   background: #DD4B39;
+}
+.or{
+  position: absolute;
+  left: 50%;
+  top: 79%;
+  clear: both;
+  padding: 13px;
+  border-radius: 50%;
+  background-color: #16a085;
+  width: 50px;
+  height: 50px;
 }
 </style>
 {% endblock%}

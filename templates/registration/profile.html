@@ -11,7 +11,7 @@
       {% else %} 
       	<b>Miss/Mrs.</b>
       {% endif %}
-
+      
       {{user.get_full_name}}</h1>
       <!-- <img class="imgr borderedbox inspace-5" src="{{UserProfile.profile_picture.url}}" alt=""> -->
       <p>{% autoescape off %}{{user.userprofile.about_me}}{% endautoescape %}</p>
@@ -74,59 +74,147 @@
         </ul>
       </div>
     </div>
-
     <div class="sidebar one_quarter">
       <h6>Useful Links</h6>
-      <nav class="sdb_holder">
-        <ul>
-          <li><a data-toggle="collapse" href="#">Profile Picture</a>
-            <ul id="collapseExample">
-            {% if UserProfile.profile_picture%}
-              <li><a href="#">Change Picture</a></li>
-            {% else%}
-              <li><a href="#">Uplaod Image</a></li>
-              {% endif %}
-            </ul>
+      <div>
+        <ul class="file-tree ">
+          <li><a href="#">Profile Settings</a>
+              <ul>
+                <li><a href="#">Upload Avatar</a></li>
+                <li><a href="#">Update Profile</a></li>
+                <li><a href="#">My Articles</a></li>
+                <li><a href="#">Article Editor</a></li>
+              </ul>
           </li>
-          <li><a href="#">Navigation - Level 1</a>
-            <ul>
-              <li><a href="#">Navigation - Level 2</a></li>
-              <li><a href="#">Navigation - Level 2</a>
-                <ul>
-                  <li><a href="#">Navigation - Level 3</a></li>
-                  <li><a href="#">Navigation - Level 3</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><a href="#">Navigation - Level 1</a></li>
         </ul>
-      </nav>
-      <div class="sdb_holder">
-        <article>
-          <h6>Recent Activities</h6>
-          <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed.</p>
-          <ul>
-            <li><a href="#">Lorem ipsum dolor sit</a></li>
-            <li>Etiam vel sapien et</li>
-            <li><a href="#">Etiam vel sapien et</a></li>
-          </ul>
-          <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed. Condimentumsantincidunt dui mattis magna intesque purus orci augue lor nibh.</p>
-          <p class="more"><a href="#">Continue Reading &raquo;</a></p>
-        </article>
       </div>
-    
+      <div class="sdb_holder">
+      </div>
     </div>
     <div class="clear"></div>
   </main>
-
 </div>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/profile.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/bootstrap.min.css' %}">
 <!-- overriding the jquery  --> 
-<script src="{% static 'src/js/jquery.min.js' %}"></script>
-<script src="{% static 'src/js/bootstrap.min.js' %}"></script>
-<script src="//cdn.ckeditor.com/4.7.2/full/ckeditor.js"></script>
 <script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script>
+<!-- ninja card css -->
+<style type="text/css">
+  .content {
+  position: relative;
+  animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
+}
+.sidebar{
+    position: relative;
+    min-height: 300px;
+    background-color: #f8f8ff;
+    padding: 15px;
+    animation: animatop 1s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
+}
+@keyframes animatop {
+  0% {
+    opacity: 0;
+    bottom: -500px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 0px;
+  }
+}
+@keyframes animainfos {
+  0% {
+    bottom: 10px;
+  }
+  100% {
+    bottom: -42px;
+  }
+}
+@keyframes rotatemagic {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg);
+    top: -24px;
+    left: -253px;
+  }
+  100% {
+    transform: rotate(-30deg);
+    top: -24px;
+    left: -78px;
+  }
+}
+.three_quarter {
+    width: 66%;
+}
+.one_quarter {
+    width: 30%;
+}
+/*end ninja script*/
+</style>
+<style type="text/css">
+  .file-list, .file-list ul{
+    list-style-type: none;
+    font-size:1em;
+    line-height:1.8em;
+    padding-left:18px;
+    border-left:1px dotted #aaa;
+}
+.file-list li{
+    position: relative;
+    padding-left:25px;
+}
+.file-list li a{
+    text-decoration: none;
+    color:#444;  
+}
+.file-list li a:before{
+    display:block;
+    content: " ";
+    width:10px;
+    height:1px;
+    position:absolute;
+    border-bottom:1px dotted #aaa;
+    top:.6em;
+    left:-14px;
+}
+.file-list li:before{
+    list-style-type: none;
+    font-family: FontAwesome;
+    display:block;
+    content:'\f0f6';
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:20px;
+    height:20px;
+    font-size:1.3em;
+    color:#555;
+}
+.file-list .folder-root{
+    list-style-type: none;
+}
+.file-list .folder-root a{
+    text-decoration:none;
+}
+.file-list .folder-root:before{
+    color:#FFD04E;
+    content: "\f07b";
+}
+.file-list .folder-root.open:before{
+    content: "\f07c";
+}
+li.folder-root ul{
+    transition: all .3s ease-in-out;
+    overflow:hidden;
+}
+li.folder-root.closed>ul{
+   opacity:0;
+   max-height:0px;
+}
+li.folder-root.open>ul{
+   opacity:1;
+   display:block;
+   max-height:1000px;
+}
+</style>
 {% endblock %}

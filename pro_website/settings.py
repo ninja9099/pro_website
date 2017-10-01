@@ -36,32 +36,38 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'tracking',
     'utils',
     'user_profile',
     'blog',
-    'social.apps.django_app.default',
     'social_django',
+    'tracking_analyzer',
+    'django_user_agents',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'tracking.middleware.VisitorTrackingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
+
 ]
 
 ROOT_URLCONF = 'pro_website.urls'
 
 
 TEMPLATES = [
-    {
+    {   
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
-        'OPTIONS': {
+        'OPTIONS': {    
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -140,7 +146,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -181,3 +186,21 @@ SOCIAL_AUTH_TWITTER_SECRET = '8virx...Div4dwB'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '16...535'
 SOCIAL_AUTH_FACEBOOK_SECRET = '857..4bb9d'
+
+
+# google map integration for traffic tracking
+GOOGLE_MAPS_KEY = 'AIzaSyA9K2hNBywL_sdb-8If9Ce5XjtyGNxgQA8'
+TRACK_USE_GEOIP =True
+GEOIP_CACHE_TYPE = 0
+
+GEOIP_PATH =os.path.join(BASE_DIR, '/static/geoip-data/')
+
+
+# django-tracking2 settings
+TRACK_AJAX_REQUESTS =True
+TRACK_ANONYMOUS_USERS =True
+TRACK_PAGEVIEWS =True
+
+TRACK_IGNORE_STATUS_CODES = [400, 404, 403, 405, 410, 500]
+TRACK_REFERER =True
+TRACK_QUERY_STRING= True

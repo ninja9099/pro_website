@@ -4,7 +4,7 @@
 {% load static %}
 <div class="wrapper row2">
 </div>
-<div class="wrapper row3">
+<div class="wrapper row3 ">
   <main class="hoc container clear">
     <div class="content">
       <style type="text/css">
@@ -253,7 +253,7 @@
       <div id="login-box">
         <div class="left">
             <div class="example-2 card1">
-              <div class="wrapper">
+              <div class="wrapper animated">
                 <div class="header">
                   <div class="date">
                     <span class="day">{{context.popular.created.day}}</span>
@@ -288,10 +288,10 @@
             </div>
         </div>
         <div class="right">
-          {% for article in context.articles %}
+          {% for article in context.articles|slice:"2:10" %}
           <div class="card card-1">
             <div class="example-2 card-small">
-              <div class="wrapper" style="background: url({{article.article_image.url}}) center/cover no-repeat;">
+              <div class="wrapper animated"  style="background: url({{article.article_image.url}}) center/cover no-repeat;">
                 <div class="header">
                   <div class="date">
                     <span class="day">{{article.created.day}}</span>

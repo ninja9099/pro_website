@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleFrom
 from blog import Article
@@ -12,10 +12,12 @@ from django.views.generic import TemplateView,ListView
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy
 from collections import OrderedDict
+from tracking_analyzer.models import Tracker
 
 class ArticleUpdate(UpdateView):
     model = Article
     fields = ['article_title',
+            'article_tags',
             'article_image',
             'article_category',
             'article_subcategory',
@@ -50,7 +52,7 @@ def article_edit(request, **kwargs):
 
         return render(request, 'blog/article_template.html', {"form":form} )
 
-@login_required
+# @login_required
 def BlogIndex(request, **kwargs):
     if request.method == "GET":
         query_set = Article.objects.all()
@@ -62,11 +64,10 @@ def BlogIndex(request, **kwargs):
 
 
 def ArticleView(request, pk):
+
     months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
-    try:
-        article = Article.objects.get(id=pk, article_state='published')
-    except Exception as e:
-        return render_to_response('misc/404.html',)
+    article = get_object_or_404(Article, pk=pk, article_state='published')
+    Tracker.objects.create_from_request(request, article)
     return render_to_response('blog/article.html',{"months": months, "article": article, "article_analytics": article_analytics(request)})
 
 def article_analytics(request):

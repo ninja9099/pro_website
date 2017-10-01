@@ -32,6 +32,11 @@
           <label for="{{ form.article_subcategory.id_for_label }}">Sub Category</label>
           {{ form.article_subcategory }}
       </div>
+       <div class="fieldWrapper">
+          {{ form.article_tags.errors }}
+          <label for="{{ form.article_tags.id_for_label }}">Sub Category</label>
+          {{ form.article_tags }}
+      </div>
       <input type="submit" name="signup_submit" value="save">
       <input type="submit" name="signup_submit" value="submit">
       <input type="submit" name="signup_submit" value="preview">
@@ -67,7 +72,7 @@ body {
 #login-box {
   position: relative;
   margin: 20px 20px;;
-  height: 600px;
+  height: 750px;
   background: #FFF;
   border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);

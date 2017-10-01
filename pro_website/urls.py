@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', custom_auth_views.login, name='login'),
     url(r'^logout/$', custom_auth_views.logout, name='logout'),
-    url(r'^sign-up/$', custom_auth_views.sign_up, name='logout'),
+    url(r'^sign-up/$', custom_auth_views.sign_up, name='sign-up'),
     url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
@@ -40,6 +40,6 @@ urlpatterns = [
     url(r'^article-edit/(?P<pk>\d+)$', article_views.ArticleUpdate.as_view(),  name="ArticleUpdate"),
     url(r'^article-list/$', article_views.ArticleListView.as_view(),  name='article-list'),
     url(r'^profile-update/(?P<pk>\d+)$', custom_auth_views.ProfileUpdateView.as_view(),  name='profile-update'),
-
+    url(r'^tracking/', include('tracking.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

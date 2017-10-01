@@ -8,13 +8,15 @@
 <link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
 <link href="{% static '/src/css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'src/css/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+<link rel="stylesheet" type="text/css" href="{% static 'src/css/animate.css' %}">
+
 </head>
 <body id="top">
 {% block  navbar%}
 <div class="wrapper row1">
   <header id="header" class="hoc clear"> 
     <div id="logo" class="fl_left">
-      <h1><a href="/"><img class="brand-logo" src="{% static 'src/images/logo.png'%}"></a></h1>
+      <h1><a href="/"><img src="{% static 'src/images/logo.png'%}"></a></h1>
     </div>
     <nav id="mainav" class="fl_right">
       <ul class="clear">

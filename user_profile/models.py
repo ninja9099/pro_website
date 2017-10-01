@@ -9,6 +9,7 @@ from blog.blog import Article
 profile_folder = 'static/src/images/user_profile/img/'
 user_type_choices = [(1, 'Admin'), (2, 'Moderator'), (3, 'Normal')]
 gender_choices = [('m', 'Male'), ('f', 'Female'),('n', 'Dont Specify')]
+
 class UserProfile(models.Model):
 
     """Stores the additional information about the user 

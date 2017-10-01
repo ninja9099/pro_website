@@ -2,30 +2,32 @@ define(['jquery', 'app'], function(jquery) {
 	$(document).ready(function(){
 		$( window ).scroll(function() {
 			var height = $(window).scrollTop()
-			if (height >= 70){
-	  			$( ".row1" ).addClass('fix');
+			if (height >= 65){
+                $( ".row1" ).addClass('fix');
+                $( ".row1" ).addClass('bounceInUp');
+	  			$( ".row1" ).addClass('animated');
 			}
 			else{
-	  			$( ".row1" ).removeClass('fix');
+                $( ".row1" ).removeClass('fix');
+                $( ".row1" ).removeClass('bounceInUp');
+	  			$( ".row1" ).removeClass('animated');
 			}
 		});
-		
-		$('.card__share > a').on('click', function(e){ 
-	    e.preventDefault() // prevent default action - hash doesn't appear in url
-	      $(this).parent().find( 'div' ).toggleClass( 'card__social--active' );
-	    $(this).toggleClass('share-expanded');
-	    });
-	    
-	    $(".Collapsable").click(function () {
-        $(this).parent().children().toggle();
-        $(this).toggle();
-    	});
+        $('select').addClass('form-control');
+        $('select').addClass('dob');
+        $("[name='signup_submit']").click(function(){
+            $(this).addClass('hinge')});
+
+        // $(".wrapper").hover(
+        //       function() {
+        //         $( this ).addClass('rotateInUpRight');
+        //       }, function() {
+        //         $( this ).removeClass('rotateInUpRight');
+        //       }
+        // );
 	});
-
-
 	(function($){
     $.fn.filetree = function(method){
-       
         var settings = { // settings to expose
             animationSpeed      : 'fast',            
             collapsed           : true,
@@ -48,8 +50,6 @@ define(['jquery', 'app'], function(jquery) {
                             .on('click', 'a[href="#"]', function(e){ // Add a click override for the folder root links
                                 e.preventDefault();
                                 $(this).parent().toggleClass('closed').toggleClass('open');
-                                
-                                
                                 return false;
                             });
                     
@@ -60,10 +60,7 @@ define(['jquery', 'app'], function(jquery) {
                 
             }
         }
-        
-        
 
-        
         if (typeof method === 'object' || !method){
             return methods.init.apply(this, arguments);
         } else {

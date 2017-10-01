@@ -6,6 +6,7 @@ import datetime
 from utils.models import CompressedTextField
 from model_utils.models import TimeStampedModel
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 image_path = 'static/blog/article_images'
 
@@ -22,6 +23,8 @@ class Article(TimeStampedModel):
     article_content = CompressedTextField(blank=True)
     article_author = models.ForeignKey(User, blank=True)
     article_state = models.CharField(choices=article_states, default='draft', max_length=20)
+    article_tags = models.TextField(blank=True, help_text="keaywords for indexing your article in search engins")
+    
     def get_author_profile(self):
         return self.article_author.userprofile
     
