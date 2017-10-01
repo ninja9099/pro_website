@@ -54,6 +54,9 @@ def article_edit(request, **kwargs):
 
 # @login_required
 def BlogIndex(request, **kwargs):
+    '''
+    view for Homepage of blog
+    '''
     if request.method == "GET":
         query_set = Article.objects.all()
         context = {}
@@ -64,6 +67,7 @@ def BlogIndex(request, **kwargs):
 
 
 def ArticleView(request, pk):
+    '''View for displaying the article on the page includes analytics '''
 
     months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
     article = get_object_or_404(Article, pk=pk, article_state='published')

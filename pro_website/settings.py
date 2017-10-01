@@ -195,8 +195,9 @@ GEOIP_CACHE_TYPE = 0
 
 GEOIP_PATH =os.path.join(BASE_DIR, '/static/geoip-data/')
 
-
+DEFAULT_TRACKING_TEMPLATE = 'tracking/visitor_map.html'
 # django-tracking2 settings
+
 TRACK_AJAX_REQUESTS =True
 TRACK_ANONYMOUS_USERS =True
 TRACK_PAGEVIEWS =True
