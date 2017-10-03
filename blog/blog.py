@@ -20,10 +20,12 @@ class Article(TimeStampedModel):
     article_followed = models.IntegerField(default=0)
     article_ratings = models.FloatField(default=0.0, blank=True)
     article_views = models.IntegerField(default=0)
+    article_description = models.CharField(max_length=100, default=" ")
     article_content = CompressedTextField(blank=True)
     article_author = models.ForeignKey(User, blank=True)
     article_state = models.CharField(choices=article_states, default='draft', max_length=20)
     article_tags = models.TextField(blank=True, help_text="keaywords for indexing your article in search engins")
+    article_flike_url = models.URLField('Like plugin url', blank=True)
     
     def get_author_profile(self):
         return self.article_author.userprofile

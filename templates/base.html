@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en_us">
 <head>
-<title>{%block title%}{% endblock %}</title>
+<title>{%block title%}LifeBits-Home{% endblock %}</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 {% load static %}
@@ -9,12 +9,11 @@
 <link href="{% static '/src/css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'src/css/layout.css' %}" rel="stylesheet" type="text/css" media="all">
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/animate.css' %}">
-
 </head>
 <body id="top">
 {% block  navbar%}
 <div class="wrapper row1">
-  <header id="header" class="hoc clear"> 
+  <header id="website-header" class="hoc clear"> 
     <div id="logo" class="fl_left">
       <h1><a href="/"><img src="{% static 'src/images/logo.png'%}"></a></h1>
     </div>
@@ -43,7 +42,6 @@
 <!-- content goes in here -->
 {% block content%}
 {% endblock %}
-
 <!--  footer goes in here -->
 {% block footer%}
 <div class="wrapper row4">

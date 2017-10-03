@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.template import RequestContext
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleFrom
@@ -13,6 +14,8 @@ from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy
 from collections import OrderedDict
 from tracking_analyzer.models import Tracker
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 class ArticleUpdate(UpdateView):
     model = Article
@@ -59,11 +62,23 @@ def BlogIndex(request, **kwargs):
     '''
     if request.method == "GET":
         query_set = Article.objects.all()
+        paginator = Paginator(query_set[1:], 15)
+        page = request.GET.get('page')
+
+        try:
+            article_page = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            article_page = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            article_page = paginator.page(paginator.num_pages)
         context = {}
-        most_popular = query_set.order_by('-article_views')[0]
+        most_popular = query_set.order_by('-article_views')[0:4] 
         articles = query_set.order_by('-created')
-        context.update({'popular': most_popular, 'articles':articles, 'user':request.user})
-        return render_to_response('blog/gallery.html',{'context':context})
+        months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
+        context.update({'months': months, 'popular': most_popular, 'articles':articles, 'user':request.user, 'request':request})
+        return render_to_response('blog/gallery.html',{'context':context, 'paginator':paginator, 'article_page':article_page})
 
 
 def ArticleView(request, pk):

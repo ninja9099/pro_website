@@ -24,8 +24,8 @@ li.profile-image img{width: 35px; height: 35px;border-radius: 5px; overflow: hid
 .row4, .row4 a{}
 .row5, .row5 a{}
 .row1 {background:rgb(49, 57, 50); color:#dfdfdf;}
-.fix {color: black! important; background:rgba(35, 34, 34, 0.37); position: fixed; z-index: 999; top: 0px ! important;}
-.fix  #mainav li a {color: #f19508 !important;}
+.fix {color: black! important; background:rgb(243, 248, 244); position: fixed; z-index: 999; top: 0px ! important;}
+.fix  #mainav li a {color: #279a21 !important;}
 /* Header
 --------------------------------------------------------------------------------------------------------------- */
 /*#header{padding-top: 10px; padding-bottom: 10px;}*/

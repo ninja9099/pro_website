@@ -21,10 +21,12 @@ from django.contrib.auth import views as auth_views
 from user_profile import views
 from user_profile import views as custom_auth_views
 from blog import blog, views as article_views
+
 urlpatterns = [
     
     url(r'^$', views.index, name='homepage'),
     url('', include('social_django.urls', namespace='social')),
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', custom_auth_views.login, name='login'),
     url(r'^logout/$', custom_auth_views.logout, name='logout'),

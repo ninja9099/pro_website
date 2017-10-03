@@ -1,472 +1,260 @@
 {% extends '../base.html' %}
+
 {% block title %}Gallery{% endblock %}
 {% block content%}
 {% load static %}
-<div class="wrapper row2">
+<link href="//fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
+<link href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' rel='stylesheet'/>
+<link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'src/css/temp.css' %}">
+<!-- facebook javascript sdk load -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- end of face javascriptSDk  -->
+
+<div class="content-wrapper">
+    <div class="outerpic-wrapper">
+     <div class="box6 section" id="box6">
+    	<div class="widget HTML" data-version="1" id="HTML11">
+        <div class="widget-content">
+            <div class="yinks">
+                {% for article in context.popular|slice:"0:1" %}
+                <div class="yinks_wide left">
+                    <div class="thumb overlay">
+                        <a href="/blog/article/{{article.id}}"><img min-width="620" min-height="240" class="alignone" src="{{article.article_image.url}}">
+                        </a>
+                        <div style="margin-top: -50px;" class="featuredPost lastPost">
+                            <h2 class="postTitle">
+                                <a href="/blog/article/{{article.id}}">{{article.article_title}}</a>
+                            </h2>
+                        </div>
+                        <div class="meta-info">
+                            <ul class="menu-content">
+                                <li>
+                                  <a href="#" class="fa fa-heart-o">
+                                  <span>{{article.count_likes}}</span>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#" class="fa fa-comment-o">
+                                    <span class="disqus-comment-count" data-disqus-url="/blog/article/{{article.id}}#disqus_thread"></span>
+                                  </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="featuredPostMeta"><a href=""></a>
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="yinks_narrow right">
+                    {% for article in article_page.object_list|slice:"2:6" %}
+                    <div class="yinks_narrow">
+                        <div class="thumb overlay">
+                            <a href="http://altis-oddthemes.blogspot.com/2013/08/ornare-fusce-euismod-adipiscing-risus.html"><img class="alignright" min-height="100" src="{{article.article_image.url}}" width="150">
+                            </a>
+                            <div class="featuredTitle">
+                                <a href="/blog/article/{{article.id}}">{{article.article_title}}</a>
+                            </div>
+                            <!-- article meta info div -->
+                            <div class="meta-info meta-info-small">
+                                <ul class="menu-content">
+                                    <li>
+                                      <a href="#" class="fa fa-heart-o">
+                                      <span>{{article.count_likes}}</span>
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="#" class="fa fa-comment-o">
+                                        <span class="disqus-comment-count" data-disqus-url="http://127.0.0.1:8000/blog/article/{{article.id}}#disqus_thread"></span>
+                                      </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <span class="widget-item-control">
+            <span class="item-control blog-admin">
+                <a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=HTML&amp;widgetId=HTML11&amp;action=editWidget&amp;sectionId=box6" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML11&quot;));" target="configHTML11" title="Edit">
+                <img alt="" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18" height="18">
+                </a>
+            </span>
+        </span>
+        <div class="clear"></div>
+    </div>
 </div>
-<div class="wrapper row3 ">
-  <main class="hoc container clear">
-    <div class="content">
-      <style type="text/css">
-          * {
-            box-sizing: border-box;
-          }
-          h1 {
-            font-family: "Open Sans", sans-serif;
-            font-weight: 300;
-          }
-          .card1 {
-            float: left;
-            width: 100%;
-          }
-          .card1 .menu-content {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-          }
-          .card1 .menu-content::before, .card1 .menu-content::after {
-            content: '';
-            display: table;
-          }
-          .card1 .menu-content::after {
-            clear: both;
-          }
-          .card1 .menu-content li {
-            display: inline-block;
-          }
-          .card1 .menu-content a {
-            color: #fff;
-          }
-          .card1 .menu-content span {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            font-size: 10px;
-            font-weight: 700;
-            font-family: 'Open Sans';
-            transform: translate(-50%, 0);
-          }
-          .card1 .wrapper {
-            background-color: #fff;
-            min-height: 382px;
-            position: relative;
-            overflow: hidden;
-            /*box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);*/
-          }
-          .card1 .wrapper:hover .data {
-            transform: translateY(0);
-          }
-          .card1 .data {
-            position: absolute;
-            bottom: -4px;
-            width: 100%;
-            transform: translateY(calc(70px + 1em));
-            transition: transform 0.7s;
-          }
-          .card1 .data .content {
-            padding: 1em;
-            position: relative;
-            z-index: 1;
-          }
-          .card1 .author {
-            font-size: 12px;
-          }
-          .card1 .title {
-            margin-top: 10px;
-          }
-          .card1 .text {
-            height: 70px;
-            margin: 0;
-          }
-          .card1 input[type='checkbox'] {
-            display: none;
-          }
-          .card1 input[type='checkbox']:checked + .menu-content {
-            transform: translateY(-60px);
-          }
-
-          .example-2 .wrapper {
-
-            background: url({{context.popular.article_image.url}}) center/cover no-repeat;
-          }
-          .example-2 .wrapper:hover .menu-content span {
-            transform: translate(-50%, -10px);
-            opacity: 1;
-          }
-          .example-2 .header {
-            color: #fff;
-            padding: 1em;
-          }
-          .example-2 .header::before, .example-2 .header::after {
-            content: '';
-            display: table;
-          }
-          .example-2 .header::after {
-            clear: both;
-          }
-          .example-2 .header .date {
-            float: left;
-            font-size: 12px;
-          }
-          .example-2 .menu-content {
-            float: right;
-          }
-          .example-2 .menu-content li {
-            margin: 0 5px;
-            position: relative;
-          }
-          .example-2 .menu-content span {
-            transition: all 0.3s;
-            opacity: 0;
-          }
-          .example-2 .data {
-            color: #fff;
-            transform: translateY(calc(70px + 4em));
-          }
-          .example-2 .title a {
-            color: #000;
-            text-decoration: none;
-
-          }
-          .example-2 .button {
-            display: block;
-            width: 100px;
-            margin: 2em auto 1em;
-            text-align: center;
-            font-size: 12px;
-            color: #009688;
-            line-height: 1;
-            position: relative;
-            font-weight: 100;
-          }
-          .example-2 .button::after {
-            content: '\2192';
-            opacity: 0;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translate(0, -50%);
-            transition: all 0.3s;
-            font-size: 21px;
-          }
-          .example-2 .button:hover::after {
-            transform: translate(5px, -50%);
-            opacity: 1;
-          }
-
-          .disqus-comment-count{
-            width: 21px;
-            overflow: hidden;
-            height: 10px;
-            text-align: center;
-          }
-          /*css for .small-card*/
-          .card-small {
-            float: left;
-            width: 100%;
-          }
-          .card-small .menu-content {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-          }
-          .card-small .menu-content::before, .card-small .menu-content::after {
-            content: '';
-            display: table;
-          }
-          .card-small .menu-content::after {
-            clear: both;
-          }
-          .card-small .menu-content li {
-            display: inline-block;
-          }
-          .card-small .menu-content a {
-            color: #fff;
-          }
-          .card-small .menu-content span {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            font-size: 10px;
-            font-weight: 700;
-            font-family: 'Open Sans';
-            transform: translate(-50%, 0);
-          }
-          .card-small .wrapper {
-            background-color: #fff;
-            min-height: 183px;
-            position: relative;
-            overflow: hidden;
-          }
-          .card-small .wrapper:hover .data {
-            transform: translateY(0);
-          }
-          .card-small .data {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            transform: translateY(calc(70px + 1em));
-            transition: transform 0.3s;
-          }
-          .card-small .data .content {
-            padding: 1em;
-            position: relative;
-            z-index: 1;
-          }
-          .card-small .author {
-            font-size: 12px;
-            color: #F44336;
-          }
-          .card-small .title {
-            margin-top: 10px;
-            font-size: 19px;
-            text-overflow: ellipsis;
-            height: 51px;
-            overflow: hidden;
-            color: #000
-          }
-          .card-small .text {
-            height: 70px;
-            margin: 0;
-          }
-          .card-small input[type='checkbox'] {
-            display: none;
-          }
-          .card-small input[type='checkbox']:checked + .menu-content {
-            transform: translateY(-60px);
-          }
-          .bottom-container{
-              position: relative;
-              width: 39%;
-              clear: both;
-              float: left;
-              height: 186px;
-              background: #CB356B;
-              background: -webkit-linear-gradient(to right, #BD3F32, #CB356B);
-              background: linear-gradient(to right, #BD3F32, #CB356B);
-              display: inline-block;
-              top: -194px;
-              margin-left: 5px;
-          }
-      </style>
-      <!-- login-box starts here -->
-      <div id="login-box">
-        <div class="left">
-            <div class="example-2 card1">
-              <div class="wrapper animated">
-                <div class="header">
-                  <div class="date">
-                    <span class="day">{{context.popular.created.day}}</span>
-                    <span class="month">{{context.popular.created.month}}</span>
-                    <span class="year">{{context.popular.created.year}}</span>
-                  </div>
-                  <ul class="menu-content">
-                    <li>
-                      <a href="#" class="fa fa-bookmark-o"></a>
-                    </li>
-                    <li>
-                      <a href="#" class="fa fa-heart-o">
-                      <span>{{context.popular.count_likes}}</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="fa fa-comment-o">
-                        <span class="disqus-comment-count" data-disqus-url="http://127.0.0.1:8000/blog/article/{{context.popular.id}}#disqus_thread"></span>
-                      </a>
-                    </li>
-                  </ul>
+<div class="outer-wrapper">
+    <div class="main-wrapper">
+        <div class="main section" id="main">
+            <div class="widget Blog" data-version="1" id="Blog1">
+                <div class="blog-posts hfeed">
+                    <div class="date-outer">
+                        <div class="date-posts">
+                             {% for article in article_page.object_list|slice:"6:" %}
+                            <div class="post-outer">
+                                <div class="post hentry">
+                                    <h2 class="post-title entry-title">{{article.article_title}}</h2>
+                                    <div class="cutter">
+                                        <a href="/blog/article/{{article.id}}">
+                                            <img src="{{article.article_image.url}}" alt="blog cover image">
+                                        </a>
+                                    </div>
+                                    <div class="post-header">
+                                        <div class="post-header-line-1"></div>
+                                    </div>
+                                    <div class="post-body entry-content" id="post-body-3748147382944230875">
+                                        <h3 class="date-header">{{article.created|date:"D"}}, {{article.created|date:"M"}}, {{article.created.year}} </h3>
+                                        <div class="post-snippet">{{article.article_description}}</div>
+                                        <div style="clear: both;"></div>
+                                    </div>
+                                    <div class="post-footer">
+                                        <div id="viewers">
+                                            <div class="readmorecontent"><a href="/blog/article/{{article.id}}">More »</a>
+                                            </div>
+                                            <span style="float:left;padding:5px 0;height:21px;width:80px;overflow:hidden;border:none;">
+                                             <div class="fb-like" data-href="https://www.facebook.com/permalink.php?story_fbid=120275265294078&id=120274515294153" data-width="50" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div> 
+                                         </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
-                <div class="data">
-                  <div class="content">
-                    <span class="author">{{context.popular.article_author.first_name}}</span>
-                    <h1 class="title"><a href="/blog/article/{{context.popular.id}}">{{context.popular.article_title}}</a></h1>
-                    <p class="text">The antsy bingers of Netflix will eagerly anticipate the digital release of the Survive soundtrack, out today.</p>
-                    <a href="/blog/article/{{context.popular.id}}" class="button">Read more</a>
-                  </div>
-                </div>
-              </div>
             </div>
         </div>
-        <div class="right">
-          {% for article in context.articles|slice:"2:10" %}
-          <div class="card card-1">
-            <div class="example-2 card-small">
-              <div class="wrapper animated"  style="background: url({{article.article_image.url}}) center/cover no-repeat;">
-                <div class="header">
-                  <div class="date">
-                    <span class="day">{{article.created.day}}</span>
-                    <span class="month">{{article.created.month}}</span>
-                    <span class="year">{{article.created.year}}</span>
-                  </div>
-                  <ul class="menu-content">
-                    <li>
-                      <a href="#" class="fa fa-bookmark-o"></a>
-                    </li>
-                    <li>
-                      <a href="#" class="fa fa-heart-o">
-                      <span>{{article.count_likes}}</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="fa fa-comment-o">
-                        <span class="disqus-comment-count" data-disqus-url="http://127.0.0.1:8000/blog/article/{{article.id}}#disqus_thread"></span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="data">
-                  <div class="content">
-                    <span class="author">{{article.article_author.first_name}}</span>
-                    <h1 class="title"><a href="/blog/article/{{article.id}}">{{article.article_title}}</a></h1>
-                    <a href="/blog/article/{{article.id}}" class="button">Read more</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor%}
-          <!-- <div class="card card-1"></div>
-          <div class="card card-1"></div>
-          <div class="card card-1"></div>
-          <div class="card card-1"></div>
-          <div class="card card-1"></div> -->
+        <div class="blog-pager" id="blog-pager">
+            <span id="blog-pager-older-link">
+                <a class="blog-pager-older-link" id="Blog1_blog-pager-older-link" title="Older Posts">Older Posts</a>
+            </span>
+            <a class="home-link" href="{% url 'homepage'%}">Home</a>
         </div>
-        <div class="bottom-container">
-          
+        <div class="clear"></div>
+        <div class="blog-feeds"></div>
+    </div>
+</div>
+
+<!-- sidebar wrapper -->
+<div class="sidebar1-wrapper">
+<div class="sidebar1 no-items section" id="sidebar1"></div>
+</div>
+<div class="sidebar-wrapper">
+    <div class="sidebar section" id="sidebar">
+        <div class="widget HTML" data-version="1" id="HTML2">
+            <h2 class="title">Catch On FB</h2>
+            <div class="widget-content">
+                <div class="fb-page" data-href="https://www.facebook.com/LifeBits-120274515294153/" data-width="314" data-height="314" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/LifeBits-120274515294153/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/LifeBits-120274515294153/">LifeBits</a></blockquote></div>
+            </div>
+            <div class="clear"></div>
+            <span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=HTML&amp;widgetId=HTML2&amp;action=editWidget&amp;sectionId=sidebar" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML2&quot;));" target="configHTML2" title="Edit">
+<img alt="" height="18" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18">
+</a>
+</span>
+            </span>
+            <div class="clear"></div>
+        </div>
+        <div class="widget PopularPosts" data-version="1" id="PopularPosts1">
+            <h2>Popular Posts</h2>
+            <div class="widget-content popular-posts">
+                <ul>
+                    {% for article in context.popular|slice:"1:" %}
+                    <li>
+                        <div class="item-content">
+                            <div class="item-thumbnail">
+                                <a href="/blog/article/{{article.id}}" target="_blank">
+                                    <img class="item-thumbnail-img" alt="" border="0" src="{{article.article_image.url}}" width="190" height="190">
+                                </a>
+                            </div>
+                            <div class="item-title"><a href="/blog/articel/{{article.id}}">{{article.article_title}}</a>
+                            </div>
+                            <div class="item-snippet">{{article.article_description}}</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="clear"></div>
+                <span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=PopularPosts&amp;widgetId=PopularPosts1&amp;action=editWidget&amp;sectionId=sidebar" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;PopularPosts1&quot;));" target="configPopularPosts1" title="Edit">
+<img alt="" height="18" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18">
+</a>
+</span>
+                </span>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="widget HTML" data-version="1" id="HTML5">
+            <div class="widget-content">
+                <img src="//4.bp.blogspot.com/-42SM_IGeiAc/U8p1meZ89MI/AAAAAAAAAks/-GfjAMZyxAk/s1600/300x250.jpg" style="margin-top: 10px;margin-bottom: 8px;">
+            </div>
+            <div class="clear"></div>
+            <span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=HTML&amp;widgetId=HTML5&amp;action=editWidget&amp;sectionId=sidebar" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML5&quot;));" target="configHTML5" title="Edit">
+<img alt="" height="18" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18">
+</a>
+</span>
+            </span>
+            <div class="clear"></div>
         </div>
     </div>
-      <!-- end of login box -->
-    <div id="gallery">
-      <header class="heading">Recent Articals</header>
-      <ul class="nospace clear">
-        {% load static %}
-        {% for article in articles %}  
-      <a href="/blog/article/{{article.id}}">  
-      <div class="card radius shadowDepth1 one_quarter">
-      <div class="card__image border-tlr-radius">
-        <img src="{{article.article_image.url}}" alt="image" class="border-tlr-radius">
+</div>
+<div id="crosscol-wrapper" style="text-align:center">
+    <div class="crosscol no-items section" id="crosscol"></div>
+    <div id="crosscol1-wrapper">
+        <div class="crosscol1 section" id="crosscol1">
+            <div class="widget HTML" data-version="1" id="HTML6">
+                <div class="widget-content">
+                    <img src="//2.bp.blogspot.com/-N0rOfgLLhHM/U9UEDnltb4I/AAAAAAAAAvI/0qHZaWPJsTM/s1600/banner728.gif">
+                </div>
+                <div class="clear"></div>
+                <span class="widget-item-control">
+                <span class="item-control blog-admin">
+                <a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=HTML&amp;widgetId=HTML6&amp;action=editWidget&amp;sectionId=crosscol1" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML6&quot;));" target="configHTML6" title="Edit">
+                <img alt="" height="18" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18">
+                </a>
+                </span>
+                </span>
+                <div class="clear"></div>
             </div>
-      <div class="card__content card__padding">
-          <div class="card__share">
-              <div class="card__social">  
-                  <a class="share-icon facebook" href="#"><span class="fa fa-facebook"></span></a>
-                  <a class="share-icon twitter" href="#"><span class="fa fa-twitter"></span></a>
-                  <a class="share-icon googleplus" href="#"><span class="fa fa-google-plus"></span></a>
-              </div>
-
-              <a id="share" class="share-toggle share-icon" href="#"></a>
-          </div>
-        <div class="card__meta">
-          <a href="#">{{article.article_subcategory}}</a>
-                    <time>{{article.created}}</time>
         </div>
-        <article class="card__article">
-          <h2><a href="#">{{article.article_title}}</a></h2>
-           {% autoescape off %}
-            <div class="article-content">{{article.article_content}}</div>
-            {% endautoescape %}
-        </article>
-      </div>
-      <div class="card__action">
-        <div class="card__author">
-          <img style="width: 40px; height: 40px;" src="{{article.get_author_profile.profile_picture.url}}" alt="user">
-          <div class="card__author-content">
-            By <a href="/profile/{{article.article_author.id}}">{{article.article_author}}</a>
-          </div>
-        </div>
-      </div>
     </div>
-  </a>
-  {% endfor %}
-  </ul>
-    <style type="text/css">
-      @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
-      @import 'https://fonts.googleapis.com/css?family=Roboto:700,400';
-      *,
-      *:after,
-      *:before {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        background-color: #f1f1f1;
-        font-family: Roboto;
-        color: #666;
-      }
-
-      #login-box {
-        position: relative;
-        height: 700px;
-        background: #fff;
-        border-radius: 2px;
-        /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);*/
-      }
-
-      .left {
-        position: absolute;
-        left: 0;
-        box-sizing: border-box;
-        width: 39%;
-        height: 382px;
-        display: inline-block;
-        background: red;
-        margin: 5px; 
-      }
-      .right{
-        display: inline-block;
-        text-align: left;
-        width: 60%;
-        position: relative;
-        float: right;
-      }
-      .card {
-        background: #fff;
-        border-radius: 2px;
-        display: inline-block;
-        height: 183px;
-        margin: 5px;
-        position: relative;
-        width: 183px;
-      }
-      .card-1 {
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-      }
-      .card-1:hover {
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-      }
-      .card-2 {
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      }
-      .card-3 {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-      }
-      .card-4 {
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-      }
-      .card-5 {
-        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-      }
-
-    </style>
-  </div>
-      <nav class="pagination">
-        <ul>
-          <li><a href="#">&laquo; Previous</a></li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><strong>&hellip;</strong></li>
-          <li><a href="#">6</a></li>
-          <li class="current"><strong>7</strong></li>
-          <li><a href="#">8</a></li>
-          <li><a href="#">9</a></li>
-          <li><strong>&hellip;</strong></li>
-          <li><a href="#">14</a></li>
-          <li><a href="#">15</a></li>
-          <li><a href="#">Next &raquo;</a></li>
-        </ul>
-      </nav>
+    <div id="crosscol2-wrapper">
+        <div class="crosscol2 no-items section" id="crosscol2"></div>
+    </div>
+</div>
+  <nav class="pagination">
+    <ul>
+      <li>
+      {% if article_page.has_previous %}
+        <a href="?page={{ article_page.previous_page_number }}">previous</a>
+      {% endif %}
+      </li>     
+      <li class="current"><strong>{{article_page.number}}</strong></li>
+      {% if article_page.has_next %}
+        <li>
+          <a href="?page={{ article_page.next_page_number }}">next</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
     </div>
     <div class="clear"></div>
   </main>

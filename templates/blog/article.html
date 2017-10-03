@@ -12,6 +12,8 @@
             <li><i class="fa fa-calendar"></i> {{article.created}}</li>
             <li><i class="fa fa-calendar"></i> {{article.article_followed}}</li>
             <li><i class="fa fa-calendar"></i> {{article.article_ratings}}</li>
+           
+            <li>{{request.user}}</li>
             <li><i class="fa fa-eye"></i> {{article.article_views}}</li>
             <li><i class="fa fa-comments"></i><a href="/blog/article/{{article.id}}#disqus_thread"></a></li>
         </ul>
