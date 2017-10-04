@@ -14,7 +14,7 @@ from . models import UserProfile
 from django.forms import ModelForm, Textarea
 from django.views.generic.edit import UpdateView
 from user_profile.forms import UserProfileForm, SignUpForm
-
+from django.views.decorators.cache import cache_page
 
 def index(request):
     return render(request, 'index.html')
@@ -57,6 +57,7 @@ def login(request):
                 user = authenticate(username=username, password=password)
                 if user:
                     auth_login(request, user)
+                    request.session['username'] = username
                     if remember:
                         settings.SESSION_COOKIE_AGE = 24 * 365 * 3600
                     if request.POST.get('next'): # FIXME Find some  batter way to do this
@@ -97,7 +98,7 @@ class ProfileUpdateView(UpdateView):
     template_name_suffix = '_update_form'
     form_class = UserProfileForm
 
-
+@cache_page(60 * 15)
 @login_required
 def ManageProfile(request, profile_id):
     if request.method=='GET':

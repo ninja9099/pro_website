@@ -29,11 +29,11 @@
                 {% for article in context.popular|slice:"0:1" %}
                 <div class="yinks_wide left">
                     <div class="thumb overlay">
-                        <a href="/blog/article/{{article.id}}"><img min-width="620" min-height="240" class="alignone" src="{{article.article_image.url}}">
+                        <a href="{% url 'article' pk=article.id %}"><img min-width="620" min-height="240" class="alignone" src="{{article.article_image.url}}">
                         </a>
                         <div style="margin-top: -50px;" class="featuredPost lastPost">
                             <h2 class="postTitle">
-                                <a href="/blog/article/{{article.id}}">{{article.article_title}}</a>
+                                <a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a>
                             </h2>
                         </div>
                         <div class="meta-info">
@@ -45,7 +45,7 @@
                                 </li>
                                 <li>
                                   <a href="#" class="fa fa-comment-o">
-                                    <span class="disqus-comment-count" data-disqus-url="/blog/article/{{article.id}}#disqus_thread"></span>
+                                    <span class="disqus-comment-count" data-disqus-url="http://127.0.0.1:8000/blog/article/{{article.id}}#disqus_thread"></span>
                                   </a>
                                 </li>
                             </ul>
@@ -59,10 +59,10 @@
                     {% for article in article_page.object_list|slice:"2:6" %}
                     <div class="yinks_narrow">
                         <div class="thumb overlay">
-                            <a href="http://altis-oddthemes.blogspot.com/2013/08/ornare-fusce-euismod-adipiscing-risus.html"><img class="alignright" min-height="100" src="{{article.article_image.url}}" width="150">
+                            <a href="{% url 'article' pk=article.id %}"><img class="alignright" min-height="100" src="{{article.article_image.url}}" width="150">
                             </a>
                             <div class="featuredTitle">
-                                <a href="/blog/article/{{article.id}}">{{article.article_title}}</a>
+                                <a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a>
                             </div>
                             <!-- article meta info div -->
                             <div class="meta-info meta-info-small">
@@ -74,7 +74,7 @@
                                     </li>
                                     <li>
                                       <a href="#" class="fa fa-comment-o">
-                                        <span class="disqus-comment-count" data-disqus-url="http://127.0.0.1:8000/blog/article/{{article.id}}#disqus_thread"></span>
+                                        <span class="disqus-comment-count" data-disqus-url="{% url 'article' pk=article.id %}#disqus_thread"></span>
                                       </a>
                                     </li>
                                 </ul>
@@ -108,7 +108,7 @@
                                 <div class="post hentry">
                                     <h2 class="post-title entry-title">{{article.article_title}}</h2>
                                     <div class="cutter">
-                                        <a href="/blog/article/{{article.id}}">
+                                        <a href="{% url 'article' pk=article.id %}">
                                             <img src="{{article.article_image.url}}" alt="blog cover image">
                                         </a>
                                     </div>
@@ -122,11 +122,9 @@
                                     </div>
                                     <div class="post-footer">
                                         <div id="viewers">
-                                            <div class="readmorecontent"><a href="/blog/article/{{article.id}}">More »</a>
+                                            <div class="readmorecontent"><a href="{% url 'article' pk=article.id %}">More »</a>
                                             </div>
-                                            <span style="float:left;padding:5px 0;height:21px;width:80px;overflow:hidden;border:none;">
-                                             <div class="fb-like" data-href="https://www.facebook.com/permalink.php?story_fbid=120275265294078&id=120274515294153" data-width="50" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div> 
-                                         </span>
+                                            <button data-id="{{article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.id %}" style="padding: 3px; font-size: 12px; text-transform: none;    width: 50px;background: #3a5897;    margin-top: 4px;    border: none; color: #fff;" type="button" class="like btn-xs">like <i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +153,7 @@
 <div class="sidebar-wrapper">
     <div class="sidebar section" id="sidebar">
         <div class="widget HTML" data-version="1" id="HTML2">
-            <h2 class="title">Catch On FB</h2>
+            <h2 class="title">Find us at FB </h2>
             <div class="widget-content">
                 <div class="fb-page" data-href="https://www.facebook.com/LifeBits-120274515294153/" data-width="314" data-height="314" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/LifeBits-120274515294153/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/LifeBits-120274515294153/">LifeBits</a></blockquote></div>
             </div>
@@ -177,11 +175,11 @@
                     <li>
                         <div class="item-content">
                             <div class="item-thumbnail">
-                                <a href="/blog/article/{{article.id}}" target="_blank">
+                                <a href="{% url 'article' pk=article.id %}" target="_blank">
                                     <img class="item-thumbnail-img" alt="" border="0" src="{{article.article_image.url}}" width="190" height="190">
                                 </a>
                             </div>
-                            <div class="item-title"><a href="/blog/articel/{{article.id}}">{{article.article_title}}</a>
+                            <div class="item-title"><a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a>
                             </div>
                             <div class="item-snippet">{{article.article_description}}</div>
                         </div>
@@ -259,5 +257,15 @@
     <div class="clear"></div>
   </main>
 </div>
+<script data-main="{% static 'src/js/main_article' %}" src="{%static '/src/js/lib/require.js' %}"></script>
 <script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script>
+
+<!-- popup html -->
+<div id="wrap">
+  <div id="popup">
+    <h2 class="pop-heading">Please Login to Continue</h2>
+    <a href="{% url 'login'%}" class="btn login-button">Login</a>
+    <i class="close fa fa-times-circle-o" aria-hidden="true"></i>
+  </div>    
+</div>
 {% endblock %}

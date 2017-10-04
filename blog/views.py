@@ -15,7 +15,7 @@ from django.core.urlresolvers import reverse_lazy
 from collections import OrderedDict
 from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.views.decorators.cache import cache_page
 
 class ArticleUpdate(UpdateView):
     model = Article
@@ -55,7 +55,8 @@ def article_edit(request, **kwargs):
 
         return render(request, 'blog/article_template.html', {"form":form} )
 
-# @login_required
+
+@cache_page(60 * 15)
 def BlogIndex(request, **kwargs):
     '''
     view for Homepage of blog
@@ -78,7 +79,7 @@ def BlogIndex(request, **kwargs):
         articles = query_set.order_by('-created')
         months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
         context.update({'months': months, 'popular': most_popular, 'articles':articles, 'user':request.user, 'request':request})
-        return render_to_response('blog/gallery.html',{'context':context, 'paginator':paginator, 'article_page':article_page})
+        return render( request, 'blog/gallery.html',{'context':context, 'paginator':paginator, 'article_page':article_page})
 
 
 def ArticleView(request, pk):
