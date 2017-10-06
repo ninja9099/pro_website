@@ -1,111 +1,40 @@
 <!DOCTYPE html>
 <html lang="en_us">
 <head>
-<title>{%block title%}LifeBits-Home{% endblock %}</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-{% load static %}
-<link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
-<link href="{% static '/src/css/bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'src/css/layout.css' %}" rel="stylesheet" type="text/css" media="all">
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/animate.css' %}">
+    <title>{%block title%}LifeBits-Home{% endblock %}</title>
+    <!--  block for meta tags of web page ################################################ -->
+    {% block http-meta%}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    {% endblock %}
+    <!-- block for replacing the links to make sure that it dont interfear with each other ######### -->
+    {% load static %}
+    <link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static '/src/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static '/src/css/header.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/animate.css' %}">
+    {% block links %}
+    {% endblock %}   
 </head>
-<body id="top">
-{% block  navbar%}
-<div class="wrapper row1">
-  <header id="website-header" class="hoc clear"> 
-    <div id="logo" class="fl_left">
-      <h1><a href="/"><img src="{% static 'src/images/logo.png'%}"></a></h1>
-    </div>
-    <nav id="mainav" class="fl_right">
-      <ul class="clear">
-        <li><a href="/blog/">Blog</a></li>
-        <li><a class="drop" href="/blog/article_submitt">Write for us</a></li>
-        <li><a class="drop" href="profile/">About us</a></li>
-        {% if user.is_authenticated %}
-        {% load static %}
-        <li class="profile-image"><a><img src="{{user.userprofile.profile_picture.url}}"></a>
-          <ul class="dropdown profile-dropdown">
-              <li><a href="/profile/{{user.id}}">{{user.get_full_name}}</a></li>
-              <li><a href="/logout">Logout</a></li>
-          </ul> 
-        </li>
-        {% else %}
-        <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i></a></li>
-        <li><a href="/sign-up"><i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
-        {% endif %}
-      </ul>
-    </nav> 
-  </header>
-</div>
-{% endblock %}
-<!-- content goes in here -->
-{% block content%}
-{% endblock %}
-<!--  footer goes in here -->
-{% block footer%}
-<div class="wrapper row4">
-  <footer id="footer" class="hoc clear"> 
-    <div class="one_third first">
-      <h6 class="heading">Contact us</h6>
-      <ul class="nospace btmspace-30 linklist contact">
-        <li><i class="fa fa-map-marker"></i>
-          <address>
-          ICB CITY &amp; C-504, 382481
-          </address>
-        </li>
-        <li><i class="fa fa-phone"></i> +91 9662766166</li>
-        <li><i class="fa fa-envelope-o"></i> kamanipankaj9099@gmail.com</li>
-      </ul>
-      <ul class="faico clear">
-        <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-        <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-        <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-        <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-      </ul>
-    </div>
-    <div class="one_third">
-      <h6 class="heading">Eget efficitur sodales</h6>
-      <ul class="nospace linklist">
-        <li>
-          <article>
-            <h2 class="nospace font-x1"><a href="#">Ac mauris egestas ipsum</a></h2>
-            <time class="font-xs block btmspace-10" datetime="2045-04-06">Friday, 6<sup>th</sup> April 2045</time>
-            <p class="nospace">At commodo dolor nulla eu eleifend velit eu posuere neque phasellus ut [&hellip;]</p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h2 class="nospace font-x1"><a href="#">Pretium tempus interdum</a></h2>
-            <time class="font-xs block btmspace-10" datetime="2045-04-05">Thursday, 5<sup>th</sup> April 2045</time>
-            <p class="nospace">Risus luctus dapibus libero in bibendum nulla ut sodales fermentum eros [&hellip;]</p>
-          </article>
-        </li>
-      </ul>
-    </div>
-    <div class="one_third">
-      <h6 class="heading">Pretium eleifend mauris</h6>
-      <p class="nospace btmspace-30">Lobortis aliquam eu placerat dui sed fermentum nibh eu nunc semper non.</p>
-      <form method="post" action="#">
-        <fieldset>
-          <legend>Newsletter:</legend>
-          <input class="btmspace-15" type="text" value="" placeholder="Name">
-          <input class="btmspace-15" type="text" value="" placeholder="Email">
-          <button type="submit" value="submit">Submit</button>
-        </fieldset>
-      </form>
-    </div>
-  </footer>
-</div>
-<div class="wrapper row5">
-  <div id="copyright" class="hoc clear"> 
-    <p class="fl_left">Copyright &copy; 2017 - All Rights Reserved - <a href="#">KamInfo</a></p>
-  </div>
-</div>
-<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
-{% endblock %}
-<script type="text/javascript" data-main="{% static 'src/js/index.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
-</body>
+
+	<body>
+        <!-- block for entry point in website for require js -->
+        {% block entrypoint %}
+            <script type="text/javascript" data-main="{% static 'src/js/index.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+        {% endblock %}
+
+        <!--  block for navebar to make chages in header navar -->
+        {% block  navbar%}
+            {% include 'header_template.html'%}
+        {% endblock %}
+
+    	<!-- content goes in here -->
+    	{% block content%}
+    	{% endblock %}
+    	<!--  footer goes in here -->
+
+        <!-- block for footer -->
+    	{% block footer%}
+    	{% endblock %}
+	</body>
 </html>

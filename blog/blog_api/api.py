@@ -15,7 +15,7 @@ def rest_exc_handler(exc, context):
     # Now add the HTTP status code to the response.
     if response is not None:
         response.data['status_code'] = response.status_code
-
+    
     if isinstance(exc, exceptions.AssertionError):
         return Response('you did not liked this article yet', status=status.HTTP_404_NOT_FOUND)
     return response
@@ -28,10 +28,15 @@ def article_likes(request, pk):
         404 comment with supplied id not found in the base
         400 data invalid
     """
+    try:
+        article_likes = ArticleLikes.objects.filter(article_id=pk)
+    except ArticleLikes.DoesNotExist:
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     if request.method == 'GET':
-        likes = ArticleLikes.objects.filter(article_id=pk)
-        serializer = ArticleLikesSerializer(likes, many=True)
+        import pdb
+        pdb.set_trace()
+        serializer = ArticleLikesSerializer(article_likes, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -42,9 +47,10 @@ def article_likes(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
-        like = ArticleLikes.objects.filter(article_id=pk, user_id=request.user)
-        serializer = ArticleLikesSerializer(like)
-        if serializer.is_valid():
-            serializer.delete()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            like = ArticleLikes.objects.filter(article_id=pk, user_id=request.user)
+            like.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except like.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+            

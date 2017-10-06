@@ -42,8 +42,6 @@ define(['jquery', 'TweenMax'], function(TweenMax){
     function getRandomArbitrary(min, max) {
       return Math.random() * (max - min) + min;
     }
-
-    breakGlass(true);
     return {
       breakGlass: breakGlass
     }

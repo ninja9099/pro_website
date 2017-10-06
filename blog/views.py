@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleFrom
-from blog import Article
+from blog import Article, ArticleLikes
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -56,15 +56,27 @@ def article_edit(request, **kwargs):
         return render(request, 'blog/article_template.html', {"form":form} )
 
 
-@cache_page(60 * 15)
+def user_liked(user_id, article_id):
+    try:
+        if len(ArticleLikes.objects.filter(article_id=article_id, user_id=user_id)):
+            print user_id,  article_id
+            return True
+    except:
+        return False
+
 def BlogIndex(request, **kwargs):
     '''
     view for Homepage of blog
     '''
+    # prepare for launching the jason data
+    articles_json = []
+
     if request.method == "GET":
+        
         query_set = Article.objects.all()
         paginator = Paginator(query_set[1:], 15)
         page = request.GET.get('page')
+
 
         try:
             article_page = paginator.page(page)
@@ -75,11 +87,16 @@ def BlogIndex(request, **kwargs):
             # If page is out of range (e.g. 9999), deliver last page of results.
             article_page = paginator.page(paginator.num_pages)
         context = {}
+        for item  in article_page.object_list:
+            articles_json.append({
+                'article':item,
+                "likes":item.count_likes(),
+                "user_liked":user_liked(request.user.id, item.id)
+                })
         most_popular = query_set.order_by('-article_views')[0:4] 
         articles = query_set.order_by('-created')
-        months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
-        context.update({'months': months, 'popular': most_popular, 'articles':articles, 'user':request.user, 'request':request})
-        return render( request, 'blog/gallery.html',{'context':context, 'paginator':paginator, 'article_page':article_page})
+        context.update({'popular': most_popular})
+        return render( request, 'blog/gallery.html',{'context':context, 'article_page':article_page, 'articles_json': articles_json})
 
 
 def ArticleView(request, pk):

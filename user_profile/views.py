@@ -76,6 +76,7 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
+    
     return HttpResponseRedirect(reverse('homepage'))
 
 

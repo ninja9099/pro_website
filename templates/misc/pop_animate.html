@@ -1,0 +1,9 @@
+{% load static %}
+<link href="{% static '/src/css/misc/pop_animate.css' %}" rel="stylesheet">
+<div id="wrap">
+  <div id="popup">
+    <h2 class="pop-heading">Please Login to Continue</h2>
+    <a href="{% url 'login'%}" class="btn login-button">Login</a>
+    <i class="close fa fa-times-circle-o" aria-hidden="true"></i>
+  </div>    
+</div>

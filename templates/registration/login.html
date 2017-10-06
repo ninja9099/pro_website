@@ -70,6 +70,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  background-color: #333;
 }
 .errorlist{
   list-style-type: none;
@@ -113,6 +114,26 @@ body {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
 }
+
+
+/*misc*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #428bca;
+  -webkit-box-shadow: -1px 1px 26px -11px #0CC inset;
+
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/*end misc*/
 /* -- Buttons types -------------------------------- */
 .btn-raised {
   -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
@@ -870,7 +891,7 @@ fieldset[disabled] .form-control {
 /* -- body styles ------------------------------------- */
 body {
   font-family: "Roboto", 'Helvetica Neue, Helvetica, Arial', sans-serif;
-  background: #02bdae;
+  background: #333;
 }
 /* -- login paper styles ------------------------------ */
 .signin-card {

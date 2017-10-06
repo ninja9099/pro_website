@@ -27,6 +27,9 @@ class Article(TimeStampedModel):
     article_tags = models.TextField(blank=True, help_text="keaywords for indexing your article in search engins")
     article_flike_url = models.URLField('Like plugin url', blank=True)
     
+    class Meta:
+        ordering = ('-article_views', 'created',)
+
     def get_author_profile(self):
         return self.article_author.userprofile
     
@@ -37,8 +40,7 @@ class Article(TimeStampedModel):
         return self.article_title 
 
     def count_likes(self):
-
-        return len(ArticleLikes.objects.filter(article_id=self.id))
+        return len(self.articlelikes_set.all())
 
 class Category(models.Model):
     category_name = models.CharField('Category',max_length=255, unique=True)

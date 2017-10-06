@@ -1,14 +1,23 @@
 {% extends '../base.html' %}
 
-{% block title %}Gallery{% endblock %}
+    {% block title %}
+    Gallery
+    {% endblock %}
+
+    {% block entrypoint %}
+        {% load static %}
+        <script type="text/javascript" data-main="{% static 'src/js/main_article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+    {% endblock %}
+    {% block links%}
+        {% load static %}
+        <link href="//fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
+        <link href="//fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
+        <link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+        <link href="//fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{% static 'src/css/gallery.css' %}">    
+    {% endblock %}
+
 {% block content%}
-{% load static %}
-<link href="//fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
-<link href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' rel='stylesheet'/>
-<link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/temp.css' %}">
 <!-- facebook javascript sdk load -->
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -23,7 +32,7 @@
 <div class="content-wrapper">
     <div class="outerpic-wrapper">
      <div class="box6 section" id="box6">
-    	<div class="widget HTML" data-version="1" id="HTML11">
+        <div class="widget HTML" data-version="1" id="HTML11">
         <div class="widget-content">
             <div class="yinks">
                 {% for article in context.popular|slice:"0:1" %}
@@ -31,7 +40,7 @@
                     <div class="thumb overlay">
                         <a href="{% url 'article' pk=article.id %}"><img min-width="620" min-height="240" class="alignone" src="{{article.article_image.url}}">
                         </a>
-                        <div style="margin-top: -50px;" class="featuredPost lastPost">
+                        <div class="featuredPost lastPost">
                             <h2 class="postTitle">
                                 <a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a>
                             </h2>
@@ -39,8 +48,8 @@
                         <div class="meta-info">
                             <ul class="menu-content">
                                 <li>
-                                  <a href="#" class="fa fa-heart-o">
-                                  <span>{{article.count_likes}}</span>
+                                  <a href="#"><i class="fa fa-heart"></i>
+                                    {{article.count_likes}}
                                   </a>
                                 </li>
                                 <li>
@@ -50,7 +59,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <span class="featuredPostMeta"><a href=""></a>
+                        <span class="featuredPostMeta"><a href="#"></a>
                         </span>
                     </div>
                 </div>
@@ -68,10 +77,10 @@
                             <div class="meta-info meta-info-small">
                                 <ul class="menu-content">
                                     <li>
-                                      <a href="#" class="fa fa-heart-o">
-                                      <span>{{article.count_likes}}</span>
-                                      </a>
-                                    </li>
+                                  <a href="#"><i class="fa fa-heart"></i>
+                                    {{article.count_likes}}
+                                  </a>
+                                </li>
                                     <li>
                                       <a href="#" class="fa fa-comment-o">
                                         <span class="disqus-comment-count" data-disqus-url="{% url 'article' pk=article.id %}#disqus_thread"></span>
@@ -86,14 +95,6 @@
             </div>
         </div>
         <div class="clear"></div>
-        <span class="widget-item-control">
-            <span class="item-control blog-admin">
-                <a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=HTML&amp;widgetId=HTML11&amp;action=editWidget&amp;sectionId=box6" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML11&quot;));" target="configHTML11" title="Edit">
-                <img alt="" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18" height="18">
-                </a>
-            </span>
-        </span>
-        <div class="clear"></div>
     </div>
 </div>
 <div class="outer-wrapper">
@@ -103,29 +104,40 @@
                 <div class="blog-posts hfeed">
                     <div class="date-outer">
                         <div class="date-posts">
-                             {% for article in article_page.object_list|slice:"6:" %}
+                             {% for article in articles_json|slice:"6:" %}
                             <div class="post-outer">
                                 <div class="post hentry">
-                                    <h2 class="post-title entry-title">{{article.article_title}}</h2>
+                                    <h2 class="post-title entry-title">{{article.article.article_title}}</h2>
                                     <div class="cutter">
-                                        <a href="{% url 'article' pk=article.id %}">
-                                            <img src="{{article.article_image.url}}" alt="blog cover image">
+                                        <a href="{% url 'article' pk=article.article.id %}">
+                                            <img src="{{article.article.article_image.url}}" alt="blog cover image">
                                         </a>
                                     </div>
                                     <div class="post-header">
                                         <div class="post-header-line-1"></div>
                                     </div>
                                     <div class="post-body entry-content" id="post-body-3748147382944230875">
-                                        <h3 class="date-header">{{article.created|date:"D"}}, {{article.created|date:"M"}}, {{article.created.year}} </h3>
-                                        <div class="post-snippet">{{article.article_description}}</div>
+                                        <h3 class="date-header">{{article.article.created|date:"D"}}, {{article.article.created|date:"M"}}, {{article.article.created.year}} </h3>
+                                        <div class="post-snippet">{{article.article.article_description}}</div>
                                         <div style="clear: both;"></div>
                                     </div>
                                     <div class="post-footer">
                                         <div id="viewers">
-                                            <div class="readmorecontent"><a href="{% url 'article' pk=article.id %}">More »</a>
+                                            <div class="readmorecontent"><a href="{% url 'article' pk=article.article.id %}">More »</a>
                                             </div>
-                                            <button data-id="{{article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.id %}" style="padding: 3px; font-size: 12px; text-transform: none;    width: 50px;background: #3a5897;    margin-top: 4px;    border: none; color: #fff;" type="button" class="like btn-xs">like <i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                            <button class="like_count btn-xs">{{article.likes}}</button>
+                                            {% if article.user_liked is not True %}
+                                                <button  data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none;display: block; width: 22px;background: #3a5897;    margin-top: 4px;    border: none; color: #fff;" type="button" class="like btn-xs animated" > <i class="fa fa-thumbs-up animated" aria-hidden="true"></i></button>
+                                                
+                                                <button data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none; width: 22px; background: #3a5897;    margin-top: 4px; border: none; color: #fff; display: none;" type="button" class="unlike btn-xs animated"><i class="fa fa-thumbs-down animated" aria-hidden="true"></i></button>
+
+                                            {% else %}
+
+                                            <button  data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none;    width: 22px;background: #3a5897;display: none;    margin-top: 4px;    border: none; color: #fff;" type="button" class="like btn-xs animated"><i class="fa fa-thumbs-up animated" aria-hidden="true"></i></button>
+                                            <button data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none; display:block;width: 22px;background: #3a5897;    margin-top: 4px;    border: none; color: #fff;" type="button" class="unlike btn-xs animated"><i class="fa fa-thumbs-down animated" aria-hidden="true"></i></button>
+                                            {% endif %}
                                         </div>
+                                            
                                     </div>
                                 </div>
                             </div>
@@ -158,14 +170,6 @@
                 <div class="fb-page" data-href="https://www.facebook.com/LifeBits-120274515294153/" data-width="314" data-height="314" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/LifeBits-120274515294153/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/LifeBits-120274515294153/">LifeBits</a></blockquote></div>
             </div>
             <div class="clear"></div>
-            <span class="widget-item-control">
-<span class="item-control blog-admin">
-<a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=HTML&amp;widgetId=HTML2&amp;action=editWidget&amp;sectionId=sidebar" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML2&quot;));" target="configHTML2" title="Edit">
-<img alt="" height="18" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18">
-</a>
-</span>
-            </span>
-            <div class="clear"></div>
         </div>
         <div class="widget PopularPosts" data-version="1" id="PopularPosts1">
             <h2>Popular Posts</h2>
@@ -188,28 +192,12 @@
                     {% endfor %}
                 </ul>
                 <div class="clear"></div>
-                <span class="widget-item-control">
-<span class="item-control blog-admin">
-<a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=PopularPosts&amp;widgetId=PopularPosts1&amp;action=editWidget&amp;sectionId=sidebar" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;PopularPosts1&quot;));" target="configPopularPosts1" title="Edit">
-<img alt="" height="18" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18">
-</a>
-</span>
-                </span>
-                <div class="clear"></div>
             </div>
         </div>
         <div class="widget HTML" data-version="1" id="HTML5">
             <div class="widget-content">
                 <img src="//4.bp.blogspot.com/-42SM_IGeiAc/U8p1meZ89MI/AAAAAAAAAks/-GfjAMZyxAk/s1600/300x250.jpg" style="margin-top: 10px;margin-bottom: 8px;">
             </div>
-            <div class="clear"></div>
-            <span class="widget-item-control">
-<span class="item-control blog-admin">
-<a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=HTML&amp;widgetId=HTML5&amp;action=editWidget&amp;sectionId=sidebar" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML5&quot;));" target="configHTML5" title="Edit">
-<img alt="" height="18" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18">
-</a>
-</span>
-            </span>
             <div class="clear"></div>
         </div>
     </div>
@@ -223,14 +211,6 @@
                     <img src="//2.bp.blogspot.com/-N0rOfgLLhHM/U9UEDnltb4I/AAAAAAAAAvI/0qHZaWPJsTM/s1600/banner728.gif">
                 </div>
                 <div class="clear"></div>
-                <span class="widget-item-control">
-                <span class="item-control blog-admin">
-                <a class="quickedit" href="//www.blogger.com/rearrange?blogID=3199109609529542186&amp;widgetType=HTML&amp;widgetId=HTML6&amp;action=editWidget&amp;sectionId=crosscol1" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML6&quot;));" target="configHTML6" title="Edit">
-                <img alt="" height="18" src="https://resources.blogblog.com/img/icon18_wrench_allbkg.png" width="18">
-                </a>
-                </span>
-                </span>
-                <div class="clear"></div>
             </div>
         </div>
     </div>
@@ -238,21 +218,29 @@
         <div class="crosscol2 no-items section" id="crosscol2"></div>
     </div>
 </div>
+{% if article_page.has_other_pages %}
   <nav class="pagination">
     <ul>
-      <li>
-      {% if article_page.has_previous %}
-        <a href="?page={{ article_page.previous_page_number }}">previous</a>
+    {% if article_page.has_previous %}
+      <li><a href="?page={{ article_page.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+       <li class="disabled"><a href="#">&laquo;</a></li>
+    {% endif %}
+    {% for i in article_page.paginator.page_range %}
+      {% if article_page.number == i %}
+        <li class="current"><strong>{{i}}</strong></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
       {% endif %}
-      </li>     
-      <li class="current"><strong>{{article_page.number}}</strong></li>
-      {% if article_page.has_next %}
-        <li>
-          <a href="?page={{ article_page.next_page_number }}">next</a>
-        </li>
-      {% endif %}
-    </ul>
+    {% endfor %}
+    {% if article_page.has_next %}
+      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
   </nav>
+  {% endif %}
     </div>
     <div class="clear"></div>
   </main>
@@ -261,11 +249,6 @@
 <script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script>
 
 <!-- popup html -->
-<div id="wrap">
-  <div id="popup">
-    <h2 class="pop-heading">Please Login to Continue</h2>
-    <a href="{% url 'login'%}" class="btn login-button">Login</a>
-    <i class="close fa fa-times-circle-o" aria-hidden="true"></i>
-  </div>    
-</div>
+{% include 'misc/pop_animate.html'%}
+
 {% endblock %}

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Looking At Underscore.js Templates</title>
+</head>
+<body>
+
+    <h1>
+        Looking At Underscore.js Templates
+    </h1>
+
+
+    <!-- BEGIN: Underscore Template Definition. -->
+    <script type="text/template" class="like">
+        <button  data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none;    width: 50px;background: #3a5897;    margin-top: 4px;    border: none; color: #fff;" type="button" class="like btn-xs" id="like_{{article.article.article_id}}">like <i class="fa fa-thumbs-up" aria-hidden="true"></i> {{article.count_likes}}</button>
+    </script>
+    <script type="text/template" class="unlike">
+                                            <button data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none;display:{{article.user_liked}};    width: 60  px;background: #3a5897;    margin-top: 4px;    border: none; color: #fff;" type="button" class="unlike btn-xs" id="unlike_{{article.article.article_id}}">unlike <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+    </script>
+</body>
+</html>
