@@ -393,7 +393,7 @@ margin-top: 15px;}
 .outer-wrapper{position:relative;width:100%;padding:0}
 .main-wrapper{width:694px;margin:0;float:left;word-wrap:break-word;overflow:hidden;}
 #crosscol-wrapper{width:100%;float:left;word-wrap:break-word;overflow:hidden}
-#crosscol1-wrapper{width:100%;float:left;word-wrap:break-word;overflow:hidden}
+#crosscol1-wrapper{width:100%;float:left;word-wrap:break-word;overflow:hidden; margin-bottom: 12px;}
 #crosscol2-wrapper{width:29%;float:right;word-wrap:break-word;overflow:hidden}
 .crosscol .widget,.crosscol1 .widget,.crosscol2 .widget{margin:10px 3px 3px;padding:5px 5px 0;}
 .clr{clear:both;float:none}

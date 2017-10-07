@@ -31,8 +31,6 @@ LOGIN_URL = '/login/'
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'grappelli',
-    # 'material',
-    # 'material.admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -183,8 +181,7 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '901792182176-2cnac234vqbimk6n3hceeur8p4le279d.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '7dLA5HL2OM9Hz63dB4EDhLGn'
@@ -198,6 +195,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '857..4bb9d'
 
 # google map integration for traffic tracking
 GOOGLE_MAPS_KEY = 'AIzaSyA9K2hNBywL_sdb-8If9Ce5XjtyGNxgQA8'
+GOOGLE_PLACE_ID = 'ChIJhc2TaOeCXjkRxoHDjRwlAtM'
 TRACK_USE_GEOIP =True
 GEOIP_CACHE_TYPE = 0
 

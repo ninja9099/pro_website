@@ -4,7 +4,7 @@
 <div id="head-mobile"></div>
 <div class="button"></div>
 <ul>
-<li class='active'><a href='#'>HOME</a></li>
+<li class='active'><a href="{% url 'homepage' %}">HOME</a></li>
 <li><a href='/blog/'>BLOG</a></li>
 <li><a href='#'>CATAGORY</a>
    <ul>
@@ -22,21 +22,20 @@
       </li>
    </ul>
 </li>
-<li><a href='#'>BIO</a></li>
 <li><a href='/blog/article_submitt'>Write For Us</a></li>
 <li><a href='about_us/'>About us</a></li>
 {% if user.is_authenticated %}
 <li><a href='#'>{{user.get_full_name}}</a>
   {% load static %}
-  <ul>
+  <ul class="profile-ul">
   <li style="height: 69px;" class="profile-image"><a><img width=40 height=40 src="{{user.userprofile.profile_picture.url}}"> Welcome !</a>
   <li><a href="/profile/{{user.id}}">{{user.get_full_name}} </a></li>
   <li><a href="/logout">Logout</a></li>
   </ul>
 </li>
 {% else %}
-<li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i></a></li>
-<li><a href="/sign-up"><i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
+<li class="li-fancy"><a class="fancy-button" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i></a></li>
+<li class="li-fancy"><a class="fancy-button" href="/sign-up"><i class="fa fa-user-plus" aria-hidden="true"></i></a></li>
 {% endif %}
 </ul>
 </nav>

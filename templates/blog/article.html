@@ -3,19 +3,18 @@
 
 {% block content%}
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'src/css/misc/buttons.css' %}">
 <div class="container">
     <div class="blog-container">
         <p class="article-title">An Article</p>
         <hr>
         <h1 class="article-heading">{{article.article_title}}</h1>
         <ul class="article-meta">
-            <li><i class="fa fa-calendar"></i> {{article.created}}</li>
-            <li><i class="fa fa-calendar"></i> {{article.article_followed}}</li>
             <li><i class="fa fa-heart"></i> {{article.count_likes}}</li>
-           
-            <li>{{request.user}}</li>
             <li><i class="fa fa-eye"></i> {{article.article_views}}</li>
-            <li><i class="fa fa-comments"></i><a href="/blog/article/{{article.id}}#disqus_thread"></a></li>
+            <li><i class="fa fa-comments"></i> <a href="/blog/article/{{article.id}}#disqus_thread"></a></li>
+            <li><i class="fa fa-calendar"></i> {{article.created}}</li>
+
         </ul>
         <div class="img-wrapper"><img src="{{article.article_image.url}}"/></div>
         {% autoescape off %}
@@ -44,7 +43,7 @@
         </div>
         <hr>
         <div class="similar-articles">
-            
+
         </div>
         <div id="disqus_thread"></div>
             <script>
@@ -107,6 +106,8 @@
 <style type="text/css">
     body{background-color: #d8d8d8;}
     .container{padding: 50px 0px;}
+    .social-media{position: fixed; top: 30%; left: 0px}
+    .social-media button {display: block;clear: both;}
     .blog-container{width: 75%;display: inline-block; height: auto; background-color: #fff; color: #000; padding: 20px;} 
     .blog-archive{width: 24%;display: inline-block; float: right; height: 600px; background-color: #fff;}
     .tags{width: 15%; display: inline-block;}
@@ -127,110 +128,6 @@
     .thought-container {color: #000; padding: 5px 5px;}
     .archive-contents{padding: 2px; color: #999;}
     .archive-contents ul > li{padding: 0px;}
-</style>
-<!-- style for searchbox -->
-<style type="text/css">
-.note {
-  font-size: 0.8em;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #6426a7;
-  margin: 18px;
-  margin-top: 0px;
-  padding: 0px 5px;
-  text-align: center;
-}
-
-#search {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background: #999987;
-  border-radius: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin: 0.5em 0;
-  padding: 0.5em 0.5em 0.5em 1em;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  margin: 18px;
-  margin-bottom: 0px;
-}
-#search:hover, #search:focus {
-  background: #853cd3;
-}
-#search button,
-#search input {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  background: transparent;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  outline: 0;
-}
-#search button {
-  cursor: pointer;
-  padding: 0 0.25em;
-}
-#search input {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-#search input::-webkit-input-placeholder {
-  color: #fff;
-}
-#search input::-moz-placeholder {
-  color: #fff;
-}
-#search input:-ms-input-placeholder {
-  color: #fff;
-}
-#search input::placeholder {
-  color: #fff;
-}
-#search .spinner {
-  -webkit-animation: spinner 1s infinite linear;
-          animation: spinner 1s infinite linear;
-  display: none;
-  padding: 0 0.25em;
-}
-
-#search.loading button {
-  display: none;
-}
-#search.loading .spinner {
-  display: block;
-}
-
-@-webkit-keyframes spinner {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
-@keyframes spinner {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
 </style>
 
 <!-- style for tree  -->

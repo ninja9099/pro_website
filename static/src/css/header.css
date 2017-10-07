@@ -1,13 +1,34 @@
 
-@import url('https://fonts.googleapis.com/css?family=Nosifer|Roboto|Saira');
+@import url('https://fonts.googleapis.com/css?family=Nosifer|Roboto|Saira|Montserrat');
 *{margin:0;padding:0;text-decoration:none}
 body{background:#555;}
 .profile-image{height: 61px;}
 header{position:relative;width:100%;background:#333;}
 .fix {position: fixed; top: 0; z-index: 999; display: none;}
-.logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#6DDB07;float:left;width:15%}
-.logo a{color:#6DDB07; font-family: 'Saira', sans-serif; font-size: 25px; background: -webkit-linear-gradient(top, #ffffff, #19d7c6);background: linear-gradient(top, #ffffff, #19d7c6);-webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+.logo{position:relative;z-index:123;padding:10px;font:18px verdana;color:#6DDB07;float:left;width:20%}
+.logo a{position: absolute;padding: 7px 0px; color:#6DDB07; font-family: 'Nosifer', sans-serif; font-size: 19px; background: -webkit-linear-gradient(top, #ffffff, #141514);background: linear-gradient(top, #ffffff, #19d7c6);-webkit-background-clip: text; -webkit-text-fill-color: #448d00;}
+.logo a:hover{-webkit-text-fill-color: #7be31a;}
 nav{position:relative;width:980px;margin:0 auto;}
+/*sarisancha*/
+.fancy-button{
+    width: 80px ! important;
+    text-align: center ! important;
+    border: 1px solid #978a8a ! important;
+    padding: 8px 0px ! important;
+    margin-top: 7px ! important;
+    margin-left: 7px ! important;
+    border-radius: 4px;
+  }
+.li-fancy:hover{background: none ! important; border:none ! important;}
+.fancy-button:hover{background: #4b5547; color: beige; -webkit-appearance: button-bevel; }
+.profile-ul:before{position: absolute;
+    content: '';
+    border: 5px solid #333;
+    border-bottom: 5px solid #f5f2f2;
+    top: -6px;
+    left: 65px;
+    z-index: 3333;}
+/*sarisancha ends here*/
 #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a,#cssmenu #head-mobile{border:0;list-style:none;line-height:1;display:block;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #cssmenu:after,#cssmenu > ul:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0}
 #cssmenu #head-mobile{display:none}
@@ -16,7 +37,7 @@ nav{position:relative;width:980px;margin:0 auto;}
 #cssmenu > ul > li{float:left; height: inherit;padding: 10px 0px; }
 #cssmenu > ul > li > a{text-transform: uppercase; padding:17px 12px; font-size:14px;letter-spacing:0px;text-decoration:none;color:#ddd;font-weight:100;font-family: 'Roboto', sans-serif;}
 #cssmenu > ul > li:hover > a,#cssmenu ul li.active a{color:#fff}
-#cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{background:#448D00!important;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
+#cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{border-bottom: 5px solid #448D00;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
 #cssmenu > ul > li.has-sub > a{padding-right:30px}
 #cssmenu > ul > li.has-sub > a:after{position:absolute;top:22px;right:11px;width:8px;height:2px;display:block;background:#ddd;content:''}
 #cssmenu > ul > li.has-sub > a:before{position:absolute;top:19px;right:14px;display:block;width:2px;height:8px;background:#ddd;content:'';-webkit-transition:all .25s ease;-ms-transition:all .25s ease;transition:all .25s ease}
@@ -36,7 +57,6 @@ nav{position:relative;width:980px;margin:0 auto;}
 #cssmenu ul ul li.has-sub:hover,#cssmenu ul li.has-sub ul li.has-sub ul li:hover{background:#363636;}
 #cssmenu ul ul ul li.active a{border-left:1px solid #333}
 #cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active> a{border-top:1px solid #333}
-
 @media screen and (max-width:700px){
 .logo{position:absolute;top:0;left: 0;width:100%;height:46px;text-align:center;padding:10px 0 0 0 ;float:none}
 .logo2{display:none}
@@ -74,3 +94,4 @@ nav{width:100%;}
 #cssmenu ul ul ul li.active a{border-left:none}
 #cssmenu > ul > li.has-sub > ul > li.active > a,#cssmenu > ul ul > li.has-sub > ul > li.active > a{border-top:none}
 
+/*button css for testing*/

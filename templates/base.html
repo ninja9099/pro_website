@@ -4,6 +4,7 @@
     <title>{%block title%}LifeBits-Home{% endblock %}</title>
     <!--  block for meta tags of web page ################################################ -->
     {% block http-meta%}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     {% endblock %}
@@ -13,6 +14,7 @@
     <link href="{% static '/src/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static '/src/css/header.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'src/css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/footer.css' %}">
     {% block links %}
     {% endblock %}   
 </head>
@@ -35,6 +37,8 @@
 
         <!-- block for footer -->
     	{% block footer%}
+        {% include 'footer.html' %}
     	{% endblock %}
+        {% include 'misc/social_buttons.html' %}
 	</body>
 </html>

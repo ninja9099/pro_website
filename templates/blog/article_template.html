@@ -5,6 +5,12 @@
 {% block content %}
 
 {% load static %}
+
+  
+  {% block entrypoint %}
+      <script type="text/javascript" data-main="{% static 'src/js/article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+  {% endblock %}
+
 <div id="login-box">
   <div class="left">
     <form enctype="multipart/form-data" action="" method="post">
