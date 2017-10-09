@@ -6,7 +6,7 @@
 
     {% block entrypoint %}
         {% load static %}
-        <script type="text/javascript" data-main="{% static 'src/js/main_article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+        <script type="text/javascript" data-main="{% static 'src/js/main_article_try.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
     {% endblock %}
     {% block links%}
         {% load static %}
@@ -125,16 +125,15 @@
                                         <div id="viewers">
                                             <div class="readmorecontent"><a href="{% url 'article' pk=article.article.id %}">More »</a>
                                             </div>
-                                            <button class="like_count btn-xs">{{article.likes}}</button>
+                                            <input type="submit" value="{{article.likes}}" class="like_count btn-xs" readonly="true" />
                                             {% if article.user_liked is not True %}
-                                                <button  data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none;display: block; width: 22px;background: #3a5897;    margin-top: 4px;    border: none; color: #fff;" type="button" class="like btn-xs animated" > <i class="fa fa-thumbs-up animated" aria-hidden="true"></i></button>
-                                                
-                                                <button data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none; width: 22px; background: #3a5897;    margin-top: 4px; border: none; color: #fff; display: none;" type="button" class="unlike btn-xs animated"><i class="fa fa-thumbs-down animated" aria-hidden="true"></i></button>
-
+                                                <a class="like up" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                                    <i class="fa fa-thumbs-o-up animated" aria-hidden="true"></i>
+                                                </a>
                                             {% else %}
-
-                                            <button  data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none;    width: 22px;background: #3a5897;display: none;    margin-top: 4px;    border: none; color: #fff;" type="button" class="like btn-xs animated"><i class="fa fa-thumbs-up animated" aria-hidden="true"></i></button>
-                                            <button data-id="{{article.article.id}}" data-user="{{request.user.id}}" data-url="{% url 'article_likes' pk=article.article.id %}" style="padding: 3px; font-size: 12px; text-transform: none; display:block;width: 22px;background: #3a5897;    margin-top: 4px;    border: none; color: #fff;" type="button" class="unlike btn-xs animated"><i class="fa fa-thumbs-down animated" aria-hidden="true"></i></button>
+                                                <a class="like down" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                                    <i class="fa fa-thumbs-up animated" aria-hidden="true"></i>
+                                                </a>
                                             {% endif %}
                                         </div>
                                             

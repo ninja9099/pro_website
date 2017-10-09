@@ -201,6 +201,12 @@ font-size: 18px;
 .yinks1_narrow .featuredTitle a{
 color:#555
 }
+
+
+
+
+/* for social button */
+.like {padding: 3px; font-size: 14px; text-transform: none;display: block; width: 22px; margin-top: 4px; border: none; color: #fff;}
 .news_imagez {
 margin-bottom:20px;
 }

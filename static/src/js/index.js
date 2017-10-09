@@ -51,7 +51,7 @@ define(['jquery'], function(jquery) {
                 $('.fix').slideUp();
         }
     });
-
+        
         $('select').addClass('form-control');
         $('select').addClass('dob');
         $("[name='signup_submit']").click(function(){
