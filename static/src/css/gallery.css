@@ -201,10 +201,6 @@ font-size: 18px;
 .yinks1_narrow .featuredTitle a{
 color:#555
 }
-
-
-
-
 /* for social button */
 .news_imagez {
 margin-bottom:20px;
@@ -363,6 +359,10 @@ img[Attributes Style] {
 /*manual css*/
 body{background:#fff;color:#444;height:100%;font-family:Arial, Helvetica, Tahoma, sans-serif;font-size:14px;font-weight:400;line-height:22px;text-decoration:none;margin:0;padding:0}
 a,a:link,a:visited{color:#69B980;text-decoration:none}
+a.like i.fa {
+    color: #3a5897 !important;
+    font-size: 17px !important;
+}
 a:hover,a:active{color:#222;text-decoration:none}
 h2.date-header{display:none}
 .header-wrapper{width:1024px;color:#333;min-height:43px;overflow:hidden;position:relative;z-index:999;margin:0 auto}

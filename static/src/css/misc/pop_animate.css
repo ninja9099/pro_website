@@ -8,7 +8,8 @@
   transition: opacity 500ms;
   display: none;
 }
-
+.error {color: red;font-style: italic;
+}
 .popup {
   margin: 70px auto;
   padding: 20px;
