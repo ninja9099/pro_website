@@ -9,7 +9,7 @@
  */
 
 .animated {
-  animation-duration: 1s;
+  animation-duration: .3s;
   animation-fill-mode: both;
 }
 
@@ -1283,7 +1283,7 @@
 @keyframes zoomIn {
   from {
     opacity: 0;
-    transform: scale3d(.3, .3, .3);
+    transform: scale3d(.1, .1, .1);
   }
 
   50% {
