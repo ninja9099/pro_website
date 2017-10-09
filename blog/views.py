@@ -70,7 +70,6 @@ def BlogIndex(request, **kwargs):
     '''
     # prepare for launching the jason data
     articles_json = []
-
     if request.method == "GET":
         
         query_set = Article.objects.all()
@@ -93,6 +92,8 @@ def BlogIndex(request, **kwargs):
                 "likes":item.count_likes(),
                 "user_liked":user_liked(request.user.id, item.id)
                 })
+        import pdb
+        pdb.set_trace()
         most_popular = query_set.order_by('-article_views')[0:4] 
         articles = query_set.order_by('-created')
         context.update({'popular': most_popular})

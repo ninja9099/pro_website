@@ -58,10 +58,12 @@ var ajax_caller = (function(self, $){
     	var self = this;
 
         defered.fail(function(response){
-        	$('#popup1 .content').html(ajax_caller.errorHtml({error: response.responseJSON.error, error_code: response.responseJSON.error_code}));
+        	debugger;
+        	$('#popup1 .content').html(ajax_caller.errorHtml({error: response.responseJSON.error ||response.responseJSON.detail , error_code: response.responseJSON.error_code ||response.responseJSON.status_code}));
         	$('#popup1').show()
         });
         defered.done(function(response) {
+        	debugger;
 	        $(self).toggleClass('down');
 	        $(self).find('i.fa').removeClass('shake');
 	        $(self).find('i.fa').toggleClass('fa-thumbs-o-up').toggleClass('fa-thumbs-up');
