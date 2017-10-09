@@ -1,13 +1,12 @@
 import exceptions
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,renderer_classes
 from rest_framework.response import Response
 from serializers import ArticleLikesSerializer
 from blog.blog import ArticleLikes
 from rest_framework.exceptions import APIException
 from rest_framework.views import exception_handler
-
-
+from rest_framework.renderers import JSONRenderer
 
 class NotAllowedError(APIException):
     status_code = 504
@@ -34,6 +33,7 @@ def rest_exc_handler(exc, context):
     return response
 
 @api_view(['GET', 'POST', 'DELETE'])
+@renderer_classes((JSONRenderer,))
 def article_likes(request, pk):
     """
     list all comments or pst a new comment if user is logged in anonymous posting is not allowed
@@ -51,27 +51,24 @@ def article_likes(request, pk):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        import pdb
-        pdb.set_trace()
-        if request.data.get('user_id') == request.user.id:
+        if int(request.data.get('user_id')) == request.user.id:
             serializer = ArticleLikesSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                serializer.data.update({'total_likes':len(article_likes)})
-                import pdb
-                pdb.set_trace()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                content = {'total_likes':len(ArticleLikes.objects.filter(article_id=pk))}
+                return Response(content, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             # return Response(status=status.HTTP_400_BAD_REQUEST)
-            raise NotAllowedError
+            raise NotAllowedError()
     
     elif request.method == 'DELETE':
-        if request.data.get('user_id') == request.user.id:
+        if int(request.data.get('user_id')) == request.user.id:
             try:
                 like = ArticleLikes.objects.filter(article_id=pk, user_id=request.user)
                 like.delete()
-                return Response(status=status.HTTP_204_NO_CONTENT)
+                content = {'total_likes':len(ArticleLikes.objects.filter(article_id=pk))}
+                return Response(content, status=status.HTTP_201_CREATED)
             except :
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:

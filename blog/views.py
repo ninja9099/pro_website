@@ -72,8 +72,8 @@ def BlogIndex(request, **kwargs):
     articles_json = []
     if request.method == "GET":
         
-        query_set = Article.objects.all()
-        paginator = Paginator(query_set[1:], 15)
+        query_set = Article.objects.all().order_by('-article_views',  '-created')
+        paginator = Paginator(query_set, 15)
         page = request.GET.get('page')
 
 
@@ -92,12 +92,7 @@ def BlogIndex(request, **kwargs):
                 "likes":item.count_likes(),
                 "user_liked":user_liked(request.user.id, item.id)
                 })
-        import pdb
-        pdb.set_trace()
-        most_popular = query_set.order_by('-article_views')[0:4] 
-        articles = query_set.order_by('-created')
-        context.update({'popular': most_popular})
-        return render( request, 'blog/gallery.html',{'context':context, 'article_page':article_page, 'articles_json': articles_json})
+        return render( request, 'blog/gallery.html',{'article_page':article_page, 'articles_json': articles_json})
 
 
 def ArticleView(request, pk):

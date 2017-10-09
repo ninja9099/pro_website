@@ -35,26 +35,35 @@
         <div class="widget HTML" data-version="1" id="HTML11">
         <div class="widget-content">
             <div class="yinks">
-                {% for article in context.popular|slice:"0:1" %}
+                {% for article in articles_json|slice:"0:1" %}
                 <div class="yinks_wide left">
                     <div class="thumb overlay">
-                        <a href="{% url 'article' pk=article.id %}"><img min-width="620" min-height="240" class="alignone" src="{{article.article_image.url}}">
+                        <a href="{% url 'article' pk=article.article.id %}"><img min-width="620" min-height="240" class="alignone" src="{{article.article.article_image.url}}">
                         </a>
                         <div class="featuredPost lastPost">
                             <h2 class="postTitle">
-                                <a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a>
-                            </h2>
+                                <a href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
+                                {% if article.user_liked is not True %}
+                                    <a class="like up" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                        <i class="fa fa-thumbs-o-up animated" aria-hidden="true"></i>
+                                    </a>
+                                {% else %}
+                                    <a class="like down" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                        <i class="fa fa-thumbs-up animated" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                            </h2>   
                         </div>
                         <div class="meta-info">
                             <ul class="menu-content">
                                 <li>
                                   <a href="#"><i class="fa fa-heart"></i>
-                                    {{article.count_likes}}
+                                    {{article.likes}}
                                   </a>
                                 </li>
                                 <li>
                                   <a href="#" class="fa fa-comment-o">
-                                    <span class="disqus-comment-count" data-disqus-url="http://127.0.0.1:8000/blog/article/{{article.id}}#disqus_thread"></span>
+                                    <span class="disqus-comment-count" data-disqus-url="http://127.0.0.1:8000/blog/article/{{article.article.id}}#disqus_thread"></span>
                                   </a>
                                 </li>
                             </ul>
@@ -65,25 +74,34 @@
                 </div>
                 {% endfor %}
                 <div class="yinks_narrow right">
-                    {% for article in article_page.object_list|slice:"2:6" %}
+                    {% for article in articles_json|slice:"2:6" %}
                     <div class="yinks_narrow">
                         <div class="thumb overlay">
-                            <a href="{% url 'article' pk=article.id %}"><img class="alignright" min-height="100" src="{{article.article_image.url}}" width="150">
+                            <a href="{% url 'article' pk=article.article.id %}"><img class="alignright" min-height="100" src="{{article.article.article_image.url}}" width="150">
                             </a>
                             <div class="featuredTitle">
-                                <a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a>
+                                {% if article.user_liked is not True %}
+                                    <a class="like up" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                        <i class="fa fa-thumbs-o-up animated" aria-hidden="true"></i>
+                                    </a>
+                                {% else %}
+                                    <a class="like down" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                        <i class="fa fa-thumbs-up animated" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+                                <a href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
                             </div>
                             <!-- article meta info div -->
                             <div class="meta-info meta-info-small">
                                 <ul class="menu-content">
                                     <li>
                                   <a href="#"><i class="fa fa-heart"></i>
-                                    {{article.count_likes}}
+                                    {{article.likes}}
                                   </a>
                                 </li>
                                     <li>
                                       <a href="#" class="fa fa-comment-o">
-                                        <span class="disqus-comment-count" data-disqus-url="{% url 'article' pk=article.id %}#disqus_thread"></span>
+                                        <span class="disqus-comment-count" data-disqus-url="{% url 'article' pk=article.article.id %}#disqus_thread"></span>
                                       </a>
                                     </li>
                                 </ul>
@@ -174,17 +192,17 @@
             <h2>Popular Posts</h2>
             <div class="widget-content popular-posts">
                 <ul>
-                    {% for article in context.popular|slice:"1:" %}
+                    {% for article in articles_json|slice:":2" %}
                     <li>
                         <div class="item-content">
                             <div class="item-thumbnail">
-                                <a href="{% url 'article' pk=article.id %}" target="_blank">
-                                    <img class="item-thumbnail-img" alt="" border="0" src="{{article.article_image.url}}" width="190" height="190">
+                                <a href="{% url 'article' pk=article.article.id %}" target="_blank">
+                                    <img class="item-thumbnail-img" alt="" border="0" src="{{article.article.article_image.url}}" width="190" height="190">
                                 </a>
                             </div>
-                            <div class="item-title"><a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a>
+                            <div class="item-title"><a href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
                             </div>
-                            <div class="item-snippet">{{article.article_description}}</div>
+                            <div class="item-snippet">{{article.article.article_description}}</div>
                         </div>
                         <div style="clear: both;"></div>
                     </li>
