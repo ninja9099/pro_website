@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+import requests
+import urllib2
+from django.core.files import File
+from urlparse import urlparse
+from django.core.files.temp import NamedTemporaryFile
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -15,7 +21,51 @@ from django.forms import ModelForm, Textarea
 from django.views.generic.edit import UpdateView
 from user_profile.forms import UserProfileForm, SignUpForm
 from django.views.decorators.cache import cache_page
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
+def user_details(strategy, details, response, user=None, *args, **kwargs):
+    if user:
+        if kwargs['is_new']:
+            if kwargs.get('backend').__class__.__name__ == 'GoogleOAuth2':
+                profile = UserProfile.objects.create(
+                    user=user,
+                    gender = response.get('gender'),
+                    user_type=3,
+                    )
+                img_url = response.get('image').get('url')
+                img_name = urlparse(img_url).path.split('/')[-1]
+                img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(urllib2.urlopen(img_url).read())
+                profile.profile_picture.save(img_name, File(img_temp))
+                img_temp.flush()
+            
+            if kwargs.get('backend').__class__.__name__ == "FacebookOAuth2":
+                profile = UserProfile.objects.create(
+                    user=user,
+                    gender = response.get('gender'),
+                    user_type=3,
+                    )
+                img_url = response.get('picture').get('data').get('url')
+                img_name = urlparse(img_url).path.split('/')[-1]
+                img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(urllib2.urlopen(img_url).read())
+                profile.profile_picture.save(img_name, File(img_temp))
+                img_temp.flush()
+
+            if kwargs.get('backend').__class__.__name__  == 'TwitterOAuth':
+                profile = UserProfile.objects.create(
+                    user=user,
+                    user_type=3,
+                    )
+                img_url = response.get('profile_image_url')
+                img_name = urlparse(img_url).path.split('/')[-1]
+                img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(urllib2.urlopen(img_url).read())
+                profile.profile_picture.save(img_name, File(img_temp))
+                img_temp.flush()
+
+        
 def index(request):
     return render(request, 'index.html')
 
@@ -81,7 +131,10 @@ def logout(request):
 
 
 def sign_up(request):
-    if request.method == 'POST':
+    if not request.user.is_anonymous():
+        return redirect('homepage')
+
+    if request.method == 'POST' :
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
@@ -99,10 +152,23 @@ class ProfileUpdateView(UpdateView):
     template_name_suffix = '_update_form'
     form_class = UserProfileForm
 
-@cache_page(60 * 15)
 @login_required
 def ManageProfile(request, profile_id):
     if request.method=='GET':
         userprofile= UserProfile.objects.get(user__id=profile_id)
         article_reads = userprofile.article_reads.all()
         return render(request, 'registration/profile.html', {"UserProfile": userprofile, "articles_written":len(request.user.article_set.all()),"article_reads":article_reads })
+
+
+@receiver(post_save, sender=User)
+def create_profile(sender, **kwargs):
+
+    if kwargs.get('created'):
+        user_profile =UserProfile(user=kwargs.get('instance'), user_type=3)
+        user_profile.save()
+        return True
+    else:
+        pass
+
+def social_auth(request):
+   return redirect('homepage')

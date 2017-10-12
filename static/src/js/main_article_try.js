@@ -24,7 +24,9 @@ define(['jquery', 'underscore', 'pop_animate', 'cookie', 'index'], function($, _
         });
 		var ajax_caller = (function(self, $){
 
-				var errorHtml = _.template("<ul><li class='error'>Error: <%= error %></li><li class='error'>Error Code: <%= error_code %></li></ul>")  
+				var errorHtml = _.template("<ul><li class='error'>Error: <%= error %>"
+					+ "</li><li class='error'>Error Code: <%= error_code %></li>"
+					+ "</ul>")  
 		        var genericRpc = function(self){
 		            var request = $.ajax({
 		                url: $(self).attr('href'),

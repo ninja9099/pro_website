@@ -53,7 +53,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
@@ -125,10 +124,9 @@ REST_FRAMEWORK = {
 
 # auth backends
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.open_id.OpenIdAuth',
-    'social_core.backends.google.GoogleOpenId',
+    
+    'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.google.GoogleOAuth',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.yahoo.YahooOpenId',
     'django.contrib.auth.backends.ModelBackend',
@@ -151,6 +149,19 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+SOCIAL_AUTH_PIPELINE = (
+        'social.pipeline.social_auth.social_details',
+        'social.pipeline.social_auth.social_uid',
+        'social.pipeline.social_auth.auth_allowed',
+        'social.pipeline.social_auth.social_user',
+        'social.pipeline.user.get_username',
+        'social.pipeline.user.create_user',
+        'social.pipeline.social_auth.associate_user',
+        'social.pipeline.social_auth.load_extra_data',
+        'social.pipeline.user.user_details',
+        'user_profile.views.user_details'
+    )
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -180,17 +191,20 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
-
 # LOGOUT_REDIRECT_URL = '/'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '901792182176-2cnac234vqbimk6n3hceeur8p4le279d.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '7dLA5HL2OM9Hz63dB4EDhLGn'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '521839123051-vgpj873gn87j9ir3vc765dqdpeu8um58.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'iDcr-og5VGFy4Bo8Pd2tygpT'
 
-SOCIAL_AUTH_TWITTER_KEY = 'lNx...yQH8u'
-SOCIAL_AUTH_TWITTER_SECRET = '8virx...Div4dwB'
+SOCIAL_AUTH_TWITTER_KEY = 'btuyBkzwuqHtMGJ52dnWdYOUw'
+SOCIAL_AUTH_TWITTER_SECRET = 'WEPvHzGOWOSxet426Cxk7r2PYeRmrPi6ja64rkXDwsCcYiAUAa'
 
-SOCIAL_AUTH_FACEBOOK_KEY = '16...535'
-SOCIAL_AUTH_FACEBOOK_SECRET = '857..4bb9d'
+SOCIAL_AUTH_FACEBOOK_KEY = '181505989085886'
+SOCIAL_AUTH_FACEBOOK_SECRET = '1ce4c5145bf9de326589dd2f9a9f9177'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email, age_range, gender, picture'
+}
 
 
 # google map integration for traffic tracking

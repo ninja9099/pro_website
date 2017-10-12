@@ -43,5 +43,6 @@ urlpatterns = [
     url(r'^article-list/$', article_views.ArticleListView.as_view(),  name='article-list'),
     url(r'^profile-update/(?P<pk>\d+)$', custom_auth_views.ProfileUpdateView.as_view(),  name='profile-update'),
     url(r'^tracking/', include('tracking.urls')),
+    url(r'^complete/social-oauth2$',custom_auth_views.social_auth, name="social_auth")
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
