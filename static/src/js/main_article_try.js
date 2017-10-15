@@ -56,7 +56,6 @@ define(['jquery', 'underscore', 'pop_animate', 'cookie', 'index'], function($, _
 			        	$('#popup1').show()
 			        });
 			        request.done(function(response) {
-			        	debugger;
 				        $(self).prev().val(response.total_likes);
 				        $(self).toggleClass('down');
 				        // $(self).find('i.fa').toggleClass('shake').toogleClass('rotateInUpRight');

@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleFrom
-from blog import Article, ArticleLikes
+from blog import Article, ArticleLikes, ArticleTags
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -16,18 +16,6 @@ from collections import OrderedDict
 from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.cache import cache_page
-
-class ArticleUpdate(UpdateView):
-    model = Article
-    fields = ['article_title',
-            'article_tags',
-            'article_image',
-            'article_category',
-            'article_subcategory',
-            'article_content',
-            ]   
-    template_name_suffix = '_update_form'
-
 
 class ArticleListView(ListView):
     model= Article
@@ -42,6 +30,18 @@ class ArticleListView(ListView):
 
 @login_required
 def article_edit(request, **kwargs):
+    if kwargs.get('pk'): 
+        article = get_object_or_404(Article, pk=kwargs.get('pk'))
+        if request.method =='GET':
+            form  = ArticleFrom(instance=article)
+            return render(request, 'blog/article_template.html', {"form":form} )
+        else:
+            form  = ArticleFrom(request.POST, instance=article)
+            article_instance = form.save(commit=False)
+            article_instance.save()
+            return render(request, 'blog/article_template.html', {"form":form} )
+
+
     if request.method == 'GET':
         article_form = ArticleFrom()
         return render(request, 'blog/article_template.html', {"form":article_form})
@@ -92,16 +92,16 @@ def BlogIndex(request, **kwargs):
                 "likes":item.count_likes(),
                 "user_liked":user_liked(request.user.id, item.id)
                 })
-        return render( request, 'blog/gallery.html',{'article_page':article_page, 'articles_json': articles_json})
+        return render( request, 'blog/gallery.html', { 'article_page':article_page, 'articles_json': articles_json})
 
 
 def ArticleView(request, pk):
     '''View for displaying the article on the page includes analytics '''
-
+    
     months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
     article = get_object_or_404(Article, pk=pk, article_state='published')
     Tracker.objects.create_from_request(request, article)
-    return render_to_response('blog/article.html',{"months": months, "article": article, "article_analytics": article_analytics(request)})
+    return render_to_response('blog/article.html',{'tags':ArticleTags.objects.all(), "months": months, "article": article, "article_analytics": article_analytics(request)})
 
 def article_analytics(request):
     query_set = Article.objects.order_by('-created')

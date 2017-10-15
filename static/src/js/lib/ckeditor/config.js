@@ -11,5 +11,4 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins = 'uploadimage';
 	config.extraPlugins = 'base64image';
 	config.uploadUrl = '/media/static/blog/article_images/';
-
 };

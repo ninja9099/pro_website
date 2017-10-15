@@ -1,19 +1,26 @@
 
 {% extends '../base.html' %}
 
-{% block content%}
+{% block title %}
+    lifeinabits| {{article.article_title}}
+{% endblock %}
+
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/misc/buttons.css' %}">
+{% block links %}
+<script src="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+<link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content%}
 <div class="container">
     <div class="blog-container">
         <p class="article-title">An Article</p>
         <hr>
         <h1 class="article-heading">{{article.article_title}}</h1>
         <ul class="article-meta">
+            <li><i class="fa fa-calendar"></i> {{article.created}}</li>
+            <li><i class="fa fa-comments"></i> <a href="/blog/article/{{article.id}}#disqus_thread"></a></li>
             <li><i class="fa fa-heart"></i> {{article.count_likes}}</li>
             <li><i class="fa fa-eye"></i> {{article.article_views}}</li>
-            <li><i class="fa fa-comments"></i> <a href="/blog/article/{{article.id}}#disqus_thread"></a></li>
-            <li><i class="fa fa-calendar"></i> {{article.created}}</li>
 
         </ul>
         <div class="img-wrapper"><img src="{{article.article_image.url}}"/></div>
@@ -24,7 +31,7 @@
         <div class="card-post-author">
             <div class="author-img"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
             <div class="author-info">
-            <p class="name">By <b>{{article.article_author}}</b></p>
+            <p class="name">By <b>{{article.article_author.get_full_name}}</b></p>
             <p>
             {% autoescape off %}
                 {{article.article_author.userprofile.about_me}}
@@ -66,21 +73,30 @@
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
     <div class="blog-archive">
-        <div class="search-container">
-            <div id="search">
-              <input id="input" placeholder="Search..."/>
-              <button id="button"><i class="fa fa-search"></i></button>
-              <div class="spinner"><i class="fa fa-spinner"></i></div>
-            </div>
-            <div class="note">Click the button or hit enter.</div>
-        </div>
+        {% include  '../misc/search_template.html' %}
         <!-- for the great thought -->
         <div class="thought-container search-container">
             <p>
                Innovation is the thing that differentiate leader and follower
             </p>
         </div>
+        <div class="ad-container search-container">
+            <p>
+               fetured ads
+            </p>
+        </div>
+        <div class="tag-container search-container">
+            <div class="tag-heading"><h4>Article Tags</h4></div>
+            <hr>
+            <div class="tags">
+                {% for tag in tags %}
+                <span class="tag">{{tag.tag_name}}</span>
+                {% endfor %}
+            </div>
+        </div>
     <div class="archive-contents">
+        <h4>Blog Archives</h4>
+        <hr>
     <ul class="file-tree">
       {% for key, value in article_analytics.items %}
         <li><a href="#">{{key}}</a>
@@ -101,33 +117,49 @@
     </div>
   </div>
 </div>
+<script>hljs.initHighlightingOnLoad();</script>
 <script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script>
 <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
 <style type="text/css">
-    body{background-color: #d8d8d8;}
+    body{background-color: #d8d8d8; background-image: url({% static 'src/images/texture.jpg'%})}
+    
     .container{padding: 50px 0px;}
     .social-media{position: fixed; top: 30%; left: 0px}
     .social-media button {display: block;clear: both;}
-    .blog-container{width: 75%;display: inline-block; height: auto; background-color: #fff; color: #000; padding: 20px;} 
-    .blog-archive{width: 24%;display: inline-block; float: right; height: 600px; background-color: #fff;}
-    .tags{width: 15%; display: inline-block;}
-    .card-post-author{background-color: #f5f5dc; box-sizing: border-box; padding: 10px;box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.05); max-height: 164px;}
-    .author-img {display: inline-block; position: relative;top: -41px; margin-right: 5px}
-    .author-info{display: inline-block; margin-left: 5px; max-width: 79%;color: #999;}
+    .blog-container{border-radius: 5px;width: 75%;display: inline-block; height: auto; background-color: #fff; color: #000; padding: 20px;} 
+    .blog-archive{width: 24%;display: inline-block; float: right; height: auto;}
+    .card-post-author{background-color: #f5f5dc; box-sizing: border-box; padding: 10px;box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.05); height: 176px;}
+    .author-img {display: inline-block; position: relative; margin-right: 5px}
+    .author-info{display: inline-block; margin-left: 5px; max-width: 80%;color: #999; float: right;}
     .author-img img{width: 130px;height: 130px;}
     .img-wrapper {margin-bottom: 20px;}
     .name{font-size: 20px; color: #ff4500;}
-    .img-wrapper img{width: 100%; padding: 5px; display: inline-block;}
+    .img-wrapper img{width: 100%; padding: 5px; display: inline-block;max-height: 500px;}
     .article-title {text-align: center; font-size: 20px; font-family: 'Saira',sans-serif; margin-bottom: 20px; color: #575555}
     .article-heading{font-family: 'Slabo 27px', sans-serif; font-size: 34px; text-align: center; margin-bottom: 20px;}
     .article-meta{text-align: center;}
     .article-meta li{list-style-type: none; display: inline-block; color: #999; margin: 0px 14px;}
     .contact a{font-size: 20px; margin: 2px; color: #10a1db;}
     .contact a:hover{color: #0056b3;}
-    .search-container {height: 100px; background-color: #f1f1f1;padding: 20px 0px;margin: 8px;}
-    .thought-container {color: #000; padding: 5px 5px;}
-    .archive-contents{padding: 2px; color: #999;}
+    .search-container {height: 80px;padding: 20px 11px;    margin-bottom: 8px;background: #fff; border-radius: 5px;}
+    .tag-container {height: auto;}
+    .thought-container {color: #000; padding: 5px 5px; min-height: 220px;}
+    .ad-container {color: #c21818; padding: 5px 5px; min-height: 220px;}
+    .archive-contents{padding-left: 5px; color: #999; }
+    .tag-heading  h4 {text-align: center; font-family: 'Saira', sans-serif;}
     .archive-contents ul > li{padding: 0px;}
+    .tags{max-width:auto;padding:0px 6px; }
+    .tag{display: inline-block;
+    width: auto;
+    padding:1px;
+    background: crimson;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    font-size: 19px;
+    font-family: sans-serif;
+    margin:1px 0px;
+    color: #ddd; 
+}
 </style>
 
 <!-- style for tree  -->
@@ -136,9 +168,10 @@
     list-style-type: none;
     font-size:1em;
     line-height:1.8em;
-    margin-left:20px;
+    margin-left:0px;
     padding-left:18px;
     border-left:1px dotted #aaa;
+    overflow-x: scroll;
 }
 .file-list li{
     position: relative;

@@ -39,6 +39,8 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 img_temp.write(urllib2.urlopen(img_url).read())
                 profile.profile_picture.save(img_name, File(img_temp))
                 img_temp.flush()
+                return True
+
             
             if kwargs.get('backend').__class__.__name__ == "FacebookOAuth2":
                 profile = UserProfile.objects.create(
@@ -52,6 +54,8 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 img_temp.write(urllib2.urlopen(img_url).read())
                 profile.profile_picture.save(img_name, File(img_temp))
                 img_temp.flush()
+                return True
+
 
             if kwargs.get('backend').__class__.__name__  == 'TwitterOAuth':
                 profile = UserProfile.objects.create(
@@ -64,8 +68,7 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 img_temp.write(urllib2.urlopen(img_url).read())
                 profile.profile_picture.save(img_name, File(img_temp))
                 img_temp.flush()
-
-        
+                return True
 def index(request):
     return render(request, 'index.html')
 
@@ -147,22 +150,28 @@ def sign_up(request):
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
 
-class ProfileUpdateView(UpdateView):
-    model = UserProfile
-    template_name_suffix = '_update_form'
-    form_class = UserProfileForm
-
 @login_required
 def ManageProfile(request, profile_id):
     if request.method=='GET':
-        userprofile= UserProfile.objects.get(user__id=profile_id)
-        article_reads = userprofile.article_reads.all()
-        return render(request, 'registration/profile.html', {"UserProfile": userprofile, "articles_written":len(request.user.article_set.all()),"article_reads":article_reads })
+        if request.GET.get('edit', 'false') == 'false':
+            article_reads = request.user.userprofile.article_reads.all()
+            return render(request, 'registration/profile.html', {"articles_written":len(request.user.article_set.all()),"article_reads":article_reads })
+        else:
+            form = UserProfileForm(instance=UserProfile.objects.get(pk=profile_id))
+            return render(request, 'user_profile/userprofile_update_form.html', {'form': form})
 
+    if request.method == "POST":
+        import pdb
+        pdb.set_trace()
+        user_profile  = UserProfileForm(request.POST, instance=UserProfile.objects.get(pk=profile_id))
+        if user_profile.is_valid():
+            user_profile.save()
+            return HttpResponseRedirect(reverse('profile', kwargs={'profile_id':request.user.id}))
+        else:
+            return render(request, 'user_profile/userprofile_update_form.html', {'form': form})
 
 @receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):
-
     if kwargs.get('created'):
         user_profile =UserProfile(user=kwargs.get('instance'), user_type=3)
         user_profile.save()

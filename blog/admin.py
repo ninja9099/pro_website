@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 from django.contrib import admin
-from . blog import Article, Category,SubCategory, ArticleLikes
+from . blog import Article, Category,SubCategory, ArticleLikes, ArticleTags
 from comment import Comments,CommentReply, CommentLikes
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -54,3 +54,9 @@ class ArticleLikesAdmin(admin.ModelAdmin):
 	list_display= ['user_id', 'article_id']
 
 admin.site.register(ArticleLikes, ArticleLikesAdmin)
+
+
+class ArticleTagsAdmin(admin.ModelAdmin):
+	list_display =['tag_name']
+
+admin.site.register(ArticleTags, ArticleTagsAdmin)

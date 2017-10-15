@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 from django import forms
-from blog import Article
+from blog import Article, ArticleTags
 
 class ArticleFrom(forms.ModelForm):
     """ Form for the article writting and submission"""
@@ -14,4 +14,5 @@ class ArticleFrom(forms.ModelForm):
             'article_category',
             'article_subcategory',
             'article_content',
+            'article_tags'
         ]

@@ -14,7 +14,7 @@ article_states = [('published', 'Published'), ('draft', 'Draft'), ('approval', '
 class Article(TimeStampedModel):
 
     article_title = models.CharField(max_length=255, db_index=True,help_text="please provide title of your article", unique=True)
-    article_image = models.ImageField(upload_to=image_path, height_field=None, width_field=None)
+    article_image = models.ImageField(upload_to=image_path, height_field=None, width_field=None, blank=True)
     article_category = models.ForeignKey('Category', on_delete=models.CASCADE)
     article_subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     article_followed = models.IntegerField(default=0)
@@ -26,6 +26,7 @@ class Article(TimeStampedModel):
     article_state = models.CharField(choices=article_states, default='draft', max_length=20)
     article_tags = models.TextField(blank=True, help_text="keaywords for indexing your article in search engins")
     article_flike_url = models.URLField('Like plugin url', blank=True)
+    article_tags = models.ManyToManyField('ArticleTags')
     
     class Meta:
         ordering = ('-article_views', 'created',)
@@ -64,3 +65,8 @@ class ArticleLikes(TimeStampedModel):
         verbose_name_plural = 'Article Likes'
         unique_together = (("article_id", "user_id"),)
 
+class ArticleTags(models.Model):
+    tag_name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.tag_name

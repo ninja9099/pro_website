@@ -1,220 +1,39 @@
 {% extends '../base.html' %}
 
-{% block content%}
-<div class="wrapper row2">
-<div class="wrapper row3">
-  <main class="hoc container clear"> 
-    <div class="content three_quarter first">
-      <h1>Welcome 
-      {% if user.userprofile.gender == "m" %}
-       <b>Mr.</b>
-      {% else %} 
-      	<b>Miss/Mrs.</b>
-      {% endif %}
-      
-      {{user.get_full_name}}</h1>
-      <!-- <img class="imgr borderedbox inspace-5" src="{{UserProfile.profile_picture.url}}" alt=""> -->
-      <p>{% autoescape off %}{{user.userprofile.about_me}}{% endautoescape %}</p>
-      {% load static %}
-      <img class="imgl borderedbox inspace-5" src="{{UserProfile.profile_picture.url}}" alt="">
-      <p>Full Name: {{user.get_full_name}} <br>
-      	Username : {{user.username}}<br>
-      	Tel: {{UserProfile.mobile}}<br>
-        Email: <a href="#">{{user.email}}</a>
-      </p>
-      <div>
-      	<h5 class="personal-info">Personal Information</h5>
-        <address>
-        Address: {{UserProfile.address}}<br>
-        </address>
-      </div>
-      <h1>Blog Information</h1>
-      <div class="scrollable">
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><a href="#">Articles Written</a></td>
-              <td>{{articles_written}}</td>
-            </tr>
-            <tr>
-              <td>Article Reads</td>
-              <td>{{article_reads.count}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="comments">
-        <h4>Recent History</h4>
-        <ul>
-        {% for item in article_reads|slice:":4" %}
-          <li>
-            <article>
-              <header>
-                <figure class="avatar"><img src="{{item.article_image.url}}" alt=""></figure>
-                <h5 class="article-title">{{item.article_title}}</h5>
-                <address>
-                By <a href="#">{{item.article_author}}</a>
-                </address>
-                <time datetime="{{item.created}}"><i>{{item.created}}</i>
-                </time>
-              </header>
-              <div class="comcont">
-                <p>{{item.article_content}}</p>
-              </div>
-            </article>
-          </li>
-        {% endfor %}
-        <a href="/articles/">see more <b>+</b></a>
-        </ul>
+{% block content %}
+  <div class="wrapper content">
+    <div class="upper" style="background-image: url({{request.user.userprofile.cover_photo.url}})">
+      <a class="btn btn-xs editore" href="{% url 'profile' profile_id=request.user.id %}?edit=true"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+      <div class="portrait"><div class="img-holder"><img src="{{request.user.userprofile.profile_picture.url}}"></div></div>
+      <div class="user-info">
+        <h1>{{user.get_full_name}}</h1>
+        <h3>{{request.user.userprofile.short_intro}} </h3>
       </div>
     </div>
-    <div class="sidebar one_quarter">
-      <h6>Useful Links</h6>
-      <div>
-        <ul class="file-tree ">
-          <li><a href="#">Profile Settings</a>
-              <ul>
-                <li><a href="#">Upload Avatar</a></li>
-                <li><a href="#">Update Profile</a></li>
-                <li><a href="#">My Articles</a></li>
-                <li><a href="#">Article Editor</a></li>
-              </ul>
-          </li>
-        </ul>
+    <div class="lower">
+      <div class="activity-info">
+      <div class="activity">
+       <i class="fa fa-users" aria-hidden="true"></i>
+        {{articles_written}}
       </div>
-      <div class="sdb_holder">
+       <div class="activity">
+        <i class="fa fa-book" aria-hidden="true"></i> Reads
+        {{articles_written}}
       </div>
+       <div class="activity">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+        <span>Articles Written </span> {{articles_written}}
+      </div>
+    </div>
+    <div class="about-me-info">
+      <div class="about-me">
+          {{request.user.userprofile.about_me}}
+      </div>
+    </div>
+    </div>
     </div>
     <div class="clear"></div>
-  </main>
-</div>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/profile.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/bootstrap.min.css' %}">
-<!-- overriding the jquery  --> 
-<script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script>
-<!-- ninja card css -->
-<style type="text/css">
-  .content {
-  position: relative;
-  animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
-}
-.sidebar{
-    position: relative;
-    min-height: 300px;
-    background-color: #f8f8ff;
-    padding: 15px;
-    animation: animatop 1s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
-}
-@keyframes animatop {
-  0% {
-    opacity: 0;
-    bottom: -500px;
-  }
-  100% {
-    opacity: 1;
-    bottom: 0px;
-  }
-}
-@keyframes animainfos {
-  0% {
-    bottom: 10px;
-  }
-  100% {
-    bottom: -42px;
-  }
-}
-@keyframes rotatemagic {
-  0% {
-    opacity: 0;
-    transform: rotate(0deg);
-    top: -24px;
-    left: -253px;
-  }
-  100% {
-    transform: rotate(-30deg);
-    top: -24px;
-    left: -78px;
-  }
-}
-.three_quarter {
-    width: 66%;
-}
-.one_quarter {
-    width: 30%;
-}
-/*end ninja script*/
-</style>
-<style type="text/css">
-  .file-list, .file-list ul{
-    list-style-type: none;
-    font-size:1em;
-    line-height:1.8em;
-    padding-left:18px;
-    border-left:1px dotted #aaa;
-}
-.file-list li{
-    position: relative;
-    padding-left:25px;
-}
-.file-list li a{
-    text-decoration: none;
-    color:#444;  
-}
-.file-list li a:before{
-    display:block;
-    content: " ";
-    width:10px;
-    height:1px;
-    position:absolute;
-    border-bottom:1px dotted #aaa;
-    top:.6em;
-    left:-14px;
-}
-.file-list li:before{
-    list-style-type: none;
-    font-family: FontAwesome;
-    display:block;
-    content:'\f0f6';
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:20px;
-    height:20px;
-    font-size:1.3em;
-    color:#555;
-}
-.file-list .folder-root{
-    list-style-type: none;
-}
-.file-list .folder-root a{
-    text-decoration:none;
-}
-.file-list .folder-root:before{
-    color:#FFD04E;
-    content: "\f07b";
-}
-.file-list .folder-root.open:before{
-    content: "\f07c";
-}
-li.folder-root ul{
-    transition: all .3s ease-in-out;
-    overflow:hidden;
-}
-li.folder-root.closed>ul{
-   opacity:0;
-   max-height:0px;
-}
-li.folder-root.open>ul{
-   opacity:1;
-   display:block;
-   max-height:1000px;
-}
-</style>
 {% endblock %}

@@ -36,12 +36,10 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
-    url(r'^profile/(?P<profile_id>[0-9]+)/$', custom_auth_views.ManageProfile, name='profile'),
+    url(r'^profile/(?P<profile_id>[0-9]*)$', custom_auth_views.ManageProfile, name='profile'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^blog/', include('blog.urls'),  name="blog"),
-    url(r'^article-edit/(?P<pk>\d+)$', article_views.ArticleUpdate.as_view(),  name="ArticleUpdate"),
     url(r'^article-list/$', article_views.ArticleListView.as_view(),  name='article-list'),
-    url(r'^profile-update/(?P<pk>\d+)$', custom_auth_views.ProfileUpdateView.as_view(),  name='profile-update'),
     url(r'^tracking/', include('tracking.urls')),
     url(r'^complete/social-oauth2$',custom_auth_views.social_auth, name="social_auth")
 

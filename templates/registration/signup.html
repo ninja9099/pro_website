@@ -1,36 +1,33 @@
 {% block content %}
 {% load static %}
 <link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
-<!-- <div class="logo"><a href="index.html">LifeInaBits</a></div> -->
 <script  src="{% static 'src/js/signup.js' %}"></script>
-<div class="signup-container">
-  <!-- <div class="heading"><h2>Sign up</h2></div> -->
+<div class="signup-container effect2">
 <div class="column-1">
   <form method="post">
+    {% if form.errors %}
+        <div class="error-tooltip">
+          <p>{{ form.errors.as_text }}</p>
+        </div>
+        {% endif %}
     {% csrf_token %}
     {% for field in form %}
       <div class="form-group">
         {{field.label_tag}}
         {{ field }}
-        {% if field.help_text %}
+        <!-- {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
+        {% endif %} -->
       </div>
     {% endfor %}
-    <input type="submit" name="signup_submit" value="Sign Up" class="animated" />
+    <input type="submit" name="signup_submit" value="Sign Up" class="animated">
+</form> 
 </div>
-</form>
 <div class="column-2">
+<div class="logo"><a href="{% url 'homepage'%}"><i class="fa fa-home"></i></a></div>
 <div class="social">
      <a class="btn social-signin facebook" href="{% url 'social:begin' 'facebook' %}?next={% url 'social_auth' %}"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
- 
- 
      <a class="btn social-signin google" href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'social_auth' %}"><i class="fa fa-google" aria-hidden="true"></i> Google</a>
-   
-  
      <a class="btn social-signin twitter" href="{% url 'social:begin' 'twitter' %}?next={% url 'social_auth' %}"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
   </div>
   </div>
@@ -57,14 +54,36 @@ body {
 .signup-container{
     margin: 50px auto;
     padding: 0;
-    max-width: 1024px;
+    max-width: 890px;
     background: #ddd;
     display: flex;
 }
 .form-group{padding: 5px; margin-top: 5px;}
-.column-1 {display: inline-block;width: 47%; padding: 18px;}
-.column-2 {display: inline-block;width: 46%; padding: 18px; float: right;background-image: url(https://images8.alphacoders.com/582/thumb-1920-582884.jpg); background-repeat: no-repeat; background-size: cover;background-clip:border-box; position: relative;}
-
+.column-1 {display: inline-block;width: 46%; padding: 18px;position: relative;}
+.column-2 {display: inline-block;width: 46%; padding: 18px; float: right; background-repeat: no-repeat; background-size: cover;background-clip:border-box; position: relative;
+background-image: url({% static 'src/images/signup-back3.jpg' %})
+}
+.error-tooltip{
+  position: absolute;
+    width: 228px;
+    left: -55%;
+    height: auto;
+    border: 1px solid #fff;
+    top: 133px;
+}
+.error-tooltip:before{
+  content: '';
+  border: 7px solid rgba(191, 222, 227, 0);
+  border-left: 27px solid rgba(42, 27, 27, 0.18);
+  position: absolute;
+  right: -35px;
+}
+.logo{position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 36px;
+  }
+.logo a {font-family: 'Roboto', sans-serif; text-decoration: none; font-weight: 600;color: #fff;}
 select{
   max-width: 100px;
   min-width: 100px;
@@ -73,6 +92,7 @@ select{
   border-radius: 5px;
   border: 0px;
   padding: 0px 11px;
+  cursor: pointer;
 }
 label[for="id_birth_date_month"]{display: block; margin-bottom: 5px;}
 
@@ -127,8 +147,8 @@ input[type="submit"]:active {
 
 .social{
     position: absolute;
-    top: 266px;
-    left: 163px;
+    top: 224px;
+    left: 122px;
 }
 
 a.social-signin {
@@ -180,5 +200,37 @@ a.social-signin.google {
 a.social-signin.google:hover{
 background: #ed5b49;
 }
+/*box-shadow effects*/
+.effect2:before, .effect2:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-7deg);
+  -moz-transform: rotate(-7deg);
+  -o-transform: rotate(-7deg);
+  -ms-transform: rotate(-7deg);
+  transform: rotate(-7deg);
+}
+.effect2:after
+{
+  -webkit-transform: rotate(7deg);
+  -moz-transform: rotate(7deg);
+  -o-transform: rotate(7deg);
+  -ms-transform: rotate(7deg);
+  transform: rotate7deg);
+  right: 10px;
+  left: auto;
+}
+.effect2{position: relative;}
 </style>
 {% endblock%}

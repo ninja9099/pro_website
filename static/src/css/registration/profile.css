@@ -1,6 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+.content {
+  position: relative;
+  animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
+}
+.upper{
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 200px;
+}
+.editore{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #000;
+    font-size: 19px;
+}
+.lower{max-width:1024px;margin:160px auto; }
+.portrait{width: 200px; height: 200px; position: absolute;bottom: -100px;left: 186px;}
+.img-holder{border-radius:50%; overflow: hidden; width: inherit; height: inherit;}
+.img-holder img{
+  width: inherit;
+  border-radius: 50%;
+  overflow: hidden;
+  width: inherit;
+  height: inherit;
+  border: 4px solid black;
+  border-top-color: #ddd;
+  border-left-color: #ddd;
+  transform: rotate(45deg);
+}
+.user-info {position: absolute; bottom: -61px; left: 418px; width: 500px; height: 150px;}
+.user-info h1{font-family: 'Oswald', sans-serif;
+    padding-top: 37px;
+    font-size: 3em;
+    color: #e3c4ff;}
+ .user-info h3{font-family: 'Oswald', sans-serif; font-size: 1em;color: #766969;}   
+.activity{       
+    display: inline-block;
+    padding: 10px 0;
+    text-align: center;
+    border: 1px solid #e1dede;
+    margin: 2px;
+    width: 32%;
+    box-shadow: 2px 2px 2px 0px #ddd;
+  }
+.about-me-info {
+    height: 200px;
+    margin: 20px 0;
+    border: 1px solid #e1dede;    
+    box-shadow: 2px 2px 2px 0px #ddd;
+    padding: 20px 46px;
+    font-family: 'Oswald';
+    font-size: 20px;
+}
 
-img.imgr, img.imgl {max-width: 137px !important; max-height: 137px !important;}
-.personal-info{color: #007bff}
-.avatar {width: 50px;}
-.article-title {color:#59a209; font-size: 14px; font-weight: bold;}
-.author{float: left !important;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes animatop {
+  0% {
+    opacity: 0;
+    bottom: -500px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 0px;
+  }
+}
+@keyframes animainfos {
+  0% {
+    bottom: 10px;
+  }
+  100% {
+    bottom: -42px;
+  }
+}
+@keyframes rotatemagic {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg);
+    top: -24px;
+    left: -253px;
+  }
+  100% {
+    transform: rotate(-30deg);
+    top: -24px;
+    left: -78px;
+  }
+}
