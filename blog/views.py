@@ -7,7 +7,7 @@ from django.views import View
 from .forms import ArticleFrom
 from blog import Article, ArticleLikes, ArticleTags
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.views.generic import TemplateView,ListView
 from django.views.generic.edit import UpdateView
@@ -29,22 +29,20 @@ class ArticleListView(ListView):
     template_name_suffix = '_list_view'
 
 @login_required
+@permission_required('blog.change_article', raise_exception=True)
 def article_edit(request, **kwargs):
-    if kwargs.get('pk'): 
-        article = get_object_or_404(Article, pk=kwargs.get('pk'))
-        if request.method =='GET':
-            form  = ArticleFrom(instance=article)
-            return render(request, 'blog/article_template.html', {"form":form} )
+    
+    if request.method =='GET':
+        if kwargs.get('pk', 'false'): 
+            article = get_object_or_404(Article, pk=kwargs.get('pk'))
+            if request.user == article.article_author:
+                form  = ArticleFrom(instance=article)
+                return render(request, 'blog/article_template.html', {"form":form} )
+            else:
+                return HttpResponse('<h1>Error 403 Not Allowed</h1>')
         else:
-            form  = ArticleFrom(request.POST, instance=article)
-            article_instance = form.save(commit=False)
-            article_instance.save()
-            return render(request, 'blog/article_template.html', {"form":form} )
-
-
-    if request.method == 'GET':
-        article_form = ArticleFrom()
-        return render(request, 'blog/article_template.html', {"form":article_form})
+            article_form = ArticleFrom()
+            return render(request, 'blog/article_template.html', {"form":article_form})
 
     if request.method =='POST':
         form = ArticleFrom(request.POST, request.FILES)

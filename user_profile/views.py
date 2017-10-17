@@ -6,11 +6,12 @@ import urllib2
 from django.core.files import File
 from urlparse import urlparse
 from django.core.files.temp import NamedTemporaryFile
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.shortcuts import render, render_to_response,redirect
-from django.http import HttpResponse, HttpResponseRedirect,JsonResponse 
+from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.urls import reverse
 from .forms import LoginForm,UserProfileForm
 from django.template import RequestContext
@@ -157,12 +158,16 @@ def ManageProfile(request, profile_id):
             article_reads = request.user.userprofile.article_reads.all()
             return render(request, 'registration/profile.html', {"articles_written":len(request.user.article_set.all()),"article_reads":article_reads })
         else:
-            form = UserProfileForm(instance=UserProfile.objects.get(pk=profile_id))
-            return render(request, 'user_profile/userprofile_update_form.html', {'form': form})
+            profile = UserProfile.objects.get(user__id=profile_id)
+            if not profile:
+                raise Http404
+            if request.user == profile.user:
+                form = UserProfileForm(instance=profile)
+                return render(request, 'user_profile/userprofile_update_form.html', {'form': form})
+            else:
+                raise PermissionDenied
 
     if request.method == "POST":
-        import pdb
-        pdb.set_trace()
         user_profile  = UserProfileForm(request.POST, instance=UserProfile.objects.get(pk=profile_id))
         if user_profile.is_valid():
             user_profile.save()

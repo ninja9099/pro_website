@@ -1,236 +1,92 @@
-{% block content %}
-{% load static %}
-<link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
-<script  src="{% static 'src/js/signup.js' %}"></script>
-<div class="signup-container effect2">
-<div class="column-1">
-  <form method="post">
-    {% if form.errors %}
-        <div class="error-tooltip">
-          <p>{{ form.errors.as_text }}</p>
-        </div>
-        {% endif %}
-    {% csrf_token %}
-    {% for field in form %}
-      <div class="form-group">
-        {{field.label_tag}}
-        {{ field }}
-        <!-- {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %} -->
-      </div>
-    {% endfor %}
-    <input type="submit" name="signup_submit" value="Sign Up" class="animated">
-</form> 
-</div>
-<div class="column-2">
-<div class="logo"><a href="{% url 'homepage'%}"><i class="fa fa-home"></i></a></div>
-<div class="social">
-     <a class="btn social-signin facebook" href="{% url 'social:begin' 'facebook' %}?next={% url 'social_auth' %}"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
-     <a class="btn social-signin google" href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'social_auth' %}"><i class="fa fa-google" aria-hidden="true"></i> Google</a>
-     <a class="btn social-signin twitter" href="{% url 'social:begin' 'twitter' %}?next={% url 'social_auth' %}"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
-  </div>
-  </div>
-</div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>LifeInaBits|Signup </title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+
 <style type="text/css">
-	@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
-*:focus {
-  outline: none;
-}
-
+html,
 body {
-  margin: 0;
-  padding: 0;
-  background: #fff;
-  font-size: 16px;
-  color: #222;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  background: #4CA1AF
-  background: -webkit-linear-gradient(to right, #C4E0E5, #4CA1AF);
-  background: linear-gradient(to right, #C4E0E5, #4CA1AF);
+    height: 100%;
 }
-.signup-container{
-    margin: 50px auto;
-    padding: 0;
-    max-width: 890px;
-    background: #ddd;
-    display: flex;
+html {
+    display: table;
+    margin: auto;
 }
-.form-group{padding: 5px; margin-top: 5px;}
-.column-1 {display: inline-block;width: 46%; padding: 18px;position: relative;}
-.column-2 {display: inline-block;width: 46%; padding: 18px; float: right; background-repeat: no-repeat; background-size: cover;background-clip:border-box; position: relative;
-background-image: url({% static 'src/images/signup-back3.jpg' %})
+body {
+    display: table-cell;
+    vertical-align: middle;
 }
-.error-tooltip{
-  position: absolute;
-    width: 228px;
-    left: -55%;
-    height: auto;
-    border: 1px solid #fff;
-    top: 133px;
+.margin {
+  margin: 0 !important;
 }
-.error-tooltip:before{
-  content: '';
-  border: 7px solid rgba(191, 222, 227, 0);
-  border-left: 27px solid rgba(42, 27, 27, 0.18);
-  position: absolute;
-  right: -35px;
+ul.errorlist li{
+  color: red;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
-.logo{position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 36px;
-  }
-.logo a {font-family: 'Roboto', sans-serif; text-decoration: none; font-weight: 600;color: #fff;}
-select{
-  max-width: 100px;
-  min-width: 100px;
-  height: 38px;
-  background: #fff;
-  border-radius: 5px;
-  border: 0px;
-  padding: 0px 11px;
-  cursor: pointer;
-}
-label[for="id_birth_date_month"]{display: block; margin-bottom: 5px;}
-
-.heading{display: block; width: 100%; padding:20px; text-align:center;}
-input[type="text"], input[type="password"], input[type="email"]{
-  display: block;
-    box-sizing: border-box;
-    padding: 4px;
-    width: 286px;
-    height: 38px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 15px;
-    transition: 0.2s ease;
-    border-radius: 5px;
-    margin: 5px 0px;
-}
-input {-webkit-appearance: button-bevel;}
-input[type="text"]:focus, input[type="email"]:focus, select:focus, input[type="password"]:focus {
-  border-bottom: 0px solid #16a085;
-  color: #16a085;
-  transition: 0.2s ease;
-  box-shadow: 0px 1px 1px 0px;
-}
-
-input[type="submit"] {
-  margin-top: 28px;
-  width: 120px;
-  height: 32px;
-  background: #16a085;
-  border: none;
-  border-radius: 2px;
-  color: #FFF;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  text-transform: uppercase;
-  transition: 0.1s ease;
-  cursor: pointer;
-}
-
-input[type="submit"]:hover, input[type="submit"]:focus {
-  opacity: 0.8;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  transition: 0.1s ease;
-}
-
-input[type="submit"]:active {
-  opacity: 1;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  transition: 0.1s ease;
-}
-
-.social{
-    position: absolute;
-    top: 224px;
-    left: 122px;
-}
-
-a.social-signin {
-  display: block;
-  width: 174px;
-  height: 27px;
-  font-size: 26px;
-  padding: 15px;
-  color: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
-  margin-bottom: 20px;
-  font-family: 'Roboto', sans-serif;
-  text-decoration: none;
-  font-weight: 500;
-  border-radius: 5px;
-  text-align: center;
-}
-
-a.social-signin:hover, button.social-signin:focus {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  transition: 0.2s ease;
-  opacity: 0.8;
-}
-
-a.social-signin:active {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  transition: 0.2s ease;
-}
-
-a.social-signin.facebook {
-  background: #32508E;
-}
-
-a.social-signin.facebook:hover{
-background: #1c56d2
-}
-
-a.social-signin.twitter {
-  background: #73bcf3;
-}
-
-a.social-signin.twitter:hover{
-background: #1c56d2
-}
-
-a.social-signin.google {
-  background: #DD4B39;
-}
-a.social-signin.google:hover{
-background: #ed5b49;
-}
-/*box-shadow effects*/
-.effect2:before, .effect2:after
-{
-  z-index: -1;
-  position: absolute;
-  content: "";
-  bottom: 15px;
-  left: 10px;
-  width: 50%;
-  top: 80%;
-  max-width:300px;
-  background: #777;
-  -webkit-box-shadow: 0 15px 10px #777;
-  -moz-box-shadow: 0 15px 10px #777;
-  box-shadow: 0 15px 10px #777;
-  -webkit-transform: rotate(-7deg);
-  -moz-transform: rotate(-7deg);
-  -o-transform: rotate(-7deg);
-  -ms-transform: rotate(-7deg);
-  transform: rotate(-7deg);
-}
-.effect2:after
-{
-  -webkit-transform: rotate(7deg);
-  -moz-transform: rotate(7deg);
-  -o-transform: rotate(7deg);
-  -ms-transform: rotate(7deg);
-  transform: rotate7deg);
-  right: 10px;
-  left: auto;
-}
-.effect2{position: relative;}
 </style>
-{% endblock%}
+</head>
+<body class="blue">
+  <div id="login-page" class="row">
+    <div class="col s12 z-depth-6 card-panel">
+      <form method="post" action=""  class="login-form">
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s12 center">
+            <img src="http://w3lessons.info/logo.png" alt="" class="responsive-img valign profile-image-login">
+            <p class="center login-form-text">LifeInaBits -- A Blog</p>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-social-person-outline prefix"></i>
+            <input id="id_username" type="text" class="validate" name="username">
+            <span class="error  alert-danger">{{form.username.errors}}</span>
+            <label for="id_username" class="center-align">Username</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-communication-email prefix"></i>
+            <input id="id_email" type="email" name="email">
+            <span class="error  alert-danger">{{form.email.errors}}</span>
+            <label for="id_email" class="center-align">Email</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-action-lock-outline prefix"></i>
+            <input id="id_password1" type="password" class="validate" name="password1">
+            <span class="error  alert-danger">{{form.password1.errors}}</span>
+            <label for="id_password1">Password</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-action-lock-outline prefix"></i>
+            <input id="id_password2" type="password" name="password2">
+            <span class="error  alert-danger">{{form.password2.errors}}</span>
+            <label for="id_password2">Re-type password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <button type="submit" name="Submit" class="btn waves-effect waves-light col s12">Register Now</button>
+          </div>
+          <div class="input-field col s12">
+            <p class="margin center medium-small sign-up">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <!--materialize js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+</body>
+</html>

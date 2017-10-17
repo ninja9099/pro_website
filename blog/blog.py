@@ -30,6 +30,11 @@ class Article(TimeStampedModel):
     
     class Meta:
         ordering = ('-article_views', 'created',)
+        # permissions = (
+        #     ("view_article", "Can see available articles"),
+        #     ("change_article", "Only author can change the article"),
+        #     ("delete_article", "Only admin can delete article"),
+        # )
 
     def get_author_profile(self):
         return self.article_author.userprofile

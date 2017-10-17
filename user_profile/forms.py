@@ -8,6 +8,8 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 
+years = range(1991, 2017)
+gender_choices = [('male', 'Male'), ('female', 'Female'),('notspecified', 'Dont Specify')]
 
 class LoginForm(forms.Form):
 
@@ -24,13 +26,13 @@ class LoginForm(forms.Form):
         return username
 
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    # first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    # last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
     
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', 'email', 'first_name', 'last_name')
+        fields = ('username', 'password1', 'password2', 'email')
     
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -45,6 +47,8 @@ class SignUpForm(UserCreationForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    birth_date = forms.DateField(widget=forms.SelectDateWidget(years=years))
+    mobile = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control'}))
     class Meta:
         model=UserProfile
         fields = [
@@ -57,8 +61,10 @@ class UserProfileForm(forms.ModelForm):
             'about_me',
         ]
         widgets = {
-            'address': Textarea(attrs={'cols': 80, 'rows': 2}),
-            'about_me': Textarea(attrs={'cols': 80, 'rows': 2}),
-            'birth_date': forms.DateInput(attrs={'class':'datepicker'}),
+            'address': Textarea(attrs={'cols': 80, 'rows': 2, 'class':'form-control'}),
+            'about_me': Textarea(attrs={'cols': 80, 'rows': 2, 'class':'form-control'}),
+
         }
+
+
 
