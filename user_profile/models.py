@@ -33,6 +33,20 @@ class UserProfile(models.Model):
     is_active = models.BooleanField(default=True)
 
     
+    @property
+    def full_name():
+        return self.first_name + ' ' + self.last_name
+
+    @full_name.setter
+    def full_name(self, value):
+        first_name, last_name = value.split(' ')
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @full_name.deleter
+    def full_name(self):
+        del self.first_name
+        del self.last_name
 
 
     def __unicode__(self):
@@ -41,6 +55,7 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return u'/profile-update/%d' % self.id
 
+    
     def get_articles_written(self):
         user = self.user
         articles_written = user.article_set.all()

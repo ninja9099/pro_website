@@ -27,14 +27,10 @@ class Article(TimeStampedModel):
     article_tags = models.TextField(blank=True, help_text="keaywords for indexing your article in search engins")
     article_flike_url = models.URLField('Like plugin url', blank=True)
     article_tags = models.ManyToManyField('ArticleTags')
+    slug = models.SlugField(max_length=250)
     
     class Meta:
         ordering = ('-article_views', 'created',)
-        # permissions = (
-        #     ("view_article", "Can see available articles"),
-        #     ("change_article", "Only author can change the article"),
-        #     ("delete_article", "Only admin can delete article"),
-        # )
 
     def get_author_profile(self):
         return self.article_author.userprofile

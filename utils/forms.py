@@ -1,6 +1,7 @@
 from django import forms
 from django.core import validators
 from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 
 class MinLengthValidator(validators.MinLengthValidator):
     message = 'Ensure this value has at least %(limit_value)d elements (it has %(show_value)d).'
@@ -33,3 +34,14 @@ class CommaSeparatedCharField(forms.Field):
         self.validate(value)
         self.run_validators(value)
         return value
+
+
+class DivErrorList(ErrorList):
+
+    def __str__(self):
+        return self.as_div()
+
+    def as_div(self):
+        if not self: 
+            return ''
+        return '<div class="errorlist">%s</div>' % ''.join(['<div class="error">%s</div>' % e for e in self])

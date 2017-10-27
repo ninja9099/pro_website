@@ -29,13 +29,14 @@ LOGIN_URL = '/login/'
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.contenttypes',
-    'grappelli',
-    'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.sessions',
+    'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django_comments',
     'rest_framework',
     'tracking',
     'utils',
@@ -60,6 +61,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pro_website.urls'
 
+ADMIN_TITLE = "lifeinaBits - Admin"
 
 TEMPLATES = [
     {   
@@ -176,7 +178,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+SITE_ID = 1
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 

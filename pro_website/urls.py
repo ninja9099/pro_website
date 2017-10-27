@@ -38,12 +38,12 @@ urlpatterns = [
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^profile/(?P<profile_id>[0-9]*)$', custom_auth_views.ManageProfile, name='profile'),
+    url(r'^comments/', include('django_comments.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^blog/', include('blog.urls'),  name="blog"),
     url(r'^article-list/$', article_views.ArticleListView.as_view(),  name='article-list'),
     url(r'^tracking/', include('tracking.urls')),
     url(r'^complete/social-oauth2$',custom_auth_views.social_auth, name="social_auth")
-
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'blog.errorhandler.handler404'

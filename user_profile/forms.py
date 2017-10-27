@@ -57,7 +57,6 @@ class UserProfileForm(forms.ModelForm):
             'address',
             'mobile',
             'gender',
-            'article_reads',
             'about_me',
         ]
         widgets = {

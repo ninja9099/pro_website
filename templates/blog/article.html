@@ -17,8 +17,10 @@
         <hr>
         <h1 class="article-heading">{{article.article_title}}</h1>
         <ul class="article-meta">
+            {% load comments %}
+            {% get_comment_count for article as comment_count %}.
             <li><i class="fa fa-calendar"></i> {{article.created}}</li>
-            <li><i class="fa fa-comments"></i> <a href="/blog/article/{{article.id}}#disqus_thread"></a></li>
+            <li><i class="fa fa-comments"></i> {{comment_count}}</li>
             <li><i class="fa fa-heart"></i> {{article.count_likes}}</li>
             <li><i class="fa fa-eye"></i> {{article.article_views}}</li>
 
@@ -50,19 +52,43 @@
         </div>
         <hr>
         <div class="similar-articles">
-
+           
         </div>
-        <div id="disqus_thread"></div>
-            <script>
-                /**
-                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-                /*
-                var disqus_config = function () {
-                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                };
-                */
+        <div id="disqus_thread">
+                {% load comments %}
+                <div class="comment-list">
+                {% get_comment_list for article as comments %}
+                    {% for comment in comments %}
+                        <div class="comment">
+                            <img src="{{comment.user.userprofile.profile_picture.url}}" width="50" height="50"/>
+                            {{comment}}
+                            <a name="c{{ comment.id }}"></a>
+                            <a href="{% get_comment_permalink comment %}">
+                                <i class="fa fa-link"></i>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+               <div class="comment-form">
+                    {% if user.is_authenticated %}
+                        {% get_comment_form for article as form %}
+                        <form action="{% comment_form_target %}" method="POST">
+                        {% csrf_token %}
+                        {{ form.comment }}
+                        {{ form.honeypot }}
+                        {{ form.content_type }}
+                        {{ form.object_pk }}
+                        {{ form.timestamp }}
+                        {{ form.security_hash }}
+                        <input type="hidden" name="next" value="{% url 'article' article.id %}" />
+                        <input type="submit" value="Add comment" id="id_submit" />
+                        </form>
+                    {% else %}
+                        <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+                    {% endif %}
+               </div>
+            </div>
+           <!--  <script>
                 (function() { // DON'T EDIT BELOW THIS LINE
                 var d = document, s = d.createElement('script');
                 s.src = 'https://kaminfo-1.disqus.com/embed.js';
@@ -70,7 +96,7 @@
                 (d.head || d.body).appendChild(s);
                 })();
             </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
     </div>
     <div class="blog-archive">
         {% include  '../misc/search_template.html' %}
@@ -117,6 +143,7 @@
     </div>
   </div>
 </div>
+
 <script>hljs.initHighlightingOnLoad();</script>
 <script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script>
 <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">

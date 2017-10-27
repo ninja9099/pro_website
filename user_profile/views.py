@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.shortcuts import render, render_to_response,redirect
-from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect,JsonResponse, Http404
 from django.urls import reverse
 from .forms import LoginForm,UserProfileForm
 from django.template import RequestContext
@@ -24,6 +24,8 @@ from user_profile.forms import UserProfileForm, SignUpForm
 from django.views.decorators.cache import cache_page
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from utils.forms import DivErrorList
+
 
 def user_details(strategy, details, response, user=None, *args, **kwargs):
     if user:
@@ -125,7 +127,7 @@ def login(request):
             return render(request, 'registration/login.html', {'form': form})
     else:
         next_url = request.GET.get('next') or '/'
-        form = LoginForm()    # A empty, unbound form
+        form = LoginForm(error_class=DivErrorList)    # A empty, unbound form
     return render(request, 'registration/login.html', {'form': form, "next":next_url})
 
 def logout(request):
@@ -148,7 +150,7 @@ def sign_up(request):
             auth_login(request, user)
             return redirect('homepage')
     else:
-        form = SignUpForm()
+        form = SignUpForm(error_class=DivErrorList)
     return render(request, 'registration/signup.html', {'form': form})
 
 @login_required
@@ -158,8 +160,9 @@ def ManageProfile(request, profile_id):
             article_reads = request.user.userprofile.article_reads.all()
             return render(request, 'registration/profile.html', {"articles_written":len(request.user.article_set.all()),"article_reads":article_reads })
         else:
-            profile = UserProfile.objects.get(user__id=profile_id)
-            if not profile:
+            try:
+                profile = UserProfile.objects.get(user__id=profile_id)
+            except:
                 raise Http404
             if request.user == profile.user:
                 form = UserProfileForm(instance=profile)
@@ -168,7 +171,7 @@ def ManageProfile(request, profile_id):
                 raise PermissionDenied
 
     if request.method == "POST":
-        user_profile  = UserProfileForm(request.POST, instance=UserProfile.objects.get(pk=profile_id))
+        user_profile  = UserProfileForm(request.POST, instance=UserProfile.objects.get(pk=profile_id), error_class=DivErrorList)
         if user_profile.is_valid():
             user_profile.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'profile_id':request.user.id}))

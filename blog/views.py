@@ -99,7 +99,7 @@ def ArticleView(request, pk):
     months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
     article = get_object_or_404(Article, pk=pk, article_state='published')
     Tracker.objects.create_from_request(request, article)
-    return render_to_response('blog/article.html',{'tags':ArticleTags.objects.all(), "months": months, "article": article, "article_analytics": article_analytics(request)})
+    return render(request, 'blog/article.html', {'tags':ArticleTags.objects.all(), "months": months, "article": article, "article_analytics": article_analytics(request)})
 
 def article_analytics(request):
     query_set = Article.objects.order_by('-created')
