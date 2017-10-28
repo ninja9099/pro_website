@@ -890,7 +890,7 @@ float:center;
     margin: 4px;
     margin-right: 96px;
     background: #3a5897;
-    -webkit-appearance: button-bevel;
+    -webkit-appearance: button-bevel !important;
     color: #fff;
     width: 21px;
     padding: 1px;

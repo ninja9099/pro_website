@@ -27,7 +27,6 @@ urlpatterns = [
     
     url(r'^$', views.index, name='homepage'),
     url('', include('social_django.urls', namespace='social')),
-    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', custom_auth_views.login, name='login'),
     url(r'^logout/$', custom_auth_views.logout, name='logout'),
@@ -41,7 +40,7 @@ urlpatterns = [
     url(r'^comments/', include('django_comments.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^blog/', include('blog.urls'),  name="blog"),
-    url(r'^article-list/$', article_views.ArticleListView.as_view(),  name='article-list'),
+    # url(r'^article-list/$', article_views.ArticleListView.as_view(),  name='article-list'),
     url(r'^tracking/', include('tracking.urls')),
     url(r'^complete/social-oauth2$',custom_auth_views.social_auth, name="social_auth")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

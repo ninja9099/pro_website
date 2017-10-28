@@ -15,10 +15,10 @@
 	{% for field in form %}
 		  <div class="col-md-12 row" id="{{ field.auto_id }}_container">
 		    {{ field.help_text }}
-		    <div class="col-md-3 left">
+		    <div class="col-md-2 left">
 		      {{ field.label_tag }}
 		    </div>
-		    <div class="col-md-8 right" id="{{ field.auto_id }}">
+		    <div class="col-md-10 right" id="{{ field.auto_id }}">
 		     {{ field }}
 		    </div>
 		    <div class="error col-md-12"><span>
@@ -36,7 +36,17 @@
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/profile.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/bootstrap.min.css' %}">
 <style type="text/css">
-  label{width: inherit;height: inherit;}
+  
+  .wrapper {
+    margin-bottom: 24px;
+  }
+  .btn{
+      min-width: 200px;
+  }
+  label{
+    width: auto;
+    height: auto;
+  }
   .form-container{
   	max-width: 890px;
     margin: 56px auto;

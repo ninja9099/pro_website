@@ -14,7 +14,6 @@ require(['jquery'], function ($) {
 					'is_ajax':true,
 				},
 				success:function(response){
-					debugger;
 					if (response.login){
 						$('div.send').removeClass('loader');
 						window.location.reload($("[name='next']").val())
@@ -28,7 +27,6 @@ require(['jquery'], function ($) {
 					alert('error occured please after sometime' + errorMessage);
 				},
 				beforeSend:function(){
-					debugger;
 					$('div.send').addClass('loader');
 				},
 				complete:function(){

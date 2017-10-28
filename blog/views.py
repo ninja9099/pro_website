@@ -45,7 +45,7 @@ def article_edit(request, **kwargs):
             return render(request, 'blog/article_template.html', {"form":article_form})
 
     if request.method =='POST':
-        form = ArticleFrom(request.POST, request.FILES)
+        form = ArticleFrom(request.POST, request.FILES, instance=Article.objects.get(pk=kwargs.get('pk')))
         if form.is_valid() and form.is_multipart():
             article_instance = form.save(commit=False)
             article_instance.article_author= request.user
@@ -69,7 +69,7 @@ def BlogIndex(request, **kwargs):
     # prepare for launching the jason data
     articles_json = []
     if request.method == "GET":
-        
+
         query_set = Article.objects.all().order_by('-article_views',  '-created')
         paginator = Paginator(query_set, 15)
         page = request.GET.get('page')

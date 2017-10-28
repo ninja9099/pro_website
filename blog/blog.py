@@ -14,7 +14,7 @@ article_states = [('published', 'Published'), ('draft', 'Draft'), ('approval', '
 class Article(TimeStampedModel):
 
     article_title = models.CharField(max_length=255, db_index=True,help_text="please provide title of your article", unique=True)
-    article_image = models.ImageField(upload_to=image_path, height_field=None, width_field=None, blank=True)
+    article_image = models.ImageField(upload_to=image_path, height_field=None, width_field=None, blank=True, default="default.png")
     article_category = models.ForeignKey('Category', on_delete=models.CASCADE)
     article_subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     article_followed = models.IntegerField(default=0)
@@ -32,6 +32,18 @@ class Article(TimeStampedModel):
     class Meta:
         ordering = ('-article_views', 'created',)
 
+    @property
+    def get_article_image(self):
+        """
+        return default imgae if image for article is not found  on server
+
+        """
+        try:
+            return self.article_image.url
+        except:
+            return '/media/static/blog/article_images/default.png'
+
+
     def get_author_profile(self):
         return self.article_author.userprofile
     
@@ -43,6 +55,8 @@ class Article(TimeStampedModel):
 
     def count_likes(self):
         return len(self.articlelikes_set.all())
+
+
 
 class Category(models.Model):
     category_name = models.CharField('Category',max_length=255, unique=True)

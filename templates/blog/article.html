@@ -25,7 +25,7 @@
             <li><i class="fa fa-eye"></i> {{article.article_views}}</li>
 
         </ul>
-        <div class="img-wrapper"><img src="{{article.article_image.url}}"/></div>
+        <div class="img-wrapper"><img src="{{article.get_article_image}}"/></div>
         {% autoescape off %}
            {{article.article_content}}
         {% endautoescape %} 
@@ -57,6 +57,7 @@
         <div id="disqus_thread">
                 {% load comments %}
                 <div class="comment-list">
+                    <hr>
                 {% get_comment_list for article as comments %}
                     {% for comment in comments %}
                         <div class="comment">
@@ -67,8 +68,30 @@
                                 <i class="fa fa-link"></i>
                             </a>
                         </div>
+
+
+                       <!--  <div class="media">
+                          <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" width="50" height="50" src="{{comment.user.userprofile.profile_picture.url}}" alt="...">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="media-heading">Media heading</h4>
+                            {{comment}}
+                            <a name="c{{ comment.id }}"></a>
+                            <a href="{% get_comment_permalink comment %}">
+                                <i class="fa fa-link"></i>
+                            </a>
+                          </div>
+                        </div> -->
+
+
+
+
                     {% endfor %}
                 </div>
+                <hr>
                <div class="comment-form">
                     {% if user.is_authenticated %}
                         {% get_comment_form for article as form %}
@@ -88,15 +111,6 @@
                     {% endif %}
                </div>
             </div>
-           <!--  <script>
-                (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = 'https://kaminfo-1.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
     </div>
     <div class="blog-archive">
         {% include  '../misc/search_template.html' %}
@@ -149,7 +163,8 @@
 <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
 <style type="text/css">
     body{background-color: #d8d8d8; background-image: url({% static 'src/images/texture.jpg'%})}
-    
+    #id_honeypot {display: none;}
+
     .container{padding: 50px 0px;}
     .social-media{position: fixed; top: 30%; left: 0px}
     .social-media button {display: block;clear: both;}

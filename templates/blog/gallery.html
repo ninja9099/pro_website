@@ -6,7 +6,7 @@
 
     {% block entrypoint %}
         {% load static %}
-        <script type="text/javascript" data-main="{% static 'src/js/main_article_try.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+        <script type="text/javascript" data-main="{% static 'src/js/main_article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
     {% endblock %}
     {% block links%}
         {% load static %}
@@ -38,7 +38,7 @@
                 {% for article in articles_json|slice:"0:1" %}
                 <div class="yinks_wide left">
                     <div class="thumb overlay">
-                        <a href="{% url 'article' pk=article.article.id %}"><img min-width="620" min-height="240" class="alignone" src="{{article.article.article_image.url}}">
+                        <a href="{% url 'article' pk=article.article.id %}"><img min-width="620" min-height="240" class="alignone" src="{{article.article.get_article_image}}">
                         </a>
                         <div class="featuredPost lastPost">
                             <h2 class="postTitle">
@@ -77,7 +77,7 @@
                     {% for article in articles_json|slice:"2:6" %}
                     <div class="yinks_narrow">
                         <div class="thumb overlay">
-                            <a href="{% url 'article' pk=article.article.id %}"><img class="alignright" min-height="100" src="{{article.article.article_image.url}}" width="150">
+                            <a href="{% url 'article' pk=article.article.id %}"><img class="alignright" min-height="100" src="{{article.article.get_article_image}}" width="150">
                             </a>
                             <div class="featuredTitle">
                                 {% if article.user_liked is not True %}
@@ -128,7 +128,7 @@
                                     <h2 class="post-title entry-title">{{article.article.article_title}}</h2>
                                     <div class="cutter">
                                         <a href="{% url 'article' pk=article.article.id %}">
-                                            <img src="{{article.article.article_image.url}}" alt="blog cover image">
+                                            <img src="{{article.article.get_article_image}}" alt="blog cover image">
                                         </a>
                                     </div>
                                     <div class="post-header">
@@ -197,7 +197,7 @@
                         <div class="item-content">
                             <div class="item-thumbnail">
                                 <a href="{% url 'article' pk=article.article.id %}" target="_blank">
-                                    <img class="item-thumbnail-img" alt="" border="0" src="{{article.article.article_image.url}}" width="190" height="190">
+                                    <img class="item-thumbnail-img" alt="" border="0" src="{{article.article.get_article_image}}" width="190" height="190">
                                 </a>
                             </div>
                             <div class="item-title"><a href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
