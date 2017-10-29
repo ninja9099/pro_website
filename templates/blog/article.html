@@ -7,8 +7,9 @@
 
 {% load static %}
 {% block links %}
-<script src="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
 <link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'src/css/article.css' %}">
 {% endblock %}
 {% block content%}
 <div class="container">
@@ -30,81 +31,35 @@
            {{article.article_content}}
         {% endautoescape %} 
         <hr>
-        <div class="card-post-author">
-            <div class="author-img"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
-            <div class="author-info">
-            <p class="name">By <b>{{article.article_author.get_full_name}}</b></p>
-            <p>
-            {% autoescape off %}
-                {{article.article_author.userprofile.about_me}}
-            {% endautoescape %}
-            </p>
-            <!-- contact -->
-            <p class="contact">
-              <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
-              <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
-              <a href="https://facebook.com/Pankaj7869" rel="me noopener" target="_blank" title="Facebook"><i class="fa fa-facebook-official"></i></a>
-              <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a>
-              <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google-plus-official"></i></a>
-              <a href="/contact/" title="Contact"><i class="fa fa-envelope"></i></a>
-            </p>
-            </div>
-        </div>
-        <hr>
-        <div class="similar-articles">
-           
-        </div>
         <div id="disqus_thread">
                 {% load comments %}
                 <div class="comment-list">
-                    <hr>
                 {% get_comment_list for article as comments %}
+                    <div class="comments-container">
+                    <h1>Comments <a href="http://lifeinabits.com">Lifeinabits</a></h1>
+                    <hr>
                     {% for comment in comments %}
-                        <div class="comment">
-                            <img src="{{comment.user.userprofile.profile_picture.url}}" width="50" height="50"/>
-                            {{comment}}
-                            <a name="c{{ comment.id }}"></a>
-                            <a href="{% get_comment_permalink comment %}">
-                                <i class="fa fa-link"></i>
-                            </a>
-                        </div>
-
-
-                       <!--  <div class="media">
-                          <div class="media-left">
-                            <a href="#">
-                              <img class="media-object" width="50" height="50" src="{{comment.user.userprofile.profile_picture.url}}" alt="...">
-                            </a>
-                          </div>
-                          <div class="media-body">
-                            <h4 class="media-heading">Media heading</h4>
-                            {{comment}}
-                            <a name="c{{ comment.id }}"></a>
-                            <a href="{% get_comment_permalink comment %}">
-                                <i class="fa fa-link"></i>
-                            </a>
-                          </div>
-                        </div> -->
-
-
-
-
+                        {% include 'blog/comment.html'%}
+                    {% empty %}
+                        <p>No Comments Yet! Be the First to comment</p>    
                     {% endfor %}
+                    </div>
                 </div>
                 <hr>
                <div class="comment-form">
                     {% if user.is_authenticated %}
                         {% get_comment_form for article as form %}
+                        <h4>Post a Comment</h4>
                         <form action="{% comment_form_target %}" method="POST">
                         {% csrf_token %}
-                        {{ form.comment }}
                         {{ form.honeypot }}
                         {{ form.content_type }}
                         {{ form.object_pk }}
                         {{ form.timestamp }}
                         {{ form.security_hash }}
+                        <textarea class="form-control" cols="40" id="id_comment" maxlength="3000" name="comment" rows="2" required=""></textarea>
                         <input type="hidden" name="next" value="{% url 'article' article.id %}" />
-                        <input type="submit" value="Add comment" id="id_submit" />
+                        <input class="btn btn-success" type="submit" value="Comment" id="id_submit" />
                         </form>
                     {% else %}
                         <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
@@ -116,9 +71,24 @@
         {% include  '../misc/search_template.html' %}
         <!-- for the great thought -->
         <div class="thought-container search-container">
+            <div class="card-post-author clearfix">
+            <div class="author-img"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
+            <div class="contact">
+              <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
+              <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+              <!-- <a href="https://facebook.com/Pankaj7869" rel="me noopener" target="_blank" title="Facebook"><i class="fa fa-facebook-official"></i></a> -->
+              <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a>
+              <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google-plus-official"></i></a>
+            </div>
+            <div class="author-info">
+            <p class="name"><b>{{article.article_author.get_full_name}}</b></p>
             <p>
-               Innovation is the thing that differentiate leader and follower
+            {% autoescape off %}
+                {{article.article_author.userprofile.short_intro}}
+            {% endautoescape %}
             </p>
+            </div>
+        </div>
         </div>
         <div class="ad-container search-container">
             <p>
@@ -127,152 +97,40 @@
         </div>
         <div class="tag-container search-container">
             <div class="tag-heading"><h4>Article Tags</h4></div>
-            <hr>
             <div class="tags">
                 {% for tag in tags %}
-                <span class="tag">{{tag.tag_name}}</span>
+               <span class="label label-info">{{tag.tag_name}}</span>
                 {% endfor %}
             </div>
         </div>
-    <div class="archive-contents">
-        <h4>Blog Archives</h4>
-        <hr>
-    <ul class="file-tree">
-      {% for key, value in article_analytics.items %}
-        <li><a href="#">{{key}}</a>
-            <ul>
-            {% for month, value in value.items %}
-              <li><a href="#">{{months|get_item:month}} ({{value.count}})</a>
-                <ul>
-                {% for item in value %}
-                    <li><a href="/blog/article/{{item.id}}">{{item}}</a>
-                {% endfor %}
-                </ul>
-              </li>
-            {% endfor %}
-          </ul>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="archive-contents ">
+        <div>
+            <h4>Blog Archives</h4>
+        </div>
+        <div class="tags">
+            <ul class="file-tree">
+              {% for key, value in article_analytics.items %}
+
+                <li><a href="#">{{key}}</a>
+                    <ul>
+                    {% for month, value in value.items %}
+                      <li><a href="#">{{months|get_item:month}} ({{value.count}})</a>
+                        <ul>
+                        {% for item in value %}
+                            <li><a href="/blog/article/{{item.id}}">{{item}}</a>
+                        {% endfor %}
+                        </ul>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            </ul>
+        </div>
     </div>
   </div>
 </div>
-
+<style type="text/css">body{background-color: #d8d8d8; background-image: url({% static 'src/images/texture.jpg'%})}</style>
+<script src="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script>
-<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
-<style type="text/css">
-    body{background-color: #d8d8d8; background-image: url({% static 'src/images/texture.jpg'%})}
-    #id_honeypot {display: none;}
-
-    .container{padding: 50px 0px;}
-    .social-media{position: fixed; top: 30%; left: 0px}
-    .social-media button {display: block;clear: both;}
-    .blog-container{border-radius: 5px;width: 75%;display: inline-block; height: auto; background-color: #fff; color: #000; padding: 20px;} 
-    .blog-archive{width: 24%;display: inline-block; float: right; height: auto;}
-    .card-post-author{background-color: #f5f5dc; box-sizing: border-box; padding: 10px;box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.05); height: 176px;}
-    .author-img {display: inline-block; position: relative; margin-right: 5px}
-    .author-info{display: inline-block; margin-left: 5px; max-width: 80%;color: #999; float: right;}
-    .author-img img{width: 130px;height: 130px;}
-    .img-wrapper {margin-bottom: 20px;}
-    .name{font-size: 20px; color: #ff4500;}
-    .img-wrapper img{width: 100%; padding: 5px; display: inline-block;max-height: 500px;}
-    .article-title {text-align: center; font-size: 20px; font-family: 'Saira',sans-serif; margin-bottom: 20px; color: #575555}
-    .article-heading{font-family: 'Slabo 27px', sans-serif; font-size: 34px; text-align: center; margin-bottom: 20px;}
-    .article-meta{text-align: center;}
-    .article-meta li{list-style-type: none; display: inline-block; color: #999; margin: 0px 14px;}
-    .contact a{font-size: 20px; margin: 2px; color: #10a1db;}
-    .contact a:hover{color: #0056b3;}
-    .search-container {height: 80px;padding: 20px 11px;    margin-bottom: 8px;background: #fff; border-radius: 5px;}
-    .tag-container {height: auto;}
-    .thought-container {color: #000; padding: 5px 5px; min-height: 220px;}
-    .ad-container {color: #c21818; padding: 5px 5px; min-height: 220px;}
-    .archive-contents{padding-left: 5px; color: #999; }
-    .tag-heading  h4 {text-align: center; font-family: 'Saira', sans-serif;}
-    .archive-contents ul > li{padding: 0px;}
-    .tags{max-width:auto;padding:0px 6px; }
-    .tag{display: inline-block;
-    width: auto;
-    padding:1px;
-    background: crimson;
-    border: 1px solid darkgrey;
-    border-radius: 5px;
-    font-size: 19px;
-    font-family: sans-serif;
-    margin:1px 0px;
-    color: #ddd; 
-}
-</style>
-
-<!-- style for tree  -->
-<style type="text/css">
-  .file-list, .file-list ul{
-    list-style-type: none;
-    font-size:1em;
-    line-height:1.8em;
-    margin-left:0px;
-    padding-left:18px;
-    border-left:1px dotted #aaa;
-    overflow-x: scroll;
-}
-.file-list li{
-    position: relative;
-    padding-left:25px;
-}
-.file-list li a{
-    text-decoration: none;
-    color:#444;  
-}
-.file-list li a:before{
-    display:block;
-    content: " ";
-    width:10px;
-    height:1px;
-    position:absolute;
-    border-bottom:1px dotted #aaa;
-    top:.6em;
-    left:-14px;
-}
-.file-list li:before{
-    list-style-type: none;
-    font-family: FontAwesome;
-    display:block;
-    content:'\f140';
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:20px;
-    height:20px;
-    font-size:1.3em;
-    color:#69077a;
-}
-.file-list .folder-root{
-    list-style-type: none;
-}
-.file-list .folder-root a{
-    text-decoration:none;
-    margin-left: 20px !important;
-}
-.file-list .folder-root:before{
-    color:#54ddb2;
-    content: "\f07b";
-}
-.file-list .folder-root.open:before{
-    content: "\f07c";
-    color: #ff8466;
-}
-li.folder-root ul{
-    transition: all .3s ease-in-out;
-    overflow:hidden;
-}
-li.folder-root.closed>ul{
-   opacity:0;
-   max-height:0px;
-}
-li.folder-root.open>ul{
-   opacity:1;
-   display:block;
-   max-height:1000px;
-}
-</style>
 {% endblock %}

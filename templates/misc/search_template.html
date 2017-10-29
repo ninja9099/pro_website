@@ -1,11 +1,13 @@
 {% load static %}
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/misc/search_template.css' %}">
 <div class="search-container">
-        <div class="search">
-          <form>
-            <input type="text" class="form-control input-sm" maxlength="64" placeholder="Search" />
-             <button type="submit" class="btn btn-primary btn-sm">Search</button>
-          </form>
-        </div>
+        <form method="post"> 
+                 <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                     </span>
+                </div>
+                <span>Search The Blog</span>
+        </form>
 </div>

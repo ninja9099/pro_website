@@ -10,11 +10,11 @@
             <script type="text/javascript" data-main="{% static 'src/js/profile.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
         {% endblock %}
         <!-- ############ block for  row -->
-        <div class="row">
+        <div>
             <div class="container-lg">
                 <div class="left col-md-3">
                     <div class="profile-img">
-                        <a href="{% url 'profile' profile_id=user.id %}?edit=true">
+                        <a href="{% url 'profile' profile_id=user.id %}?edit=true" data-toggle="tooltip" title="Change Profile Picture" data-placment="bottom">
                             <img src="{{request.user.userprofile.profile_picture.url}}" width="223" height="230"/>
                         </a>
                     </div>
@@ -89,10 +89,6 @@
                                     </h2>
                                 </div>
                                 <div class="bb-1" id="personal-info">
-                                    <!-- <p>{{request.user.userprofile.birth_date}}</p>
-                                    <address>{{request.user.userprofile.address}}</address>
-                                    <p>{{request.user.userprofile.mobile}}</p>
-                                    <p>{{request.user.userprofile.gender}}</p> -->
                                     {% include '../registration/fancy_about_info.html' %}
                                 </div>
                             </div>
@@ -102,36 +98,38 @@
                                        Reading History
                                     </h2>
                                 </div>
-                                <div class="reading-history bb-1" id="personal-info">
+                                <div class="reading-history">
                                     {% for reads in user.userprofile.article_reads.all %}
-                                        <div class="media">
+                                        <a href="{% url 'article' pk=reads.id %}">
+                                        <div class="media bb-1 col-md-5">
                                             <img class="d-flex align-self-start" width="64" height="64" src="{{reads.get_article_image}}" alt="Generic placeholder image">
                                             <div class="media-body">
-                                                <h5 class="mt-0">
+                                                <h5 class="mt-0 trim-text" data-toggle="tooltip" title="{{reads.article_title}}" data-placement="bottom">
                                                     {{reads.article_title}}
                                                 </h5>
                                                 <p>
                                                     <span class="highlighter"> 
-                                                        <i class="fa fa-user" aria-hidden="true"></i> 
-                                                    </span>
+                                                        <i class="fa fa-user" aria-hidden="true" data-toggle="tooltip" title="Author"></i> 
+                                                    </span> 
                                                         {{reads.article_author}}
                                                     <span class="highlighter"> 
-                                                        <i class="fa fa-calendar" aria-hidden="true"></i> 
+                                                        <i class="fa fa-calendar" aria-hidden="true" data-toggle="tooltip" title="Created Date"></i> 
                                                     </span>
-                                                        {{reads.created |date:"D d M Y" }}
+                                                        {{reads.created |date:"D d M Y"}}
                                                     <span class="highlighter"> 
-                                                        <i class="fa fa-book" aria-hidden="true"></i> 
+                                                        <i class="fa fa-book" aria-hidden="true" data-toggle="tooltip" title="Total Reads"></i> 
                                                     </span>
                                                         {{reads.article_reads|length}}
                                                     <span class="highlighter"> 
-                                                        <i class="fa fa-tint" aria-hidden="true"></i> 
+                                                        <i class="fa fa-tint" data-toggle="tooltip" title="Category" aria-hidden="true"></i> 
                                                     </span>
                                                          {{reads.article_category}}
                                                 </p>
                                             </div>
                                         </div>
+                                    </a>
                                     {% empty %}
-                                    <li>Sorry No reads Here</li>
+                                        <li>Sorry No reads Here</li>
                                     {% endfor %}
                                 </div>
                             </div>

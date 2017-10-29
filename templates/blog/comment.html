@@ -1,0 +1,24 @@
+<!-- Contenedor Principal -->
+		<ul id="comments-list" class="comments-list">
+			<li>
+				<div class="comment-main-level">
+					<div class="comment-avatar"><img src="{{comment.user.userprofile.profile_picture.url}}" alt=""></div>
+					<div class="comment-box">
+						<div class="comment-head">
+							<h6 class="comment-name by-author"><a href="http://creaticode.com/blog">{{comment.user_name}}</a></h6>
+							<span>{{comment.submit_date}}</span>
+							<i class="fa fa-reply"></i>
+							<i class="fa fa-heart"></i>
+						</div>
+						<div class="comment-content">
+							{{comment.comment}}
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	
+
+<style type="text/css">
+
+</style>
