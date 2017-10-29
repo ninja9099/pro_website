@@ -29,8 +29,8 @@
   {% load static %}
   <ul class="profile-ul">
   <li style="height: 69px;" class="profile-image"><a><img width=40 height=40 src="{{user.userprofile.profile_picture.url}}"> Welcome !</a>
-  <li><a href="/profile/{{user.id}}">{{user.get_full_name}} </a></li>
-  <li><a href="/logout">Logout</a></li>
+  <li><a href="/profile/{{user.id}}"><i class="fa fa-user" aria-hidden="true"></i> {{user.get_full_name}} </a></li>
+  <li><a href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
   </ul>
 </li>
 {% else %}

@@ -49,11 +49,11 @@ define(['jquery'], function(jquery) {
                 // $("header").removeClass('fix')
                 $("header").removeClass('fix')
                 $('.fix').slideUp();
-        }
-    });
-        
+            }
+        });
         $('select').addClass('form-control');
         $('select').addClass('dob');
         $(".file-tree").filetree();
     });
-    });
+
+});

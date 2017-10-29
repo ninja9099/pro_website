@@ -128,11 +128,17 @@ background-color:#262626;
 position:relative;
 }
 .yinks_narrow .featuredTitle{
-font:normal 14px Roboto slab; 
-color:#555;
-margin-top: -40px;
-margin-left: 10px;
-
+    font: normal 14px Roboto slab;
+    color: #555;
+    margin-top: -34px;
+    margin-left: 0px;
+    padding: 4px;
+    height: 29px;
+}
+.trim-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .yinks_narrow .featuredTitle a:hover{
 color:#fff;
@@ -140,15 +146,21 @@ color:#fff;
 .yinks_wide .featuredPostMeta{
 float:right
 }
+.thumb-up{
+    width:22px !important;
+}
 .yinks h2 a,.yinks h2 a:visited{
 color:#fff;
 font-family: 'Roboto Slab', Serif;
 font-weight:400;
 font-size: 35px;
 margin-left:10px;
+display: inline-block;
 }
 .yinks_narrow .featuredTitle a{
 color:#fff;
+display: inline-block;
+width: 79%;
 }
 .yinks1{
 width: 400px;
@@ -360,8 +372,9 @@ img[Attributes Style] {
 body{background:#fff;color:#444;height:100%;font-family:Arial, Helvetica, Tahoma, sans-serif;font-size:14px;font-weight:400;line-height:22px;text-decoration:none;margin:0;padding:0}
 a,a:link,a:visited{color:#69B980;text-decoration:none}
 a.like i.fa {
-    color: #3a5897 !important;
-    font-size: 17px !important;
+    color: #06f171 !important;
+    font-size: 21px !important;
+
 }
 a:hover,a:active{color:#222;text-decoration:none}
 h2.date-header{display:none}
@@ -805,7 +818,7 @@ margin: 0 auto 5px auto;
 float:center;
 }
 
-.like {padding: 3px; font-size: 14px; text-transform: none;display: block; width: 22px; margin-top: 4px; border: none; color: #fff;}
+.like {padding: 3px; font-size: 14px; text-transform: none;display: block; width: 20%; margin-top: 4px; border: none; color: #fff;}
 
 
 /* for animate css*/

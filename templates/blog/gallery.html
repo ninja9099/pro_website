@@ -44,11 +44,11 @@
                             <h2 class="postTitle">
                                 <a href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
                                 {% if article.user_liked is not True %}
-                                    <a class="like up" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                    <a class="like up" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}"  style="width: 22px;">
                                         <i class="fa fa-thumbs-o-up animated" aria-hidden="true"></i>
                                     </a>
                                 {% else %}
-                                    <a class="like down" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                    <a class="like down" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}"  style="width: 22px;">
                                         <i class="fa fa-thumbs-up animated" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
@@ -80,16 +80,16 @@
                             <a href="{% url 'article' pk=article.article.id %}"><img class="alignright" min-height="100" src="{{article.article.get_article_image}}" width="150">
                             </a>
                             <div class="featuredTitle">
+                                <a class=" trim-text" href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
                                 {% if article.user_liked is not True %}
-                                    <a class="like up" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                    <a class="thumb-up like up" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
                                         <i class="fa fa-thumbs-o-up animated" aria-hidden="true"></i>
                                     </a>
                                 {% else %}
-                                    <a class="like down" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
+                                    <a class="thumb-up like down" data-id="{{article.article.id}}" href="{% url 'article_likes' pk=article.article.id %}" data-user="{{request.user.id}}">
                                         <i class="fa fa-thumbs-up animated" aria-hidden="true"></i>
                                     </a>
                                 {% endif %}
-                                <a href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
                             </div>
                             <!-- article meta info div -->
                             <div class="meta-info meta-info-small">
@@ -125,7 +125,7 @@
                              {% for article in articles_json|slice:"6:" %}
                             <div class="post-outer">
                                 <div class="post hentry">
-                                    <h2 class="post-title entry-title">{{article.article.article_title}}</h2>
+                                    <h2 class="post-title entry-title trim-text">{{article.article.article_title}}</h2>
                                     <div class="cutter">
                                         <a href="{% url 'article' pk=article.article.id %}">
                                             <img src="{{article.article.get_article_image}}" alt="blog cover image">
@@ -200,7 +200,7 @@
                                     <img class="item-thumbnail-img" alt="" border="0" src="{{article.article.get_article_image}}" width="190" height="190">
                                 </a>
                             </div>
-                            <div class="item-title"><a href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
+                            <div class="item-title trim-text"><a href="{% url 'article' pk=article.article.id %}">{{article.article.article_title}}</a>
                             </div>
                             <div class="item-snippet">{{article.article.article_description}}</div>
                         </div>
