@@ -16,6 +16,11 @@ from collections import OrderedDict
 from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.cache import cache_page
+#  for comments 
+from notifications.signals import notify
+from django_comments.signals import comment_was_posted
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 class ArticleListView(ListView):
     model= Article
@@ -33,7 +38,7 @@ class ArticleListView(ListView):
 def article_edit(request, **kwargs):
     
     if request.method =='GET':
-        if kwargs.get('pk', 'false'): 
+        if kwargs.get('pk',False): 
             article = get_object_or_404(Article, pk=kwargs.get('pk'))
             if request.user == article.article_author:
                 form  = ArticleFrom(instance=article)
@@ -45,11 +50,22 @@ def article_edit(request, **kwargs):
             return render(request, 'blog/article_template.html', {"form":article_form})
 
     if request.method =='POST':
-        form = ArticleFrom(request.POST, request.FILES, instance=Article.objects.get(pk=kwargs.get('pk')))
-        if form.is_valid() and form.is_multipart():
-            article_instance = form.save(commit=False)
-            article_instance.article_author= request.user
-            article_instance.save()
+        import pdb
+        pdb.set_trace()
+        if kwargs.get('pk') != '':
+            form = ArticleFrom(request.POST, request.FILES, instance=Article.objects.get(pk=kwargs.get('pk')))
+            if form.is_valid() and form.is_multipart():
+                article_instance = form.save(commit=False)
+                article_instance.article_author= request.user
+                article_instance.save()
+                form=ArticleFrom(instance=article_instance)
+        else:
+            form = ArticleFrom(request.POST, request.FILES)
+            if form.is_valid() and form.is_multipart():
+                article_instance = form.save(commit=False)
+                article_instance.article_author= request.user
+                article_instance.save()
+                form=ArticleFrom(instance=article_instance)
 
         return render(request, 'blog/article_template.html', {"form":form} )
 
@@ -116,3 +132,21 @@ def article_analytics(request):
         except:
             pass
     return article_by_year
+
+
+@receiver(comment_was_posted)
+def Rec(sender, **kwargs):
+    import pdb
+    pdb.set_trace()
+    user= kwargs.get('request').user
+    comment = kwargs.get('comment')
+    url = comment.get_content_object_url()
+    commented_on = comment.content_object
+
+    notify.send(user, recipient=commented_on.article_author, verb='%s Commented  %s on %s Article' %(comment.name, comment.comment,comment.content_object), comment_url=url)
+
+@receiver(post_save, sender=Article)
+def ArticleReciever(sender, **kwargs):
+    import pdb
+    pdb.set_trace()
+    # notify.send(user, recipient=user, verb='you reached level 10')

@@ -22,6 +22,12 @@ from user_profile import views
 from user_profile import views as custom_auth_views
 from blog import blog, views as article_views
 from django.conf.urls import (handler400, handler403, handler404, handler500)
+import notifications.urls
+
+handler404 = 'blog.errorhandler.handler404'
+handler500 = 'blog.errorhandler.handler500'
+handler403 = 'blog.errorhandler.handler403'
+
 
 urlpatterns = [
     
@@ -40,11 +46,7 @@ urlpatterns = [
     url(r'^comments/', include('django_comments.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^blog/', include('blog.urls'),  name="blog"),
-    # url(r'^article-list/$', article_views.ArticleListView.as_view(),  name='article-list'),
     url(r'^tracking/', include('tracking.urls')),
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
     url(r'^complete/social-oauth2$',custom_auth_views.social_auth, name="social_auth")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-handler404 = 'blog.errorhandler.handler404'
-handler500 = 'blog.errorhandler.handler500'
-handler403 = 'blog.errorhandler.handler403'

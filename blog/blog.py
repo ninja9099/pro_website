@@ -14,7 +14,7 @@ article_states = [('published', 'Published'), ('draft', 'Draft'), ('approval', '
 class Article(TimeStampedModel):
 
     article_title = models.CharField(max_length=255, db_index=True,help_text="please provide title of your article", unique=True)
-    article_image = models.ImageField(upload_to=image_path, height_field=None, width_field=None, blank=True, default="default.png")
+    article_image = models.ImageField(upload_to=image_path, height_field=None, width_field=None, blank=True, default="static/blog/article_images/default.png")
     article_category = models.ForeignKey('Category', on_delete=models.CASCADE)
     article_subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     article_followed = models.IntegerField(default=0)

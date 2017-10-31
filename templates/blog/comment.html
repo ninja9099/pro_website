@@ -9,7 +9,7 @@
                         {% if comment.user == article.article_author %}
                         <span class="author label label-info">Author</span>
                         {% endif %}
-                    <span>{{comment.submit_date}}</span>
+                    <span>{{comment.submit_date|timesince}} Ago</span>
                     <i class="fa fa-reply"></i>
                     <i class="fa fa-heart"></i>
                 </div>

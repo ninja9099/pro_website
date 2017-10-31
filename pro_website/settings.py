@@ -23,7 +23,7 @@ SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 LOGIN_URL = '/login/'
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'social_django',
     'tracking_analyzer',
     'django_user_agents',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -99,7 +100,8 @@ PASSWORD_HASHERS = [
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
+NOTIFICATION_TEST=True
+NOTIFICATIONS_USE_JSONFIELD=True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
