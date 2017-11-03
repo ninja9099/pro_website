@@ -33,16 +33,17 @@
                 </div>
                 <div class="right col-md-9">
                     <div class="user-profile-nav">
-                        <nav class="navigation">
-                            <a class="underline-nav-item active" data-toggle="tab" href="#Overview" role="tab" href="">Overview</a>
-                            <a class="underline-nav-item" data-toggle="tab" href="#Articles" role="tab"  href="">Articles <span class="badge">{{user.article_set.all|length}}</span></a>
-                            <a class="underline-nav-item" data-toggle="tab" href="#profile" role="tab" href="">Profile</a>
-                            <a class="underline-nav-item" data-toggle="tab" href="#reads" role="tab" href="">Reads <span class="badge"> {{user.userprofile.article_reads.all|length}}</span></a>
-                        </nav>
+                        <ul class="navigation nav nav-tabs" data-tabs="tabs">
+                            <li class="active"><a class="underline-nav-item" data-toggle="tab" href="#Overview">Overview</a>
+                            </li><li><a class="underline-nav-item" data-toggle="tab" href="#Articles" role="tab">Articles <span class="badge">{{user.article_set.all|length}}</span></a>
+                            </li><li><a class="underline-nav-item" data-toggle="tab" href="#profile" role="tab">Profile</a>
+                            </li><li><a class="underline-nav-item" data-toggle="tab" href="#reads" role="tab">Reads <span class="badge"> {{user.userprofile.article_reads.all|length}}</span></a>
+                            </li>
+                        </ul>
                     </div>
-                    <div style="position: relative;">
+                    <div style="position: relative;" class="tab-content">
                         <div class="mt-4 tab-content content">
-                            <div class="about-me tab-pane active" id="Overview" role="tabpanel">
+                            <div id="Overview" class="about-me tab-pane active">
                                 <a href="#" class="profession" rel="facebox">{{request.user.userprofile.short_intro}}</a>
                                 <div class="about-card">
                                     <h2>
@@ -56,7 +57,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="articles-written tab-pane" id="Articles" role="tabpanel">
+                            <div id="Articles" class="articles-written tab-pane">
                                 <div class="about-card">
                                     <h2>
                                         Articles Written

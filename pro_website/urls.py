@@ -18,7 +18,6 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from user_profile import views
 from user_profile import views as custom_auth_views
 from blog import blog, views as article_views
 from django.conf.urls import (handler400, handler403, handler404, handler500)
@@ -31,7 +30,7 @@ handler403 = 'blog.errorhandler.handler403'
 
 urlpatterns = [
     
-    url(r'^$', views.index, name='homepage'),
+    url(r'^$', article_views.index, name='homepage'),
     url('', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', custom_auth_views.login, name='login'),

@@ -72,8 +72,7 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 profile.profile_picture.save(img_name, File(img_temp))
                 img_temp.flush()
                 return True
-def index(request):
-    return render(request, 'index.html')
+
 
 def _login_ajax(request,username, password, remember):
     if username and password:

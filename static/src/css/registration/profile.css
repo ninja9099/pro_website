@@ -28,6 +28,7 @@ body{
 }
 .navigation{
   position: relative;
+  border-bottom:none;
 }
 .underline-nav-item {
     display: table-cell;
@@ -48,9 +49,10 @@ body{
 .user-profile-nav nav {
     width: 100%;
 }
-.underline-nav-item.active {
-    color: #24292e;
-    border-bottom-color: #e36209;
+li.active .underline-nav-item {
+    color: #24292e ! important;
+    border: none ! important;
+    border-bottom: 2px solid #e36209 ! important;
 }
 .name-container{
   padding-top: 16px !important;

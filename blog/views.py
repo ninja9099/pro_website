@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.template import RequestContext
+from collections import OrderedDict
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleFrom
@@ -9,10 +9,8 @@ from blog import Article, ArticleLikes, ArticleTags
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.views.generic import TemplateView,ListView
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy
-from collections import OrderedDict
 from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.cache import cache_page
@@ -21,22 +19,21 @@ from notifications.signals import notify
 from django_comments.signals import comment_was_posted
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.views.generic.edit import CreateView
 
-class ArticleListView(ListView):
-    model= Article
-    fields = ['article_title',
-            'article_image',
-            'article_category',
-            'article_subcategory',
-            'article_content',
-            ]
-    
-    template_name_suffix = '_list_view'
+# homepage
+def index(request):
+    return render(request, 'index.html')
+
+class ArticleCreateView(CreateView):
+   model=Article
+   fields='__all__'
+   template_name = 'blog/article_template.html'
+   
 
 @login_required
 @permission_required('blog.change_article', raise_exception=True)
 def article_edit(request, **kwargs):
-    
     if request.method =='GET':
         if kwargs.get('pk',False): 
             article = get_object_or_404(Article, pk=kwargs.get('pk'))
@@ -51,7 +48,8 @@ def article_edit(request, **kwargs):
 
     if request.method =='POST':
         import pdb
-        pdb.set_trace()
+        pdb.set_trace() 
+       
         if kwargs.get('pk') != '':
             form = ArticleFrom(request.POST, request.FILES, instance=Article.objects.get(pk=kwargs.get('pk')))
             if form.is_valid() and form.is_multipart():
@@ -65,7 +63,9 @@ def article_edit(request, **kwargs):
                 article_instance = form.save(commit=False)
                 article_instance.article_author= request.user
                 article_instance.save()
-                form=ArticleFrom(instance=article_instance)
+                import pdb
+                pdb.set_trace()
+                form=ArticleFrom(request.POST, instance=article_instance)
 
         return render(request, 'blog/article_template.html', {"form":form} )
 
@@ -73,7 +73,6 @@ def article_edit(request, **kwargs):
 def user_liked(user_id, article_id):
     try:
         if len(ArticleLikes.objects.filter(article_id=article_id, user_id=user_id)):
-            print user_id,  article_id
             return True
     except:
         return False
