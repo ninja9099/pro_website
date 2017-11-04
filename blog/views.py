@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import datetime
 from collections import OrderedDict
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
-from .forms import ArticleFrom
-from blog import Article, ArticleLikes, ArticleTags
+from .forms import ArticleForm
+from blog import Article, ArticleLikes
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -21,53 +21,48 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.views.generic.edit import CreateView
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.template.loader import render_to_string
+
+
 # homepage
 def index(request):
     return render(request, 'index.html')
 
-class ArticleCreateView(CreateView):
-   model=Article
-   fields='__all__'
-   template_name = 'article_template.html'
-   
+
+class CreateArticle(LoginRequiredMixin, CreateView):
+    """
+    """
+    template_name = 'article_template.html'
+    form_class = ArticleForm
+    success_url = reverse_lazy('articles')
+
+    def form_valid(self, form):
+        import pdb
+        pdb.set_trace()
+        form.instance.article_author = self.request.user
+        return super(CreateArticle, self).form_valid(form)
+
 
 @login_required
 @permission_required('blog.change_article', raise_exception=True)
-def article_edit(request, **kwargs):
-    if request.method =='GET':
-        if kwargs.get('pk',False): 
-            article = get_object_or_404(Article, pk=kwargs.get('pk'))
-            if request.user == article.article_author:
-                form  = ArticleFrom(instance=article)
-                return render(request, 'article_template.html', {"form":form} )
-            else:
-                return HttpResponse('<h1>Error 403 Not Allowed</h1>')
+def article_edit(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method =='GET': 
+        if request.user == article.article_author:
+            form  = ArticleForm(instance=article)
+            return render(request, 'article_template.html', {"form":form} )
         else:
-            article_form = ArticleFrom()
-            return render(request, 'article_template.html', {"form":article_form})
+            return HttpResponse('<h1>Error 403 Not Allowed</h1>')
 
     if request.method =='POST':
-        import pdb
-        pdb.set_trace() 
-       
-        if kwargs.get('pk') != '':
-            form = ArticleFrom(request.POST, request.FILES, instance=Article.objects.get(pk=kwargs.get('pk')))
-            if form.is_valid() and form.is_multipart():
-                article_instance = form.save(commit=False)
-                article_instance.article_author= request.user
-                article_instance.save()
-                form=ArticleFrom(instance=article_instance)
-        else:
-            form = ArticleFrom(request.POST, request.FILES)
-            if form.is_valid() and form.is_multipart():
-                article_instance = form.save(commit=False)
-                article_instance.article_author= request.user
-                article_instance.save()
-                import pdb
-                pdb.set_trace()
-                form=ArticleFrom(request.POST, instance=article_instance)
+        form = ArticleForm(request.POST, request.FILES, instance=article)
+        if form.is_valid() and form.is_multipart():
+            article_instance = form.save(commit=False)
+            article_instance.save()
 
-        return render(request, 'article_template.html', {"form":form} )
+    return render(request, 'article_template.html', {"form":form} )
 
 
 def user_liked(user_id, article_id):
@@ -77,10 +72,12 @@ def user_liked(user_id, article_id):
     except:
         return False
 
+
 def BlogIndex(request, **kwargs):
     '''
     view for Homepage of blog
     '''
+    
     # prepare for launching the jason data
     articles_json = []
     if request.method == "GET":
@@ -88,8 +85,6 @@ def BlogIndex(request, **kwargs):
         query_set = Article.objects.all().order_by('-article_views',  '-created')
         paginator = Paginator(query_set, 15)
         page = request.GET.get('page')
-
-
         try:
             article_page = paginator.page(page)
         except PageNotAnInteger:
@@ -105,16 +100,16 @@ def BlogIndex(request, **kwargs):
                 "likes":item.count_likes(),
                 "user_liked":user_liked(request.user.id, item.id)
                 })
-        return render( request, 'gallery.html', { 'article_page':article_page, 'articles_json': articles_json})
+        popular_tags = Article.get_counted_tags()
+        return render( request, 'gallery.html', {'popular_tags':popular_tags, 'article_page':article_page, 'articles_json': articles_json})
 
 
 def ArticleView(request, pk):
     '''View for displaying the article on the page includes analytics '''
-    
-    months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
     article = get_object_or_404(Article, pk=pk, article_state='published')
     Tracker.objects.create_from_request(request, article)
-    return render(request, 'article.html', {'tags':ArticleTags.objects.all(), "months": months, "article": article, "article_analytics": article_analytics(request)})
+    return render(request, 'article.html', {'tags':'', "article": article, "article_analytics": article_analytics(request)})
+
 
 def article_analytics(request):
     query_set = Article.objects.order_by('-created')
@@ -126,17 +121,33 @@ def article_analytics(request):
             temp = query_set.filter(created__year=year)
             article_by_year.update({year:{}})
             for month in range(1,13):
-                if temp.filter(created__month=month):
-                    article_by_year[year].update({month:temp.filter(created__month=month)})
+                by_month = temp.filter(created__month=month) 
+                if by_month:
+                    article_by_year[year].update({by_month[0].created:temp.filter(created__month=month)})
         except:
             pass
     return article_by_year
 
 
+def article_preview(request):
+    try:
+        if request.method == 'POST':
+            content = request.POST.get('content')
+            html = 'Nothing to display :('
+            if len(content.strip()) > 0:
+                html = markdown.markdown(content, safe_mode='escape')
+
+            return HttpResponse(html)
+
+        else:   # pragma: no cover
+            return HttpResponseBadRequest()
+
+    except Exception:   # pragma: no cover
+        return HttpResponseBadRequest()
+
+
 @receiver(comment_was_posted)
 def Rec(sender, **kwargs):
-    import pdb
-    pdb.set_trace()
     user= kwargs.get('request').user
     comment = kwargs.get('comment')
     url = comment.get_content_object_url()

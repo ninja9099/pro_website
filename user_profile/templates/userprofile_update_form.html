@@ -1,4 +1,4 @@
-{% extends '../base.html' %}
+{% extends 'base.html' %}
 	
 {% block content%}
   <div class="wrapper content container">
@@ -17,10 +17,7 @@
           <li>
             <a href="">
               {% load static%}
-              <img src="{% static field.url %}" alt="{{ filed.name }}">
-              
-            {% load pdb_debug %}
-            {% pdb %}
+              <img src="{% static 'field.url' %}" alt="{{ filed.name }}">
               {{field}}
             </a>
         </li>

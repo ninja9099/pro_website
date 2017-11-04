@@ -8,7 +8,7 @@
 
   
   {% block entrypoint %}
-      <script type="text/javascript" data-main="{% static 'src/js/article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+      <script type="text/javascript" data-main="{% static 'src/js/article_editor.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
   {% endblock %}
 
 <div id="login-box">
@@ -37,9 +37,9 @@
           {{ form.article_subcategory }}
       </div>
       <div class="fieldWrapper">
-          {{ form.article_tags.errors }}
-          <label for="{{ form.article_tags.id_for_label }}">Keywords</label>
-          {{ form.article_tags }}
+          {{ form.tags.errors }}
+          <label for="{{ form.tags.id_for_label }}">Keywords</label>
+          {{ form.tags }}
       </div>
       <input type="submit" name="signup_submit" value="save">
       <input type="submit" name="signup_submit" value="submit">

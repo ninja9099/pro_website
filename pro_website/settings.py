@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'tracking_analyzer',
     'django_user_agents',
     'notifications',
+    'taggit',
 ]
 
 MIDDLEWARE = [

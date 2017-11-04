@@ -33,7 +33,8 @@ urlpatterns=[
     url(r'^$',views.BlogIndex, name="blog_home" ),
     url(r'rest_api^', include(router.urls)),
     url(r'^article/(?P<pk>\d+)', views.ArticleView, name="article"),
-    url(r'^article_submit/$', views.ArticleCreateView.as_view(), name="article_submit"),
+    url(r'^article_submitt/$', views.CreateArticle.as_view(), name="article_submit"),
+    url(r'^article_submitt/done$', views.CreateArticle.as_view(), name="articles"),
     url(r'^article_edit/(?P<pk>\d+)$', views.article_edit, name="article_edit"),
     url(r'^article_likes/(?P<pk>\d+)$', api.article_likes, name="article_likes"),
 ]

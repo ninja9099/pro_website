@@ -1,7 +1,7 @@
 requirejs.config({
     baseUrl: '/static/src/js',
     paths: {
-        jquery: 'jquery',
+        jquery: 'lib/jquery',
         ck: 'lib/ckeditor/ckeditor',
         underscore: 'lib/underscore-min',
         TweenMax:'lib/TweenMax.min',
@@ -15,7 +15,7 @@ requirejs.config({
 });
 
 
-define(['jquery', 'underscore', 'pop_animate', 'cookie', 'index'], function($, _ , animate, cookie){
+define(['jquery', 'underscore', 'cookie', 'index'], function($, _ , cookie){
         'use strict'
         $.ajaxSetup({
             headers: {

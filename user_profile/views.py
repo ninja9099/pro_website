@@ -164,7 +164,7 @@ def ManageProfile(request, profile_id):
                 raise Http404
             if request.user == profile.user:
                 form = UserProfileForm(instance=profile)
-                return render(request, 'user_profile/userprofile_update_form.html', {'form': form})
+                return render(request, 'userprofile_update_form.html', {'form': form})
             else:
                 raise PermissionDenied
 
@@ -174,7 +174,7 @@ def ManageProfile(request, profile_id):
             user_profile.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'profile_id':request.user.id}))
         else:
-            return render(request, 'user_profile/userprofile_update_form.html', {'form': form})
+            return render(request, 'userprofile_update_form.html', {'form': form})
 
 @receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):

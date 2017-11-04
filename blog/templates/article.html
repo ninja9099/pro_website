@@ -114,7 +114,7 @@
                 <li><a href="#">{{key}}</a>
                     <ul>
                     {% for month, value in value.items %}
-                      <li><a href="#">{{months|get_item:month}} ({{value.count}})</a>
+                      <li><a href="#">{{month|date:"M"}} ({{value.count}})</a>
                         <ul>
                         {% for item in value %}
                             <li><a href="/blog/article/{{item.id}}">{{item}}</a>
