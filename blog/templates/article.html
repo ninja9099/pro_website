@@ -1,0 +1,136 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    lifeinabits| {{article.article_title}}
+{% endblock %}
+
+{% load static %}
+{% block links %}
+<link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'src/css/article.css' %}">
+{% endblock %}
+{% block content%}
+<div class="container">
+    <div class="blog-container">
+        <p class="article-title">An Article</p>
+        <hr>
+        <h1 class="article-heading">{{article.article_title}}</h1>
+        <ul class="article-meta">
+            {% load comments %}
+            {% get_comment_count for article as comment_count %}.
+            <li><i class="fa fa-calendar"></i> {{article.created}}</li>
+            <li><i class="fa fa-comments"></i> {{comment_count}}</li>
+            <li><i class="fa fa-heart"></i> {{article.count_likes}}</li>
+            <li><i class="fa fa-eye"></i> {{article.article_views}}</li>
+
+        </ul>
+        <div class="img-wrapper"><img src="{{article.get_article_image}}"/></div>
+        {% autoescape off %}
+           {{article.article_content}}
+        {% endautoescape %} 
+        <hr>
+        <div id="disqus_thread">
+                {% load comments %}
+                <div class="comment-list">
+                {% get_comment_list for article as comments %}
+                    <div class="comments-container">
+                    <h1>Comments <a href="http://lifeinabits.com">Lifeinabits</a></h1>
+                    <hr>
+                    {% for comment in comments %}
+                        {% include 'comment.html'%}
+                    {% empty %}
+                        <p>No Comments Yet! Be the First to comment</p>    
+                    {% endfor %}
+                    </div>
+                </div>
+                <hr>
+               <div class="comment-form">
+                    {% if user.is_authenticated %}
+                        {% get_comment_form for article as form %}
+                        <h4>Post a Comment</h4>
+                        <form action="{% comment_form_target %}" method="POST">
+                        {% csrf_token %}
+                        {{ form.honeypot }}
+                        {{ form.content_type }}
+                        {{ form.object_pk }}
+                        {{ form.timestamp }}
+                        {{ form.security_hash }}
+                        <textarea class="form-control" cols="40" id="id_comment" maxlength="3000" name="comment" rows="2" required=""></textarea>
+                        <input type="hidden" name="next" value="{% url 'article' article.id %}" />
+                        <input class="btn btn-success" type="submit" value="Comment" id="id_submit" />
+                        </form>
+                    {% else %}
+                        <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+                    {% endif %}
+               </div>
+            </div>
+    </div>
+    <div class="blog-archive fixme">
+        {% include  'search_template.html' %}
+        <!-- for the great thought -->
+        <div class="thought-container search-container">
+            <div class="card-post-author clearfix">
+            <div class="author-img"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
+            <div class="contact">
+              <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
+              <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+              <!-- <a href="https://facebook.com/Pankaj7869" rel="me noopener" target="_blank" title="Facebook"><i class="fa fa-facebook-official"></i></a> -->
+              <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a>
+              <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google-plus-official"></i></a>
+            </div>
+            <div class="author-info">
+            <p class="name"><b>{{article.article_author.get_full_name}}</b></p>
+            <p>
+            {% autoescape off %}
+                {{article.article_author.userprofile.short_intro}}
+            {% endautoescape %}
+            </p>
+            </div>
+        </div>
+        </div>
+        <div class="ad-container search-container">
+            <p>
+               fetured ads
+            </p>
+        </div>
+        <div class="tag-container search-container">
+            <div class="tag-heading"><h4>Article Tags</h4></div>
+            <div class="tags">
+                {% for tag in tags %}
+               <span class="label label-info">{{tag.tag_name}}</span>
+                {% endfor %}
+            </div>
+        </div>
+    <div class="archive-contents ">
+        <div>
+            <h4>Blog Archives</h4>
+        </div>
+        <div class="tags">
+            <ul class="file-tree">
+              {% for key, value in article_analytics.items %}
+
+                <li><a href="#">{{key}}</a>
+                    <ul>
+                    {% for month, value in value.items %}
+                      <li><a href="#">{{months|get_item:month}} ({{value.count}})</a>
+                        <ul>
+                        {% for item in value %}
+                            <li><a href="/blog/article/{{item.id}}">{{item}}</a>
+                        {% endfor %}
+                        </ul>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            </ul>
+        </div>
+    </div>
+  </div>
+</div>
+<style type="text/css">body{background-color: #d8d8d8; background-image: url({% static 'src/images/texture.jpg'%})}</style>
+<script src="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}

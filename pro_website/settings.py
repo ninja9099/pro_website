@@ -23,7 +23,7 @@ SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 LOGIN_URL = '/login/'
 
 # Application definition
@@ -36,12 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'blog',
+    'user_profile',
     'django_comments',
     'rest_framework',
     'tracking',
-    'utils',
-    'user_profile',
-    'blog',
     'social_django',
     'tracking_analyzer',
     'django_user_agents',
@@ -105,9 +104,9 @@ NOTIFICATIONS_USE_JSONFIELD=True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pro_website',
-        'USER': 'pankaj',
-        'PASSWORD': 'pankaj123',
+        'NAME': 'axis',
+        'USER': 'lifeinabits',
+        'PASSWORD': 'life@bits',
         'HOST': 'localhost',
         'PORT': '',
     }

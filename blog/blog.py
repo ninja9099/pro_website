@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 import datetime
-from utils.models import CompressedTextField
 from model_utils.models import TimeStampedModel
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
@@ -21,7 +20,7 @@ class Article(TimeStampedModel):
     article_ratings = models.FloatField(default=0.0, blank=True)
     article_views = models.IntegerField(default=0)
     article_description = models.CharField(max_length=100, default=" ")
-    article_content = CompressedTextField(blank=True)
+    article_content = models.CharField(max_length=5000)
     article_author = models.ForeignKey(User, blank=True)
     article_state = models.CharField(choices=article_states, default='draft', max_length=20)
     article_tags = models.TextField(blank=True, help_text="keaywords for indexing your article in search engins")

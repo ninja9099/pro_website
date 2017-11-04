@@ -24,7 +24,6 @@ from user_profile.forms import UserProfileForm, SignUpForm
 from django.views.decorators.cache import cache_page
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from utils.forms import DivErrorList
 
 
 def user_details(strategy, details, response, user=None, *args, **kwargs):
@@ -126,7 +125,7 @@ def login(request):
             return render(request, 'registration/login.html', {'form': form})
     else:
         next_url = request.GET.get('next') or '/'
-        form = LoginForm(error_class=DivErrorList)    # A empty, unbound form
+        form = LoginForm() # A empty, unbound form
     return render(request, 'registration/login.html', {'form': form, "next":next_url})
 
 def logout(request):

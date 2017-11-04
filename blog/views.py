@@ -28,7 +28,7 @@ def index(request):
 class ArticleCreateView(CreateView):
    model=Article
    fields='__all__'
-   template_name = 'blog/article_template.html'
+   template_name = 'article_template.html'
    
 
 @login_required
@@ -39,12 +39,12 @@ def article_edit(request, **kwargs):
             article = get_object_or_404(Article, pk=kwargs.get('pk'))
             if request.user == article.article_author:
                 form  = ArticleFrom(instance=article)
-                return render(request, 'blog/article_template.html', {"form":form} )
+                return render(request, 'article_template.html', {"form":form} )
             else:
                 return HttpResponse('<h1>Error 403 Not Allowed</h1>')
         else:
             article_form = ArticleFrom()
-            return render(request, 'blog/article_template.html', {"form":article_form})
+            return render(request, 'article_template.html', {"form":article_form})
 
     if request.method =='POST':
         import pdb
@@ -67,7 +67,7 @@ def article_edit(request, **kwargs):
                 pdb.set_trace()
                 form=ArticleFrom(request.POST, instance=article_instance)
 
-        return render(request, 'blog/article_template.html', {"form":form} )
+        return render(request, 'article_template.html', {"form":form} )
 
 
 def user_liked(user_id, article_id):
@@ -105,7 +105,7 @@ def BlogIndex(request, **kwargs):
                 "likes":item.count_likes(),
                 "user_liked":user_liked(request.user.id, item.id)
                 })
-        return render( request, 'blog/gallery.html', { 'article_page':article_page, 'articles_json': articles_json})
+        return render( request, 'gallery.html', { 'article_page':article_page, 'articles_json': articles_json})
 
 
 def ArticleView(request, pk):
@@ -114,7 +114,7 @@ def ArticleView(request, pk):
     months= {1:'Jan', 2:'Fab',3:'Mar', 4:'Apr', 5:'May', 6:'Jun',7:'Jul',8:'Aug', 9:'Sep', 10:'Oct',11:'Nov', 12:'Dec'}
     article = get_object_or_404(Article, pk=pk, article_state='published')
     Tracker.objects.create_from_request(request, article)
-    return render(request, 'blog/article.html', {'tags':ArticleTags.objects.all(), "months": months, "article": article, "article_analytics": article_analytics(request)})
+    return render(request, 'article.html', {'tags':ArticleTags.objects.all(), "months": months, "article": article, "article_analytics": article_analytics(request)})
 
 def article_analytics(request):
     query_set = Article.objects.order_by('-created')
