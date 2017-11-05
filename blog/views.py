@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import datetime
+import markdown
 from collections import OrderedDict
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleForm
 from blog import Article, ArticleLikes
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.views.generic.edit import UpdateView
@@ -14,7 +15,7 @@ from django.core.urlresolvers import reverse_lazy
 from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.cache import cache_page
-#  for comments 
+#  for comments
 from notifications.signals import notify
 from django_comments.signals import comment_was_posted
 from django.dispatch import receiver
@@ -35,14 +36,17 @@ def create_article(request):
     if request.method=="GET":
         form = ArticleForm()
 
-    if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)
+    if request.is_ajax() and request.method == "POST":
+        form = ArticleForm(request.POST, request.FILES)   
         if form.is_valid():
             article_instance = form.save(commit=False)
             article_instance.article_state = "draft"
             article_instance.article_author = request.user
             article_instance.save()
-
+            return JsonResponse({'success':True, 'message':'Your article is saved at <a href="/bolg/article/{}" (article_instance)'})
+        else:
+            return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
+    
     return render(request, 'article_template.html', {"form":form} )
 
 
@@ -58,8 +62,6 @@ def edit_article(request, pk):
             return HttpResponse('<h1>Error 403 Not Allowed</h1>')
 
     if request.method =='POST':
-        import pdb
-        pdb.set_trace()
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid() and form.is_multipart():
             article_instance = form.save(commit=False)
@@ -131,11 +133,13 @@ def article_analytics(request):
             pass
     return article_by_year
 
-
+@login_required
 def article_preview(request):
+    import pdb
+    pdb.set_trace()
     try:
         if request.method == 'POST':
-            content = request.POST.get('content')
+            content = request.POST.get('article_content')
             html = 'Nothing to display :('
             if len(content.strip()) > 0:
                 html = markdown.markdown(content, safe_mode='escape')

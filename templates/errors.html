@@ -1,0 +1,18 @@
+
+<div class="alert alert-danger fade in alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+		{{ form.non_field_errors }}
+		{% for field in form %}
+			{% if field.errors %}
+		    	<strong>{{ field.label }}</strong> {{ field.errors|striptags }}<br>
+			{% endif %}
+	{% endfor %}
+	<style type="text/css">
+		.toast{
+			max-width: 299px;
+    		position: absolute;
+    		right: 122px;
+    		top: 110px;
+		}
+	</style>
+</div>

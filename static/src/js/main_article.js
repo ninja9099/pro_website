@@ -15,13 +15,8 @@ requirejs.config({
 });
 
 
-define(['jquery', 'underscore', 'cookie', 'index'], function($, _ , cookie){
+define(['jquery', 'underscore', 'index', 'lib/ajax_setup'], function($, _ , cookie){
         'use strict'
-        $.ajaxSetup({
-            headers: {
-                'X-CSRFToken': $.cookie('csrftoken')
-            },
-        });
 		var ajax_caller = (function(self, $){
 
 				var errorHtml = _.template("<ul><li class='error'>Error: <%= error %>"

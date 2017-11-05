@@ -10,9 +10,11 @@
   {% block entrypoint %}
       <script type="text/javascript" data-main="{% static 'src/js/article_editor.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
   {% endblock %}
-      <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Teko:400,700" rel="stylesheet">
-      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Teko:400,700" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+
   <section id="contact">
       <div class="section-content">
         <h1 class="section-header">Get in <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> Write with us</span></h1>
@@ -21,53 +23,68 @@
       <div class="contact-section">
       <div class="container">
         <form action="" method="post" enctype="multipart/form-data">
+          {% if form.errors %}
+            {% include 'errors.html' with form=form %}
+          {% endif %}
           {% csrf_token %}
           {{form.article_state}}
           <div class="col-md-3 form-line">
               <div class="form-group">
                 <label for="id_article_title">Title</label>
                 {{form.article_title}}
-                <span class="error">{{form.article_title.error}}</span>
               </div>
               <div class="form-group">
                 <label for="id_article_image">Image</label>
                 {{form.article_image}}
-                <span class="error">{{form.article_image.errors}}</span>
               </div>  
               <div class="form-group">
                 <label for="id_article_category">Catagory</label>
                 {{form.article_category}}
-                <span class="error">{{form.article_image.errors}}</span>
 
               </div>
               <div class="form-group">
                 <label for="id_article_subcategory">Sub Catagory</label>
                 {{form.article_subcategory}}
-                <span class="error">{{form.articl_subcategory.errors}}</span>
 
               </div>
               <div class="form-group">
                 <label for="id_tags">Tags</label>
                 {{form.tags}}
-                <span class="error">{{form.tags.errors}}</span>
               </div>
             </div>
             <div class="col-md-9">
               <div class="form-group">
                 <label class="id_article_content" for="{{ form.article_content.id_for_label }}">Article Body</label>
                 {{ form.article_content }}
-                <span class="error">{{form.article_content.errors}}</span>
 
               </div>
               <div>
-                <button type="submit" class="btn btn-default submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></i>  Save </button>
-                <button type="submit" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i> Preview </button>
-                <button type="submit" class="btn btn-default submit"><i class="fa fa-envelope" aria-hidden="true"></i> Draft </button>
+                <button id="save" type="submit" class="btn btn-default submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></i>  Save </button>
+                <button id="preview" type="submit" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i> Preview </button>
+                <button id="draft" type="submit" class="btn btn-default submit"><i class="fa fa-envelope" aria-hidden="true"></i> Draft </button>
               </div>
           </div>
         </form>
       </div>
     </section>
+<!-- for popup modal -->
+    <div class="modal fade" id="article_preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   {% load static %}
 <script data-main="{% static 'src/js/article' %}" src="{%static '/src/js/lib/require.js' %}"></script>
 <style type="text/css">
