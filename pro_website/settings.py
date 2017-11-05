@@ -210,6 +210,11 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 }
 
 
+# settings related to article
+# override to change default image of article
+DEFAULT_ARTICLE_IMAGE = '/media/static/blog/article_images/default.png'
+IMAGE_PATH = 'static/blog/article_images'
+TAGGIT_CASE_INSENSITIVE = True
 # google map integration for traffic tracking
 GOOGLE_MAPS_KEY = 'AIzaSyA9K2hNBywL_sdb-8If9Ce5XjtyGNxgQA8'
 GOOGLE_PLACE_ID = 'ChIJhc2TaOeCXjkRxoHDjRwlAtM'

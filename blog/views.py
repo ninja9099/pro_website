@@ -30,24 +30,25 @@ from django.template.loader import render_to_string
 def index(request):
     return render(request, 'index.html')
 
+@login_required
+def create_article(request):
+    if request.method=="GET":
+        form = ArticleForm()
 
-class CreateArticle(LoginRequiredMixin, CreateView):
-    """
-    """
-    template_name = 'article_template.html'
-    form_class = ArticleForm
-    success_url = reverse_lazy('articles')
+    if request.method == "POST":
+        form = ArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            article_instance = form.save(commit=False)
+            article_instance.article_state = "draft"
+            article_instance.article_author = request.user
+            article_instance.save()
 
-    def form_valid(self, form):
-        import pdb
-        pdb.set_trace()
-        form.instance.article_author = self.request.user
-        return super(CreateArticle, self).form_valid(form)
+    return render(request, 'article_template.html', {"form":form} )
 
 
 @login_required
 @permission_required('blog.change_article', raise_exception=True)
-def article_edit(request, pk):
+def edit_article(request, pk):
     article = get_object_or_404(Article, pk=pk)
     if request.method =='GET': 
         if request.user == article.article_author:
@@ -57,6 +58,8 @@ def article_edit(request, pk):
             return HttpResponse('<h1>Error 403 Not Allowed</h1>')
 
     if request.method =='POST':
+        import pdb
+        pdb.set_trace()
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid() and form.is_multipart():
             article_instance = form.save(commit=False)
@@ -77,12 +80,12 @@ def BlogIndex(request, **kwargs):
     '''
     view for Homepage of blog
     '''
-    
+
     # prepare for launching the jason data
     articles_json = []
     if request.method == "GET":
 
-        query_set = Article.objects.all().order_by('-article_views',  '-created')
+        query_set = Article.get_published().order_by('-article_views',  '-created')
         paginator = Paginator(query_set, 15)
         page = request.GET.get('page')
         try:

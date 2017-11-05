@@ -9,22 +9,25 @@ from model_utils.models import TimeStampedModel
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
-
-image_path = 'static/blog/article_images'
 
 article_states = [('published', 'Published'), ('draft', 'Draft'), ('approval', 'Approval'), ('archived', "Archived")]
 class Article(TimeStampedModel):
 
+    IMAGE_PATH = settings.IMAGE_PATH
+    DEFAULT_IMAGE = settings.DEFAULT_ARTICLE_IMAGE
+
+
     article_title = models.CharField(max_length=255, db_index=True,help_text="please provide title of your article", unique=True)
-    article_image = models.ImageField(upload_to=image_path, height_field=None, width_field=None, blank=True, default="static/blog/article_images/default.png")
+    article_image = models.ImageField(upload_to=IMAGE_PATH, height_field=None, width_field=None, blank=True, default="static/blog/article_images/default.png")
     article_category = models.ForeignKey('Category', on_delete=models.CASCADE)
     article_subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     article_followed = models.IntegerField(default=0)
     article_ratings = models.FloatField(default=0.0, blank=True)
     article_views = models.IntegerField(default=0)
     article_content = models.CharField(max_length=5000)
-    article_author = models.ForeignKey(User, blank=True)
+    article_author = models.ForeignKey(User)
     article_state = models.CharField(choices=article_states, default='draft', max_length=20)
     article_flike_url = models.URLField('Like plugin url', blank=True)
     slug = models.SlugField(max_length=250, blank=True)
@@ -48,7 +51,7 @@ class Article(TimeStampedModel):
         try:
             return self.article_image.url
         except:
-            return '/media/static/blog/article_images/default.png'
+            return DEFAULT_IMAGE
 
     def get_content_as_markdown(self):
         return markdown.markdown(self.article_content, safe_mode='escape')
