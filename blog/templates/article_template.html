@@ -87,6 +87,8 @@
   {% load static %}
 <script data-main="{% static 'src/js/article' %}" src="{%static '/src/js/lib/require.js' %}"></script>
 <style type="text/css">
+
+
   /*Contact sectiom*/
 #cke_id_article_content{
   border:none !important;
@@ -97,7 +99,22 @@
   color:#fcc500;
   font-size: 45px;
 }
-
+#save{
+  position: relative;
+}
+.unsaved{
+  border-bottom: 2px solid yellow;
+}
+.saving:before{
+  content: url(/static/src/images/loader27.gif);
+  color: red !important;
+  position: absolute;
+  background: #425a7e;
+  width: 143px;
+  top: 1px;
+  left: 2px;
+  height: 32px; 
+}
 input[type=file]{
   padding: 3px !important;
 }

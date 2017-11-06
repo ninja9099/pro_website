@@ -6,10 +6,12 @@ require(['config'], function(){
 	        var editor = CKEDITOR.replace( 'id_article_content' );
 	        var url = $('#url').val()
 	        // method for obseving changes in editor
-	  		//       editor.on( 'change', function( evt ) {
-			// 	    // getData() returns CKEditor's HTML content.
-			// 	    console.log( 'Total bytes: ' + evt.editor.getData().length );
-			// });
+	  		      editor.on( 'change', function( evt ) {
+				    // getData() returns CKEditor's HTML content.
+				    console.log( 'Total bytes: ' + evt.editor.getData().length );
+				    $('#save').addClass('unsaved')
+			});
+	  		      
 	        $("#preview").click(function(e){
 	        	var data = CKEDITOR.instances.id_article_content.getData();
 		        e.preventDefault()
@@ -18,12 +20,12 @@ require(['config'], function(){
 			      data: {'article_content':data},
 			      cache: false,
 			      type: 'post',
-			       timeout: 3000,
+			      timeout: 3000,
 			      beforeSend: function () {
-			        $("#article_preview .modal-body").html("<div style='text-align: center; padding-top: 1em'><img src='/static/src/images/loader.gif'></div>");
-			        $('.modal').modal('show')
+			        $('#save').addClass('saving')
 			      },
 			      success: function (data) {
+			      	$('#save').removeClass('saving')
 			        $("#article_preview .modal-body").html($.parseHTML(data));
 			      	$('.modal').modal('show')
 			      }
@@ -44,20 +46,23 @@ require(['config'], function(){
 			      type: 'post',
 			      timeout: 30000,
 			      beforeSend: function () {
-			        $("#article_preview .modal-body").html("<div style='text-align: center; padding-top: 1em'><img src='/static/src/images/loader.gif'></div>");
-			        $('.modal').modal('show')
+			      	$('#save').addClass('saving')
 			      },
 			      success: function (data) {
 			      	if (data.success){
+			      		$('#save').removeClass('saving')
+			      		$('#save').removeClass('unsaved')
 				        $("#article_preview .modal-body").html(data.message);
 				      	$('.modal').modal('show')
 			      	}
 			      	else{
+			      		$('#save').removeClass('saving')
 			      		$("#article_preview .modal-body").html($.parseHTML(data.error));
 				      	$('.modal').modal('show')
 			      	}
 			      	},
 			      	error:function(data){
+			      		$('#save').removeClass('saving')
 			      		$("#article_preview .modal-body").text(data);
 				      	$('.modal').modal('show')
 			      	}
