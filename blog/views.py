@@ -25,7 +25,8 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.loader import render_to_string
-
+from django.urls import reverse
+from taggit.utils import edit_string_for_tags
 
 # homepage
 def index(request):
@@ -43,11 +44,12 @@ def create_article(request):
             article_instance.article_state = "draft"
             article_instance.article_author = request.user
             article_instance.save()
-            return JsonResponse({'success':True, 'message':'Your article is saved at <a href="/bolg/article/{}" (article_instance)'})
+            form.save_m2m()
+            return JsonResponse({'success':True, 'message':'Your article is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
         else:
             return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
     
-    return render(request, 'article_template.html', {"form":form} )
+    return render(request, 'article_template.html', {"form":form, 'url':reverse('article_submit')})
 
 
 @login_required
@@ -57,15 +59,22 @@ def edit_article(request, pk):
     if request.method =='GET': 
         if request.user == article.article_author:
             form  = ArticleForm(instance=article)
-            return render(request, 'article_template.html', {"form":form} )
+            return render(request, 'article_template.html', {"form":form, 'url':reverse('article_edit', kwargs={'pk':article.id})})
         else:
             return HttpResponse('<h1>Error 403 Not Allowed</h1>')
 
-    if request.method =='POST':
+    if request.method =='POST' and request.is_ajax():
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid() and form.is_multipart():
+            import pdb
+            pdb.set_trace()
             article_instance = form.save(commit=False)
             article_instance.save()
+            form.save_m2m()
+            return JsonResponse({'success':True, 'message':'Your article is saved'})
+        else:
+            return JsonResponse({'success':False, "error":render_to_string('errors.html', {'form':form})})
+
 
     return render(request, 'article_template.html', {"form":form} )
 
@@ -135,8 +144,6 @@ def article_analytics(request):
 
 @login_required
 def article_preview(request):
-    import pdb
-    pdb.set_trace()
     try:
         if request.method == 'POST':
             content = request.POST.get('article_content')
@@ -164,6 +171,5 @@ def Rec(sender, **kwargs):
 
 @receiver(post_save, sender=Article)
 def ArticleReciever(sender, **kwargs):
-    import pdb
-    pdb.set_trace()
+    pass
     # notify.send(user, recipient=user, verb='you reached level 10')

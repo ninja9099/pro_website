@@ -13,8 +13,6 @@
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Teko:400,700" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  
-
   <section id="contact">
       <div class="section-content">
         <h1 class="section-header">Get in <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> Write with us</span></h1>
@@ -28,6 +26,7 @@
           {% endif %}
           {% csrf_token %}
           {{form.article_state}}
+          <input id="url" type="hidden" name="url" value="{{url}}"/>
           <div class="col-md-3 form-line">
               <div class="form-group">
                 <label for="id_article_title">Title</label>
