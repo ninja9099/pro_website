@@ -91,7 +91,6 @@ def BlogIndex(request, **kwargs):
     '''
     view for Homepage of blog
     '''
-
     # prepare for launching the jason data
     articles_json = []
     if request.method == "GET":
@@ -122,7 +121,8 @@ def ArticleView(request, pk):
     '''View for displaying the article on the page includes analytics '''
     article = get_object_or_404(Article, pk=pk, article_state='published')
     Tracker.objects.create_from_request(request, article)
-    return render(request, 'article.html', {'tags':'', "article": article, "article_analytics": article_analytics(request)})
+    popular_tags = Article.get_counted_tags()
+    return render(request, 'article.html', {'popular_tags':popular_tags, "article": article, "article_analytics": article_analytics(request)})
 
 
 def article_analytics(request):
@@ -158,6 +158,13 @@ def article_preview(request):
 
     except Exception:   # pragma: no cover
         return HttpResponseBadRequest()
+
+
+@login_required
+def tag(request, tag_name):
+    articles = Article.objects.filter(tags__name=tag_name).filter(article_state='published')
+    popular_tags = Article.get_counted_tags()
+    return render(request, 'tagged_articles.html',{'tag_name':tag_name, 'popular_tags':popular_tags, 'articles':articles} )
 
 
 @receiver(comment_was_posted)

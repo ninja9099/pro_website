@@ -114,8 +114,6 @@ def login(request):
                     request.session['username'] = username
                     if remember:
                         settings.SESSION_COOKIE_AGE = 24 * 365 * 3600
-                    import pdb
-                    pdb.set_trace()
                     if request.POST.get('next'): # FIXME Find some  batter way to do this
                         return HttpResponseRedirect(request.POST.get('next'))
                 else:
@@ -126,8 +124,6 @@ def login(request):
         else:     
             return render(request, 'registration/login.html', {'form': form})
     else:
-        import pdb
-        pdb.set_trace()
         next_url = request.GET.get('next') or '/'
         form = LoginForm() # A empty, unbound form
     return render(request, 'registration/login.html', {'form': form, "next":next_url})

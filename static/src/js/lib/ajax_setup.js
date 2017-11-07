@@ -1,7 +1,16 @@
-define(['jquery','lib/jquery.cookie'], function($, cookie){
-	$.ajaxSetup({
-	    headers: {
-	        'X-CSRFToken': $.cookie('csrftoken')
-	    },
-	});
+define('ajax',
+	['jquery','cookie'],
+	function($, cookie){
+		return {
+			init:function(){
+				$.ajaxSetup({
+		    		headers: {
+		        		'X-CSRFToken': $.cookie('csrftoken')
+		    		}	
+				});
+			},
+			start:function(){
+					this.init();
+			}	
+		}
 });

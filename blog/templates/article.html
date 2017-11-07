@@ -12,6 +12,9 @@
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/article.css' %}">
 {% endblock %}
 {% block content%}
+{% block entrypoint %}
+    <script data-main="{% static '/src/js/article.js' %}" src="{% static ''%}"></script>
+{% endblock %}
 <div class="container">
     <div class="blog-container">
         <p class="article-title">An Article</p>
@@ -98,8 +101,8 @@
         <div class="tag-container search-container">
             <div class="tag-heading"><h4>Article Tags</h4></div>
             <div class="tags">
-                {% for tag in tags %}
-               <span class="label label-info">{{tag.tag_name}}</span>
+                {% for tag, count in popular_tags %}
+                    <a href="{% url 'tag' tag %}"><span class="label label-default">{{ tag }} {{ count }}</span></a>
                 {% endfor %}
             </div>
         </div>

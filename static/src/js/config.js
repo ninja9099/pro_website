@@ -1,4 +1,6 @@
+console.log('config file loaded')
 requirejs.config({
+
     baseUrl: '/static/src/js',
     paths: {
         jquery: 'lib/jquery',
@@ -6,6 +8,7 @@ requirejs.config({
         ck: 'lib/ckeditor/ckeditor',
         underscore: 'lib/underscore-min',
         cookie : 'lib/jquery.cookie',
+        ajax:'lib/ajax_setup',
     },
      shim: {
         "underscore": {

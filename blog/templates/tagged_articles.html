@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% block content%}
+	{% block entrypoint %}
+		{% load static %}
+		<script data-main="{% static 'src/js/tag_view.js' %}" src="{% static '/src/js/lib/require.js' %}"></script>
+	{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'src/css/tag_view.css' %}"/>
+<div class="full-width">
+    <div class='cf'>
+      <div class="Switch card">
+        <div class="Toggle"></div>
+        <span class="on"><i class="fa fa-th"></i></span>
+        <span class="off"><i class="fa fa-th-list"></i></span>
+      </div>
+    </div>
+      
+    <div class="col-md-3">
+      <div class="card-view">
+          <div class='bg'>
+            <img src="https://s4.postimg.org/ysci5cbcd/com1.jpg" alt="company image">
+          </div>
+        <div class="container1">
+          <a href='#'><div class="tag_name red">work / life balance</div></a>
+          <div class="company">
+            <div class="c_logo">
+              <a href="#"><img src="https://s10.postimg.org/k7scmco79/focuslab.jpg" alt="Focus Lab"></a>
+            </div>
+            <div class="c_info">
+              <a href="#" class="c_name">Focus Lab</a><br>
+              <span class="c_industry">Digital Media</span><br>
+              <span id="c_stars" data-star="3.5"></span>
+              <div class="c_num">3.5</div >
+            </div>
+            <div class="c_content">
+              <a href='#' class="title"><p>The most briliant company that I’ve ever worked for</p></a>
+              <p class="review">Amazing opportunities for any person. The projects we are given always stress new and innovating ideas that constantly challenge ourselves to improve our ...</p>
+            </div>
+          </div> <!-- end .company -->
+
+          <div class="user">
+            <div class="user_avatar">
+              <img src="https://s4.postimg.org/la5lt1z6x/image.jpg" alt="Bill Kenny">
+            </div>
+            <div class="user_info">
+              <a href="#" class="user_name orange">Bill Kenny</a> • May 30, 2015<br>Current Brand Director
+            </div>
+          </div> <!-- end .user -->
+        </div> <!-- end .container1 -->
+      </div> <!-- end card -->
+
+      <div class="card-view">
+        <div class="container1">
+          <a href='#'><div class="tag_name blue">Salary &amp; Benefit</div></a>
+          <div class="company">
+            <div class="c_logo">
+              <a href="#"><img src="https://s24.postimg.org/a4jaok74x/lo2.jpg" alt="SSS"></a>
+            </div>
+            <div class="c_info">
+              <a href="#" class="c_name">Silicon Straits Saigon</a><br>
+              <span class="c_industry">Information Technology</span><br>
+              <span id="c_stars" data-star="4"></span>
+              <div class="c_num">4.0</div >
+            </div>
+            <div class="c_content">
+              <a href='#' class="title"><p>Enjoying myself so much I no longer call it work</p></a>
+              <p class="review">Because we all love our job, we're a super passionate team and we always look out for each other. That passion really shows, from the general way our business is ...</p>
+            </div>
+          </div> <!-- end .company -->
+          <div class="user">
+            <div class="user_avatar">
+              <img src="https://s1.postimg.org/48vr8yjaz/image.gif" alt="Kent Nguyen">
+            </div>
+            <div class="user_info">
+              <a href="#" class="user_name orange">Kent nguyen</a> • May 30, 2015<br>Current CEO
+            </div>
+          </div> <!-- end .user -->
+        </div> <!-- end .container1 -->
+      </div> <!-- end card -->
+
+      <div class="card-view">
+          <div class='bg'>
+            <img src="https://s18.postimg.org/4m9u2dlqx/com3.jpg" alt="company image">
+          </div>
+        <div class="container1">
+          <a href='#'><div class="tag_name yellow">Company Culture</div></a>
+          <div class="company">
+            <div class="c_logo">
+              <a href="#"><img src="https://s18.postimg.org/er3we7exh/lo3.jpg" alt="Dribbble"></a>
+            </div>
+            <div class="c_info">
+              <a href="#" class="c_name">Dribbble</a><br>
+              <span class="c_industry">Design Community</span><br>
+              <span id="c_stars" data-star="3.5"></span>
+              <div class="c_num">3.5</div >
+            </div>
+            <div class="c_content">
+              <a href='#' class="title"><p>The most briliant company that I’ve ever worked for</p></a>
+              <p class="review">Amazing opportunities for any person. The projects we are given always stress new and innovating ideas that constantly challenge ourselves to improve our ...</p>
+            </div>
+          </div> <!-- end .company -->
+
+          <div class="user">
+            <div class="user_avatar">
+              <img src="https://s18.postimg.org/r36srp2s5/image.jpg" alt="Danis Jack">
+            </div>
+            <div class="user_info">
+              <a href="#" class="user_name orange">Danis Jack</a> • May 30, 2015<br>Current Brand Director
+            </div>
+          </div> <!-- end .user -->
+        </div> <!-- end .container1 -->
+      </div> <!-- end card -->
+
+      <div class="card-view">
+          <div class='bg'>
+            <img src="https://s18.postimg.org/som2jid09/com4.jpg" alt="company image">
+          </div>
+        <div class="container1">
+          <a href='#'><div class="tag_name green">Senior Management</div></a>
+          <div class="company">
+            <div class="c_logo">
+              <a href="#"><img src="https://s18.postimg.org/8rg5aju51/lo4.gif" alt="W&amp;S"></a>
+            </div>
+            <div class="c_info">
+              <a href="#" class="c_name">W&amp;S Group</a><br>
+              <span class="c_industry">Research Community</span><br>
+              <span id="c_stars" data-star="4.5"></span>
+              <div class="c_num">4.5</div >
+            </div>
+            <div class="c_content">
+              <a href='#' class="title"><p>My boss my hero</p></a>
+              <p class="review">Amazing opportunities for any person. The projects we are given always stress new and innovating ideas that constantly challenge ourselves to improve our ...</p>
+            </div>
+          </div> <!-- end .company -->
+
+          <div class="user">
+            <div class="user_avatar">
+              <img src="https://s18.postimg.org/pa3w3dhlh/image.jpg" alt="Karmi Phuc">
+            </div>
+            <div class="user_info">
+              <a href="#" class="user_name orange">Karmi Phuc</a> • May 30, 2015<br>Current Project Manager
+            </div>
+          </div> <!-- end .user -->
+        </div> <!-- end .container1 -->
+      </div> <!-- end card -->
+
+      <div class="card-view">
+          <div class='bg'>
+            <img src="https://s18.postimg.org/4wcr7zazd/com5.jpg" alt="company image">
+          </div>
+        <div class="container1">
+          <a href='#'><div class="tag_name cyan">Organization</div></a>
+          <div class="company">
+            <div class="c_logo">
+              <a href="#"><img src="https://s18.postimg.org/fs453bvx1/lo5.gif" alt="Medium"></a>
+            </div>
+            <div class="c_info">
+              <a href="#" class="c_name">Medium</a><br>
+              <span class="c_industry">Digital Media</span><br>
+              <span id="c_stars" data-star="5"></span>
+              <div class="c_num">5.0</div >
+            </div>
+            <div class="c_content">
+              <a href='#' class="title"><p>The most briliant company that I’ve ever worked for</p></a>
+              <p class="review">Amazing opportunities for any person. The projects we are given always stress new and innovating ideas that constantly challenge ourselves to improve our ...</p>
+            </div>
+          </div> <!-- end .company -->
+
+          <div class="user">
+            <div class="user_avatar">
+              <img src="https://s18.postimg.org/thyoc4j11/image.gif" alt="Ev Williams">
+            </div>
+            <div class="user_info">
+              <a href="#" class="user_name orange">Evan Williams</a> • May 30, 2015<br>Current Brand Director
+            </div>
+          </div> <!-- end .user -->
+        </div> <!-- end .container1 -->
+      </div> <!-- end card -->
+    
+      <div class="card-view">
+        <div class="container1">
+          <a href='#'><div class="tag_name red">work / life balance</div></a>
+          <div class="company">
+            <div class="c_logo">
+              <a href="#"><img src="https://s18.postimg.org/3l4zzifdh/lo6.jpg" alt="Linkedin"></a>
+            </div>
+            <div class="c_info">
+              <a href="#" class="c_name">Linkedin</a><br>
+              <span class="c_industry">Information Technology</span><br>
+              <span id="c_stars" data-star="3"></span>
+              <div class="c_num">3.0</div >
+            </div>
+            <div class="c_content">
+              <a href='#' class="title"><p>Fantastic organisation to work</p></a>
+              <p class="review">True adherence to non discrimination policy. If you are young then rest assure that you will not finish up on the retrenchment list in the later age because of ...</p>
+            </div>
+          </div> <!-- end .company -->
+          <div class="user">
+            <div class="user_avatar">
+              <img src="https://s18.postimg.org/9xk59cifp/image.gifhttp://imgur.com/R6qhkWo.gif" alt="Yukino Kinoshita">
+            </div>
+            <div class="user_info">
+              <a href="#" class="user_name orange">Yukino Kinoshita</a> • May 30, 2015<br>Current Brand Director
+            </div>
+          </div> <!-- end .user -->
+        </div> <!-- end .container1 -->
+      </div> <!-- end card -->
+    
+    </div> <!-- end col-md-3 -->
+</div>
+{% endblock %}

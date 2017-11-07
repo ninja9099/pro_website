@@ -1,8 +1,9 @@
 require(['config'], function(){
-	require(['jquery', 'lib/ckeditor/ckeditor', 'bootstrap', 'lib/ajax_setup'], function($, ck, bootstrap){
+	require(['jquery', 'ck', 'bootstrap', 'ajax'], function($, ck, bootstrap, ajax){
+		debugger;
 		$(document).ready(function(){
 	        $("[id^='id_']").addClass('form-control');
-
+	        ajax.init()
 	        var editor = CKEDITOR.replace( 'id_article_content' );
 	        var url = $('#url').val()
 	        // method for obseving changes in editor
@@ -22,10 +23,10 @@ require(['config'], function(){
 			      type: 'post',
 			      timeout: 3000,
 			      beforeSend: function () {
-			        $('#save').addClass('saving')
+			        $('#preview').addClass('saving')
 			      },
 			      success: function (data) {
-			      	$('#save').removeClass('saving')
+			      	$('#preview').removeClass('saving')
 			        $("#article_preview .modal-body").html($.parseHTML(data));
 			      	$('.modal').modal('show')
 			      }
