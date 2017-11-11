@@ -32,9 +32,9 @@ nav{position:relative;width:980px;margin:0 auto;}
 #cssmenu{font-family:sans-serif;background:#333; height: 54px;}
 #cssmenu ul{float: right; margin-bottom: 0px; height: inherit; padding: 0;}
 #cssmenu > ul > li{float:left; height: inherit;padding: 10px 0px; }
-#cssmenu > ul > li > a{text-transform: uppercase; padding:10px 12px; font-size:14px;letter-spacing:0px;text-decoration:none;color:#ddd;font-weight:100;font-family: 'Roboto', sans-serif;}
+#cssmenu > ul > li > a{text-transform: capitalize; padding:10px 12px; font-size:14px;letter-spacing:0px;text-decoration:none;color:#ddd;font-weight:100;font-family: 'Roboto', sans-serif;}
 #cssmenu > ul > li:hover > a,#cssmenu ul li.active a{color:#fff}
-#cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{border-bottom: 5px solid #448D00;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
+#cssmenu > ul > li:hover,#cssmenu ul li.active:hover,#cssmenu ul li.active,#cssmenu ul li.has-sub.active:hover{border-bottom: 3px solid #448D00;-webkit-transition:background .3s ease;-ms-transition:background .3s ease;transition:background .3s ease;}
 #cssmenu > ul > li.has-sub > a{padding-right:30px}
 #cssmenu > ul > li.has-sub > a:after{position:absolute;top:22px;right:11px;width:8px;height:2px;display:block;background:#ddd;content:''}
 #cssmenu > ul > li.has-sub > a:before{position:absolute;top:19px;right:14px;display:block;width:2px;height:8px;background:#ddd;content:'';-webkit-transition:all .25s ease;-ms-transition:all .25s ease;transition:all .25s ease}

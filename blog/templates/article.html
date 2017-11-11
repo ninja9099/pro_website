@@ -7,6 +7,11 @@
 
 {% load static %}
 {% block links %}
+<style type="text/css">@font-face {
+    font-family: pro-fonts;
+    src: url('/static/src/fonts/SourceSansPro-Regular.otf')format('opentype');
+}
+</style>
 <link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/article.css' %}">
@@ -15,21 +20,20 @@
 {% block entrypoint %}
     <script data-main="{% static '/src/js/article.js' %}" src="{% static ''%}"></script>
 {% endblock %}
+<div class="blog-banner">
+   <img src="{{article.get_article_image}}"/>
+    <div class="container">
+        <h1 class="yl">{{article.article_title}}</h1>
+        <p class="yl-p right">
+            {% load comments %}
+            {% get_comment_count for article as comment_count %}
+            <i class="fa fa-calendar"></i> {{article.created}}
+        </p>
+        </h2>
+    </div>    
+</div>
 <div class="container">
     <div class="blog-container">
-        <p class="article-title">An Article</p>
-        <hr>
-        <h1 class="article-heading">{{article.article_title}}</h1>
-        <ul class="article-meta">
-            {% load comments %}
-            {% get_comment_count for article as comment_count %}.
-            <li><i class="fa fa-calendar"></i> {{article.created}}</li>
-            <li><i class="fa fa-comments"></i> {{comment_count}}</li>
-            <li><i class="fa fa-heart"></i> {{article.count_likes}}</li>
-            <li><i class="fa fa-eye"></i> {{article.article_views}}</li>
-
-        </ul>
-        <div class="img-wrapper"><img src="{{article.get_article_image}}"/></div>
         {% autoescape off %}
            {{article.article_content}}
         {% endautoescape %} 
@@ -73,13 +77,20 @@
     <div class="blog-archive fixme">
         {% include  'search_template.html' %}
         <!-- for the great thought -->
+        <div class="search-container">
+            <p class="yellow">
+               <strong>Category</strong>
+            </p>
+            <ul>
+                <li><a href="/category/{{article.article_category.id}}"><i class="fa fa-arrow-right"></i> {{article.article_category}}</li></a>
+            </ul>
+        </div>
         <div class="thought-container search-container">
             <div class="card-post-author clearfix">
             <div class="author-img"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
             <div class="contact">
               <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
               <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
-              <!-- <a href="https://facebook.com/Pankaj7869" rel="me noopener" target="_blank" title="Facebook"><i class="fa fa-facebook-official"></i></a> -->
               <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a>
               <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google-plus-official"></i></a>
             </div>
@@ -107,9 +118,9 @@
             </div>
         </div>
     <div class="archive-contents ">
-        <div>
-            <h4>Blog Archives</h4>
-        </div>
+        <p class="yellow">
+            <strong> Blog Archives </strong>
+        </p>
         <div class="tags">
             <ul class="file-tree">
               {% for key, value in article_analytics.items %}
@@ -131,9 +142,18 @@
             </ul>
         </div>
     </div>
+    <div class="search-container">
+        <p class="yellow">
+            <strong>Recent Posts</strong>
+        </p>
+        {% for article in article.objects.all | slice : %}
+        <ul>
+            <li></li>
+        </ul>
+        {% endfor %}
+    </div>
   </div>
 </div>
-<style type="text/css">body{background-color: #d8d8d8; background-image: url({% static 'src/images/texture.jpg'%})}</style>
 <script src="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}

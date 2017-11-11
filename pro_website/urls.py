@@ -19,8 +19,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from user_profile import views as custom_auth_views
-from blog import blog, views as article_views
-from django.conf.urls import (handler400, handler403, handler404, handler500)
+from blog import views as article_views
+from django.conf.urls import (handler403, handler404, handler500)
 import notifications.urls
 
 handler404 = 'blog.errorhandler.handler404'
@@ -29,7 +29,7 @@ handler403 = 'blog.errorhandler.handler403'
 
 
 urlpatterns = [
-    
+
     url(r'^$', article_views.index, name='homepage'),
     url('', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
@@ -47,5 +47,5 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls'),  name="blog"),
     url(r'^tracking/', include('tracking.urls')),
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
-    url(r'^complete/social-oauth2$',custom_auth_views.social_auth, name="social_auth")
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^complete/social-oauth2$', custom_auth_views.social_auth, name="social_auth")
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
