@@ -26,8 +26,7 @@
     <div class="container">
         <h1 class="yl">{{article.article_title}}</h1>
         <p class="yl-p right">
-            {% load comments %}
-            {% get_comment_count for article as comment_count %}
+           
             <i class="fa fa-calendar"></i> {{article.created}}
         </p>
         </h2>
@@ -35,9 +34,27 @@
 </div>
 <div class="container">
     <div class="blog-container">
+        <div class="comment-box">
+            {% load comments %}
+            {% get_comment_count for article as comment_count %}
+            {% get_comment_count for article as comment_count %}
+            
+            <a href="#" id="article-like">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> {{article.count_likes}}
+            </a>
+            <a href="#disqus_thread">
+                <i class="fa fa-comment-o" aria-hidden="true"></i> {{comment_count}}
+            </a>
+            <a href="#">
+                <i class="fa fa-eye" aria-hidden="true"></i> 20
+            </a>
+        </div>
         {% autoescape off %}
            {{article.article_content}}
         {% endautoescape %} 
+        <hr>
+            <a class="btn btn-xs btn-primary"  href="https://www.facebook.com/sharer/sharer.php?u={%url 'article' pk=article.id %}" target="_blank">share
+            </a> 
         <hr>
         <div id="disqus_thread">
                 {% load comments %}
