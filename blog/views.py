@@ -122,7 +122,13 @@ def ArticleView(request, pk):
     article = get_object_or_404(Article, pk=pk, article_state='published')
     Tracker.objects.create_from_request(request, article)
     popular_tags = Article.get_counted_tags()
-    return render(request, 'article.html', {'popular_tags':popular_tags, "article": article, "article_analytics": article_analytics(request)})
+    recent = Article.get_published().order_by('-created').exclude(id=article.id)[:7]
+    return render(request, 'article.html', {
+        'popular_tags':popular_tags,
+        "article": article, 
+        'recent':recent ,
+        "article_analytics": article_analytics(request)
+        })
 
 
 def article_analytics(request):

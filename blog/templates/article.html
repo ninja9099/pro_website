@@ -15,10 +15,11 @@
 <link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'src/css/article.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'src/css/archive.css' %}">
 {% endblock %}
 {% block content%}
 {% block entrypoint %}
-    <script data-main="{% static '/src/js/article.js' %}" src="{% static ''%}"></script>
+    <script data-main="{% static '/src/js/article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
 {% endblock %}
 <div class="blog-banner">
    <img src="{{article.get_article_image}}"/>
@@ -110,28 +111,32 @@
             </p>
         </div>
         <div class="tag-container search-container">
-            <div class="tag-heading"><h4>Article Tags</h4></div>
+            <p class="yellow">
+                <strong>Article Tags</strong>
+            </p>
             <div class="tags">
                 {% for tag, count in popular_tags %}
-                    <a href="{% url 'tag' tag %}"><span class="label label-default">{{ tag }} {{ count }}</span></a>
+                <a href="{% url 'tag' tag %}" class="btn btn-xs btn-default">
+                        {{ tag }} <span class="badge badge-info">{{ count }}</span>
+                </a>
+                    <!-- <a href="{% url 'tag' tag %}"><span class="label label-default">{{ tag }} {{ count }}</span></a> -->
                 {% endfor %}
             </div>
         </div>
-    <div class="archive-contents ">
+    <div class="search-container">
         <p class="yellow">
             <strong> Blog Archives </strong>
         </p>
-        <div class="tags">
-            <ul class="file-tree">
+        <div>
+            <ul class="root collapsibleList">
               {% for key, value in article_analytics.items %}
-
-                <li><a href="#">{{key}}</a>
-                    <ul>
+                <li>{{key}}
                     {% for month, value in value.items %}
-                      <li><a href="#">{{month|date:"M"}} ({{value.count}})</a>
+                    <ul>
+                      <li>{{month|date:"M"}} ({{value.count}})
                         <ul>
                         {% for item in value %}
-                            <li><a href="/blog/article/{{item.id}}">{{item}}</a>
+                            <li><i class="fa fa-slack" aria-hidden="true"></i> <a href="/blog/article/{{item.id}}">{{item}}</a>
                         {% endfor %}
                         </ul>
                       </li>
@@ -146,9 +151,17 @@
         <p class="yellow">
             <strong>Recent Posts</strong>
         </p>
-        {% for article in article.objects.all | slice : %}
+        {% for article in recent %}
         <ul>
-            <li></li>
+            <li class="clearfix recent">
+                <a href="{% url 'article' pk=article.id %}">
+                    <img width="45" height="45" src="{{article.article_image.url}}"/>
+                    <p>
+                        {{article.article_title}}
+                    </p>
+                </a>
+                    <time>{{article.created}}</time>
+            </li>
         </ul>
         {% endfor %}
     </div>

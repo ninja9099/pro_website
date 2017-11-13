@@ -1,4 +1,73 @@
+/*main css for list*/
+.root{
+    padding-left: 18px;
+}
+li.collapsibleListOpen,li.collapsibleListClosed {
+    position: relative;
+}
+li.collapsibleListOpen>ul {
+    padding-left: 15px;
+}
+li.collapsibleListClosed:before{
+    content: "\f196";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #6bc816;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: -2px;
+    left: -18px;
+}
+li.collapsibleListOpen:before {
+    content: "\f146";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #6bc816;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: -2px;
+    left: -18px;
+}
+.btn-default .badge{
+    background-color: #fdb725;
+}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.search-container .tags{
+    padding: 0px 28px;
+}*/
 body{
     background: #fff;
 }
@@ -22,6 +91,31 @@ body{
     border-left: none;
     box-shadow: none;
 }
+li.recent{
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    list-style-type: none;
+}
+.recent img{float: left;
+    margin-right: 2px;
+    border: 0 !important;
+    box-shadow: none !important;
+    margin: 2px 10px 2px 0;
+    padding: 0 !important;
+    color: #337ab7;
+}
+.recent p {
+    font-weight: 400;
+    font-size: 17px !important;
+    line-height: normal;
+    font-family: pro-fonts, sans-serif;
+    margin-bottom: 0px;
+    text-align: justify;
+}
+.recent time{
+    font-family: pro-fonts;
+}
 header{
     position: absolute;
     background: transparent;
@@ -38,8 +132,11 @@ header #cssmenu{
 }
 .blog-banner .container{
     padding: 7px 0px;
+    position: absolute;
+    bottom: 0;
+    left: 115px;
 }
-.yellow{color: #fdb525;}
+.yellow{color: #f24e06;}
 .yl{
     font-family: pro-fonts, sans-serif;
     bottom: 180px;
@@ -64,8 +161,14 @@ header #cssmenu{
 .container{padding: 13px 0px;}
 .social-media{position: fixed; top: 30%; left: 0px}
 .social-media button {display: block;clear: both;}
-.blog-container{border-radius: 5px;width: 70%;display: inline-block; height: auto; background-color: #fff; color: #000; padding: 20px;font-family: pro-fonts, sans-serif; font-size: 18px;} 
-.blog-archive{width: 27%;display: inline-block; float: right; height: auto;}
+.blog-container{margin-left: 50px; border-radius: 5px;width: 65%;display: inline-block; height: auto; background-color: #fff; color: #000; padding: 20px;font-family: pro-fonts, sans-serif; font-size: 18px;} 
+.blog-archive{
+    width: 25%;
+    display: inline-block;
+    float: right;
+    height: auto;
+    margin-right: 50px;
+}
 .card-post-author{background-color: #f5f5dc; box-sizing: border-box; padding: 10px;}
 .author-img {display: inline-block; position: relative; margin-right: 5px}
 .author-info{display: inline-block; margin-left: 5px; max-width: 80%;color: #f14906;}
@@ -82,9 +185,9 @@ header #cssmenu{
 .contact a{display: block; font-size: 28px; margin: 2px; color: #8aa2ac;}
 .contact a:hover{color: #0056b3;}
 .search-container {padding: 20px 11px; background: #fff; border-radius: 5px;}
-.tag-container {height: auto; padding: 10px;}
-.thought-container {color: #000; padding: 5px 5px; min-height: 200px;}
-.ad-container {color: #c21818; padding: 5px 5px; min-height: 220px;}
+.tag-container {height: auto;}
+.thought-container {color: #000; padding: 20px 11px; min-height: 200px;}
+.ad-container {color: #c21818; padding: 20px 11px; min-height: 220px;}
 .archive-contents{padding-left: 5px; color: #999;background: #fff;
 border-radius: 5px;}
 .archive-contents h4{color: #be3434;padding: 7px 9px;
@@ -188,8 +291,8 @@ ul {
     clear: both;
 }
 .comments-list .comment-box {
-    margin-right: 20px;
-    width: 670px;
+    margin-right: 81px;
+    width: 600px;
     float: right;
     position: relative;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
