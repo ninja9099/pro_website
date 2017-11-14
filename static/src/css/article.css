@@ -64,6 +64,7 @@ div.popup:before{
 }
 
 .social-comments{
+    margin-top: 62px; 
     position: absolute;
     left: 30px;
 
@@ -92,9 +93,14 @@ div.popup:before{
 
 .social-comments ul li p{
     text-align: center;
+    color: #fd7525;
+
 }
-
-
+.scrollfix{
+    position:fixed !important;
+    top: 20px !important;
+    left: 30px !important;
+}
 
 
 

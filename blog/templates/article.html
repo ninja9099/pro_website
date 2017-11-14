@@ -34,7 +34,7 @@
 </div>
 <div class="container">
     <div class="blog-container">
-        <div class="social-comments">
+        <div class="social-comments fixme animated">
             {% load comments %}
             {% get_comment_count for article as comment_count %}
             {% get_comment_count for article as comment_count %}
@@ -103,7 +103,7 @@
                </div>
             </div>
     </div>
-    <div class="blog-archive fixme">
+    <div class="blog-archive">
         {% include  'search_template.html' %}
         <div class="search-container">
             <p class="yellow">
