@@ -57,15 +57,15 @@ require(['config'], function(){
 				      	$('.modal').modal('show')
 			      	}
 			      	else{
-			      		$('#save').removeClass('saving')
+			      		$('#save').removeClass('saving');
 			      		$("#article_preview .modal-body").html($.parseHTML(data.error));
-				      	$('.modal').modal('show')
+				      	$('.modal').modal('show');
 			      	}
 			      	},
 			      	error:function(data){
-			      		$('#save').removeClass('saving')
+			      		$('#save').removeClass('saving');
 			      		$("#article_preview .modal-body").text(data);
-				      	$('.modal').modal('show')
+				      	$('.modal').modal('show');
 			      	}
 			    });
 		  	});

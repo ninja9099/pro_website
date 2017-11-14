@@ -66,8 +66,6 @@ def edit_article(request, pk):
     if request.method =='POST' and request.is_ajax():
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid() and form.is_multipart():
-            import pdb
-            pdb.set_trace()
             article_instance = form.save(commit=False)
             article_instance.save()
             form.save_m2m()
@@ -123,8 +121,6 @@ def ArticleView(request, pk):
     Tracker.objects.create_from_request(request, article)
     popular_tags = Article.get_counted_tags()
     recent = Article.get_published().order_by('-created').exclude(id=article.id)[:7]
-    import pdb
-    pdb.set_trace()
     related_articles = Article.get_published().filter(article_subcategory=article.article_subcategory).exclude(id=article.id)[:5]
     return render(request, 'article.html', {
         "popular_tags":popular_tags,

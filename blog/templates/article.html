@@ -34,20 +34,29 @@
 </div>
 <div class="container">
     <div class="blog-container">
-        <div class="comment-box">
+        <div class="social-comments">
             {% load comments %}
             {% get_comment_count for article as comment_count %}
             {% get_comment_count for article as comment_count %}
-            
-            <a href="#" id="article-like">
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i> {{article.count_likes}}
-            </a>
+            <ul>
+            <li><a href="#" id="article-like">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
+                </a>
+                <p>{{article.count_likes}}</p>
+            </li>
+            <li>
             <a href="#disqus_thread">
-                <i class="fa fa-comment-o" aria-hidden="true"></i> {{comment_count}}
+                <i class="fa fa-comment-o" aria-hidden="true"></i> 
             </a>
+                <p>{{comment_count}}</p>
+            </li>
+            <li>
             <a href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i> 20
+                <i class="fa fa-eye" aria-hidden="true"></i> 
             </a>
+            <p> 20 </p>
+            </li>
+            </ul>
         </div>
         {% autoescape off %}
            {{article.article_content}}
@@ -87,14 +96,15 @@
                         <input class="btn btn-success" type="submit" value="Comment" id="id_submit" />
                         </form>
                     {% else %}
-                        <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+                        <p class="login-popup">Please <a href="{% url 'login' %}">log in</a> to leave a comment.
+                        </p>
+                        {% include 'registration/login_popup.html' %}
                     {% endif %}
                </div>
             </div>
     </div>
     <div class="blog-archive fixme">
         {% include  'search_template.html' %}
-        <!-- for the great thought -->
         <div class="search-container">
             <p class="yellow">
                <strong>Category</strong>
@@ -124,7 +134,7 @@
         </div>
         <div class="ad-container search-container">
             <p>
-               fetured ads
+               <img width="270" height="270" src="{% static 'src/images/adv1.jpg' %}">
             </p>
         </div>
         <div class="tag-container search-container">

@@ -9,7 +9,6 @@ requirejs.config({
         underscore: 'lib/underscore-min',
         cookie : 'lib/jquery.cookie',
         ajax:'lib/ajax_setup',
-        // collapse:'lib/CollapsibleLists'
     },
      shim: {
         "underscore": {

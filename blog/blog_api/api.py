@@ -41,6 +41,7 @@ def article_likes(request, pk):
         404 comment with supplied id not found in the base
         400 data invalid
     """
+    
     try:
         article_likes = ArticleLikes.objects.filter(article_id=pk)
     except ArticleLikes.DoesNotExist:

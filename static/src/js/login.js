@@ -1,7 +1,6 @@
-require(['jquery'], function ($) {
+define(['jquery'], function($){
 	$(document).ready(function(){
-		$('.send').on('click', function(e){
-			
+		$('.login').on('click', function(e){
 			e.preventDefault()
 			$.ajax({
 				method:'POST',
@@ -15,25 +14,24 @@ require(['jquery'], function ($) {
 				},
 				success:function(response){
 					if (response.login){
-						$('div.send').removeClass('loader');
+						$('div.login').removeClass('loader');
 						window.location.reload($("[name='next']").val())
 					}
 					else{
 						alert(response.error);
-						$('div.send').removeClass('loader');
+						$('div.login').removeClass('loader');
 					}
 				},
 				error:function(errorType, errorMessage){
 					alert('error occured please after sometime' + errorMessage);
 				},
 				beforeSend:function(){
-					$('div.send').addClass('loader');
+					$('div.login').addClass('loader');
 				},
 				complete:function(){
-					$('.login-button').text('Submit');
+					$('.login').text('login');
 				}
 			})
 		});
-
-	});
+});
 });

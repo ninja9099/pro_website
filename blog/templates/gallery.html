@@ -6,7 +6,7 @@
 
     {% block entrypoint %}
         {% load static %}
-        <script type="text/javascript" data-main="{% static 'src/js/main_article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+        <script type="text/javascript" data-main="{% static 'src/js/article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
     {% endblock %}
     {% block links%}
         {% load static %}
@@ -261,8 +261,6 @@
     <div class="clear"></div>
   </main>
 </div>
-<!-- <script id="dsq-count-scr" src="//kaminfo-1.disqus.com/count.js" async></script> -->
-
 <!-- popup html -->
 {% include 'pop_animate.html'%}
 

@@ -37,18 +37,62 @@ li.collapsibleListOpen:before {
 .btn-default .badge{
     background-color: #fdb725;
 }
+.login-popup{
+    position: relative;
+}
 
+.popup{
+    display: none;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 99;
+}
+div.popup:before{
+    content: '';
+    border: 15px solid rgba(0, 0, 0, 0);
+    border-bottom: 15px solid #ddd;
+    top: -29px;
+    left: 49px;
+    position: absolute;
+}
 
+#close{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
 
+.social-comments{
+    position: absolute;
+    left: 30px;
 
+}
+.social-comments ul{
+    display: block;
+    width: 50px;
+    height:200px;
+    padding: 10px;
+}
+.social-comments ul li {
+    border-radius: 5px;
+    border:1px solid #ddd;
+    padding:2px;
+    margin-bottom: 5px;
+    width: 70px;
+    height: 70px;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;  
+}
+.social-comments ul li a {
+    display: block;
+    width: 100%;
+}
 
-
-
-
-
-
-
-
+.social-comments ul li p{
+    text-align: center;
+}
 
 
 
@@ -221,7 +265,7 @@ color: #ddd;
  }
 
 ul {
-    list-style-type: none;
+    list-style-type: none !important;
 }
 .comment-list{
     background: rgba(239, 185, 126, 0.2);

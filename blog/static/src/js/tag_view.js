@@ -3,12 +3,12 @@ require('tagView', ['config'], function(){
       debugger;
       $(document).ready(function(){
               var $container1 = $(".col-md-3");
-            //   $container1.imagesLoaded(function() {
-            //     $container1.masonry({
-            //     itemSelector: '.card-view',
-            //     columnWidth: 302
-            //   });
-            // });
+               $container1.imagesLoaded(function() {
+                 $container1.masonry({
+                 itemSelector: '.card-view',
+                 columnWidth: 302
+               });
+             });
 
             $.fn.stars = function() {
               return $(this).each(function() {

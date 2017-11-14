@@ -148,7 +148,7 @@ def sign_up(request):
             auth_login(request, user)
             return redirect('homepage')
     else:
-        form = SignUpForm(error_class=DivErrorList)
+        form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
 
 @login_required
