@@ -34,8 +34,8 @@ class UserProfile(models.Model):
 
     
     @property
-    def full_name():
-        return self.first_name + ' ' + self.last_name
+    def full_name(self):
+        return self.user.first_name + ' ' + self.user.last_name
 
     @full_name.setter
     def full_name(self, value):

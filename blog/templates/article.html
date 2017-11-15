@@ -36,7 +36,7 @@
     <div class="blog-container">
         <div class="social-comments fixme animated">
             {% load comments %}
-            {% get_comment_count for article as comment_count %}
+            
             {% get_comment_count for article as comment_count %}
             <ul>
             <li><a href="#" id="article-like">
@@ -96,9 +96,12 @@
                         <input class="btn btn-success" type="submit" value="Comment" id="id_submit" />
                         </form>
                     {% else %}
-                        <p class="login-popup">Please <a href="{% url 'login' %}">log in</a> to leave a comment.
-                        </p>
-                        {% include 'registration/login_popup.html' %}
+                        <div class="login-popup open">Please <a class="open" href="{% url 'login' %}">log in</a> to leave a comment.
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginpopup">
+                                    Launch demo modal
+                                </button>
+                            {% include 'registration/login_popup.html' %}
+                        </div>
                     {% endif %}
                </div>
             </div>

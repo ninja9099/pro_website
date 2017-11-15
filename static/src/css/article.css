@@ -41,27 +41,6 @@ li.collapsibleListOpen:before {
     position: relative;
 }
 
-.popup{
-    display: none;
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    z-index: 99;
-}
-div.popup:before{
-    content: '';
-    border: 15px solid rgba(0, 0, 0, 0);
-    border-bottom: 15px solid #ddd;
-    top: -29px;
-    left: 49px;
-    position: absolute;
-}
-
-#close{
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
 
 .social-comments{
     margin-top: 62px; 

@@ -166,7 +166,7 @@ def article_preview(request):
         return HttpResponseBadRequest()
 
 
-@login_required
+#@login_required
 def tag(request, tag_name):
     articles = Article.objects.filter(tags__name=tag_name).filter(article_state='published')
     popular_tags = Article.get_counted_tags()

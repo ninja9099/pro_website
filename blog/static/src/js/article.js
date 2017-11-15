@@ -18,10 +18,10 @@ require(['config'], function(){
 		    if (currentScroll >= fixmeTop) {           // apply position: fixed if you
 		        $('.fixme').addClass('scrollfix bounceInDown animated');
 
-		    } else {                                   // apply position: static
+		    } else if((currentScroll +300) < fixmeTop) {                                   // apply position: static
 		        $('.fixme').removeClass('scrollfix bounceInDown animated');
 		    }
 		});
-	})
+    });
 });
 
