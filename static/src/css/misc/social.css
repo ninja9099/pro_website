@@ -2,9 +2,7 @@
     padding:0px;
     margin:0px;
     position:fixed;
-    right:-170px;
     top:230px;
-    width:210px;
     z-index: 1100;
 }
 .sticky li{
@@ -17,11 +15,12 @@
     -webkit-transition:all 0.25s ease-in-out;
     -moz-transition:all 0.25s ease-in-out;
     -o-transition:all 0.25s ease-in-out;
-    transition:all 1s ease-in-out;
+    transition:all .25s ease-in-out;
     cursor:pointer;
+    background: transparent;
 }
 .sticky li:hover{
-    margin-left:-115px;
+    margin-left:10px;
 }
 .sticky li img{
     float:left;

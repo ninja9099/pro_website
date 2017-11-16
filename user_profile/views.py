@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import os
+import json
 import requests
 import urllib2
+
+from PIL import Image
 from django.core.files import File
 from urlparse import urlparse
 from django.core.files.temp import NamedTemporaryFile
@@ -153,6 +157,7 @@ def sign_up(request):
 
 @login_required
 def ManageProfile(request, profile_id):
+
     if request.method=='GET':
         if request.GET.get('edit', 'false') == 'false':
             article_reads = request.user.userprofile.article_reads.all()
@@ -169,8 +174,11 @@ def ManageProfile(request, profile_id):
                 raise PermissionDenied
 
     if request.method == "POST":
-        user_profile  = UserProfileForm(request.POST, instance=UserProfile.objects.get(pk=profile_id), error_class=DivErrorList)
+        import pdb
+        pdb.set_trace()
+        user_profile  = UserProfileForm(request.POST, request.FILES, instance=UserProfile.objects.get(pk=profile_id))
         if user_profile.is_valid():
+            # user_profile.profile_picture=request.FILES['profile_picture']
             user_profile.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'profile_id':request.user.id}))
         else:
@@ -187,3 +195,28 @@ def create_profile(sender, **kwargs):
 
 def social_auth(request):
    return redirect('homepage')
+
+
+
+
+@login_required
+def save_uploaded_picture(request):
+    try:
+        x = int(request.POST.get('x'))
+        y = int(request.POST.get('y'))
+        w = int(request.POST.get('w'))
+        h = int(request.POST.get('h'))
+        tmp_filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
+            request.user.username + '_tmp.jpg'
+        filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
+            request.user.username + '.jpg'
+        im = Image.open(tmp_filename)
+        cropped_im = im.crop((x, y, w+x, h+y))
+        cropped_im.thumbnail((200, 200), Image.ANTIALIAS)
+        cropped_im.save(filename)
+        os.remove(tmp_filename)
+
+    except Exception:
+        pass
+            
+    return redirect('/settings/picture/')

@@ -7,7 +7,7 @@ from django.contrib.admin import widgets
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
-
+from .widgets import ProfilePicWidget
 years = range(1991, 2017)
 gender_choices = [('male', 'Male'), ('female', 'Female'),('notspecified', 'Dont Specify')]
 
@@ -49,6 +49,7 @@ class SignUpForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     birth_date = forms.DateField(widget=forms.SelectDateWidget(years=years))
     mobile = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control'}))
+    profile_picture = forms.ImageField(widget=ProfilePicWidget(attrs={'width':50, 'height':50}))
     class Meta:
         model=UserProfile
         fields = [

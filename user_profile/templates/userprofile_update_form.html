@@ -13,28 +13,18 @@
 			    </ul>
 		  	{% endif %}
 	{% for field in form %}
-      {% if field.name == 'profile_picture' %}
-          <li>
-            <a href="">
-              {% load static%}
-              <img src="{% static 'field.url' %}" alt="{{ filed.name }}">
-              {{field}}
-            </a>
-        </li>
-      {% else %}
 		  <div class="col-md-12 row" id="{{ field.auto_id }}_container">
 		    {{ field.help_text }}
 		    <div class="col-md-2 left">
 		      {{ field.label_tag }}
 		    </div>
-		    <div class="col-md-10 right" id="{{ field.auto_id }}">
+		    <div class="col-md-10 right" id="{{ field.auto_id }}_div">
 		     {{ field }}
 		    </div>
 		    <div class="error col-md-12"><span>
 		      {{ field.errors }}
 		    </span></div>
 		  </div>
-      {% endif %}
   	{% endfor %}
   	<div class="col-md-12 submit">
     <input class="btn btn-primary" type="submit" name="Save" value="submit">
