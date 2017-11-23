@@ -1,10 +1,10 @@
 Work to be done in the projec so far
 
-1.Display profile  photo on edit profile page
+[DONE]1.Display profile  photo on edit profile page
 2.make logout page correct
 3.Implement  notification in the admin panel
 4.implement mailer(Newslater)
 5.implement page views
-6.creat about us page
+6.create about us page
 7.Design home page
 8.Implement category listing

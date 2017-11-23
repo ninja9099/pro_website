@@ -29,7 +29,6 @@
            
             <i class="fa fa-calendar"></i> {{article.created}}
         </p>
-        </h2>
     </div>    
 </div>
 <div class="container">
@@ -108,12 +107,16 @@
     </div>
     <div class="blog-archive">
         {% include  'search_template.html' %}
+        <div class="rating">
+        
+        {% include  'rating.html' %}
+        </div>
         <div class="search-container">
             <p class="yellow">
                <strong>Category</strong>
             </p>
             <ul>
-                <li><a href="/category/{{article.article_category.id}}"><i class="fa fa-arrow-right"></i> {{article.article_category}}</li></a>
+                <li><a href="/category/{{article.article_category.id}}"><i class="fa fa-arrow-right"></i> {{article.article_category}}</a></li>
             </ul>
         </div>
         <div class="thought-container search-container">

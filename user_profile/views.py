@@ -174,8 +174,6 @@ def ManageProfile(request, profile_id):
                 raise PermissionDenied
 
     if request.method == "POST":
-        import pdb
-        pdb.set_trace()
         user_profile  = UserProfileForm(request.POST, request.FILES, instance=UserProfile.objects.get(pk=profile_id))
         if user_profile.is_valid():
             # user_profile.profile_picture=request.FILES['profile_picture']

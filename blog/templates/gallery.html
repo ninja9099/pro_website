@@ -16,7 +16,9 @@
         <link href="//fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{% static 'src/css/gallery.css' %}">    
     {% endblock %}
-
+    {% block  navbar %}
+        {% include 'header_template.html' with active='blog' %}
+    {% endblock %}
 {% block content%}
 <!-- facebook javascript sdk load -->
 <div id="fb-root"></div>
