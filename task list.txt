@@ -8,3 +8,4 @@ Work to be done in the projec so far
 6.create about us page
 7.Design home page
 8.Implement category listing
+9.Add cat_article_list.html

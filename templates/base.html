@@ -17,12 +17,15 @@
 </head>
 <body>
 	<div class="main-wrapper">
+        {% block branding %}
+        <!--for main branding    -->
+            {% include 'main_branding.html' %}
+        {% endblock %}
+        
+        <!-- for main navigation menu  -->
         {% block navigation %}
-        <!--for main branding -------------------------------------------------    -->
-        {% include 'main_branding.html' %}
-        <!-- for main navigation menu -----------------------------------------    -->
-        {%  include  'navigation.html' %}
-        <!--main content ------------------------------------------------------    -->
+            {%  include  'navigation.html' %}
+        <!--main content   -->
         {% endblock %}
         {% block container %}{% endblock  %}
     </div>

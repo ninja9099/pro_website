@@ -1,103 +1,57 @@
+{% extends 'base.html' %}
+  {% load static %}
   {% block http-meta%}
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   {% endblock %}
-  
   {% block links %}
-  {% load static %}
-<link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-  {% endblock %} 
-
-<style type="text/css">
-html,
-body {
-    height: 100%;
-}
-html {
-    display: table;
-    margin: auto;
-}
-body {
-    display: table-cell;
-    vertical-align: middle;
-}
-.margin {
-  margin: 0 !important;
-}
-
-ul.errorlist li{
-  color: red;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-</style>
-  
-</head>
-
-<body class="blue">
-  <form action="" method="post" class="login-form" role="form">
-  {% csrf_token %}
-  {{form.non_field_errors}}
-  <input type="hidden" name="next" value="{{next}}">
-  <div id="login-page" class="row">
-    <div class="col s12 z-depth-6 card-panel">
-        <div class="row">
-          <div class="input-field col s12 center">
-            <img src="http://w3lessons.info/logo.png" alt="" class="responsive-img valign profile-image-login">
-            <p class="center login-form-text">W3lessons - Material Design Login Form</p>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="mdi-social-person-outline prefix"></i>
-            <input class="validate" id="id_username" name="username" type="text">
-              <span class="error  alert-danger">{{form.username.errors}}</span>
-            <label for="id_username" data-error="wrong" data-success="right" class="center-align">User</label>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="mdi-action-lock-outline prefix"></i>
-            <input id="id_password" name="password" type="password">
-            <span class="error  alert-danger">{{form.password.errors}}</span>
-            <label for="id_password">Password</label>
-          </div>
-        </div>
-        <div class="row">          
-          <div class="input-field col s12 m12 l12  login-text">
-              <input type="checkbox" id="remember" />
-              <label for="remember">Remember me</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <button type="submit" name="Submit" class="btn waves-effect waves-light col s12">Login</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s6 m6 l6">
-            <p class="margin medium-small"><a href="{% url 'sign-up' %}">Register Now!</a></p>
-          </div>
-          <div class="input-field col s6 m6 l6">
-              <p class="margin right-align medium-small"><a href="{% url 'password_reset'%}">Forgot password?</a></p>
-          </div>          
-        </div>
-      </form>
+        <link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/login.css'%}">
+    {% endblock %}
+    
+    <!--for main branding    -->
+    {% block branding %}
+        
+    {% endblock %}
+{% block container %}
+<div class="container">
+  <div class="form-wrapper">
+    <div class="form-group barlow center">
+      <img class="login-logo" src="{% static 'src/images/logo.png' %}"/>
+      <h2 class="abel center">Sign in to LifeInaBits</h2>
     </div>
+    <form action="" method="post" class="login-form abel" role="form">
+      {% csrf_token %}
+      {{form.non_field_errors}}
+      <input type="hidden" name="next" value="{{next}}">
+      <div class="form-group">
+        <label for="id_username" class="abel">Username</label>
+        <input id="id_username" name="username" type="text" class="form-control">
+        <span class="error  alert-danger">{{form.username.errors}}</span>
+      </div>
+      <div class="form-group">
+          <a class="float-right" href="{% url 'password_reset'%}">Forgot password?</a>
+        <label for="id_password">Password:</label><label></label>
+        <input id="id_password" name="password" type="password" class="form-control">
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" id="remember"> Remember me</label>
+      </div>
+      <div class="login-group form-group center">
+        <button type="submit" name="submit" class="btn btn-success  barlow btn-block">Sign in</button>
+      </div>
+    </form>
+    <div class="register-link form-group">
+        New to LifeInaBits?<a href="{% url 'sign-up' %}">  Register Now!</a>
+    </div>
+    <!-- <div class="form-group social-group center">
+      <h4 class="center abel">Sign-in using</h4>
+      <ul>
+        <li><a class="btn-floating blue" href="{% url 'social:begin' 'facebook' %}?next={% url 'social_auth' %}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+        <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'social_auth' %}" class="btn-floating red"><i class="fa fa-google"></i></a></li>
+        <li><a href="{% url 'social:begin' 'twitter' %}?next={% url 'social_auth' %}" class="btn-floating green"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+      </ul>
+    </div> -->
   </div>
-   <div class="fixed-action-btn horizontal">
-    <a class="btn-floating btn-large red pulse"><i class="material-icons">menu</i>
-    </a>
-    <ul>
-      <li><a class="btn-floating blue" href="{% url 'social:begin' 'facebook' %}?next={% url 'social_auth' %}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-      <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'social_auth' %}" class="btn-floating red"><i class="fa fa-google"></i></a></li>
-      <li><a href="{% url 'social:begin' 'twitter' %}?next={% url 'social_auth' %}" class="btn-floating green"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-    </ul>
-  </div>
- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <!--materialize js-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -1,36 +1,31 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import datetime
 import markdown
-from collections import OrderedDict
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleForm
 from blog import Article, ArticleLikes
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy
 from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.decorators.cache import cache_page
 #  for comments
 from notifications.signals import notify
 from django_comments.signals import comment_was_posted
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from django.views.generic.edit import CreateView
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.loader import render_to_string
 from django.urls import reverse
-from taggit.utils import edit_string_for_tags
-
+from blog_api import core
 # homepage
 def index(request):
-    return render(request, 'index.html')
+    context = core.create_context(request)
+    fresh = context.get('article_set').order_by('-created')[0]
+    context.push({'fresh_article': fresh})
+    return render(request, 'index.html', {"context": context})
 
 @login_required
 def create_article(request):
@@ -166,12 +161,16 @@ def article_preview(request):
         return HttpResponseBadRequest()
 
 
-#@login_required
 def tag(request, tag_name):
     articles = Article.objects.filter(tags__name=tag_name).filter(article_state='published')
     popular_tags = Article.get_counted_tags()
     return render(request, 'tagged_articles.html',{'tag_name':tag_name, 'popular_tags':popular_tags, 'articles':articles} )
 
+
+def category_view(request, cat_id):
+    context = core.create_context(request)
+    context.push({'cat_art_set':Article.objects.filter(id=cat_id)})
+    return render(request,'cat_article_list.html', {'context': context})
 
 @receiver(comment_was_posted)
 def Rec(sender, **kwargs):

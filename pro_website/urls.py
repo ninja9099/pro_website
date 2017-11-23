@@ -20,13 +20,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from user_profile import views as custom_auth_views
 from blog import views as article_views
-from django.conf.urls import (handler403, handler404, handler500)
 import notifications.urls
-
-handler404 = 'blog.errorhandler.handler404'
-handler500 = 'blog.errorhandler.handler500'
-handler403 = 'blog.errorhandler.handler403'
-
 
 urlpatterns = [
 

@@ -12,12 +12,12 @@
 		<section style="" class="second-section">
 			<div class="container">
 				<div class="fresh-heading">
-					<h1 class="dosis right">Start your day a fresh</h1>
+					<h1 class="abel right">Start your day a fresh</h1>
 					<img class="fresh-leaf" src="{% static 'src/images/fresh-leaf.png'%}" width="50" height="50">
 				</div>
 				<div class="col-md-6 sc_left float-left">
 					<div class="fresh">
-						<div class="cover" style="background-image: url({% static 'src/images/2.jpeg'%})">
+						<div class="cover" style="background-image: url({{context.fresh_article.article_image.url}}); background-size:cover;">
 							<label class="barlow">
 								Fresh
 							</label>
@@ -30,7 +30,7 @@
 					      	</a>
 						</div>
 						<div class="info">
-							<a href="#" class="recipe">
+							<a href="{% url 'article' pk=context.fresh_article.id %}" class="recipe">
 						        <i>
 						          <svg x="0px" y="0px" width="26px" height="28px">
 							          <g>
@@ -45,7 +45,7 @@
 					      			<img class="thumbnail" src="{% static 'src/images/1.jpeg'%}">
 					      		</div>
 					      		<div class="auth-info">
-					      			<p>Kp9099</p>
+					      			<p>{{context.fresh_article.article_author.username}}</p>
 					      			<span><em>Developer..</em></span>
 					      		</div>
 					      	</div>
@@ -58,62 +58,38 @@
 				</div>
 				<div class="col-md-6 sc_right float-right">
 					<h1 class="center">
-						Lorium ipsum dolar sit amet
+						{{context.fresh_article.article_title |truncatechars:25}}
 					</h1>
 					<p class="g_vibes">
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem fipsum sit amet
+                        {{context.fresh_article.get_summary | truncatechars:150}}
 					</p>
 				</div>
 			</div>
 		</section>
-        <!-- category sections-------------------------------------------------    -->
+        <!-- category sections    -->
 		<section class="second-section">
 			<div class="container">
 				<div class="fresh-heading">
 					<h1 class="barlow left">Popular Categories</h1>
 				</div>
 				<div class="catagory-holder col-md-12">
+                    {% for cat in context.categories|slice:":6" %}
 					<div class="match-box">
-						<div class="cat-wrapper center" style=" background: url({% static 'src/images/programing.jpg' %}) center; background-size: cover;">
-							<p class="cat-name barlow">Programing</p>
-						</div>
+                        <a href="{% url 'cat_article_list' cat_id=cat.id %}">
+                            <div class="cat-wrapper center" style=" background: url({{cat.category_image.url}}) center; background-size: cover;">
+                                <p class="cat-name barlow">{{cat.category_name}}</p>
+                                <span class="badge badge-warning">{{cat.articles}}</span>
+                            </div>
+                        </a>
 					</div>
-					<div class="match-box">
-						<div class="cat-wrapper center" style="background: url({% static 'src/images/ayurved.jpg' %}) center; background-size: cover;">
-							<p class="cat-name barlow">Ayurveda</p>
-						</div>
-					</div>
-					<div class="match-box">
-
-						<div class="cat-wrapper center" style="background: url({% static 'src/images/lifescience.jpeg'%}) center; background-size: cover;">
-							<p class="cat-name barlow">Life Science</p>
-						</div>
-					</div>
-					<div class="match-box">
-						<div class="cat-wrapper center" style="background: url({% static 'src/images/cooking.jpg'%}) center; background-size: cover;">
-							<p class="cat-name barlow">Cooking</p>
-						</div>
-					</div>
-					<div class="match-box">
-						<div class="cat-wrapper center" style="background: url({% static 'src/images/travelling.jpg'%}) center; background-size: cover;">
-							<p class="cat-name barlow">Travelling</p>
-						</div>
-					</div>
-					<div class="match-box">
-						<div class="cat-wrapper center" style="background: url({% static 'src/images/photography.jpg' %}) center; background-size: cover;">
-							<p class="cat-name barlow">Photography</p>
-						</div>
-					</div>
-					<div class="more right">
-						<a href="#" class="more">..and More <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-					</div>
+                    {% endfor %}
 				</div>
 			</div>
 		</section>
-        <!-- end of category  -------------------------------------------------    -->
+        <!-- end of category -->
 		<section class="third-section" style="background-image: url({% static 'src/images/back-third4.jpg' %});">
 			<div class="container" >
-				<h1 class="center barlow">Lorium ipsum dollar sit amet</h1>
+				<h1 class="center barlow">Articles you may intrested in slide show here makes it great place for work </h1>
 				<div class="article-wrapper">
 					<div class="article-box">
 						<div class="article ">
@@ -140,10 +116,7 @@
 				</p>
 			</div> -->
 			<div class="four-six col-md-8">
-				<p style="text-align:justify;">
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				</p>
+				{{context}}
 			</div>
 			<div class="two-six col-md-4">
 				<p style="text-align:justify;">
