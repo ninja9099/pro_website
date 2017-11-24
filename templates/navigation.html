@@ -12,7 +12,18 @@
           <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
           <li class="search"><input class="form-control" type="hidden" name="search" /></li>
           <li><a href=""><i class="fa fa-search" aria-hidden="true"></i></a></li>
-          <li><a class="dosis" href="#"><i class="fa fa-sign-in fa-1x" aria-hidden="true"></i></a></li>
+          {% if user.is_authenticated %}
+            <li class="abel profile-li"><a href='#'>{{user.get_full_name}}</a>
+              {% load static %}
+              <ul class="profile-ul abel">
+                  <li><a><img width=40 height=40 src="{{user.userprofile.profile_picture.url}}"> Welcome !</a>
+                  <li><a href="/profile/{{user.id}}"><i class="fa fa-user" aria-hidden="true"></i> {{user.get_full_name}} </a></li>
+                  <li><a href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li><a class="dosis" href="/login/"><i class="fa fa-sign-in fa-1x" aria-hidden="true"></i></a></li>
+            {% endif %}
         </ul>
   </div>
 </nav>
