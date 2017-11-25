@@ -13,4 +13,12 @@
 .comment-box{display: inline-block; position: absolute; margin-left: 10px; padding: 6px; background-color: #fff;}
 .comment-box .comment-head *{display: inline-block;}
 .comment-box:before{content: ''; position: absolute;top: 33%; left: -16px;border: 8px solid rgba(0, 0, 0, 0); border-right: 8px solid #fff;}
+#id_honeypot{visibility: hidden; display: none;}
+#id_submit{margin-top: 10px;margin-bottom: 10px; border-radius: 50%;border-radius: 15px;}
 /* comments ends here*/
+
+/*for tw0-six column*/
+.author{border: 1px solid #ddd; border-radius: 5px; padding:2px; background-color: #fff;}
+.author .card-post{padding: 5px;}
+.author .card-post img {width: 100%; border:1px dashed var(--ltylw-color);}
+/* tw0-six ends here*/

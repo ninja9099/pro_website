@@ -21,7 +21,7 @@
     </div>    
 </div>
 <div class="container-wrapper">
-  <div class="one-six col-md-1">
+    <div class="one-six col-md-1">
         <div class="social-comments fixme animated center">
             {% load comments %}
 
@@ -94,27 +94,27 @@
             </div>
     </div>
     <div class="two-six col-md-3">
-        <div class="rating">{% include  'rating.html' %}</div>
-        <div class="thought-container search-container">
-            <div class="card-post-author clearfix">
-            <div class="author-img thumbnail"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
-            <div class="contact">
-              <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
-              <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
-              <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a>
-              <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google-plus-official"></i></a>
-            </div>
+        <!-- <div class="rating">{% include  'rating.html' %}</div> -->
+        <div class="author">
+            <div class="card-post">
+            <img src="{{article.article_author.userprofile.profile_picture.url}}"/>
             <div class="author-info">
             <p class="name"><b>{{article.article_author.get_full_name}}</b></p>
             <p>
             {% autoescape off %}
                 {{article.article_author.userprofile.short_intro}}
             {% endautoescape %}
+            <div class="contact">
+              <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
+              <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a>
+              <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google-plus-official"></i></a>
+            </div>
             </p>
             </div>
             </div>
         </div>
-        <div class="tag-container search-container">
+        <div class="">
             <p class="yellow">
                 <strong>Article Tags</strong>
             </p>
@@ -127,8 +127,8 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="search-container">
-        <p class="yellow">
+        <div class="">
+        <p class="ltylw">
             <strong> Blog Archives </strong>
         </p>
         <ul class="root collapsibleList">
@@ -149,13 +149,13 @@
           {% endfor %}
         </ul>
         </div>
-        <div class="search-container">
+        <div class="">
             <p class="yellow">
                 <strong>Recent Posts</strong>
             </p>
             {% for article in recent %}
             <ul>
-                <li class="clearfix recent">
+                <li class="recent-article">
                     <a href="{% url 'article' pk=article.id %}">
                         <img width="45" height="45" src="{{article.article_image.url}}"/>
                         <p>
@@ -167,7 +167,7 @@
             </ul>
             {% endfor %}
         </div>
-</div>
+    </div>
 </div>
 <script src="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
