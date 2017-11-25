@@ -1,17 +1,15 @@
 <ul id="comments-list" class="comments-list">
     <li>
         <div class="comment-main-level">
-            <div class="comment-avatar"><img src="{{comment.user.userprofile.profile_picture.url}}" alt=""></div>
+            <div class="comment-avatar float-left"><img width="50" height="50" src="{{comment.user.userprofile.profile_picture.url}}" alt=""></div>
             <div class="comment-box">
                 <div class="comment-head">
-                    <h6 class="comment-name by-author">
-                        <a href="http://lifeinabits.com">{{comment.user_name}}</a></h6>
+                    <p class="comment-name by-author">
+                        <a href="http://lifeinabits.com">{{comment.user_name}}</a></p>
                         {% if comment.user == article.article_author %}
                         <span class="author label label-info">Author</span>
                         {% endif %}
                     <span>{{comment.submit_date|timesince}} Ago</span>
-                    <i class="fa fa-reply"></i>
-                    <i class="fa fa-heart"></i>
                 </div>
                 <div class="comment-content">
                     {{comment.comment}}

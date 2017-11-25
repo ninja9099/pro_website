@@ -13,10 +13,9 @@
           <li class="search"><input class="form-control" type="hidden" name="search" /></li>
           <li><a href=""><i class="fa fa-search" aria-hidden="true"></i></a></li>
           {% if user.is_authenticated %}
-            <li class="abel profile-li"><a href='#'>{{user.get_full_name}}</a>
-              {% load static %}
+            {% load static %}
+            <li class="abel profile-li"><img width=25 height=25 src="{{user.userprofile.profile_picture.url}}">
               <ul class="profile-ul abel">
-                  <li><a><img width=40 height=40 src="{{user.userprofile.profile_picture.url}}"> Welcome !</a>
                   <li><a href="/profile/{{user.id}}"><i class="fa fa-user" aria-hidden="true"></i> {{user.get_full_name}} </a></li>
                   <li><a href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
               </ul>

@@ -8,6 +8,7 @@
   --ltywl-color:#f6d300;
   --ltblk-color:#282828;
 }
+.large{font-size: 18px;}
 .ltylw{color: var(--ltywl-color)}
 .container{max-width: 1109px !important;}
 .bold{font-weight:bold;}
@@ -64,7 +65,8 @@ ul{list-style-type: none;}
 .navbar-nav >li:hover > a{background-color: var(--rd-color) !important; color:var(--wht--color) !important;}
 .welcome-caption{padding: 20px;background:rgba(58, 56, 56, 0.4);color: var(--ylw-color); bottom: 100px; left:150px;border-radius: 5px;}
 .navbar-nav li{margin-right: 5px; }
-.navbar-nav li:hover {color: var(--ylw-color);}
+.navbar-nav li > a{color: var(--ylw-color) !important;}
+.navbar-nav li:hover > a{color: var(--wht-color) !important;}
 .nav ul li { color: var(--ylw-color);}
 .navbar-default .navbar-brand {color:var(--ylw-color);}
 .navbar-default .navbar-nav > .active > a{background: var(--rd-color); color:var(--wht-color);}
@@ -147,8 +149,10 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 
 
 /*header profile section*/
-.profile-li{position: relative;}
-li.profile-li:hover > ul.profile-ul{display: block; z-index: 09;width: 182px;background: #f5f5dc; opacity: 1; visibility: visible;}
-.profile-ul{display: none; position: absolute;transition: linear;transition-property:top;padding: 10px; visibility: hidden; transform: rotate3d(0 0 0 45deg);}
-.profile-ul > li{margin-bottom: 2px;}
-.profile-ul:before{content: ''; position: absolute;top: -10px;right: auto;left: 0; bottom: auto;border: 5px solid transparent; border-bottom: 5px solid #ddd;}
+.profile-li{position: relative; margin:5px;border-radius: 5px; padding: 8px 0px;}
+.profile-li img{border-radius:5px;}
+li.profile-li:hover > ul.profile-ul{display: block; z-index: 09;width: 182px;background: rgba(175, 173, 190, 0.14); color: red; opacity: 1; visibility: visible;}
+.profile-ul{margin-top: 0px; right: 0; display: none; position: absolute;transition: linear;transition-property:top;padding: 10px; visibility: hidden; transform: rotate3d(0 0 0 45deg);}
+.profile-ul > li{margin-bottom: 0px; border-bottom: 1px dashed #868383; padding: 9px;}
+.profile-ul > li:last-child{border-bottom:none;}
+.profile-ul:before{content: ''; position: absolute;top: -10px;right: 0;left: auto; bottom: auto;border: 5px solid transparent; border-bottom: 5px solid #ddd;}

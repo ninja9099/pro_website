@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+
+    <title>
+        {% block title %} lifeinabits {% endblock %}
+    </title>
     {% block http-meta %}
     <!--block for defining the meta classes in the html page for search engine optimization-->
         <meta charset="UTF-8">
@@ -21,13 +24,14 @@
         <!--for main branding    -->
             {% include 'main_branding.html' %}
         {% endblock %}
-        
+
         <!-- for main navigation menu  -->
         {% block navigation %}
             {%  include  'navigation.html' %}
         <!--main content   -->
         {% endblock %}
         {% block container %}{% endblock  %}
+        
     </div>
         {% block footer %}
             {% include  'footer.html' %}

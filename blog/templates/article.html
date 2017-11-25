@@ -7,62 +7,50 @@
 
 {% load static %}
 {% block links %}
-<style type="text/css">@font-face {
-    font-family: pro-fonts;
-    src: url('/static/src/fonts/SourceSansPro-Regular.otf')format('opentype');
-}
-</style>
-<link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/article.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/archive.css' %}">
+    <link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
+    <link href="{% static 'src/css/article.css' %}" rel="stylesheet">
 {% endblock %}
-{% block content%}
-{% block entrypoint %}
-    <script data-main="{% static '/src/js/article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
-{% endblock %}
-<div class="blog-banner">
-   <img src="{{article.get_article_image}}"/>
-    <div class="container">
+
+{% block container %}
+<div class="blog-banner" style="background-image: url({{article.get_article_image}}); background-size: cover;">
+    <div class="article-meta ltylw col-md-push-1">
         <h1 class="yl">{{article.article_title}}</h1>
         <p class="yl-p right">
-           
             <i class="fa fa-calendar"></i> {{article.created}}
         </p>
     </div>    
 </div>
-<div class="container">
-    <div class="blog-container">
-        <div class="social-comments fixme animated">
+<div class="container-wrapper">
+  <div class="one-six col-md-1">
+        <div class="social-comments fixme animated center">
             {% load comments %}
-            
+
             {% get_comment_count for article as comment_count %}
             <ul>
             <li><a href="#" id="article-like">
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                 </a>
                 <p>{{article.count_likes}}</p>
             </li>
             <li>
             <a href="#disqus_thread">
-                <i class="fa fa-comment-o" aria-hidden="true"></i> 
+                <i class="fa fa-comment-o" aria-hidden="true"></i>
             </a>
                 <p>{{comment_count}}</p>
             </li>
             <li>
             <a href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i> 
+                <i class="fa fa-eye" aria-hidden="true"></i>
             </a>
             <p> 20 </p>
             </li>
             </ul>
         </div>
-        {% autoescape off %}
+    </div>
+    <div class="four-six col-md-8 justify abel">
+       {% autoescape off %}
            {{article.article_content}}
-        {% endautoescape %} 
-        <hr>
-            <a class="btn btn-xs btn-primary"  href="https://www.facebook.com/sharer/sharer.php?u={%url 'article' pk=article.id %}" target="_blank">share
-            </a> 
+        {% endautoescape %}
         <hr>
         <div id="disqus_thread">
                 {% load comments %}
@@ -74,7 +62,7 @@
                     {% for comment in comments %}
                         {% include 'comment.html'%}
                     {% empty %}
-                        <p>No Comments Yet! Be the First to comment</p>    
+                        <p>No Comments Yet! Be the First to comment</p>
                     {% endfor %}
                     </div>
                 </div>
@@ -105,23 +93,11 @@
                </div>
             </div>
     </div>
-    <div class="blog-archive">
-        {% include  'search_template.html' %}
-        <div class="rating">
-        
-        {% include  'rating.html' %}
-        </div>
-        <div class="search-container">
-            <p class="yellow">
-               <strong>Category</strong>
-            </p>
-            <ul>
-                <li><a href="/category/{{article.article_category.id}}"><i class="fa fa-arrow-right"></i> {{article.article_category}}</a></li>
-            </ul>
-        </div>
+    <div class="two-six col-md-3">
+        <div class="rating">{% include  'rating.html' %}</div>
         <div class="thought-container search-container">
             <div class="card-post-author clearfix">
-            <div class="author-img"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
+            <div class="author-img thumbnail"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
             <div class="contact">
               <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
               <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
@@ -136,12 +112,7 @@
             {% endautoescape %}
             </p>
             </div>
-        </div>
-        </div>
-        <div class="ad-container search-container">
-            <p>
-               <img width="270" height="270" src="{% static 'src/images/adv1.jpg' %}">
-            </p>
+            </div>
         </div>
         <div class="tag-container search-container">
             <p class="yellow">
@@ -156,49 +127,47 @@
                 {% endfor %}
             </div>
         </div>
-    <div class="search-container">
+        <div class="search-container">
         <p class="yellow">
             <strong> Blog Archives </strong>
         </p>
-        <div>
-            <ul class="root collapsibleList">
-              {% for key, value in article_analytics.items %}
-                <li>{{key}}
-                    {% for month, value in value.items %}
+        <ul class="root collapsibleList">
+          {% for key, value in article_analytics.items %}
+            <li>{{key}}
+                {% for month, value in value.items %}
+                <ul>
+                  <li>{{month|date:"M"}} ({{value.count}})
                     <ul>
-                      <li>{{month|date:"M"}} ({{value.count}})
-                        <ul>
-                        {% for item in value %}
-                            <li><i class="fa fa-slack" aria-hidden="true"></i> <a href="/blog/article/{{item.id}}">{{item}}</a>
-                        {% endfor %}
-                        </ul>
-                      </li>
+                    {% for item in value %}
+                        <li><i class="fa fa-slack" aria-hidden="true"></i> <a href="/blog/article/{{item.id}}">{{item}}</a>
                     {% endfor %}
-                  </ul>
-                </li>
-              {% endfor %}
-            </ul>
-        </div>
-    </div>
-    <div class="search-container">
-        <p class="yellow">
-            <strong>Recent Posts</strong>
-        </p>
-        {% for article in recent %}
-        <ul>
-            <li class="clearfix recent">
-                <a href="{% url 'article' pk=article.id %}">
-                    <img width="45" height="45" src="{{article.article_image.url}}"/>
-                    <p>
-                        {{article.article_title}}
-                    </p>
-                </a>
-                    <time>{{article.created}}</time>
+                    </ul>
+                  </li>
+                {% endfor %}
+              </ul>
             </li>
+          {% endfor %}
         </ul>
-        {% endfor %}
-    </div>
-  </div>
+        </div>
+        <div class="search-container">
+            <p class="yellow">
+                <strong>Recent Posts</strong>
+            </p>
+            {% for article in recent %}
+            <ul>
+                <li class="clearfix recent">
+                    <a href="{% url 'article' pk=article.id %}">
+                        <img width="45" height="45" src="{{article.article_image.url}}"/>
+                        <p>
+                            {{article.article_title}}
+                        </p>
+                    </a>
+                        <time>{{article.created}}</time>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+</div>
 </div>
 <script src="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>

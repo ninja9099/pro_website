@@ -1,0 +1,16 @@
+.container-wrapper{width: 1124px;}
+.blog-banner{height: 450px; position: relative;}
+.blog-banner .article-meta{position: absolute; top: auto;bottom: 45px;padding: 20px; background: rgba(0, 0, 0, 0.3);border-radius: 5px;}
+.one-six{padding-top: 20px; padding-bottom: 20px;}
+.two-six{padding-top: 20px; padding-bottom: 20px;}
+.four-six{padding-top: 20px;padding-bottom: 20px;}
+.one-six .social-comments ul li{border:1px solid rgba(0, 0, 0, 0.13); border-radius:5px; margin-bottom: 4px;padding: 5px; width: 50px; height: 50px; background-color: #fff;}
+
+
+/*for comments*/
+.comment-main-level{position: relative;}
+.comment-avatar{width: 50px; height: 50px; overflow: hidden; display: inline-block;     border-bottom-left-radius: 15px; border-top-right-radius: 15px;}
+.comment-box{display: inline-block; position: absolute; margin-left: 10px; padding: 6px; background-color: #fff;}
+.comment-box .comment-head *{display: inline-block;}
+.comment-box:before{content: ''; position: absolute;top: 33%; left: -16px;border: 8px solid rgba(0, 0, 0, 0); border-right: 8px solid #fff;}
+/* comments ends here*/
