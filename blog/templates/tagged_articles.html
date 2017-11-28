@@ -1,46 +1,71 @@
 {% extends 'base.html' %}
-{% block content%}
-	{% block entrypoint %}
-		{% load static %}
-		<script data-main="{% static 'src/js/tag_view.js' %}" src="{% static '/src/js/lib/require.js' %}"></script>
-	{% endblock %}
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/tag_view.css' %}"/>
-<div class="full-width">
-    <div class="main-header">
+
+{% block title %} "{{tag_name}}" | lifeinabits {% endblock %}
+
+{% block links%}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/tag_view.css' %}"/>
+{% endblock%}
+{% block script %}
+    <!--future use scripts-->
+{% endblock %}
+
+{% block container %}
+<div class="container-wrapper">
+    <div class="abel">
         <h2> Articles tagged with word "<i><strong>{{tag_name}}</strong></i>"</h2>
     </div>
-    <div class="col-md-8 left-tag-part">
-    {% load static %}
-    {% for article in articles %}
-        <div class="blog-card spring-fever" style="background: url({{article.get_article_image}}) no-repeat;background-size: cover;">
-            <a href="{% url 'article' pk=article.id%}">
-              <div class="title-content">
-                <h3>{{article.article_title|truncatechars:40}}</h3>
-                <hr />
-                <div class="intro">Written By {{article.get_author_profile.full_name}}</div>
-              </div><!-- /.title-content -->
-              <div class="card-info">
-                {{article.get_summary|striptags |truncatechars:100}}
-              </div><!-- /.card-info -->
-              <div class="utility-info">
-                <ul class="utility-list">
-                    {% load comments %}
-                    {% get_comment_count for article as comment_count %}
-                  <li class="comments">{{comment_count}}</li>
-                  <li class="date">{{article.created|date:"d M Y"}}</li>
-                </ul>
-              </div><!-- /.utility-info -->
-              <!-- overlays -->
-              <div class="gradient-overlay"></div>
-              <div class="color-overlay"></div>
-            </a>
-        </div><!-- /.blog-card -->
-        {% endfor %}
-    </div> <!-- end col-md-9 -->
-    <div class="col-md-3 right-tag-part">
-        <div class="ad-container">
-            
-        </div>
+
+    <div class="four-six col-md-8 abel">
+        {% load static %}
+        {% for article in articles %}
+        <div class="card-wrapper">
+            <div class="card-img col-md-5">
+                <a href="{% url 'article' pk=article.id %}">
+                    <img src="{{article.get_article_image}}"/>
+                </a>
+            </div>
+            <div class="card-info col-md-7">
+                <div class="heading">
+                    <span class="cat_posted "><a class="dosis" href="{% url 'tag' tag_name %}">{{tag_name}}</a></span>
+                    <h2>
+                        <a href="{% url 'article' pk=article.id %}">
+                            {{article.article_title|truncatechars:140}}
+                        </a>
+                    </h2>
+                    <time>{{article.created|date:"d M Y"}}  </time> <i class="fa fa-user-o" ></i> {{article.get_author_profile.full_name}} <i class="fa fa-comment-o"></i> {% load comments %}
+            {% get_comment_count for article as comment_count %}
+            {{comment_count}}
+
+                </div>
+                <div class="description">
+                    <p class="justify">
+                        {{article.get_summary|striptags |truncatechars:100}}
+                    </p>
+                </div>
+                <div class="read-more-button">
+                    <span><a href="{% url 'article' pk=article.id %}" >Read More... <i class="fa fa-plus"></i></a> </span>
+                </div>
+                <div class="share-article center">
+                    <div class="center share-box">
+                        <a href="" ><i class="fa fa-heart-o" ></i></a>
+                        <a href="" ><i class="fa fa-facebook-f" ></i></a>
+                        <a href="" ><i class="fa fa-google"></i></a>
+                        <a href="" ><i class="fa fa-twitter"></i></a>
+                        <a href="" ><i class="fa fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+
+            </div>
+            </div>
+            <hr>
+    {% endfor %}
+    </div>
+
+
+
+    <div class="two-six col-md-3">
         <div class="tag-container">
             <h3> Popular Tags</h3>
             {% for tag, count in popular_tags %}

@@ -13,12 +13,12 @@ body{
     margin:24px auto;
     overflow: hidden; 
 }
-.left{
+.left-part{
   float: left;
   display: inline-block;
   overflow: hidden;
 }
-.right{
+.right-part{
   float: right;
   display: inline-block;
   overflow: hidden;

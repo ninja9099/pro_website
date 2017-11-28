@@ -4,15 +4,13 @@
         <link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/profile.css' %}">
     {% endblock %} 
 
-    {% block content %}
-        {% block entrypoint %}
-            {% load static %}
-            <script type="text/javascript" data-main="{% static 'src/js/profile.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
-        {% endblock %}
+    {% block container %}
+        {% load static %}
+        <script type="text/javascript" data-main="{% static 'src/js/profile.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
         <!-- ############ block for  row -->
         <div>
             <div class="container-lg">
-                <div class="left col-md-3">
+                <div class="left-part col-md-3">
                     <div class="profile-img">
                         <a href="{% url 'profile' profile_id=user.id %}?edit=true" data-toggle="tooltip" title="Change Profile Picture" data-placment="bottom">
                             <img src="{{request.user.userprofile.profile_picture.url}}" width="223" height="230"/>
@@ -31,7 +29,7 @@
                     </p>
                     <a href="{% url 'profile' profile_id=user.id %}?edit=true" class="btn btn-success col-md-12">Edit profile</a>
                 </div>
-                <div class="right col-md-9">
+                <div class="right-part col-md-9">
                     <div class="user-profile-nav">
                         <ul class="navigation nav nav-tabs" data-tabs="tabs">
                             <li class="active"><a class="underline-nav-item" data-toggle="tab" href="#Overview">Overview</a>

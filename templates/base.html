@@ -17,6 +17,12 @@
         <!--empty block to add any links further required in dev-->
     {% endblock %}
 
+    <script src="{% static 'src/js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/boot.js' %}"></script>
+    {% block scripts %}
+        <!--empty block of adding further links in the page-->
+    {% endblock %}
+
 </head>
 <body>
 	<div class="main-wrapper">
@@ -31,15 +37,12 @@
         <!--main content   -->
         {% endblock %}
         {% block container %}{% endblock  %}
-        
+
     </div>
         {% block footer %}
             {% include  'footer.html' %}
         {% endblock %}
     <!--other scripts for loading in to the body  html-->
-        {% block scripts %}
-            <script src="jquery-3.2.1.min.js"></script>
-            <script type="text/javascript" src="boot.js"></script>
-        {% endblock %}
+
 </body>
 </html>

@@ -8,6 +8,8 @@
   --ltywl-color:#f6d300;
   --ltblk-color:#282828;
 }
+  
+.white{color:var(--wht-color)}
 .large{font-size: 18px;}
 .ltylw{color: var(--ltywl-color)}
 .container{max-width: 1109px !important;}
@@ -37,7 +39,7 @@
 .abel{font-family: Abel, sans-serif !important;}
 .j_slab{font-family: Josefin Slab, sans-serif !important}
 .g_vibes{font-family: Great Vibes, sans-serif !important;}
-.fa-twitter:hover{color: #1da1f2 !important; cursor: pointer;}
+.fa-twitter:hover{color: #1da1f2 !important; cursor: pointer;}~~
 .fa-facebook:hover{ color: #3c5a99 !important; cursor: pointer;}
 .fa-google:hover{color: #dd5347 !important;cursor: pointer;}
 .fa-linkedin:hover{color: #0077b5 !important;  cursor: pointer;}

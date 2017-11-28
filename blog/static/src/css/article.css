@@ -1,4 +1,4 @@
-.container-wrapper{width: 1124px;}
+.container-wrapper{width: 1350px; max-width: 1350px!important; }
 .blog-banner{height: 450px; position: relative;}
 .blog-banner .article-meta{position: absolute; top: auto;bottom: 45px;padding: 20px; background: rgba(0, 0, 0, 0.3);border-radius: 5px;}
 .one-six{padding-top: 20px; padding-bottom: 20px;}
@@ -10,7 +10,7 @@
 /*for comments*/
 .comment-main-level{position: relative;}
 .comment-avatar{width: 50px; height: 50px; overflow: hidden; display: inline-block;     border-bottom-left-radius: 15px; border-top-right-radius: 15px;}
-.comment-box{display: inline-block; position: absolute; margin-left: 10px; padding: 6px; background-color: #fff;}
+.comment-box{ width: 91%; display: inline-block; position: absolute; margin-left: 10px; padding: 6px; background-color: #fff;}
 .comment-box .comment-head *{display: inline-block;}
 .comment-box:before{content: ''; position: absolute;top: 33%; left: -16px;border: 8px solid rgba(0, 0, 0, 0); border-right: 8px solid #fff;}
 #id_honeypot{visibility: hidden; display: none;}
@@ -18,7 +18,37 @@
 /* comments ends here*/
 
 /*for tw0-six column*/
-.author{border: 1px solid #ddd; border-radius: 5px; padding:2px; background-color: #fff;}
+/*.author{border: 1px solid #ddd; border-radius: 5px; padding:2px; background-color: #fff;}*/
 .author .card-post{padding: 5px;}
-.author .card-post img {width: 100%; border:1px dashed var(--ltylw-color);}
+.author .card-post img {width: 100%;}
+/*.box{min-height: 120px;}*/
+.box > p{padding: 5px;}
+.contact{ margin-top:5px;}
+.contact >a{padding: 2px 13px;border-radius: 5px;margin-right: 5px; color: #fbfbf0; background: #f6d300;}
+.recent > p{margin:10px 0;}
+.recent-article{z-index: 5; width: 100%; padding:0 10px;margin-bottom: 5px; position: relative; border-radius: 2px;}
+.recent-article .bg{display: block;  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    z-index: -1; opacity: 0.6;background-repeat: no-repeat;background-position: 50% 0;-ms-background-size: cover;
+    -o-background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-size: cover;}
+.recent-article > p > a{font-size: 22px;color: var(--ltywl-color)}
+.recent-article time{font-size:13px; color: var(--wht-color);background: #444343;padding: 3px;}
+.tags a {border-radius: 20px;    padding: 5px 7px;    background-color: #e0ffff;}
+.tags span.badge {background: #FF9800;}
+.box-title{background: #b80d0d;  padding: 2px;   margin: 10px 0;   color: #fff;   text-transform: uppercase;  border-radius: 2px;}
 /* tw0-six ends here*/
+
+
+/*for slides */
+.related-article{height:100px;}
+.related-article img{width: 100%; height: auto;}
+.related-article h3 {margin:0;}
+.slick-next {right: -12px !important; top: 55px !important;}
+.slick-prev {    left: -12px !important;    top: 55px !important;}
+.slick-next:before{color: var(--ltywl-color) !important;}
+.slick-prev:before{color: var(--ltywl-color) !important;}
+h4.interested{padding: 2px; margin-top: 20px; margin-bottom: 20px;}
+/* ends for slides*/
+/* for collapsable list */
+.collapsibleListClosed::before{content:'\f0da';margin-right: 2px;}
+.collapsibleListOpen > .collapsibleList{margin-left: 10px;}
+.collapsibleListOpen:before{content:'\f0d7'; margin-right: 2px;}

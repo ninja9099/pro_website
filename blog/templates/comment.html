@@ -7,7 +7,7 @@
                     <p class="comment-name by-author">
                         <a href="http://lifeinabits.com">{{comment.user_name}}</a></p>
                         {% if comment.user == article.article_author %}
-                        <span class="author label label-info">Author</span>
+                        <span class="label label-info">Author</span>
                         {% endif %}
                     <span>{{comment.submit_date|timesince}} Ago</span>
                 </div>
