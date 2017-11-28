@@ -162,9 +162,11 @@ def article_preview(request):
 
 
 def tag(request, tag_name):
-    articles = Article.objects.filter(tags__name=tag_name).filter(article_state='published')
-    popular_tags = Article.get_counted_tags()
-    return render(request, 'tagged_articles.html',{'tag_name':tag_name, 'popular_tags':popular_tags, 'articles':articles} )
+    context = core.create_context(request)
+    context['article_set']= Article.objects.filter(tags__name=tag_name).filter(article_state='published')
+    # articles = Article.objects.filter(tags__name=tag_name).filter(article_state='published')
+    # popular_tags = Article.get_counted_tags()
+    return render(request, 'tagged_articles.html',{'tag_name':tag_name, 'context':context} )
 
 
 def category_view(request, cat_id):

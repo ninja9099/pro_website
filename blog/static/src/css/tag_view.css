@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,500,700);
 body{background: #fff;}
+.two-six{padding:0 10px;}
 .card-wrapper{width: 100%;height: 250px; overflow: hidden; margin: 10px 0px;}
 .card-wrapper > .card-img > a > img{width:100%; height: 220px;}
 .heading > h2{margin-bottom: 5px; margin-top: 0;}
@@ -11,4 +12,7 @@ body{background: #fff;}
 .share-article{margin: 5px; position: relative; z-index: 2;}
 .share-box{font-size: 13px;float: none !important; padding: 0 10px; position: relative;  z-index: 5; background: #fff; display: inline-block; margin-top: 0;}
 .share-box a {margin: 0px 2.5px}
+.box-title{background: yellowgreen; color:black; padding: 5px 0px;}
+.box{padding: 5px 0;}
 .share-article::before{content: ""; z-index: 1; position: absolute; width: 100%;  left: 0;  height: 1px;  background: #ddd;  display: block; top: 49%; z-index: 1;}
+.categories ul li{    padding: 5px 5px;    background: #fff;    border-bottom: 1px solid #ddd;}

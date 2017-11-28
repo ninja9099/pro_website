@@ -18,7 +18,7 @@
 
     <div class="four-six col-md-8 abel">
         {% load static %}
-        {% for article in articles %}
+        {% for article in context.article_set %}
         <div class="card-wrapper">
             <div class="card-img col-md-5">
                 <a href="{% url 'article' pk=article.id %}">
@@ -55,25 +55,32 @@
                         <a href="" ><i class="fa fa-pinterest-p"></i></a>
                     </div>
                 </div>
-
-
             </div>
             </div>
             <hr>
     {% endfor %}
     </div>
 
-
-
     <div class="two-six col-md-3">
-        <div class="tag-container">
-            <h3> Popular Tags</h3>
-            {% for tag, count in popular_tags %}
+        <h4 class="center box-title"> Popular Tags</h4>
+        <div class="tag-container box">
+            {% for tag, count in context.popular_tags %}
                 <a href="{% url 'tag' tag %}" class="btn btn-xs btn-default">
                         {{ tag }} <span class="badge badge-info">{{ count }}</span>
                 </a>
-                    <!-- <a href="{% url 'tag' tag %}"><span class="label label-default">{{ tag }} {{ count }}</span></a> -->
                 {% endfor %}
+        </div>
+        <h4 class="center box-title">
+            Categories
+        </h4>
+        <div class="categories box">
+            <ul>
+                {% for cat in context.categories %}
+                <li class="left abel"><a href="{% url 'cat_article_list' cat_id=cat.id %}">
+                   <i class="fa fa-chevron-right" ></i> {{cat}} <span class="badge badge-default float-right">{{cat.articles}}</span></a>
+                 </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </div>
