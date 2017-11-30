@@ -19,7 +19,7 @@
             <span class="badge badge-default">Trending</span>
             <img src="{{article.article_image.url}}"/>
             <div class="first-article-details">
-                <p class="justify dosis">{{article.article_title}}</p>
+                <h3 class=" abel">{{article.article_title}}</h3>
                 <span class="first-article-meta">
                     <span class="float-left dosis">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
@@ -27,13 +27,14 @@
                     <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
             </div>
+             <span class="img-overlay"></span>
         </div>
         {% elif forloop.counter == 2 %}
         <div class="second">
             <span class="badge badge-default">Trending</span>
             <img src="{{article.article_image.url}}" />
             <div class="second-article-details">
-                <p class="justify dosis">{{article.article_title}}</p>
+                <h3 class="abel">{{article.article_title}}</h3>
                 <span class="second-article-meta">
                     <span class="float-left dosis">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
@@ -41,13 +42,14 @@
                     <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
             </div>
+            <span class="img-overlay"></span>
         </div>
         {% else %}
         <div class="third">
             <span class="badge badge-default">Trending</span>
             <img src="{{article.article_image.url}}" />
             <div class="third-article-details">
-                <p class="justify dosis">{{article.article_title}}</p>
+                <h3 class="abel">{{article.article_title}}</h3>
                 <span class="third-article-meta">
                     <span class="float-left dosis">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
@@ -55,6 +57,7 @@
                     <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
             </div>
+            <span class="img-overlay"></span>
         </div>
         {% endif %}
         {% empty %}
@@ -92,6 +95,7 @@
                         <li>
                             <div class="list-box-thumbnail" >
                                 <a href="{% url 'article' pk=article.id %}" style="background: url({{article.article_image.url}}) no-repeat center center; background-size: cover;"></a>
+                                <span class="img-overlay"></span>
                             </div>
                             <div class="barlow list-box-title">
                                 <h4>{{article.article_title}}</h4>
@@ -115,7 +119,7 @@
                         <div class="block-image float-left">
                             <div class="thumb">
                                 <a href="{% url 'article' pk=article.id %}" style="background: url({{article.article_image.url}}) no-repeat center center; background-size: cover;">
-                                    <span class="thumb-overlay"></span>
+                                    <span class="img-overlay"></span>
                                 </a>
                             </div>
                             <div class="postags">
