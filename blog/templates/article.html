@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block container %}
-<div class="blog-banner" style="background-image: url({{article.get_article_image}}); background-size: cover;">
+<div class="blog-banner" style="background-image: url({{article.get_article_image}}); background-size: cover; background-attachment: fixed;">
     <div class="article-meta ltylw col-md-push-1">
         <h1 class="yl">{{article.article_title | truncatechars:30}}</h1>
         <p class="white left">
@@ -128,8 +128,8 @@
                 <div class="contact ltylw">
                   <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
                   <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
-                  <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a>
-                  <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google-plus-official"></i></a>
+                  <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                  <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google"></i></a>
                 </div>
             </div>
         </div>

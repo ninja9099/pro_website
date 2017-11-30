@@ -74,40 +74,45 @@ def edit_article(request, pk):
 
 def user_liked(user_id, article_id):
     try:
-        if len(ArticleLikes.objects.filter(article_id=article_id, user_id=user_id)):
+        if len(ArticleLikes.objects.get(article_id=article_id, user_id=user_id)):
             return True
     except:
         return False
 
 
+
+def _paginate(query_set, obj_per_page, page):
+    paginator = Paginator(query_set, obj_per_page)
+    try:
+        article_page = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        article_page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        article_page = paginator.page(paginator.num_pages)
+
+    return article_page
+
 def BlogIndex(request, **kwargs):
     '''
     view for Homepage of blog
     '''
-    # prepare for launching the jason data
     articles_json = []
     if request.method == "GET":
 
         query_set = Article.get_published().order_by('-article_views',  '-created')
-        paginator = Paginator(query_set, 15)
-        page = request.GET.get('page')
-        try:
-            article_page = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            article_page = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            article_page = paginator.page(paginator.num_pages)
-        context = {}
-        for item  in article_page.object_list:
+        page_no = request.GET.get('page')
+        page = _paginate(query_set,10, page_no)
+        for item  in page.object_list:
             articles_json.append({
                 'article':item,
                 "likes":item.count_likes(),
                 "user_liked":user_liked(request.user.id, item.id)
                 })
-        popular_tags = Article.get_counted_tags()
-        return render( request, 'gallery.html', {'popular_tags':popular_tags, 'article_page':article_page, 'articles_json': articles_json})
+        context = core.create_context(request)
+        context.push({'page':page})
+        return render( request, 'gallery.html', {'context':context})
 
 
 def ArticleView(request, pk):
@@ -121,27 +126,9 @@ def ArticleView(request, pk):
         "popular_tags":popular_tags,
         "article": article, 
         "recent":recent ,
-        "article_analytics": article_analytics(request),
+        "article_analytics": core.article_analytics(request,Article.objects.all()),
         "related_articles":related_articles,
         })
-
-
-def article_analytics(request):
-    query_set = Article.objects.order_by('-created')
-    newest = query_set[0].created.year
-    oldest = query_set.reverse()[0].created.year
-    article_by_year = dict()
-    for year in range(oldest, newest+1):
-        try:
-            temp = query_set.filter(created__year=year)
-            article_by_year.update({year:{}})
-            for month in range(1,13):
-                by_month = temp.filter(created__month=month) 
-                if by_month:
-                    article_by_year[year].update({by_month[0].created:temp.filter(created__month=month)})
-        except:
-            pass
-    return article_by_year
 
 @login_required
 def article_preview(request):
@@ -164,8 +151,6 @@ def article_preview(request):
 def tag(request, tag_name):
     context = core.create_context(request)
     context['article_set']= Article.objects.filter(tags__name=tag_name).filter(article_state='published')
-    # articles = Article.objects.filter(tags__name=tag_name).filter(article_state='published')
-    # popular_tags = Article.get_counted_tags()
     return render(request, 'tagged_articles.html',{'tag_name':tag_name, 'context':context} )
 
 
@@ -174,6 +159,8 @@ def category_view(request, cat_id):
     context.push({'cat_art_set':Article.objects.filter(id=cat_id)})
     return render(request,'cat_article_list.html', {'context': context})
 
+
+#TDME  move to core part  in the blog api
 @receiver(comment_was_posted)
 def Rec(sender, **kwargs):
     user= kwargs.get('request').user

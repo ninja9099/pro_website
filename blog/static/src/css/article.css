@@ -1,6 +1,6 @@
 .container-wrapper{width: 1350px; max-width: 1350px!important; }
 .blog-banner{height: 450px; position: relative;}
-.blog-banner .article-meta{position: absolute; top: auto;bottom: 45px;padding: 20px; background: rgba(0, 0, 0, 0.3);border-radius: 5px;}
+.blog-banner .article-meta{position: absolute; top: auto;bottom: 45px;padding: 20px; background:#070707;border-radius: 5px;}
 .one-six{padding-top: 20px; padding-bottom: 20px;}
 .two-six{padding-top: 20px; padding-bottom: 20px;}
 .four-six{padding-top: 20px;padding-bottom: 20px;}
@@ -18,7 +18,6 @@
 /* comments ends here*/
 
 /*for tw0-six column*/
-/*.author{border: 1px solid #ddd; border-radius: 5px; padding:2px; background-color: #fff;}*/
 .author .card-post{padding: 5px;}
 .author .card-post img {width: 100%;}
 /*.box{min-height: 120px;}*/

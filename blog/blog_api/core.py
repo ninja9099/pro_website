@@ -16,3 +16,21 @@ def create_context(request):
         'article_set': article_set,
     })
     return context
+
+
+def article_analytics(request, article_set):
+    query_set = article_set.order_by('-created')
+    newest = query_set[0].created.year
+    oldest = query_set.reverse()[0].created.year
+    article_by_year = dict()
+    for year in range(oldest, newest+1):
+        try:
+            temp = query_set.filter(created__year=year)
+            article_by_year.update({year:{}})
+            for month in range(1,13):
+                by_month = temp.filter(created__month=month)
+                if by_month:
+                    article_by_year[year].update({by_month[0].created:temp.filter(created__month=month)})
+        except:
+            pass
+    return article_by_year
