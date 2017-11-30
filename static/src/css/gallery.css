@@ -8,11 +8,11 @@ body{background-color:#fff;}
 :after,:before{transition:all .0s ease;-webkit-transition:all .0s ease;-moz-transition:all .0s ease;-o-transition:all .0s ease}
 
 .trending-wrapper{overflow: hidden; margin-bottom: 10px;}
-.first{width: 25%;margin-right: 5px; display: table-cell; float: left;}
+.first{width: 25%;margin-right: 5px; display: table-cell; float: left; z-index: 2;}
 .first img::after{content: no-close-quote; position: absolute; left: 0; bottom: 0; width: 100%; height: 150px;background-color: red;
     opacity: .8; background-size: 100% 100%; overflow: hidden;}
 .first{overflow: hidden; position: relative; padding: 0;}
-.first .badge{background-color: #b80d0d; border-radius: 2px; position: absolute; left: 26px; top: 19px;}
+.first .badge{background-color: #fd4326; border-radius: 2px; position: absolute; left: 26px; top: 19px;}
 .first img{width: 100%; height: 350px;}
 .first .first-article-details{position: absolute; top: auto; bottom: 0;left: 0; right: 0; padding: 0px 15px;z-index: 2;}
 .first .first-article-details h3{font-size: 18px; color: #fff;  letter-spacing: 1px; text-transform: uppercase; font-weight: 700;}
@@ -20,8 +20,8 @@ body{background-color:#fff;}
 .first .first-article-meta a{margin: 0 5px; color: #e0fff1;}
 /* end for first*/
 /* for second*/
-.second {overflow: hidden; position: relative; width: 49%; margin-right: 5px;display: table-cell; float: left;}
-.second .badge{background-color: #b80d0d; border-radius: 2px; position: absolute; left: 26px; top: 19px;}
+.second {overflow: hidden; position: relative; width: 49%; margin-right: 5px;display: table-cell; float: left; z-index: 2;}
+.second .badge{background-color: #fd4326; border-radius: 2px; position: absolute; left: 26px; top: 19px;}
 .second img{width: 100%; height: 350px;}
 .second .second-article-details{position: absolute; top: auto; bottom: 0;left: 0; right: 0; padding: 0px 15px; z-index: 2;}
 .second .second-article-details h3{font-size: 23px;color: #fff;  letter-spacing: 1px; text-transform: uppercase; font-weight: 700;}
@@ -29,8 +29,8 @@ body{background-color:#fff;}
 .second .second-article-meta a{margin: 0 5px; color: #e0fff1;}
 /* end for second*/
 /* for third */
-.third {overflow: hidden; position: relative; width: 24%; display:table-cell; float: left;}
-.third .badge{background-color: #b80d0d; border-radius: 2px; position: absolute; left: 26px; top: 19px;}
+.third {overflow: hidden; position: relative; width: 24%; display:table-cell; float: left; z-index: 2;}
+.third .badge{background-color: #fd4326; border-radius: 2px; position: absolute; left: 26px; top: 19px;}
 .third img{width: 100%; height: 350px;}
 .third .third-article-details{position: absolute; top: auto; bottom: 0;left: 0; right: 0; padding: 0px 15px; z-index: 2;}
 .third .third-article-details h3{font-size: 18px;color: #fff;  letter-spacing: 1px; text-transform: uppercase; font-weight: 700;}
@@ -130,7 +130,7 @@ a.read-more { display: inline-block; margin-bottom: 0; font-weight: 700; text-al
 .first:after, .second:after, .third:after{content: no-close-quote; position: absolute;  left: 0;  bottom: 0;  width: 100%; height: 150px; background: url(http://3.bp.blogspot.com/-LnvazGBvKh8/VskckSkmzxI/AAAAAAAAC4s/erEgI6A_ih4/s1600-r/metabg.png) repeat-x;
     opacity: .8;  background-size: 100% 100%; overflow: hidden;}
 
-.box-thumbnail:hover .img-overlay, .list-box-thumbnail:hover .img-overlay, .block-image:hover .img-overlay {background-color:rgba(177, 15, 177, 0.12);}
+.box-thumbnail:hover .img-overlay, .list-box-thumbnail:hover .img-overlay, .block-image:hover .img-overlay, .popular-post-thumbnail:hover .img-overlay {background-color:rgba(40,35,40,0.30);}
 a:hover h3, a:hover h4, a:hover h5, a:hover h1, h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,a:hover{color: #fd4326 !important;}
 a.read-more:hover, .first-tag >a:hover {background: #fff !important ;border: 1px solid #fd4326 !important;}
  .page-number:hover{ background: #fd4326 !important ;}

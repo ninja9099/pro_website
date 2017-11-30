@@ -19,7 +19,7 @@
             <span class="badge badge-default">Trending</span>
             <img src="{{article.article_image.url}}"/>
             <div class="first-article-details">
-                <h3 class=" abel">{{article.article_title}}</h3>
+                <a href="{% url 'article' pk=article.id %}"><h3 class="abel">{{article.article_title}}</h3></a>
                 <span class="first-article-meta">
                     <span class="float-left dosis">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
@@ -34,7 +34,7 @@
             <span class="badge badge-default">Trending</span>
             <img src="{{article.article_image.url}}" />
             <div class="second-article-details">
-                <h3 class="abel">{{article.article_title}}</h3>
+                 <a href="{% url 'article' pk=article.id %}"><h3 class="abel">{{article.article_title}}</h3></a>
                 <span class="second-article-meta">
                     <span class="float-left dosis">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
@@ -49,7 +49,7 @@
             <span class="badge badge-default">Trending</span>
             <img src="{{article.article_image.url}}" />
             <div class="third-article-details">
-                <h3 class="abel">{{article.article_title}}</h3>
+                 <a href="{% url 'article' pk=article.id %}"><h3 class="abel">{{article.article_title}}</h3></a>
                 <span class="third-article-meta">
                     <span class="float-left dosis">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
@@ -71,7 +71,7 @@
             <section class="programing">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">Programing</a>
+                        <a class="abel" href="#!">Programing</a>
                     </h2>
                 </div>
                 <div class="box-content">
@@ -110,7 +110,7 @@
             <section class="recent-posts">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">RECENT</a>
+                        <a class="abel" href="#!">RECENT</a>
                     </h2>
                 </div>
                 {% for article in context.page|slice:":5" %}
@@ -165,7 +165,7 @@
             <section class="business">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">Ayurveda</a>
+                        <a class="abel" href="#!">Ayurveda</a>
                     </h2>
                 </div>
                 <div class="box-content">
@@ -177,7 +177,7 @@
                                     <a href="" style="background: url({{article.article_image.url}}) no-repeat center center; background-size: cover;">
                                         <span class="img-overlay"></span>
                                     </a>
-                                    <div class="first-tag" href=""><a href="">Business</a></div>
+                                    <div class="first-tag" href=""><a href="#!">Business</a></div>
                                 </div>
                                 <div class="box-column-description">
                                     <h1 class="heading">
@@ -198,7 +198,7 @@
             <div  class="widget social">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">STAY WITH US</a>
+                        <a class="abel" href="#!">STAY WITH US</a>
                     </h2>
                 </div>
                 <div class="social-box-content">
@@ -213,7 +213,7 @@
             <div  class="widget facebook">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">FACCEBOOK</a>
+                        <a class="abel" href="#!">FACCEBOOK</a>
                     </h2>
                 </div>
                 <div class="facebook-box-content">
@@ -223,7 +223,7 @@
             <div  class="widget popular-posts">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">POPULAR POSTS</a>
+                        <a class="abel" href="#!">POPULAR POSTS</a>
                     </h2>
                 </div>
                 <div class="popular-posts-box-content">
@@ -248,7 +248,7 @@
             <div  class="widget categories">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">CATEGORIES</a>
+                        <a class="abel" href="#!">CATEGORIES</a>
                     </h2>
                 </div>
                 <div class="cat-box">
@@ -262,7 +262,7 @@
             <div  class="widget archives">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">BLOG ARCHIVES</a>
+                        <a class="abel" href="#!">BLOG ARCHIVES</a>
                     </h2>
                 </div>
             </div>
