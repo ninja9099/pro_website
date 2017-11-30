@@ -61,6 +61,7 @@ body{background-color:#fff;}
 .list-box-thumbnail { display: table-cell; width: 100px; height: 70px; vertical-align: middle;}
 .list-box-thumbnail a{display: block; height: 70px;}
 .list-box-title{padding-left: 10px; display: table-cell; margin-left: 10px;}
+.list-box-title .recent-date{color: #000;}
 .list-box-title h4{ font-size: 16px; font-family:Abel; margin-bottom: 5px;}
 h1, h2, h3, h4 { margin: 0; position: relative; letter-spacing: 1px; text-transform: uppercase; line-height: 1.5; font-family: Abel;font-weight: 400;font-style: normal;}
 .block-image{float: left; display: table-cell; width: 40%;}
@@ -103,4 +104,13 @@ a.read-more { display: inline-block; margin-bottom: 0; font-weight: 700; text-al
 .popular-posts-box-content .popular-post-meta .heading{font-size: 15px; line-height: 1; }
 .popular-posts-box-content .popular-post-thumbnail a{width: 120px;height: 70px;display: table-cell; position: relative;}
 .popular-posts-box-content .item-content{margin-bottom: 10px; overflow: hidden;}
+
+
+/*for categories*/
+.categories .cat-box ul li {display: block; padding: 8px 0; border-bottom: 1px solid #F5F5F5; position: relative;}
+.categories .cat-box ul li:first-child{padding: 0 0 8px;}
+.categories .cat-box ul li a{color: #1c1c1c;font-size: 11px; padding-left: 15px; font-weight: 100; text-transform: uppercase;}
+.categories .cat-box ul li a:before {content: '\203a'; position: absolute;left: 0; top: 4px;font-size: 22px; color: #1c1c1c;}
+.categories .cat-box ul li:first-child a:before {top: -4px;
+}
 /* sidebar column ends here*/

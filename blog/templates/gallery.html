@@ -22,7 +22,7 @@
                 <p class="justify dosis">{{article.article_title}}</p>
                 <span class="first-article-meta">
                     <span class="float-left dosis">
-                        <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created}}</a>
+                        <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
                     </span>
                     <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
@@ -36,7 +36,7 @@
                 <p class="justify dosis">{{article.article_title}}</p>
                 <span class="second-article-meta">
                     <span class="float-left dosis">
-                        <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created}}</a>
+                        <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
                     </span>
                     <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
@@ -50,7 +50,7 @@
                 <p class="justify dosis">{{article.article_title}}</p>
                 <span class="third-article-meta">
                     <span class="float-left dosis">
-                        <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created}}</a>
+                        <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
                     </span>
                     <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
@@ -85,7 +85,7 @@
                                 <a href="{% url 'article' pk=article.id %}">
                                     <h3 class="abel">{{article.article_title}}</h3>
                                 </a>
-                                <span class="recent-date">{{article.created}}</span>
+                                <span class="recent-date">{{article.created|date:"d M Y"}}</span>
                             </div>
                         </div>
                       {% else%}
@@ -95,7 +95,7 @@
                             </div>
                             <div class="barlow list-box-title">
                                 <h4>{{article.article_title}}</h4>
-                               <span class="recent-date"><time>{{article.created}}</time></span>
+                               <span class="recent-date"><time>{{article.created|date:"d M Y"}}</time></span>
                             </div>
                         </li>
                       {% endif %}
@@ -125,7 +125,7 @@
                         <div class="description">
                             <h2 class="heading">{{article.article_title}}</h2>
                             <div class="description-meta">
-                                <span class="recent-date"><time>{{article.created}}</time></span>
+                                <span class="recent-date"><time>{{article.created|date:"d M Y"}}</time></span>
                                 <span class="summary">{{article.get_summary|truncatechars:130}}</span>
                                 <a class="read-more" href="{% url 'article' pk=article.id %}">Read more</a>
                             </div>
@@ -179,7 +179,7 @@
                                     <h1 class="heading">
                                         {{article.article_title}}
                                     </h1>
-                                    <span class="recent-date"><time>{{article.created}}</time></span>
+                                    <span class="recent-date"><time>{{article.created|date:"d M Y"}}</time></span>
                                 </div>
                             </div>
                         </div>
@@ -247,11 +247,18 @@
                         <a class="abel" href="#">CATEGORIES</a>
                     </h2>
                 </div>
+                <div class="cat-box">
+                    <ul>
+                        {% for cat in context.categories %}
+                        <li><a href="{% url 'cat_article_list' cat_id=cat.id %}">{{cat}} <span class="badge badge-default float-right">{{cat.articles}}</span></li></a>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
             <div  class="widget archives">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#">ARCHIVES</a>
+                        <a class="abel" href="#">BLOG ARCHIVES</a>
                     </h2>
                 </div>
             </div>
