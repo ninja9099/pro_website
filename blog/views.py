@@ -100,10 +100,9 @@ def BlogIndex(request, **kwargs):
     '''
     articles_json = []
     if request.method == "GET":
-
         query_set = Article.get_published().order_by('-article_views',  '-created')
         page_no = request.GET.get('page')
-        page = _paginate(query_set,10, page_no)
+        page = _paginate(query_set,3, page_no)
         for item  in page.object_list:
             articles_json.append({
                 'article':item,

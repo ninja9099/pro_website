@@ -39,10 +39,11 @@ body{background-color:#fff;}
 
 /* for left and right-half*/
 .box-title {position: relative;}
-.left-half, .right-half{padding: 0; }
+.left-half{padding: 0; margin-right: 40px; width: 70%; display: table-cell;float: left;} 
+.right-half{padding: 0; width: 28%; display: table-cell;}
 .box-title h2, .posts-title h2 { display: block;color: #1c1c1c; padding-bottom: 13px; border-bottom: 1px solid #f5f5f5; margin-bottom: 15px;
-    text-decoration: none; font-size: 18px;letter-spacing: 1px;text-transform: uppercase; line-height: 1.5; font-family: Dosis; font-weight: 400;
-    font-style: normal;}
+    text-decoration: none; font-size: 18px;letter-spacing: 1px;text-transform: uppercase; line-height: 1.5; font-family: Dosis; font-weight: 600;
+    font-style: normal;margin-top: 20px;}
 .box-title h2 a, .posts-title h2 a {color: #1c1c1c; }
 .box-title h2:before, .posts-title h2:before {  position: absolute; content: ''; bottom: 0px;  left: 0; width: 36px; height: 3px; background-color: #fd4326;}
 .box-content{width: 100%; height: 364px; display: table-cell;}
@@ -64,35 +65,42 @@ body{background-color:#fff;}
 h1, h2, h3, h4 { margin: 0; position: relative; letter-spacing: 1px; text-transform: uppercase; line-height: 1.5; font-family: Abel;font-weight: 400;font-style: normal;}
 .block-image{float: left; display: table-cell; width: 40%;}
 .description{display: table-cell;width: 60%}
-.block-image .thumb a{height:224px; display: block;}
+.block-image .thumb a{height:217px; display: block;}
 .post-wrapper{border-bottom: 1px solid #f5f5f5; margin: 0 0 15px; padding-bottom: 15px;}
 .post{width: 100%;position: relative;overflow: hidden;}
 .postags {position: absolute;top: 15px; left: 15px; z-index: 3;}
 .postags a {background: #fd4326; color: #fff;margin: 0;height: 20px;line-height: 20px; padding: 0 6px; font-size: 12px; border-radius: 2px;}
 .post .description{padding-left: 20px;}
-.post .description .heading{line-height: 1.2}
+.post .description .heading{line-height: 1.2;font-size: 21px;}
 .description .description-meta span{color: #bdbdbd; margin:10px 0px; display: block;}
 .description-meta >span >  time{border-bottom: 1px dashed;}
-a.read-more {
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: 700;
-    text-align: left;
-    vertical-align: middle;
-    cursor: pointer;
-    background-image: none;
-    white-space: nowrap;
-    line-height: 25px;
-    height: 25px;
-    color: #fff;
-    background-color: #fd4326;
-    border-radius: 2px;
-    font-size: 11px;
-    text-transform: uppercase;
-    padding: 0 10px;
-    margin-top: 3px;
-    outline: none;
-    border: none;
-    overflow: hidden;
-}
+a.read-more { display: inline-block; margin-bottom: 0; font-weight: 700; text-align: left; vertical-align: middle;    cursor: pointer;background-image: none; white-space: nowrap;line-height: 25px; height: 25px; color: #fff;background-color: #fd4326; border-radius: 2px; font-size: 11px;  text-transform: uppercase; padding: 0 10px; margin-top: 3px; outline: none;  border: none;  overflow: hidden;}
+.blog-pager{margin-bottom: 20px;}
+.blog-pager ul li {display: inline-block;}
+.page-number{display: block; margin-right: 6px; padding: 0 12px; background: #1c1c1c; color: #fff; border: 0; text-transform: uppercase;line-height: 32px; font-weight: 400; border-radius: 2px;}
+.current{background-color: #fd4326;color: #fff;}
+.box-column{float: left; width: 48%; margin-right: 10px; margin-bottom: 10px; max-height: 500px; display: table-cell;}
+.box-column .box .box-thumbnail{height: 200px; position: relative;}
+.box-column .box .box-thumbnail a{height: 200px; display: block; position: relative;}
+.box-column .box .box-thumbnail .first-tag {position: absolute; top: 15px; left: 15px; z-index: 2;}
+.box-column .box .box-thumbnail .first-tag a {background: #fd4326;color: #fff; height: 20px; line-height: 20px; display: inline-block; padding: 0 6px; font-size: 12px;font-weight: 400;border-radius: 2px;}
+.box-column .box .box-column-description .heading{display: block;color: #1c1c1c;font-weight: 700;line-height: 1.2em;margin-bottom: 5px;text-decoration: none; font-size: 19px;letter-spacing: 1px;text-transform: uppercase;font-family: Abel; font-weight: 400;font-style: normal;}
+.box-column .box .box-column-description {padding-top: 10px;padding-right: 10px; height:85px;}
+.box-column .box .box-column-description .recent-date{color: #867e7f;}
 /*ends here*/
+
+/*for sidebar column*/
+.widget{margin-bottom: 20px;}
+.social .social-box-content ul li{width: 100%; margin-bottom: 10px;}
+.social .social-box-content ul li a{ font-size: 10px;text-transform: uppercase;letter-spacing: 2px;text-decoration: none;display: block; color: #fff;padding: 10px 1px 10px 10px; border-radius: 3px;}
+.social .social-box-content ul li a i {border-left: 1px solid rgba(255,255,255,.3); line-height: 14px;float: right; width: 35px;height: 14px;line-height: 14px; text-align: ; margin: 0; padding: 0 0 0 10px; font-size: 14px;}
+.social .social-box-content ul li a.social-btn-twitter {background: #1da1f2;}
+.social .social-box-content ul li a.social-btn-facebook{background: #3b5998;}
+.social .social-box-content ul li a.social-btn-youtube{background: #cd201f;}
+.social .social-box-content ul li a.social-btn-instagram{background: #405de6;}
+.popular-posts-box-content .popular-post-thumbnail{ width: 45%; display: table-cell; float: left;}
+.popular-posts-box-content .popular-post-meta {width: 45%; display: table-cell;}
+.popular-posts-box-content .popular-post-meta .heading{font-size: 15px; line-height: 1; }
+.popular-posts-box-content .popular-post-thumbnail a{width: 120px;height: 70px;display: table-cell; position: relative;}
+.popular-posts-box-content .item-content{margin-bottom: 10px; overflow: hidden;}
+/* sidebar column ends here*/

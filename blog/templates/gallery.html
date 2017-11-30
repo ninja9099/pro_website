@@ -63,7 +63,7 @@
         <!--2/3 part  -->
     </div>
     <div class="two-part-wrapper">
-        <div class="col-md-8 left-half">
+        <div class="left-half">
             <!-- first section-->
             <section class="programing">
                 <div class="box-title">
@@ -95,7 +95,7 @@
                             </div>
                             <div class="barlow list-box-title">
                                 <h4>{{article.article_title}}</h4>
-                                <span><i class="fa fa-calendar-check-o"></i> {{article.created}}</span>
+                               <span class="recent-date"><time>{{article.created}}</time></span>
                             </div>
                         </li>
                       {% endif %}
@@ -106,7 +106,7 @@
             <section class="recent-posts">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="/search/label/Business?&amp;max-results=10">RECENT</a>
+                        <a class="abel" href="#">RECENT</a>
                     </h2>
                 </div>
                 {% for article in context.page|slice:":5" %}
@@ -125,7 +125,7 @@
                         <div class="description">
                             <h2 class="heading">{{article.article_title}}</h2>
                             <div class="description-meta">
-                                <span><time> <i class="fa fa-calendar"></i> {{article.created}}</time></span>
+                                <span class="recent-date"><time>{{article.created}}</time></span>
                                 <span class="summary">{{article.get_summary|truncatechars:130}}</span>
                                 <a class="read-more" href="{% url 'article' pk=article.id %}">Read more</a>
                             </div>
@@ -133,71 +133,144 @@
                     </div>
                 </div>
                 {% endfor %}
-
+                <div class="blog-pager">
+                    {% if context.page.has_other_pages %}
+                        <ul>
+                        {% if context.page.has_previous %}
+                          <li class="page-number"><a href="?page={{ context.page.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                           <li class="page-number disabled"><a href="#">&laquo;</a></li>
+                        {% endif %}
+                        {% for i in context.page.paginator.page_range %}
+                          {% if context.page.number == i %}
+                            <li class="page-number current"><strong>{{i}}</strong></li>
+                          {% else %}
+                            <li class="page-number"><a  href="?page={{ i }}">{{ i }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                        {% if context.page.has_next %}
+                          <li class="page-number"><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                          <li class="page-number disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                      </ul>
+                    {% endif %} 
+                </div>
 
             </section>
             <section class="business">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="/search/label/Business?&amp;max-results=10">Ayurveda</a>
+                        <a class="abel" href="#">Ayurveda</a>
                     </h2>
                 </div>
-
-
+                <div class="box-content">
+                    <ul>
+                        {% for article in context.page|slice:":5" %}
+                        <div class="box-column">
+                            <div class="box">
+                                <div class="box-thumbnail">
+                                    <a href="" style="background: url({{article.article_image.url}}) no-repeat center center; background-size: cover;">
+                                        <span class="img-overlay"></span>
+                                    </a>
+                                    <div class="first-tag" href=""><a href="">Business</a></div>
+                                </div>
+                                <div class="box-column-description">
+                                    <h1 class="heading">
+                                        {{article.article_title}}
+                                    </h1>
+                                    <span class="recent-date"><time>{{article.created}}</time></span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </div>
             </section>
         </div>
+<!-- ##################################################################### left column ends here-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="col-lg-4 right-half"></div>
+        <div class="right-half">
+            <div  class="widget social">
+                <div class="box-title">
+                    <h2 class="title">
+                        <a class="abel" href="#">STAY WITH US</a>
+                    </h2>
+                </div>
+                <div class="social-box-content">
+                    <ul>
+                        <li><a href="#!" class="social-btn-twitter">Follow on Twitter <i class="fa fa-twitter"></i> </a></li>
+                        <li><a href="#!" class="social-btn-facebook">Like on Facebook <i class="fa fa-facebook"></i> </a></li>
+                        <li><a href="#!" class="social-btn-youtube">Subscribe on Youtube <i class="fa fa-youtube"></i> </a></li>
+                        <li><a href="#!" class="social-btn-instagram">Follow on Instagram <i class="fa fa-instagram"></i> </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div  class="widget facebook">
+                <div class="box-title">
+                    <h2 class="title">
+                        <a class="abel" href="#">FACCEBOOK</a>
+                    </h2>
+                </div>
+                <div class="facebook-box-content">
+                    <div class="fb-page" data-href="https://www.facebook.com/LifeBits-120274515294153/" data-width="287" data-height="222" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/LifeBits-120274515294153/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/LifeBits-120274515294153/">LifeBits</a></blockquote></div>
+                </div>
+            </div>
+            <div  class="widget popular-posts">
+                <div class="box-title">
+                    <h2 class="title">
+                        <a class="abel" href="#">POPULAR POSTS</a>
+                    </h2>
+                </div>
+                <div class="popular-posts-box-content">
+                    <ul>
+                        {% for article in context.page.object_list|slice:":4"%}
+                        <li>
+                            <div class="item-content">
+                                <div class="popular-post-thumbnail">
+                                    <a href="{% url 'article' pk=article.id %}" style="background:url({{article.article_image.url}}) no-repeat center center; background-size: cover;">
+                                        <span class="img-overlay"></span>
+                                    </a>
+                                </div>
+                                <div class="popular-post-meta">
+                                    <h4 class="heading barlow dosis abel"> {{article.article_title}}</h4>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div  class="widget categories">
+                <div class="box-title">
+                    <h2 class="title">
+                        <a class="abel" href="#">CATEGORIES</a>
+                    </h2>
+                </div>
+            </div>
+            <div  class="widget archives">
+                <div class="box-title">
+                    <h2 class="title">
+                        <a class="abel" href="#">ARCHIVES</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-{% if article_page.has_other_pages %}
-  <nav class="pagination">
-    <ul>
-    {% if article_page.has_previous %}
-      <li><a href="?page={{ article_page.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-       <li class="disabled"><a href="#">&laquo;</a></li>
-    {% endif %}
-    {% for i in article_page.paginator.page_range %}
-      {% if article_page.number == i %}
-        <li class="current"><strong>{{i}}</strong></li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if article_page.has_next %}
-      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-  </nav>
-  {% endif %}
+
 
 
 
 <!-- popup html -->
 {% include 'pop_animate.html'%}
-
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.11&appId=181505989085886';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 {% endblock %}
