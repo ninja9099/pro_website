@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-  {% load static %}
-
+    {% load static %}
     {% block title %}
         Gallery
     {% endblock %}
@@ -9,8 +8,7 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'src/css/gallery.css' %}">
     {% endblock %}
-{% block container %}
-
+{% block container %}    
 <div class="container-wrapper">
     <div class="trending-wrapper">
         {% for article in context.page.object_list|slice:":3"%}
@@ -269,13 +267,7 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 <!-- popup html -->
-{% include 'pop_animate.html'%}
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -284,4 +276,9 @@
   js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.11&appId=181505989085886';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
+<script>
+    $(".navbar-nav li.active").removeClass('active');
+    $(".blog_li").addClass('active');
+</script>
 {% endblock %}
