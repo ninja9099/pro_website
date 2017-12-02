@@ -1,4 +1,6 @@
-.container-wrapper{width: 1350px; max-width: 1350px!important; }
+body{background-color: #fff;}
+*{padding: 0; margin: 0; box-sizing: border-box;}
+h1, h2, h3, h4, h5, h6{margin: 0 !important;} 
 .blog-banner{height: 450px; position: relative;}
 .blog-banner .article-meta{position: absolute; top: auto;bottom: 45px;padding: 20px; background:#070707;border-radius: 5px;}
 .one-six{padding-top: 20px; padding-bottom: 20px;}
@@ -18,12 +20,6 @@
 /* comments ends here*/
 
 /*for tw0-six column*/
-.author .card-post{padding: 5px;}
-.author .card-post img {width: 100%;}
-/*.box{min-height: 120px;}*/
-.box > p{padding: 5px;}
-.contact{ margin-top:5px;}
-.contact >a{padding: 2px 13px;border-radius: 5px;margin-right: 5px; color: #fbfbf0; background: #f6d300;}
 .recent > p{margin:10px 0;}
 .recent-article{z-index: 5; width: 100%; padding:0 10px;margin-bottom: 5px; position: relative; border-radius: 2px;}
 .recent-article .bg{display: block;  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
@@ -33,10 +29,10 @@
 .recent-article time{font-size:13px; color: var(--wht-color);background: #444343;padding: 3px;}
 .tags a {border-radius: 20px;    padding: 5px 7px;    background-color: #e0ffff;}
 .tags span.badge {background: #FF9800;}
-.box-title{background: #b80d0d;  padding: 2px;   margin: 10px 0;   color: #fff;   text-transform: uppercase;  border-radius: 2px;}
+.box-title{width: 100%;}
+.box-title h2{color: #1c1c1c;position: relative; border-bottom: 1px solid #f5f5f5;margin-bottom: 15px !important;text-decoration: none; font-size: 18px; letter-spacing: 1px;text-transform: uppercase; line-height: 1.5;font-family: Abel; font-weight: 400;font-style: normal;  padding-bottom: 15px;}
+.box-title h2:before{position: absolute; content: ''; bottom: 0px;  left: 0; width: 36px; height: 3px; background-color: #fd4326;}
 /* tw0-six ends here*/
-
-
 /*for slides */
 .related-article{height:100px;}
 .related-article img{width: 100%; height: auto;}

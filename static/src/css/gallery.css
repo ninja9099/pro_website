@@ -98,7 +98,7 @@ a.read-more { display: inline-block; margin-bottom: 0; font-weight: 700; text-al
 .widget{margin-bottom: 20px;}
 .social .social-box-content ul li{width: 100%; margin-bottom: 10px;}
 .social .social-box-content ul li a{ font-size: 10px;text-transform: uppercase;letter-spacing: 2px;text-decoration: none;display: block; color: #fff;padding: 10px 1px 10px 10px; border-radius: 3px;}
-.social .social-box-content ul li a i {border-left: 1px solid rgba(255,255,255,.3); line-height: 14px;float: right; width: 35px;height: 14px;line-height: 14px; text-align: ; margin: 0; padding: 0 0 0 10px; font-size: 14px;}
+.social .social-box-content ul li a i {border-left: 1px solid rgba(255,255,255,.3); line-height: 14px;float: right; width: 35px;height: 14px; line-height: 14px; margin: 0; padding: 0 0 0 10px; font-size: 14px;}
 .social .social-box-content ul li a.social-btn-twitter {background: #1da1f2;}
 .social .social-box-content ul li a.social-btn-facebook{background: #3b5998;}
 .social .social-box-content ul li a.social-btn-youtube{background: #cd201f;}

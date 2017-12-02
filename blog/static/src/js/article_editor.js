@@ -1,8 +1,6 @@
 require(['config'], function(){
 	require(['jquery', 'ck', 'bootstrap', 'ajax'], function($, ck, bootstrap, ajax){
-		debugger;
 		$(document).ready(function(){
-	        $("[id^='id_']").addClass('form-control');
 	        ajax.init()
 	        var editor = CKEDITOR.replace( 'id_article_content' );
 	        var url = $('#url').val()
@@ -23,10 +21,10 @@ require(['config'], function(){
 			      type: 'post',
 			      timeout: 3000,
 			      beforeSend: function () {
-			        $('#preview').addClass('saving')
+			        $('#preview').addClass('saving');
 			      },
 			      success: function (data) {
-			      	$('#preview').removeClass('saving')
+			      	$('#preview').removeClass('saving');
 			        $("#article_preview .modal-body").html($.parseHTML(data));
 			      	$('.modal').modal('show')
 			      }
@@ -69,6 +67,16 @@ require(['config'], function(){
 			      	}
 			    });
 		  	});
+            var fixmeTop = $('.fixme').offset().top;       // get initial position of the element
+	    	$(window).scroll(function() {
+		        var currentScroll = $(window).scrollTop() - 210; // get current position
+		        if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+		            $('.fixme').addClass('fixed bounceInDown animated');
+
+		        } else if((currentScroll +300) < fixmeTop) {                                   // apply position: static
+		            $('.fixme').removeClass('fixed bounceInDown animated');
+		        }
+		    });
 	    });
 	});
 });
