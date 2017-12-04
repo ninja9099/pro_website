@@ -23,7 +23,7 @@
     </div>    
 </div>
 <div class="container-wrapper">
-    <!-- <div class="one-six col-md-1">
+    <div class="one-six">
         <div class="social-comments fixme animated center">
             {% load comments %}
 
@@ -48,7 +48,7 @@
             </li>
             </ul>
         </div>
-    </div> -->
+    </div>
     <div class="four-six col-md-8 justify abel">
        {% autoescape off %}
            {{article.article_content}}
@@ -114,16 +114,15 @@
         <div class="box-title">
             <h2>Author</h2>
         </div>
-        <div class="">
-            <div class="card-post">
+        <div class="author-post barlow">
                 <img src="{{article.article_author.userprofile.profile_picture.url}}"/>
                 <div class="author-info">
-                    <p class="name"><b>{{article.article_author.get_full_name}}</b></p>
-                    <p>
+                    <h3 class="name">{{article.article_author.get_full_name}}</h3>
+                    <h4>
                     {% autoescape off %}
                         {{article.article_author.userprofile.short_intro}}
                     {% endautoescape %}
-                    </p>
+                    </h4>
                 </div>
                 <div class="contact ltylw">
                   <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
@@ -131,7 +130,6 @@
                   <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
                   <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google"></i></a>
                 </div>
-            </div>
         </div>
         <div class="box-title">
             <h2>TAGS <i class="fa fa-tags" aria-hidden="true"></i></h2>

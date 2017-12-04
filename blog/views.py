@@ -33,7 +33,7 @@ def create_article(request):
         form = ArticleForm()
 
     if request.is_ajax() and request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)   
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             article_instance = form.save(commit=False)
             article_instance.article_state = "draft"
@@ -43,7 +43,7 @@ def create_article(request):
             return JsonResponse({'success':True, 'message':'Your article is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
         else:
             return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
-    
+
     return render(request, 'article_template.html', {"form":form, 'url':reverse('article_submit')})
 
 
@@ -51,7 +51,7 @@ def create_article(request):
 @permission_required('blog.change_article', raise_exception=True)
 def edit_article(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    if request.method =='GET': 
+    if request.method =='GET':
         if request.user == article.article_author:
             form  = ArticleForm(instance=article)
             return render(request, 'article_template.html', {"form":form, 'url':reverse('article_edit', kwargs={'pk':article.id})})
@@ -123,7 +123,7 @@ def ArticleView(request, pk):
     related_articles = Article.get_published().filter(article_subcategory=article.article_subcategory).exclude(id=article.id)[:5]
     return render(request, 'article.html', {
         "popular_tags":popular_tags,
-        "article": article, 
+        "article": article,
         "recent":recent ,
         "article_analytics": core.article_analytics(request,Article.objects.all()),
         "related_articles":related_articles,
@@ -149,13 +149,18 @@ def article_preview(request):
 
 def tag(request, tag_name):
     context = core.create_context(request)
-    context['article_set']= Article.objects.filter(tags__name=tag_name).filter(article_state='published')
+    query_set = Article.objects.filter(tags__name=tag_name).filter(article_state='published')
+    page = _paginate(query_set, 3, request.GET.get('page'))
+    context.push({'page': page})
     return render(request, 'tagged_articles.html',{'tag_name':tag_name, 'context':context} )
 
 
 def category_view(request, cat_id):
+    query_set = Article.objects.filter(id=cat_id)
+    page_no = request.GET.get('page')
+    page = _paginate(query_set, 3, page_no)
     context = core.create_context(request)
-    context.push({'cat_art_set':Article.objects.filter(id=cat_id)})
+    context.push({'page':page})
     return render(request,'cat_article_list.html', {'context': context})
 
 

@@ -132,6 +132,7 @@ def login(request):
         form = LoginForm() # A empty, unbound form
     return render(request, 'registration/login.html', {'form': form, "next":next_url})
 
+
 def logout(request):
     auth_logout(request)
     

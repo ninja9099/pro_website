@@ -6,6 +6,7 @@
 {% block branding %}
         <!--for main branding    -->
 {% endblock %}
+ <!--{%  include  'navigation.html' with active_page='writer' %}-->
 {% load static %}
 <link href="{% static 'src/css/article_editore.css' %}" rel="stylesheet" />
 <form action="" method="post" enctype="multipart/form-data">
@@ -39,7 +40,7 @@
     <div class="col-md-9 editore-pannel">
         {{ form.article_content }}
     </div>
-    <div class="col-md-3 side-pannel">
+    <div class="col-md-3 side-pannel barlow">
         <h2>Post Settings</h2>
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
@@ -95,6 +96,7 @@
         </div>
     </div>
 </div>
+</form>
 <!-- for popup modal -->
 <div class="modal fade" id="article_preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -102,6 +104,7 @@
       <div class="modal-body">
       </div>
   </div>
+</div>
 </div>
   {% load static %}
 <script type="text/javascript" data-main="{% static 'src/js/article_editor.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>

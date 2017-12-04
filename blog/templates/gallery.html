@@ -8,7 +8,7 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'src/css/gallery.css' %}">
     {% endblock %}
-{% block container %}    
+{% block container %}
 <div class="container-wrapper">
     <div class="trending-wrapper">
         {% for article in context.page.object_list|slice:":3"%}
@@ -156,7 +156,7 @@
                           <li class="page-number disabled"><span>&raquo;</span></li>
                         {% endif %}
                       </ul>
-                    {% endif %} 
+                    {% endif %}
                 </div>
 
             </section>
