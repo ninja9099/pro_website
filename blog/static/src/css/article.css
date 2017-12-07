@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6{margin: 0 !important;}
 .tags a {border-radius: 2px;padding: 5px 7px;background-color: #e0ffff; margin-bottom: 5px;}
 .tags span.badge {background: #FF9800;}
 .box-title{width: 100%; clear: both;}
-.author-post{margin-bottom: 22px;}
+.author-post{margin-bottom: 22px; overflow: hidden;}
 .author-post img{width: 80px; float: left;display: table-cell; border: 1px solid #ddd; height: 83px;}
 .box-title h2{color: #1c1c1c;position: relative; border-bottom: 1px solid #f5f5f5;margin-bottom: 15px !important;text-decoration: none; font-size: 18px; letter-spacing: 1px;text-transform: uppercase; line-height: 1.5;font-family: Abel; font-weight: 400;font-style: normal;  padding-bottom: 15px;}
 .box-title h2:before{position: absolute; content: ''; bottom: 0;  left: 0; width: 36px; height: 3px; background-color: #fd4326;}

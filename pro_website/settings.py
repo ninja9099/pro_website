@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
@@ -21,9 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 LOGIN_URL = '/login/'
 
 # Application definition
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tracking',
     'social_django',
-    'tracking_analyzer',
+    # 'tracking_analyzer',
     'django_user_agents',
     'notifications',
     'taggit',

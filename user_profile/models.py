@@ -32,22 +32,6 @@ class UserProfile(models.Model):
     cover_photo = models.ImageField(upload_to=cover_photo, default=default_image,blank=True)
     is_active = models.BooleanField(default=True)
 
-    
-    @property
-    def full_name(self):
-        return self.user.first_name + ' ' + self.user.last_name
-
-    @full_name.setter
-    def full_name(self, value):
-        first_name, last_name = value.split(' ')
-        self.first_name = first_name
-        self.last_name = last_name
-
-    @full_name.deleter
-    def full_name(self):
-        del self.first_name
-        del self.last_name
-
 
     def __unicode__(self):
         return "%s  %s --> %s" % (self.user.first_name, self.user.last_name, self.user.username)

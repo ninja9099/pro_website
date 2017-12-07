@@ -8,7 +8,7 @@ from blog import Article, ArticleLikes
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse_lazy
-from tracking_analyzer.models import Tracker
+# from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #  for comments
 from notifications.signals import notify
@@ -103,12 +103,12 @@ def BlogIndex(request, **kwargs):
         query_set = Article.get_published().order_by('-article_views',  '-created')
         page_no = request.GET.get('page')
         page = _paginate(query_set,3, page_no)
-        for item  in page.object_list:
-            articles_json.append({
-                'article':item,
-                "likes":item.count_likes(),
-                "user_liked":user_liked(request.user.id, item.id)
-                })
+        # for item  in page.object_list:
+        #     articles_json.append({
+        #         'article':item,
+        #         "likes":item.count_likes(),
+        #         "user_liked":user_liked(request.user.id, item.id)
+        #         })
         context = core.create_context(request)
         context.push({'page':page})
         return render( request, 'gallery.html', {'context':context})
@@ -117,11 +117,12 @@ def BlogIndex(request, **kwargs):
 def ArticleView(request, pk):
     '''View for displaying the article on the page includes analytics '''
     article = get_object_or_404(Article, pk=pk, article_state='published')
-    Tracker.objects.create_from_request(request, article)
+    # Tracker.objects.create_from_request(request, article)
     popular_tags = Article.get_counted_tags()
     recent = Article.get_published().order_by('-created').exclude(id=article.id)[:7]
     related_articles = Article.get_published().filter(article_subcategory=article.article_subcategory).exclude(id=article.id)[:5]
-    request.user.userprofile.article_reads.add(article);
+    if request.user.is_authenticated:
+        request.user.userprofile.article_reads.add(article);
     return render(request, 'article.html', {
         'popular_tags': popular_tags,
         'article': article,
