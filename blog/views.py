@@ -121,12 +121,13 @@ def ArticleView(request, pk):
     popular_tags = Article.get_counted_tags()
     recent = Article.get_published().order_by('-created').exclude(id=article.id)[:7]
     related_articles = Article.get_published().filter(article_subcategory=article.article_subcategory).exclude(id=article.id)[:5]
+    request.user.userprofile.article_reads.add(article);
     return render(request, 'article.html', {
-        "popular_tags":popular_tags,
-        "article": article,
-        "recent":recent ,
-        "article_analytics": core.article_analytics(request,Article.objects.all()),
-        "related_articles":related_articles,
+        'popular_tags': popular_tags,
+        'article': article,
+        'recent': recent ,
+        'article_analytics': core.article_analytics(request, Article.objects.all()),
+        'related_articles': related_articles,
         })
 
 @login_required

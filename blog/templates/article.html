@@ -16,7 +16,7 @@
 {% block container %}
 <div class="blog-banner" style="background-image: url({{article.get_article_image}}); background-size: cover; background-attachment: fixed;">
     <div class="article-meta ltylw col-md-push-1">
-        <h1 class="yl">{{article.article_title | truncatechars:30}}</h1>
+        <h1 class="yl">{{article.article_title}}</h1>
         <p class="white left">
             <i class="fa fa-calendar"></i> {{article.created}}
         </p>
@@ -53,13 +53,21 @@
        {% autoescape off %}
            {{article.article_content}}
         {% endautoescape %}
+        <div class="social-share-article">
+            <ul>
+                <li class="center facebook"><a class="share-post-link">facebook</a></li>
+                <li class="center google"><a class="share-post-link">Google</a></li>
+                <li class="center twitter"><a class="share-post-link">Twitter</a></li>
+                <li class="center linkedin"><a class="share-post-link">linkedIn</a></li>
+            </ul>
+        </div>
         <hr>
         <div id="disqus_thread">
             {% load comments %}
             <div class="comment-list">
             {% get_comment_list for article as comments %}
                 <div class="comments-container">
-                <h1>Comments <a href="http://lifeinabits.com">Lifeinabits</a></h1>
+                <h2>Comments <a href="http://lifeinabits.com">Lifeinabits</a></h2>
                 <hr>
                 {% for comment in comments %}
                     {% include 'comment.html'%}
@@ -68,7 +76,6 @@
                 {% endfor %}
                 </div>
             </div>
-            <hr>
            <div class="comment-form">
                 {% if user.is_authenticated %}
                     {% get_comment_form for article as form %}
@@ -93,21 +100,25 @@
            </div>
         </div>
         <!--<hr style="border-top: 1px solid #f6d339;">-->
-        <h4 class="interested  barlow center"> ------------ Articles You may Like ------------</h4>
+        {% if related_articles %}
+        <h4 class="interested  barlow">Related Posts</h4>
         <div class="slides-container slick-slides">
-            <div class="related-article col-md-3"><img data-lazy="{% static 'src/images/1.jpeg' %}" />
-                <h3 class="article-meta j_slab ltylw">Article Title 1</h3>
-            </div>
-            <div class="related-article col-md-3"><img data-lazy="{% static 'src/images/1.jpeg' %}" />
-                <h3 class="article-meta j_slab ltylw">Article Title 2</h3>
-            </div>
-            <div class="related-article col-md-3"><img data-lazy="{% static 'src/images/1.jpeg' %}" />
-                <h3 class="article-meta j_slab ltylw">Article Title 3</h3>
-            </div>
-            <div class="related-article col-md-3"><img data-lazy="{% static 'src/images/1.jpeg' %}" />
-                <h3 class="article-meta j_slab ltylw">Article Title 3</h3>
-            </div>
+            {% for article in related_articles %}
+                <div class="related-article col-md-3">
+                    <span class="badge badge-default">{{article.article_subcategory}}</span>
+                    <div class="slide-image-wrapper">
+                        <a href="{% url 'article' pk=article.id %}">
+                            <img data-lazy="{{article.article_image.url}}" />
+                        </a>
+                    </div>
+                    <div class="slic-article-meta">
+                        <h4 class="article-meta">{{article.article_title|truncatechars:45}}</h4>
+                        <span class="created-meta"><i class="fa fa-calendar-o"></i>  {{article.created}}</span>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
+        {% endif %}
     </div>
     <div class="two-six col-md-4">
         <!-- <div class="rating">{% include  'rating.html' %}</div> -->
@@ -196,8 +207,8 @@
         slidesToShow:3,
         slidesToScroll: 1,
         lazyLoad: 'ondemand',
-        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
-        nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>",
+        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>",
+        nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>",
         responsive: [
     {
       breakpoint: 768,

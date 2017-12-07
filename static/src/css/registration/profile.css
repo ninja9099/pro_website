@@ -36,10 +36,10 @@ li.active .underline-nav-item {    color: #24292e ! important;    border: none !
 .mt-0{ margin:0px auto; font-family: Roboto; font-size: 15px; text-transform: capitalize; width: inherit;}
 .highlighter{color: #e36209;}
 .media-body p{ color: #97828a;padding-bottom: 0px;margin-bottom: 0px;font-size: 13px; }
-.trim-text {display: inline-block;  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}
-.article-editor{position: absolute;    top: 0px;    right: 3px;    color: #ddd;}
-.article-write-li{display: block; width: 100%;margin-bottom: 10px; padding: 10px;border-bottom: 1px solid #e5e5e5}
-.article-write-li span{width: 50px; margin: 0 10px; }
+.trim-text {display: inline-block; white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}
+.article-editor{position: absolute; top: 0px; right: 3px; color: #ddd;}
+.article-write-li{display: block; width: 100%; padding: 10px;border-bottom: 1px solid #e5e5e5}
+.article-write-li span{width: 50px; margin: 0 10px;}
 .article-write-li span a i{color: #c2c5c6;}
 .article-write-li a{color: #8c1e97;}
 .article-write-li span a i:hover{color:#8c1e97;}

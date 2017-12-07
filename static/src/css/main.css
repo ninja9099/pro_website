@@ -39,7 +39,13 @@
 .abel{font-family: Abel, sans-serif !important;}
 .j_slab{font-family: Josefin Slab, sans-serif !important}
 .g_vibes{font-family: Great Vibes, sans-serif !important;}
-.fa-twitter:hover{color: #1da1f2 !important; cursor: pointer;}~~
+/* for social share*/
+.linkedin{background-color: #0077b5 !important;  cursor: pointer;}
+.facebook{ background-color: #3c5a99 !important; cursor: pointer;}
+.twitter{background-color: #1da1f2 !important; cursor: pointer;}
+.google{background-color: #dd5347 !important;cursor: pointer;}
+/* end for social share*/
+.fa-twitter:hover{color: #1da1f2 !important; cursor: pointer;}
 .fa-facebook:hover{ color: #3c5a99 !important; cursor: pointer;}
 .fa-google:hover{color: #dd5347 !important;cursor: pointer;}
 .fa-linkedin:hover{color: #0077b5 !important;  cursor: pointer;}

@@ -74,6 +74,7 @@ class Article(TimeStampedModel):
                     tag_dict[tag] += 1
         return tag_dict.items()
 
+
     def get_summary(self):
         if len(self.article_content) > 255:
             return '{0}...'.format(self.article_content[:255])
@@ -83,11 +84,14 @@ class Article(TimeStampedModel):
     def get_summary_as_markdown(self):
         return markdown.markdown(self.get_summary(), safe_mode='escape')
 
+
     def get_author_profile(self):
         return self.article_author.userprofile
 
+
     def get_absolute_url(self):
         return u'/article-edit/%d' % self.id
+
 
     def count_likes(self):
         return len(self.articlelikes_set.all())
