@@ -164,7 +164,7 @@ def category_view(request, cat_id):
     return render(request,'cat_article_list.html', {'context': context})
 
 
-#TDME  move to core part  in the blog api
+# TDME  move to core part  in the blog api
 @receiver(comment_was_posted)
 def Rec(sender, **kwargs):
     user= kwargs.get('request').user

@@ -115,9 +115,10 @@
             <h2>Author</h2>
         </div>
         <div class="author-post barlow">
-                <img src="{{article.article_author.userprofile.profile_picture.url}}"/>
+                <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></a>
                 <div class="author-info">
-                    <h3 class="name">{{article.article_author.get_full_name}}</h3>
+                    <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><h3 class="name">{{article.article_author.get_full_name}}</h3>
+                    </a>
                     <h4>
                     {% autoescape off %}
                         {{article.article_author.userprofile.short_intro}}
@@ -173,7 +174,6 @@
             <ul class="dosis">
                 {% for article in recent %}
                 <li class="recent-article" style="background-image: url({{article.article_image.url}}); background-size: cover;">
-                    <!-- <div class="bg" style="background-image: url({{article.article_image.url}}); background-size: cover;"></div> -->
                     <p class="ltylw">
                         <a href="{% url 'article' pk=article.id %}">
                         {{article.article_title | truncatechars:25}}</a>
