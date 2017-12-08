@@ -21,10 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 LOGIN_URL = '/login/'
 
 # Application definition
@@ -101,8 +100,8 @@ PASSWORD_HASHERS = [
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-NOTIFICATION_TEST=True
-NOTIFICATIONS_USE_JSONFIELD=True
+NOTIFICATION_TEST = True
+NOTIFICATIONS_USE_JSONFIELD = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -217,8 +216,6 @@ DEFAULT_ARTICLE_IMAGE = '/media/static/blog/article_images/default.png'
 IMAGE_PATH = 'static/blog/article_images'
 TAGGIT_CASE_INSENSITIVE = True
 # google map integration for traffic tracking
-GOOGLE_MAPS_KEY = 'AIzaSyA9K2hNBywL_sdb-8If9Ce5XjtyGNxgQA8'
-GOOGLE_PLACE_ID = 'ChIJhc2TaOeCXjkRxoHDjRwlAtM'
 TRACK_USE_GEOIP =True
 GEOIP_CACHE_TYPE = 0
 

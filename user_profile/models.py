@@ -37,11 +37,10 @@ class UserProfile(models.Model):
         return "%s  %s --> %s" % (self.user.first_name, self.user.last_name, self.user.username)
 
     def get_absolute_url(self):
-        return u'/profile-update/%d' % self.id
+        return '/profile-update/%d' % self.id
 
     
     def get_articles_written(self):
         user = self.user
         articles_written = user.article_set.all()
         return articles_written
-
