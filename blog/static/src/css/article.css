@@ -1,4 +1,5 @@
 body{background-color: #fff;}
+textarea:focus, input:focus, select:focus {outline: none !important;}
 *{padding: 0; margin: 0; box-sizing: border-box;}
 h1, h2, h3, h4, h5, h6{margin: 0 !important;} 
 .blog-banner{height: 450px; position: relative;}
@@ -17,6 +18,11 @@ h1, h2, h3, h4, h5, h6{margin: 0 !important;}
 
 
 /*for comments*/
+[for~=id_honeypot]{display: none;}
+.comment-form .anonymouse-comment p{display: inline-block;}
+.comment-form .anonymouse-comment form input{padding: 2px;border: 0; border-bottom: 1px solid #fd4326; margin-bottom: 15px;}
+
+.comment-form .anonymouse-comment form > [type=submit]{padding: 2px;border: 1px solid #fd4326 !important; border-radius: 2px !important; width: 60px !important; background: #fff !important;    color: #fd4326 !important;}
 .comments-container{margin: 20px 0;}
 .comment-main-level{position: relative;}
 .comment-avatar{width: 50px; height: 50px; overflow: hidden; display: inline-block;     border-bottom-left-radius: 15px; border-top-right-radius: 15px;}

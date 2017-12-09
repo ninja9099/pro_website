@@ -8,14 +8,14 @@ from blog import Article, ArticleLikes
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse_lazy
-# from tracking_analyzer.models import Tracker
+from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #  for comments
 from notifications.signals import notify
 from django_comments.signals import comment_was_posted
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -64,12 +64,11 @@ def edit_article(request, pk):
             article_instance = form.save(commit=False)
             article_instance.save()
             form.save_m2m()
+            if article_instance.article_state == "published":
+                notify.send(article_instance.article_author, recipient=User.objects.all(), verb="New article by %s"%(article_instance.article_author))
             return JsonResponse({'success':True, 'message':'Your article is saved'})
         else:
             return JsonResponse({'success':False, "error":render_to_string('errors.html', {'form':form})})
-
-
-    return render(request, 'article_template.html', {"form":form} )
 
 
 def user_liked(user_id, article_id):
@@ -98,17 +97,10 @@ def BlogIndex(request, **kwargs):
     '''
     view for Homepage of blog
     '''
-    articles_json = []
     if request.method == "GET":
         query_set = Article.get_published().order_by('-article_views',  '-created')
         page_no = request.GET.get('page')
         page = _paginate(query_set,3, page_no)
-        # for item  in page.object_list:
-        #     articles_json.append({
-        #         'article':item,
-        #         "likes":item.count_likes(),
-        #         "user_liked":user_liked(request.user.id, item.id)
-        #         })
         context = core.create_context(request)
         context.push({'page':page})
         return render( request, 'gallery.html', {'context':context})
@@ -116,8 +108,9 @@ def BlogIndex(request, **kwargs):
 
 def ArticleView(request, pk):
     '''View for displaying the article on the page includes analytics '''
+
     article = get_object_or_404(Article, pk=pk, article_state='published')
-    # Tracker.objects.create_from_request(request, article)
+    Tracker.objects.create_from_request(request, article)
     popular_tags = Article.get_counted_tags()
     recent = Article.get_published().order_by('-created').exclude(id=article.id)[:7]
     related_articles = Article.get_published().filter(article_subcategory=article.article_subcategory).exclude(id=article.id)[:5]
@@ -173,10 +166,14 @@ def Rec(sender, **kwargs):
     comment = kwargs.get('comment')
     url = comment.get_content_object_url()
     commented_on = comment.content_object
+    if user.is_authenticated:
+        notify.send(user, recipient=commented_on.article_author, verb='%s Commented on %s Article' %(comment.name,comment.content_object), comment_url=url)
+    else:
+        pass
 
-    notify.send(user, recipient=commented_on.article_author, verb='%s Commented  %s on %s Article' %(comment.name, comment.comment,comment.content_object), comment_url=url)
 
 @receiver(post_save, sender=Article)
 def ArticleReciever(sender, **kwargs):
-    pass
+    # user = kwargs.get('request').user
     # notify.send(user, recipient=user, verb='you reached level 10')
+    pass

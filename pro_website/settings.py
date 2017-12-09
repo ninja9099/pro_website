@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tracking',
     'social_django',
-    # 'tracking_analyzer',
+    'tracking_analyzer',
     'django_user_agents',
     'notifications',
     'taggit',
@@ -231,3 +231,5 @@ TRACK_PAGEVIEWS =True
 TRACK_IGNORE_STATUS_CODES = [400, 404, 403, 405, 410, 500]
 TRACK_REFERER =True
 TRACK_QUERY_STRING= True
+# notifications settings
+NOTIFICATIONS_SOFT_DELETE=True

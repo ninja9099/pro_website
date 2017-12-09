@@ -92,9 +92,23 @@
                     <input class="btn btn-success" type="submit" value="Comment" id="id_submit" />
                     </form>
                 {% else %}
-                    <div class="login-popup open">
-                        Please <a class="open" href="{% url 'login' %}">log in</a> to leave a comment.
-                    <!--{% render_comment_form for article %}-->
+                    <div class="alert alert-danger alert-dismissable">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                          <strong>Alert !</strong> Anonymouse comments are not notifield to the author <a href="{% url 'login' %}">Login to get quick reply</a>
+                    </div>
+                    <div class="anonymouse-comment">
+                        {% get_comment_form for article as comment_form %}
+                    <form action="{% comment_form_target %}" method="post">
+                        {% csrf_token %}
+                        {{ comment_form}}
+                        <style>#id_comment{width: 100%; height: 27px;}</style>
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" name="submit" value="Post">
+                                <input type="submit" name="preview" value="Preview">
+                            </td>
+                        </tr>
+                    </form>
                     </div>
                 {% endif %}
            </div>

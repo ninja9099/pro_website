@@ -7,21 +7,35 @@
           <li class="about_li {% if active_page == 'about_me' %} active {% endif %}"><a href="#">About me</a></li>
         </ul>
         <ul class="nav navbar-nav float-right">
-          <li><a href="https://www.facebook.com/LifeBits-120274515294153"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-          <li><a href="https://plus.google.com/u/0/+Pankajkamani"><i class="fa fa-google" aria-hidden="true"></i></a></li>
-          <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-          <li class="search"><input class="form-control" type="hidden" name="search" /></li>
-          <li><a href=""><i class="fa fa-search" aria-hidden="true"></i></a></li>
+
           {% if user.is_authenticated %}
             {% load static %}
-            <li class="abel profile-li"><img width=25 height=25 src="{{user.userprofile.profile_picture.url}}">
-              <ul class="profile-ul abel">
-                  <li><a href="/profile/{{user.id}}"><i class="fa fa-user" aria-hidden="true"></i> {{user.get_full_name}} </a></li>
-                  <li><a href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
-              </ul>
-            </li>
+              {% load notifications_tags %}
+                <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+                {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
+                <li class="notifications">
+                    <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" href="#!" >
+                        <i class="fa fa-bell" aria-hidden="true" ></i>
+                        {% live_notify_badge classes="badge notification_badge barlow" %}
+                    </a>
+                    {% live_notify_list classes="dropdown-menu" %}
+                </li>
+              <li class="abel profile-li">
+                  <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" href="#!" >
+                      <img width="25" height="25" src="{{user.userprofile.profile_picture.url}}">
+                  </a>
+                  <ul class=" abel dropdown-menu profile-dropdown">
+                      <li><a href="#!" ><img width="25" height="25" src="{{user.userprofile.profile_picture.url}}"></a></li>
+                      <li><a href="/profile/{{user.id}}"><i class="fa fa-user" aria-hidden="true"></i> {{user.get_full_name}} </a></li>
+                      <li><a href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
+                  </ul>
+              </li>
           {% else %}
-            <li><a class="dosis" href="/login/"><i class="fa fa-sign-in fa-1x" aria-hidden="true"></i></a></li>
+              <li><a href="https://www.facebook.com/LifeBits-120274515294153"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="https://plus.google.com/u/0/+Pankajkamani"><i class="fa fa-google" aria-hidden="true"></i></a></li>
+              <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              <li><a href=""><i class="fa fa-search" aria-hidden="true"></i></a></li>
+              <li><a class="dosis" href="/login/"><i class="fa fa-sign-in fa-1x" aria-hidden="true"></i></a></li>
             {% endif %}
         </ul>
   </div>

@@ -9,3 +9,4 @@ Work to be done in the projec so far
 7.Design home page
 8.Implement category listing
 9.Add cat_article_list.html
+10.make comment posting ajax based

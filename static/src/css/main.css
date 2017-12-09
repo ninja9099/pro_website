@@ -156,11 +156,18 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 .terms-use ul li{display: inline-block; margin-right: 10px;}
 
 
-/*header profile section*/
+/*header profile notifications and profile dropdown */
+.notification_badge{position: absolute;}
+#live_notify_badge{top: 5px; position: absolute; right: 4px;background: #8856a8; padding: 0 5px; border-radius: 50%; color: #fff; font-size: 14px;}
+#live_notify_list {background: #282828; padding: 5px; left: -450px; top: 110%;}
+#live_notify_list:before{content: ''; position: inherit;top: -11px; right: 17px; border: 5px solid transparent; border-bottom: 5px solid #ff0;}
+#live_notify_list  li{color: #fff; padding: 2px; margin-bottom:5px; border-bottom: 1px solid #ddd; }
+.navbar-default .navbar-nav>.open>a {background: #282828 !important;}
 .profile-li{position: relative; margin:5px;border-radius: 5px; padding: 8px 0px;}
-.profile-li img{border-radius:5px;}
-li.profile-li:hover > ul.profile-ul{display: block; z-index: 09;width: 182px;background: rgba(175, 173, 190, 0.14); color: red; opacity: 1; visibility: visible;}
-.profile-ul{margin-top: 0px; right: 0; display: none; position: absolute;transition: linear;transition-property:top;padding: 10px; visibility: hidden; transform: rotate3d(0 0 0 45deg);}
-.profile-ul > li{margin-bottom: 0px; border-bottom: 1px dashed #868383; padding: 9px;}
-.profile-ul > li:last-child{border-bottom:none;}
-.profile-ul:before{content: ''; position: absolute;top: -10px;right: 0;left: auto; bottom: auto;border: 5px solid transparent; border-bottom: 5px solid #ddd;}
+.profile-li a{padding: 0 !important;}
+.profile-dropdown {background: #282828; padding: 10px; left: -133px; top: 124%;}
+.profile-dropdown:before{content: ''; position: inherit;top: -12px; right: 8px; border: 5px solid transparent; border-bottom: 5px solid #ff0;}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{color: #fff; background-color:unset; }
+.profile-dropdown li {padding: 5px 0;}
+
+/* end of notifications and profile dropdown*/

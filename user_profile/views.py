@@ -157,8 +157,7 @@ def sign_up(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 @login_required
-def ManageProfile(request, profile_id):
-
+def edit_profile(request, profile_id):
     if request.method=='GET':
         if request.GET.get('edit', 'false') == 'false':
             article_reads = request.user.userprofile.article_reads.all()
@@ -181,7 +180,8 @@ def ManageProfile(request, profile_id):
             user_profile.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'profile_id':request.user.id}))
         else:
-            return render(request, 'userprofile_update_form.html', {'form': form})
+            return render(request, 'userprofile_update_form.html', {'form': user_profile})
+
 
 @receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):
@@ -194,28 +194,3 @@ def create_profile(sender, **kwargs):
 
 def social_auth(request):
    return redirect('homepage')
-
-
-
-
-@login_required
-def save_uploaded_picture(request):
-    try:
-        x = int(request.POST.get('x'))
-        y = int(request.POST.get('y'))
-        w = int(request.POST.get('w'))
-        h = int(request.POST.get('h'))
-        tmp_filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
-            request.user.username + '_tmp.jpg'
-        filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
-            request.user.username + '.jpg'
-        im = Image.open(tmp_filename)
-        cropped_im = im.crop((x, y, w+x, h+y))
-        cropped_im.thumbnail((200, 200), Image.ANTIALIAS)
-        cropped_im.save(filename)
-        os.remove(tmp_filename)
-
-    except Exception:
-        pass
-            
-    return redirect('/settings/picture/')
