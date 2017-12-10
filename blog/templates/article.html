@@ -122,7 +122,7 @@
                     <span class="badge badge-default">{{article.article_subcategory}}</span>
                     <div class="slide-image-wrapper">
                         <a href="{% url 'article' pk=article.id %}">
-                            <img data-lazy="{{article.article_image.url}}" />
+                            <img data-lazy="{{article.get_article_image}}" />
                         </a>
                     </div>
                     <div class="slic-article-meta">
@@ -140,7 +140,7 @@
             <h2>Author</h2>
         </div>
         <div class="author-post barlow">
-                <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></a>
+                <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><img src="{{article.article_author.userprofile.get_profile_image}}"/></a>
                 <div class="author-info">
                     <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><h3 class="name">{{article.article_author.get_full_name}}</h3>
                     </a>
@@ -198,7 +198,7 @@
         <div class="abel recent">
             <ul class="dosis">
                 {% for article in recent %}
-                <li class="recent-article" style="background-image: url({{article.article_image.url}}); background-size: cover;">
+                <li class="recent-article" style="background-image: url({{article.get_article_image}}); background-size: cover;">
                     <p class="ltylw">
                         <a href="{% url 'article' pk=article.id %}">
                         {{article.article_title | truncatechars:25}}</a>

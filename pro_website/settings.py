@@ -193,6 +193,8 @@ STATICFILES_DIRS = [
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
 
@@ -212,18 +214,25 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 
 # settings related to article
 # override to change default image of article
-DEFAULT_ARTICLE_IMAGE = '/media/static/blog/article_images/default.png'
-IMAGE_PATH = 'static/blog/article_images'
+DEFAULT_ARTICLE_IMAGE = '/media/images/article_images/default.png'
+DEFAULT_USER_IMAGE = '/media/images/profile_images/default_user.png'
+
+#  for storing images and videos related to article 
+IMAGE_PATH = 'media/images/'
+VIDEO_PATH = 'media/videos/'
+
 TAGGIT_CASE_INSENSITIVE = True
+
 # google map integration for traffic tracking
 TRACK_USE_GEOIP =True
+
 GEOIP_CACHE_TYPE = 0
 
 GEOIP_PATH =os.path.join(BASE_DIR, '/static/geoip-data/')
 
 DEFAULT_TRACKING_TEMPLATE = 'tracking/visitor_map.html'
-# django-tracking2 settings
 
+# django-tracking2 settings
 TRACK_AJAX_REQUESTS =True
 TRACK_ANONYMOUS_USERS =True
 TRACK_PAGEVIEWS =True
@@ -231,5 +240,6 @@ TRACK_PAGEVIEWS =True
 TRACK_IGNORE_STATUS_CODES = [400, 404, 403, 405, 410, 500]
 TRACK_REFERER =True
 TRACK_QUERY_STRING= True
+
 # notifications settings
 NOTIFICATIONS_SOFT_DELETE=True

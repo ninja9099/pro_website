@@ -34,15 +34,22 @@ require(['config'], function(){
 		  	// for saving the article
 		  	$("#save").click(function(e){
 		        e.preventDefault()
+		        
 		        for ( instance in CKEDITOR.instances ){
 		        	CKEDITOR.instances[instance].updateElement();
 		    	}
-		        var data = $('form').serialize()
+		    	var formData = new FormData($('form')[0]);
+		    	var img = $('#id_article_image')[0].files[0];
+		    	debugger;
+		    	formData.append('img', img);
+
 			    $.ajax({
 			      url: url,
-			      data: data,
+			      data: formData,
 			      cache: false,
-			      type: 'post',
+			      type: 'POST',
+            	  contentType: false,
+            	  processData: false,
 			      timeout: 30000,
 			      beforeSend: function () {
 			      	$('#save').addClass('saving')

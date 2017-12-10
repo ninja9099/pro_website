@@ -15,15 +15,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url  #include
+from django.conf.urls import url  # include
 from . import views
 from blog_api import api
 
 
-
-urlpatterns=[
-    url(r'^$',views.BlogIndex, name="blog_home" ),
-    url(r'^article/(?P<pk>\d+)', views.ArticleView, name="article"),
+urlpatterns = [
+    url(r'^$', views.BlogIndex, name="blog_home"),
+    url(r'^article/(?P<pk>\d+)', views.article_view, name="article"),
     url(r'^article/preview', views.article_preview, name="preview"),
     url(r'^article_submit/$', views.create_article, name="article_submit"),
     url(r'^article_edit/(?P<pk>\d+)$', views.edit_article, name="article_edit"),

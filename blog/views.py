@@ -20,10 +20,12 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.urls import reverse
 from blog_api import core
+
+
 # homepage
 def index(request):
     context = core.create_context(request)
-    fresh = context.get('article_set').order_by('-created')[0]
+    fresh = context.get('article_set').order_by('-created').first()
     context.push({'fresh_article': fresh})
     return render(request, 'index.html', {"context": context})
 
@@ -40,7 +42,8 @@ def create_article(request):
             article_instance.article_author = request.user
             article_instance.save()
             form.save_m2m()
-            return JsonResponse({'success':True, 'message':'Your article is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
+            return JsonResponse({'success':True, 'message':'Your article\
+             is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
         else:
             return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
 
@@ -61,6 +64,8 @@ def edit_article(request, pk):
     if request.method =='POST' and request.is_ajax():
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid() and form.is_multipart():
+            # core.handle_uploaded_file(request.FILES['file'],  type='article') for future use 
+            # article_instance.article_image = request.FILES['file'][0]
             article_instance = form.save(commit=False)
             article_instance.save()
             form.save_m2m()
@@ -73,11 +78,10 @@ def edit_article(request, pk):
 
 def user_liked(user_id, article_id):
     try:
-        if len(ArticleLikes.objects.get(article_id=article_id, user_id=user_id)):
+        if ArticleLikes.objects.get(article_id=article_id, user_id=user_id).count():
             return True
     except:
         return False
-
 
 
 def _paginate(query_set, obj_per_page, page):
@@ -93,10 +97,11 @@ def _paginate(query_set, obj_per_page, page):
 
     return article_page
 
+
 def BlogIndex(request, **kwargs):
-    '''
+    """
     view for Homepage of blog
-    '''
+    """
     if request.method == "GET":
         query_set = Article.get_published().order_by('-article_views',  '-created')
         page_no = request.GET.get('page')
@@ -106,8 +111,10 @@ def BlogIndex(request, **kwargs):
         return render( request, 'gallery.html', {'context':context})
 
 
-def ArticleView(request, pk):
-    '''View for displaying the article on the page includes analytics '''
+def article_view(request, pk):
+    """
+    View for displaying the article on the page includes analytics
+    """
 
     article = get_object_or_404(Article, pk=pk, article_state='published')
     Tracker.objects.create_from_request(request, article)

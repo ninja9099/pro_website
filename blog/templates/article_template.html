@@ -9,7 +9,7 @@
  <!--{%  include  'navigation.html' with active_page='writer' %}-->
 {% load static %}
 <link href="{% static 'src/css/article_editore.css' %}" rel="stylesheet" />
-<form action="" method="post" enctype="multipart/form-data">
+<form  action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
 {{form.article_state}}
 <input id="url" type="hidden" name="url" value="{{url}}"/>
@@ -23,7 +23,7 @@
     <div class="right-topHolder">
         <span>
           <span>
-              <span class="posting-sapn"><img width=30 height=30 src="{{user.userprofile.profile_picture.url}}"> Posting as <strong>{{user.get_full_name}}</strong></span>
+              <span class="posting-sapn"><img width=30 height=30 src="{{user.userprofile.get_profile_image}}"> Posting as <strong>{{user.get_full_name}}</strong></span>
               <span>
                   <button id="draft" type="submit" class="btn btn-default submit">Draft </button>
                   <button id="preview" type="submit" class="btn btn-default submit">Preview </button>
