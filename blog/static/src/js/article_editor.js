@@ -25,7 +25,7 @@ require(['config'], function(){
 			      },
 			      success: function (data) {
 			      	$('#preview').removeClass('saving');
-			        $("#article_preview .modal-body").html($.parseHTML(data));
+			        $("#article_preview").find(".modal-body").html($.parseHTML(data));
 			      	$('.modal').modal('show')
 			      }
 			    });
@@ -56,20 +56,19 @@ require(['config'], function(){
 			      },
 			      success: function (data) {
 			      	if (data.success){
-			      		$('#save').removeClass('saving')
-			      		$('#save').removeClass('unsaved')
-				        $("#article_preview .modal-body").html(data.message);
+			      		$('#save').removeClass('saving unsaved');
+				        $("#article_preview").find(".modal-body").html(data.message);
 				      	$('.modal').modal('show')
 			      	}
 			      	else{
 			      		$('#save').removeClass('saving');
-			      		$("#article_preview .modal-body").html($.parseHTML(data.error));
+			      		$("#article_preview").find(".modal-body").html($.parseHTML(data.error));
 				      	$('.modal').modal('show');
 			      	}
 			      	},
 			      	error:function(data){
 			      		$('#save').removeClass('saving');
-			      		$("#article_preview .modal-body").text(data);
+			      		$("#article_preview").find(".modal-body").text(data);
 				      	$('.modal').modal('show');
 			      	}
 			    });

@@ -25,9 +25,10 @@ from blog_api import core
 # homepage
 def index(request):
     context = core.create_context(request)
-    fresh = context.get('article_set').order_by('-created').first()
+    fresh = context.get('article_set').latest('created')
     context.push({'fresh_article': fresh})
     return render(request, 'index.html', {"context": context})
+
 
 @login_required
 def create_article(request):

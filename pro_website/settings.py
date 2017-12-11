@@ -218,8 +218,8 @@ DEFAULT_ARTICLE_IMAGE = '/media/images/article_images/default.png'
 DEFAULT_USER_IMAGE = '/media/images/profile_images/default_user.png'
 
 #  for storing images and videos related to article 
-IMAGE_PATH = 'media/images/'
-VIDEO_PATH = 'media/videos/'
+IMAGE_PATH = 'images/'
+VIDEO_PATH = 'videos/'
 
 TAGGIT_CASE_INSENSITIVE = True
 

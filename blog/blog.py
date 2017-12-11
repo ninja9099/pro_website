@@ -47,7 +47,7 @@ class Article(TimeStampedModel):
         return self.article_title
 
     def publish(self):
-        self.article_state == 'published'
+        self.article_state = 'published'
         return True;
         
 

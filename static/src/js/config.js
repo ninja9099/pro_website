@@ -8,14 +8,17 @@ requirejs.config({
         ck: 'lib/ckeditor/ckeditor',
         underscore: 'lib/underscore-min',
         cookie : 'lib/jquery.cookie',
-        ajax:'lib/ajax_setup',
+        ajax:'lib/ajax_setup'
     },
      shim: {
+        'jquery': {
+            exports: '$'
+        },
         "underscore": {
            exports: "_"
         },
-        bootstrap : {
+        'bootstrap' : {
             deps : [ 'jquery'],
-        },
+        }
     }
 });
