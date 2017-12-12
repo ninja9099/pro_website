@@ -227,8 +227,7 @@ TAGGIT_CASE_INSENSITIVE = True
 TRACK_USE_GEOIP =True
 
 GEOIP_CACHE_TYPE = 0
-
-GEOIP_PATH =os.path.join(BASE_DIR, '/static/geoip-data/')
+GEOIP_PATH =os.path.join(BASE_DIR, 'static/geoip-data/')
 
 DEFAULT_TRACKING_TEMPLATE = 'tracking/visitor_map.html'
 
