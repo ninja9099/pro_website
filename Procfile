@@ -1,1 +1,0 @@
- web: gunicorn pro_website.wsgi
