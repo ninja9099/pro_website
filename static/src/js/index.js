@@ -49,7 +49,7 @@ var badge = $("#notification_badge");
 
         def.done(function (data, textStatus, jqXHR) {
             var notifications;
-            if (data.unread_list) {
+            if (data.unread_list.length) {
                 notifications = $.map(data.unread_list, function (item) {
                     var message = "";
                     debugger;
@@ -65,13 +65,16 @@ var badge = $("#notification_badge");
                     if (typeof item.timestamp !== 'undefined') {
                         message = message + " " + new Date(item.timestamp).toDateString();
                     }
-                    return '<li>' + message + '</li>';
-                }).join('')
+                    return '<a href="' + JSON.parse(item.data).comment_url + '"><li>' + message + '</li></a>';
+
+                }).join('');
+                // language=JQuery-CSS
                 $("#notification_board").html(notifications);
                 badge.hide();
                 $(".fa-bell").css('color', "#ddd");
             }
             else {
+                debugger;
                 $("#notification_board").html("<li> All well </li>");
             }
         });

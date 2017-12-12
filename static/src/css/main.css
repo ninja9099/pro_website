@@ -8,7 +8,7 @@
   --ltywl-color:#f6d300;
   --ltblk-color:#282828;
 }
-.loader{width:20px; height: 20px; margin: auto; text-align: center;}
+.loader{width: 25px;margin: 0% 44%; height: 25px;}
 .white{color:var(--wht-color)}
 .large{font-size: 18px;}
 .ltylw{color: var(--ltywl-color)}
@@ -159,12 +159,13 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 /*header profile notifications and profile dropdown */
 .notification_badge{position: absolute; top: 0;right: 10%;}
 #live_notify_badge{top: 5px; position: absolute; right: 4px;background: #8856a8; padding: 0 5px; border-radius: 50%; color: #fff; font-size: 14px;}
-#notification_board {background: #282828; padding: 5px; left: -450px; top: 110%;}
-#notification_board:before{content: ''; position: inherit;top: -11px; right: 17px; border: 5px solid transparent; border-bottom: 5px solid #ff0;}
-#notification_board  li{color: #fff; padding: 2px; margin-bottom:5px; border-bottom: 1px solid #ddd; }
+#notification_board {background: #282828; padding: 5px; left: -14.5em; top: 110%;width: 250px;height: auto;}
+#notification_board:before{content: ''; position: inherit;top: -11px; right: 17px; border: 5px solid transparent; border-bottom: 5px solid #282828;}
+#notification_board > li{text-align: center; color: #fff; padding: 2px; margin-bottom:5px; border-bottom:1px solid #343232; }
 .navbar-default .navbar-nav>.open>a {background: #282828 !important;}
 .profile-li{position: relative; margin:5px;border-radius: 5px; padding: 8px 0px;}
 .profile-li a{padding: 0 !important;}
+.profile-li  a > img {border-radius: 50%; width: 25px; height: 25px;}
 .profile-dropdown {background: #282828; padding: 10px; left: -133px; top: 124%;}
 .profile-dropdown:before{content: ''; position: inherit;top: -12px; right: 8px; border: 5px solid transparent; border-bottom: 5px solid #ff0;}
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{color: #fff; background-color:unset; }

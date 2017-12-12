@@ -175,7 +175,7 @@ def Rec(sender, **kwargs):
     url = comment.get_content_object_url()
     commented_on = comment.content_object
     if user.is_authenticated:
-        notify.send(user, recipient=commented_on.article_author, verb='%s Commented on %s Article' %(comment.name,comment.content_object), comment_url=url)
+        notify.send(user,recipient=commented_on.article_author, target=commented_on, verb='Commented On', comment_url=url)
     else:
         pass
 

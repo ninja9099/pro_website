@@ -47,7 +47,6 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 img_temp.flush()
                 return True
 
-            
             if kwargs.get('backend').__class__.__name__ == "FacebookOAuth2":
                 profile = UserProfile.objects.create(
                     user=user,
@@ -61,7 +60,6 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 profile.profile_picture.save(img_name, File(img_temp))
                 img_temp.flush()
                 return True
-
 
             if kwargs.get('backend').__class__.__name__  == 'TwitterOAuth':
                 profile = UserProfile.objects.create(
@@ -191,6 +189,7 @@ def create_profile(sender, **kwargs):
         return True
     else:
         pass
+
 
 def social_auth(request):
    return redirect('homepage')
