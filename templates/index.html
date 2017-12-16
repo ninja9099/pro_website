@@ -1,44 +1,112 @@
 {% extends 'base.html' %}
-<!-- entry point bock -->
-	{% block entrypoint %}
-		{% load static %}
-		<script data-main="{% static 'src/js/index.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
-	{% endblock %}
 
-{% block content %}
-	<section>
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-		  <!-- Indicators -->
-		  <ol class="carousel-indicators">
-		    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		    <li data-target="#myCarousel" data-slide-to="1"></li>
-		    <li data-target="#myCarousel" data-slide-to="2"></li>
-		  </ol>
+{% block container %}
+	{% load static %}
+		<section class="image-section relative">
+			<img class="relative" src="{% static 'src/images/1.jpeg'%}" alt="img"/>
+			<div class="welcome-caption absolute">
+				<h1 class="barlow">Welcome to <strong>LifeInaBits</strong></h1>
+				<h3 class="barlow">Place to Share Knowledge and enhance society</h3>
+			</div>
+		</section>
+		<section style="" class="second-section">
+			<div class="container">
+				<div class="fresh-heading">
+					<h1 class="abel right">Start your day a fresh</h1>
+					<img class="fresh-leaf" src="{% static 'src/images/fresh-leaf.png'%}" width="50" height="50">
+				</div>
+				<div class="col-md-6 sc_left float-left">
+					<div class="fresh">
+						<div class="cover" style="background-image: url({{context.fresh_article.get_article_image}}); background-size:cover;">
+							<label class="barlow">
+								Fresh
+							</label>
+							<a data-toggle="tooltip" title="Save to your readings" href="#" class="download">
+						        <svg x="0px" y="0px" width="27px" height="22px">
+							        <g>
+								        <path d="M 12.5625 0 C 12.0102 0 11.5625 0.4477 11.5625 1 L 11.565 8.69 L 9.0625 8.6875 L 12 16 L 14 16 L 17.0625 8.6875 L 14.5 8.69 L 14.5 1 C 14.5 0.4477 14.0523 0 13.5 0 L 12.5625 0 ZM 1 19 L 1 14 L 0 14 L 0 19 C 0 20.6569 1.3431 22 3 22 L 24 22 C 25.6569 22 27 20.6569 27 19 L 27 14 L 26 14 L 26 19 C 26 20.1046 25.1046 21 24 21 L 3 21 C 1.8954 21 1 20.1046 1 19 Z" fill="#ffffff"></path>
+							        </g>
+						        </svg>
+					      	</a>
+						</div>
+						<div class="info">
+							<a href="{% url 'article' pk=context.fresh_article.id %}" class="recipe">
+						        <i>
+						          <svg x="0px" y="0px" width="26px" height="28px">
+							          <g>
+								          <path d="M 8.5 20 L 8.5 21 L 17.5 21 L 17.5 20 L 8.5 20 ZM 8.5 16 L 8.5 17 L 17.5 17 L 17.5 16 L 8.5 16 ZM 8.5 12 L 8.5 13 L 17.5 13 L 17.5 12 L 8.5 12 ZM 20 0 C 19.4477 0 19 0.4477 19 1 L 19 6 C 19 6.5523 19.4477 7 20 7 C 20.5523 7 21 6.5523 21 6 L 21 1 C 21 0.4477 20.5523 0 20 0 ZM 13 0 C 12.4477 0 12 0.4477 12 1 L 12 6 C 12 6.5523 12.4477 7 13 7 C 13.5523 7 14 6.5523 14 6 L 14 1 C 14 0.4477 13.5523 0 13 0 ZM 6 0 C 5.4477 0 5 0.4477 5 1 L 5 6 C 5 6.5523 5.4477 7 6 7 C 6.5523 7 7 6.5523 7 6 L 7 1 C 7 0.4477 6.5523 0 6 0 ZM 15 4 L 18 4 L 18 3 L 15 3 L 15 4 ZM 8 4 L 11 4 L 11 3 L 8 3 L 8 4 ZM 3 4 L 4 4 L 4 3 L 3 3 C 1.3431 3 0 4.3431 0 6 L 0 25 C 0 26.6569 1.3431 28 3 28 L 23 28 C 24.6569 28 26 26.6569 26 25 L 26 6 C 26 4.3431 24.6569 3 23 3 L 22 3 L 22 4 L 23 4 C 24.1046 4 25 4.8954 25 6 L 25 25 C 25 26.1046 24.1046 27 23 27 L 3 27 C 1.8954 27 1 26.1046 1 25 L 1 6 C 1 4.8954 1.8954 4 3 4 Z" fill="#ffffff"></path>
+							          </g>
+						          </svg>
+						        </i>
+						        <font>Details</font>
+					      	</a>
+					      	<div class="content">
+					      		<div class="auth-image">
+					      			<img class="thumbnail" src="{% static 'src/images/1.jpeg'%}">
+					      		</div>
+					      		<div class="auth-info">
+					      			<p>{{context.fresh_article.article_author.username}}</p>
+					      			<span><em>Developer..</em></span>
+					      		</div>
+					      	</div>
+					      	<div class="rating">
+					      		<h1 class="center">9.8</h1>
+					      		<span>389 Reviews</span>
+					      	</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 sc_right float-right">
+					<h1 class="center">
+						{{context.fresh_article.article_title |truncatechars:25}}
+					</h1>
+					<p class="g_vibes">
+                        {{context.fresh_article.get_summary | truncatechars:150}}
+					</p>
+				</div>
+			</div>
+		</section>
+        <!-- category sections    -->
+		<section class="second-section">
+			<div class="container">
+				<div class="fresh-heading">
+					<h1 class="barlow left">Popular Categories</h1>
+				</div>
+				<div class="catagory-holder col-md-12">
+                    {% for cat in context.categories|slice:":6" %}
+					<div class="match-box">
+                        <a href="{% url 'cat_article_list' cat_id=cat.id %}">
+                            <div class="cat-wrapper center" style=" background: url({{cat.category_image.url}}) center; background-size: cover;">
+                                <p class="cat-name barlow">{{cat.category_name}}</p>
+                                <span class="badge badge-warning">{{cat.articles}}</span>
+                            </div>
+                        </a>
+					</div>
+                    {% endfor %}
+				</div>
+			</div>
+		</section>
+        <!-- end of category -->
+		<section class="third-section" style="background-image: url({% static 'src/images/back-third4.jpg' %});">
+			<div class="container" >
+				<h1 class="center barlow">Articles you may intrested in slide show here makes it great place for work </h1>
+				<div class="article-wrapper">
+					<div class="article-box">
+						<div class="article ">
+							<img class="slide" src="{% static 'src/images/1.jpeg' %}">
+						</div>
+						<div class="article">
 
-		  <!-- Wrapper for slides -->
-		  <div class="carousel-inner">
-		    <div class="item active">
-		      <img src="{% static 'src/images/banner/banner2.jpg' %}" alt="Los Angeles">
-		    </div>
+						</div>
+						<div class="article">
 
-		    <div class="item">
-		      <img src="{% static 'src/images/banner/banner2.jpg' %}" alt="Chicago">
-		    </div>
+						</div>
+						<div class="article">
 
-		    <div class="item">
-		      <img src="{% static 'src/images/banner/banner2.jpg' %}" alt="New York">
-		    </div>
-		  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock  %}
 
-		  <!-- Left and right controls -->
-		  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-		    <span class="glyphicon glyphicon-chevron-left"></span>
-		    <span class="sr-only">Previous</span>
-		  </a>
-		  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-		    <span class="glyphicon glyphicon-chevron-right"></span>
-		    <span class="sr-only">Next</span>
-		  </a>
-		</div>
-	</section>
-{% endblock %}

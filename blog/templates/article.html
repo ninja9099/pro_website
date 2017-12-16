@@ -1,202 +1,253 @@
-
+<!-- django template  -->
 {% extends 'base.html' %}
-
 {% block title %}
     lifeinabits| {{article.article_title}}
 {% endblock %}
 
 {% load static %}
 {% block links %}
-<style type="text/css">@font-face {
-    font-family: pro-fonts;
-    src: url('/static/src/fonts/SourceSansPro-Regular.otf')format('opentype');
-}
-</style>
-<link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed|Saira|Slabo+27px" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/article.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/archive.css' %}">
+    <link href="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css' %}" rel="stylesheet">
+    <link href="{% static 'src/css/article.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/slick/slick.css'%}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'src/slick/slick-theme.css'%}" >
 {% endblock %}
-{% block content%}
-{% block entrypoint %}
-    <script data-main="{% static '/src/js/article.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
-{% endblock %}
-<div class="blog-banner">
-   <img src="{{article.get_article_image}}"/>
-    <div class="container">
+
+{% block container %}
+<div class="blog-banner" style="background-image: url({{article.get_article_image}}); background-size: cover; background-attachment: fixed;">
+    <div class="article-meta ltylw col-md-push-1">
         <h1 class="yl">{{article.article_title}}</h1>
-        <p class="yl-p right">
-           
+        <p class="white left">
             <i class="fa fa-calendar"></i> {{article.created}}
         </p>
-        </h2>
     </div>    
 </div>
-<div class="container">
-    <div class="blog-container">
-        <div class="social-comments fixme animated">
+<div class="container-wrapper">
+    <div class="one-six">
+        <div class="social-comments fixme animated center">
             {% load comments %}
-            
+
             {% get_comment_count for article as comment_count %}
             <ul>
             <li><a href="#" id="article-like">
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                 </a>
                 <p>{{article.count_likes}}</p>
             </li>
             <li>
             <a href="#disqus_thread">
-                <i class="fa fa-comment-o" aria-hidden="true"></i> 
+                <i class="fa fa-comment-o" aria-hidden="true"></i>
             </a>
                 <p>{{comment_count}}</p>
             </li>
             <li>
             <a href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i> 
+                <i class="fa fa-eye" aria-hidden="true"></i>
             </a>
             <p> 20 </p>
             </li>
             </ul>
         </div>
-        {% autoescape off %}
-           {{article.article_content}}
-        {% endautoescape %} 
-        <hr>
-            <a class="btn btn-xs btn-primary"  href="https://www.facebook.com/sharer/sharer.php?u={%url 'article' pk=article.id %}" target="_blank">share
-            </a> 
-        <hr>
-        <div id="disqus_thread">
-                {% load comments %}
-                <div class="comment-list">
-                {% get_comment_list for article as comments %}
-                    <div class="comments-container">
-                    <h1>Comments <a href="http://lifeinabits.com">Lifeinabits</a></h1>
-                    <hr>
-                    {% for comment in comments %}
-                        {% include 'comment.html'%}
-                    {% empty %}
-                        <p>No Comments Yet! Be the First to comment</p>    
-                    {% endfor %}
-                    </div>
-                </div>
-                <hr>
-               <div class="comment-form">
-                    {% if user.is_authenticated %}
-                        {% get_comment_form for article as form %}
-                        <h4>Post a Comment</h4>
-                        <form action="{% comment_form_target %}" method="POST">
-                        {% csrf_token %}
-                        {{ form.honeypot }}
-                        {{ form.content_type }}
-                        {{ form.object_pk }}
-                        {{ form.timestamp }}
-                        {{ form.security_hash }}
-                        <textarea class="form-control" cols="40" id="id_comment" maxlength="3000" name="comment" rows="2" required=""></textarea>
-                        <input type="hidden" name="next" value="{% url 'article' article.id %}" />
-                        <input class="btn btn-success" type="submit" value="Comment" id="id_submit" />
-                        </form>
-                    {% else %}
-                        <div class="login-popup open">Please <a class="open" href="{% url 'login' %}">log in</a> to leave a comment.
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginpopup">
-                                    Launch demo modal
-                                </button>
-                            {% include 'registration/login_popup.html' %}
-                        </div>
-                    {% endif %}
-               </div>
-            </div>
     </div>
-    <div class="blog-archive">
-        {% include  'search_template.html' %}
-        <div class="search-container">
-            <p class="yellow">
-               <strong>Category</strong>
-            </p>
+    <div class="four-six col-md-8 justify abel">
+       {% autoescape off %}
+           {{article.article_content}}
+        {% endautoescape %}
+        <div class="social-share-article">
             <ul>
-                <li><a href="/category/{{article.article_category.id}}"><i class="fa fa-arrow-right"></i> {{article.article_category}}</li></a>
+                <li class="center facebook"><a class="share-post-link">facebook</a></li>
+                <li class="center google"><a class="share-post-link">Google</a></li>
+                <li class="center twitter"><a class="share-post-link">Twitter</a></li>
+                <li class="center linkedin"><a class="share-post-link">linkedIn</a></li>
             </ul>
         </div>
-        <div class="thought-container search-container">
-            <div class="card-post-author clearfix">
-            <div class="author-img"><img src="{{article.article_author.userprofile.profile_picture.url}}"/></div>
-            <div class="contact">
-              <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
-              <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
-              <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a>
-              <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google-plus-official"></i></a>
+        <hr>
+        <div id="disqus_thread">
+            {% load comments %}
+            <div class="comment-list">
+            {% get_comment_list for article as comments %}
+                <div class="comments-container">
+                <h2>Comments <a href="http://lifeinabits.com">Lifeinabits</a></h2>
+                <hr>
+                {% for comment in comments %}
+                    {% include 'comment.html'%}
+                {% empty %}
+                    <p>No Comments Yet! Be the First to comment</p>
+                {% endfor %}
+                </div>
             </div>
-            <div class="author-info">
-            <p class="name"><b>{{article.article_author.get_full_name}}</b></p>
-            <p>
-            {% autoescape off %}
-                {{article.article_author.userprofile.short_intro}}
-            {% endautoescape %}
-            </p>
-            </div>
+           <div class="comment-form">
+                {% if user.is_authenticated %}
+                    {% get_comment_form for article as form %}
+                    <h4>Leave a Reply</h4>
+                    <form action="{% comment_form_target %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.honeypot }}
+                    {{ form.content_type }}
+                    {{ form.object_pk }}
+                    {{ form.timestamp }}
+                    {{ form.security_hash }}
+                    <textarea class="form-control" cols="40" id="id_comment" maxlength="3000" name="comment" rows="2" required=""></textarea>
+                    <input type="hidden" name="next" value="{% url 'article' article.id %}" />
+                    <input class="btn btn-success" type="submit" value="Comment" id="id_submit" />
+                    </form>
+                {% else %}
+                    <div class="alert alert-danger alert-dismissable">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                          <strong>Alert !</strong> Anonymouse comments are not notified to the author <a href="{% url 'login' %}">Login to get quick reply</a>
+                    </div>
+                    <div class="anonymouse-comment">
+                        {% get_comment_form for article as comment_form %}
+                    <form action="{% comment_form_target %}" method="post">
+                        {% csrf_token %}
+                         <fieldset>
+                             <legend>leave a reply</legend>
+                        {{ comment_form}}
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" name="submit" value="Post">
+                                <input type="submit" name="preview" value="Preview">
+                            </td>
+                        </tr>
+                         </fieldset>
+                    </form>
+                    </div>
+                {% endif %}
+           </div>
         </div>
+        <!--<hr style="border-top: 1px solid #f6d339;">-->
+        {% if related_articles %}
+        <h4 class="interested  barlow">Related Posts</h4>
+        <div class="slides-container slick-slides">
+            {% for article in related_articles %}
+                <div class="related-article col-md-3">
+                    <span class="badge badge-default">{{article.article_subcategory}}</span>
+                    <div class="slide-image-wrapper">
+                        <a href="{% url 'article' pk=article.id %}">
+                            <img data-lazy="{{article.get_article_image}}" />
+                        </a>
+                    </div>
+                    <div class="slic-article-meta">
+                        <h4 class="article-meta">{{article.article_title|truncatechars:45}}</h4>
+                        <span class="created-meta"><i class="fa fa-calendar-o"></i>  {{article.created}}</span>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        <div class="ad-container search-container">
-            <p>
-               <img width="270" height="270" src="{% static 'src/images/adv1.jpg' %}">
-            </p>
+        {% endif %}
+    </div>
+    <div class="two-six col-md-4">
+        <!-- <div class="rating">{% include  'rating.html' %}</div> -->
+        <div class="box-title">
+            <h2>Author</h2>
         </div>
-        <div class="tag-container search-container">
-            <p class="yellow">
-                <strong>Article Tags</strong>
-            </p>
-            <div class="tags">
+        <div class="author-post barlow">
+                <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><img src="{{article.article_author.userprofile.get_profile_image}}"/></a>
+                <div class="author-info">
+                    <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><h3 class="name">{{article.article_author.get_full_name}}</h3>
+                    </a>
+                    <h4>
+                    {% autoescape off %}
+                        {{article.article_author.userprofile.short_intro}}
+                    {% endautoescape %}
+                    </h4>
+                </div>
+                <div class="contact ltylw">
+                  <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
+                  <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+                  <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                  <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google"></i></a>
+                </div>
+        </div>
+        <div class="box-title">
+            <h2>TAGS <i class="fa fa-tags" aria-hidden="true"></i></h2>
+        </div>
+        <div class="box">
+            <div class="tags dosis">
                 {% for tag, count in popular_tags %}
                 <a href="{% url 'tag' tag %}" class="btn btn-xs btn-default">
-                        {{ tag }} <span class="badge badge-info">{{ count }}</span>
+                        {{ tag }} <span class="badge">{{ count }}</span>
                 </a>
                     <!-- <a href="{% url 'tag' tag %}"><span class="label label-default">{{ tag }} {{ count }}</span></a> -->
                 {% endfor %}
             </div>
         </div>
-    <div class="search-container">
-        <p class="yellow">
-            <strong> Blog Archives </strong>
-        </p>
-        <div>
-            <ul class="root collapsibleList">
-              {% for key, value in article_analytics.items %}
-                <li>{{key}}
-                    {% for month, value in value.items %}
+        <div class="box-title">
+            <h2>Blog Archives</h2>
+        </div>
+        <div class="box barlow">
+        <ul class="root collapsibleList dosis">
+          {% for key, value in article_analytics.items %}
+            <li>{{key}}
+                {% for month, value in value.items %}
+                <ul>
+                  <li>{{month|date:"M"}} ({{value.count}})
                     <ul>
-                      <li>{{month|date:"M"}} ({{value.count}})
-                        <ul>
-                        {% for item in value %}
-                            <li><i class="fa fa-slack" aria-hidden="true"></i> <a href="/blog/article/{{item.id}}">{{item}}</a>
-                        {% endfor %}
-                        </ul>
-                      </li>
+                    {% for item in value %}
+                        <li><i class="fa fa-slack" aria-hidden="true"></i> <a href="/blog/article/{{item.id}}">{{item}}</a>
                     {% endfor %}
-                  </ul>
+                    </ul>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+        </div>
+       <div class="box-title">
+            <h2>Recent Posts <i class="fa fa-tags" aria-hidden="true"></i></h2>
+        </div>
+        <div class="abel recent">
+            <ul class="dosis">
+                {% for article in recent %}
+                <li class="recent-article" style="background-image: url({{article.get_article_image}}); background-size: cover;">
+                    <p class="ltylw">
+                        <a href="{% url 'article' pk=article.id %}">
+                        {{article.article_title | truncatechars:25}}</a>
+                    </p>
+                    <time>{{article.created}}</time>
                 </li>
-              {% endfor %}
+                {% endfor %}
             </ul>
         </div>
     </div>
-    <div class="search-container">
-        <p class="yellow">
-            <strong>Recent Posts</strong>
-        </p>
-        {% for article in recent %}
-        <ul>
-            <li class="clearfix recent">
-                <a href="{% url 'article' pk=article.id %}">
-                    <img width="45" height="45" src="{{article.article_image.url}}"/>
-                    <p>
-                        {{article.article_title}}
-                    </p>
-                </a>
-                    <time>{{article.created}}</time>
-            </li>
-        </ul>
-        {% endfor %}
-    </div>
-  </div>
 </div>
 <script src="{% static 'src/js/lib/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript" src="{% static 'src/slick/slick.min.js' %}"></script>
+<script src="{%static 'src/js/lib/CollapsibleLists.js' %}"></script>
+
+ <script>
+    $(function() {
+      $('.slick-slides').slick({
+        slidesToShow:3,
+        slidesToScroll: 1,
+        lazyLoad: 'ondemand',
+        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>",
+        nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>",
+        responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 3
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 1
+      }
+    }
+    ]
+      });
+    });
+    $(document).ready(function(){
+        CollapsibleLists.apply();
+    });
+  </script>
 {% endblock %}

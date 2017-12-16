@@ -1,6 +1,5 @@
 require('tagView', ['config'], function(){
     require(['jquery', 'lib/imagesloaded.pkgd.min'], function(){
-      debugger;
       $(document).ready(function(){
               var $container1 = $(".col-md-3");
                $container1.imagesLoaded(function() {

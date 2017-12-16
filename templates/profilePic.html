@@ -1,6 +1,6 @@
 {% load static %}
 <label style="position: relative;" for="id_{{ widget.name }}">
-	<img style="border: 1px solid #ddd; border-radius: 5px;" width="80" height="80" src="{{widget.value.url}}"/>
+	<img style="border: 1px solid #ddd; border-radius: 5px;" width="80" height="80" src="{{widget.value.profile_picture.url}}"/>
 	<input id="id_{{ widget.name }}" style="display: none;" type="file" name="{{ widget.name }}">
 	</input>
 	<span style="color:green; position: relative;display: block; left: 0;"> click to change</span>

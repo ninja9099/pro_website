@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 import markdown
-import datetime
 from django.db import models
 from django.db.models import Count
 from model_utils.models import TimeStampedModel
@@ -12,56 +11,64 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 
-article_states = [('published', 'Published'), ('draft', 'Draft'), ('approval', 'Approval'), ('archived', "Archived")]
+ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
+
+
 class Article(TimeStampedModel):
+    
 
-    IMAGE_PATH = settings.IMAGE_PATH
-    DEFAULT_IMAGE = settings.DEFAULT_ARTICLE_IMAGE
-
-
-    article_title = models.CharField(max_length=255, db_index=True,help_text="please provide title of your article", unique=True)
-    article_image = models.ImageField(upload_to=IMAGE_PATH, height_field=None, width_field=None, blank=True, default="static/blog/article_images/default.png")
+    ARTICLE_STATES_CHOICES = [
+        ('published', 'Published'), 
+        ('draft', 'Draft'), 
+        ('approval', 'Approval'), 
+        ('archived', "Archived")
+        ]
+    article_title = models.CharField(max_length=255, db_index=True, help_text="please provide title of your article",
+                                     unique=True)
+    article_image = models.ImageField(upload_to=ARTICLE_IMAGE_PATH, height_field=None, width_field=None, blank=True)
     article_category = models.ForeignKey('Category', on_delete=models.CASCADE)
     article_subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     article_followed = models.IntegerField(default=0)
     article_ratings = models.FloatField(default=0.0, blank=True)
-    article_views = models.IntegerField(default=0)
-    article_content = models.CharField(max_length=5000)
+    article_views = models.PositiveIntegerField(default=0)
+    article_content = models.CharField(max_length=400000)
     article_author = models.ForeignKey(User)
-    article_state = models.CharField(choices=article_states, default='draft', max_length=20)
+    article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
     article_flike_url = models.URLField('Like plugin url', blank=True)
     slug = models.SlugField(max_length=250, blank=True)
     tags = TaggableManager()
-    
+
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")
         ordering = ('-article_views', 'created',)
 
     def __str__(self):
-        return self.article_title 
+        return self.article_title
 
+    def publish(self):
+        self.article_state = 'published'
+        return True;
+        
 
     @property
     def get_article_image(self):
         """
-        return default imgae if image for article is not found  on server
+        return default image if image for article is not found  on server
 
         """
         try:
             return self.article_image.url
         except:
-            return DEFAULT_IMAGE
+            return settings.DEFAULT_ARTICLE_IMAGE
 
     def get_content_as_markdown(self):
         return markdown.markdown(self.article_content, safe_mode='escape')
 
-
-    @staticmethod
-    def get_published():
-        articles = Article.objects.filter(article_state='published')
+    @classmethod
+    def get_published(cls):
+        articles = cls.objects.filter(article_state='published')
         return articles
-
 
     @staticmethod
     def get_counted_tags():
@@ -77,12 +84,12 @@ class Article(TimeStampedModel):
                     tag_dict[tag] += 1
         return tag_dict.items()
 
+
     def get_summary(self):
         if len(self.article_content) > 255:
             return '{0}...'.format(self.article_content[:255])
         else:
             return self.article_content
-
 
     def get_summary_as_markdown(self):
         return markdown.markdown(self.get_summary(), safe_mode='escape')
@@ -90,22 +97,22 @@ class Article(TimeStampedModel):
 
     def get_author_profile(self):
         return self.article_author.userprofile
-    
+
 
     def get_absolute_url(self):
-        return u'/article-edit/%d' % self.id 
-        
+        return u'/article-edit/%d' % self.id
 
     def count_likes(self):
-        return len(self.articlelikes_set.all())
-
+        return self.articlelikes_set.all().count()
 
 
 class Category(models.Model):
-    category_name = models.CharField('Category',max_length=255, unique=True)
+    category_name = models.CharField('Category', max_length=255, unique=True)
+    category_image = models.ImageField(upload_to=ARTICLE_IMAGE_PATH, blank=True, default="default.png")
 
     def __str__(self):
         return self.category_name
+
 
 class SubCategory(models.Model):
     catagory_id = models.ForeignKey('Category', on_delete=models.CASCADE)
@@ -116,7 +123,7 @@ class SubCategory(models.Model):
 
 
 class ArticleLikes(TimeStampedModel):
-    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     article_id = models.ForeignKey(Article, on_delete=models.CASCADE)
 
     class Meta:

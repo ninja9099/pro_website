@@ -47,7 +47,6 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 img_temp.flush()
                 return True
 
-            
             if kwargs.get('backend').__class__.__name__ == "FacebookOAuth2":
                 profile = UserProfile.objects.create(
                     user=user,
@@ -61,7 +60,6 @@ def user_details(strategy, details, response, user=None, *args, **kwargs):
                 profile.profile_picture.save(img_name, File(img_temp))
                 img_temp.flush()
                 return True
-
 
             if kwargs.get('backend').__class__.__name__  == 'TwitterOAuth':
                 profile = UserProfile.objects.create(
@@ -132,6 +130,7 @@ def login(request):
         form = LoginForm() # A empty, unbound form
     return render(request, 'registration/login.html', {'form': form, "next":next_url})
 
+
 def logout(request):
     auth_logout(request)
     
@@ -156,8 +155,7 @@ def sign_up(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 @login_required
-def ManageProfile(request, profile_id):
-
+def edit_profile(request, profile_id):
     if request.method=='GET':
         if request.GET.get('edit', 'false') == 'false':
             article_reads = request.user.userprofile.article_reads.all()
@@ -174,15 +172,14 @@ def ManageProfile(request, profile_id):
                 raise PermissionDenied
 
     if request.method == "POST":
-        import pdb
-        pdb.set_trace()
         user_profile  = UserProfileForm(request.POST, request.FILES, instance=UserProfile.objects.get(pk=profile_id))
         if user_profile.is_valid():
             # user_profile.profile_picture=request.FILES['profile_picture']
             user_profile.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'profile_id':request.user.id}))
         else:
-            return render(request, 'userprofile_update_form.html', {'form': form})
+            return render(request, 'userprofile_update_form.html', {'form': user_profile})
+
 
 @receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):
@@ -193,30 +190,6 @@ def create_profile(sender, **kwargs):
     else:
         pass
 
+
 def social_auth(request):
    return redirect('homepage')
-
-
-
-
-@login_required
-def save_uploaded_picture(request):
-    try:
-        x = int(request.POST.get('x'))
-        y = int(request.POST.get('y'))
-        w = int(request.POST.get('w'))
-        h = int(request.POST.get('h'))
-        tmp_filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
-            request.user.username + '_tmp.jpg'
-        filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
-            request.user.username + '.jpg'
-        im = Image.open(tmp_filename)
-        cropped_im = im.crop((x, y, w+x, h+y))
-        cropped_im.thumbnail((200, 200), Image.ANTIALIAS)
-        cropped_im.save(filename)
-        os.remove(tmp_filename)
-
-    except Exception:
-        pass
-            
-    return redirect('/settings/picture/')

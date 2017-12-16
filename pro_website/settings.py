@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
@@ -23,7 +23,7 @@ SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['67.205.159.112', 'lifeinabits.com', '127.0.0.1']
 LOGIN_URL = '/login/'
 
 # Application definition
@@ -100,8 +100,8 @@ PASSWORD_HASHERS = [
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-NOTIFICATION_TEST=True
-NOTIFICATIONS_USE_JSONFIELD=True
+NOTIFICATION_TEST = True
+NOTIFICATIONS_USE_JSONFIELD = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -193,6 +193,8 @@ STATICFILES_DIRS = [
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
 
@@ -212,20 +214,24 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 
 # settings related to article
 # override to change default image of article
-DEFAULT_ARTICLE_IMAGE = '/media/static/blog/article_images/default.png'
-IMAGE_PATH = 'static/blog/article_images'
-TAGGIT_CASE_INSENSITIVE = True
-# google map integration for traffic tracking
-GOOGLE_MAPS_KEY = 'AIzaSyA9K2hNBywL_sdb-8If9Ce5XjtyGNxgQA8'
-GOOGLE_PLACE_ID = 'ChIJhc2TaOeCXjkRxoHDjRwlAtM'
-TRACK_USE_GEOIP =True
-GEOIP_CACHE_TYPE = 0
+DEFAULT_ARTICLE_IMAGE = '/media/images/article_images/default.png'
+DEFAULT_USER_IMAGE = '/media/images/profile_images/default_user.png'
 
-GEOIP_PATH =os.path.join(BASE_DIR, '/static/geoip-data/')
+#  for storing images and videos related to article 
+IMAGE_PATH = 'images/'
+VIDEO_PATH = 'videos/'
+
+TAGGIT_CASE_INSENSITIVE = True
+
+# google map integration for traffic tracking
+TRACK_USE_GEOIP =True
+
+GEOIP_CACHE_TYPE = 0
+GEOIP_PATH =os.path.join(BASE_DIR, 'static/geoip-data/')
 
 DEFAULT_TRACKING_TEMPLATE = 'tracking/visitor_map.html'
-# django-tracking2 settings
 
+# django-tracking2 settings
 TRACK_AJAX_REQUESTS =True
 TRACK_ANONYMOUS_USERS =True
 TRACK_PAGEVIEWS =True
@@ -233,3 +239,12 @@ TRACK_PAGEVIEWS =True
 TRACK_IGNORE_STATUS_CODES = [400, 404, 403, 405, 410, 500]
 TRACK_REFERER =True
 TRACK_QUERY_STRING= True
+
+# notifications settings
+NOTIFICATIONS_SOFT_DELETE=True
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kamanipankaj9099@gmail.com'
+EMAIL_HOST_PASSWORD = 'mitalghadiya'

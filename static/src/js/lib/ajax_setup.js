@@ -1,6 +1,7 @@
 define('ajax',
 	['jquery','cookie'],
 	function($, cookie){
+		console.log('ajax_setup completed');
 		return {
 			init:function(){
 				$.ajaxSetup({
@@ -10,7 +11,7 @@ define('ajax',
 				});
 			},
 			start:function(){
-					this.init();
+				this.init();
 			}	
 		}
 });

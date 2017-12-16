@@ -1,8 +1,6 @@
 require(['config'], function(){
 	require(['jquery', 'ck', 'bootstrap', 'ajax'], function($, ck, bootstrap, ajax){
-		debugger;
 		$(document).ready(function(){
-	        $("[id^='id_']").addClass('form-control');
 	        ajax.init()
 	        var editor = CKEDITOR.replace( 'id_article_content' );
 	        var url = $('#url').val()
@@ -23,11 +21,11 @@ require(['config'], function(){
 			      type: 'post',
 			      timeout: 3000,
 			      beforeSend: function () {
-			        $('#preview').addClass('saving')
+			        $('#preview').addClass('saving');
 			      },
 			      success: function (data) {
-			      	$('#preview').removeClass('saving')
-			        $("#article_preview .modal-body").html($.parseHTML(data));
+			      	$('#preview').removeClass('saving');
+			        $("#article_preview").find(".modal-body").html($.parseHTML(data));
 			      	$('.modal').modal('show')
 			      }
 			    });
@@ -36,39 +34,55 @@ require(['config'], function(){
 		  	// for saving the article
 		  	$("#save").click(function(e){
 		        e.preventDefault()
+		        
 		        for ( instance in CKEDITOR.instances ){
 		        	CKEDITOR.instances[instance].updateElement();
 		    	}
-		        var data = $('form').serialize()
+		    	var formData = new FormData($('form')[0]);
+		    	var img = $('#id_article_image')[0].files[0];
+		    	debugger;
+		    	formData.append('img', img);
+
 			    $.ajax({
 			      url: url,
-			      data: data,
+			      data: formData,
 			      cache: false,
-			      type: 'post',
+			      type: 'POST',
+            	  contentType: false,
+            	  processData: false,
 			      timeout: 30000,
 			      beforeSend: function () {
 			      	$('#save').addClass('saving')
 			      },
 			      success: function (data) {
 			      	if (data.success){
-			      		$('#save').removeClass('saving')
-			      		$('#save').removeClass('unsaved')
-				        $("#article_preview .modal-body").html(data.message);
+			      		$('#save').removeClass('saving unsaved');
+				        $("#article_preview").find(".modal-body").html(data.message);
 				      	$('.modal').modal('show')
 			      	}
 			      	else{
 			      		$('#save').removeClass('saving');
-			      		$("#article_preview .modal-body").html($.parseHTML(data.error));
+			      		$("#article_preview").find(".modal-body").html($.parseHTML(data.error));
 				      	$('.modal').modal('show');
 			      	}
 			      	},
 			      	error:function(data){
 			      		$('#save').removeClass('saving');
-			      		$("#article_preview .modal-body").text(data);
+			      		$("#article_preview").find(".modal-body").text(data);
 				      	$('.modal').modal('show');
 			      	}
 			    });
 		  	});
+            var fixmeTop = $('.fixme').offset().top;       // get initial position of the element
+	    	$(window).scroll(function() {
+		        var currentScroll = $(window).scrollTop() - 210; // get current position
+		        if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+		            $('.fixme').addClass('fixed bounceInDown animated');
+
+		        } else if((currentScroll +300) < fixmeTop) {                                   // apply position: static
+		            $('.fixme').removeClass('fixed bounceInDown animated');
+		        }
+		    });
 	    });
 	});
 });

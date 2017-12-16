@@ -1,44 +1,51 @@
 <!DOCTYPE html>
-<html lang="en_us">
+<html>
 <head>
-    <title>{%block title%}LifeBits-Home{% endblock %}</title>
-    <!--  block for meta tags of web page ################################################ -->
+
+    <title>
+        {% block title %} lifeinabits {% endblock %}
+    </title>
     {% block http-meta %}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--block for defining the meta classes in the html page for search engine optimization-->
+        <meta charset="UTF-8">
     {% endblock %}
-    <!-- block for replacing the links to make sure that it dont interfear with each other ######### -->
     {% load static %}
-    <link href="{% static 'src/css/font-awesome.min.css' %}" rel="stylesheet">
-    <link href="{% static '/src/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static '/src/css/header.css' %}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'src/css/animate.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'src/css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/boot.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/awesome.css'%}"/>
     {% block links %}
-    {% endblock %}   
+        <!--empty block to add any links further required in dev-->
+    {% endblock %}
+
+    <script src="{% static 'src/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'src/js/lib/jquery.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/boot.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/index.js' %}"></script>
+    {% block scripts %}
+        <!--empty block of adding further links in the page-->
+    {% endblock %}
+
 </head>
+<body>
 
-	<body>
-        <!-- block for entry point in website for require js -->
-        {% block entrypoint %}
-            <script type="text/javascript" data-main="{% static 'src/js/index.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+	<div class="main-wrapper">
+        {% block branding %}
+        <!--for main branding    -->
+            {% include 'main_branding.html' %}
         {% endblock %}
 
-        <!--  block for navebar to make chages in header navar -->
-        {% block  navbar%}
-            {% include 'header_template.html'%}
+        <!-- for main navigation menu  -->
+        {% block navigation %}
+            {%  include  'navigation.html' %}
+        <!--main content   -->
         {% endblock %}
+        {% block container %}{% endblock  %}
 
-    	<!-- content goes in here -->
-    	{% block content %}
-    	{% endblock %}
-    	<!--  footer goes in here -->
+    </div>
+        {% block footer %}
+            {% include  'footer.html' %}
+        {% endblock %}
+    <!--other scripts for loading in to the body  html-->
 
-        <!-- block for footer -->
-    	{% block footer%}
-        {% include 'footer.html' %}
-    	{% endblock %}
-        {% include 'social_buttons.html' %}
-	</body>
+</body>
 </html>

@@ -4,18 +4,15 @@
         <link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/profile.css' %}">
     {% endblock %} 
 
-    {% block content %}
-        {% block entrypoint %}
-            {% load static %}
-            <script type="text/javascript" data-main="{% static 'src/js/profile.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
-        {% endblock %}
-        <!-- ############ block for  row -->
+    {% block container %}
+        {% load static %}
+        <script type="text/javascript" data-main="{% static 'src/js/profile.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
         <div>
             <div class="container-lg">
-                <div class="left col-md-3">
+                <div class="left-part col-md-3">
                     <div class="profile-img">
                         <a href="{% url 'profile' profile_id=user.id %}?edit=true" data-toggle="tooltip" title="Change Profile Picture" data-placment="bottom">
-                            <img src="{{request.user.userprofile.profile_picture.url}}" width="223" height="230"/>
+                            <img src="{{request.user.userprofile.get_profile_image}}" width="223" height="230"/>
                         </a>
                     </div>
                     <div class="name-container">
@@ -31,7 +28,7 @@
                     </p>
                     <a href="{% url 'profile' profile_id=user.id %}?edit=true" class="btn btn-success col-md-12">Edit profile</a>
                 </div>
-                <div class="right col-md-9">
+                <div class="right-part col-md-9">
                     <div class="user-profile-nav">
                         <ul class="navigation nav nav-tabs" data-tabs="tabs">
                             <li class="active"><a class="underline-nav-item" data-toggle="tab" href="#Overview">Overview</a>
@@ -58,29 +55,23 @@
                                 </div>
                             </div>
                             <div id="Articles" class="articles-written tab-pane">
-                                <div class="about-card">
-                                    <h2>
+                                    <h2 class="barlow">
                                         Articles Written
                                     </h2>
-                                </div>
                                 <div class="row">
-                                {% for user_article in request.user.article_set.all %}
-                                  <div class="col-xs-6 col-md-3 five">
-                                    <div class="layer">
-                                        <a class="btn btn-xs editore" href="{% url 'article_edit' pk=user_article.id  %}?edit=true">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        </a>
-                                        <h4>
+                                    <ul>
+                                    {% for user_article in request.user.article_set.all %}
+                                        <li class="article-write-li barlow">
                                             <a href="{% url 'article' pk=user_article.id %}">{{user_article.article_title}}</a>
-                                        </h4>
-                                    </div>
-                                    <a href="#" class="thumbnail">
-                                      <img src="{{user_article.get_article_image}}" alt="..." width="150" height="142">
-                                    </a>
-                                  </div>
-                                  {% empty %}
-                                        <li>Sorry, no athletes in this list.</li>
-                                  {% endfor %}
+
+                                            <span class="float-right"><a href="{% url 'article_edit' pk=user_article.id %}?edit=true"><i class="fa fa-pencil"></i> </a> </span>
+                                            <span class="float-right"><a href="{% url 'article_edit' pk=user_article.id %}?edit=true"><i class="fa fa-trash"></i> </a> </span>
+                                            <span class="float-right"><a href="{% url 'article_edit' pk=user_article.id %}?edit=true"><i class="fa fa-floppy-o" aria-hidden="true"></i></a> </span>
+                                    {% empty %}
+                                            Sorry, no articles in this list
+                                    {% endfor %}
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="profile-info tab-pane" id="profile" role="tabpanel">
