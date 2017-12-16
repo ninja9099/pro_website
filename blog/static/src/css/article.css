@@ -12,22 +12,24 @@ h1, h2, h3, h4, h5, h6{margin: 0 !important;}
 /*for social-share-article*/
 .four-six .social-share-article {display: block; width: 100%; margin-top: 20px;}
 .four-six .social-share-article ul{display: block;}
-.four-six .social-share-article ul li{color: #fff; display: inline-block; width: 20%; border-radius: 2px; margin-right:10px; padding: 10px; border:1px solid #ddd;}
+.four-six .social-share-article ul li{color: #fff; display: inline-block; width: 23%; border-radius: 2px; margin-right:10px; padding: 10px; border:1px solid #ddd;}
 .four-six .social-share-article ul li a{color: #fff;}
 /* end social-share-article*/
 
 
 /*for comments*/
 [for~=id_honeypot]{display: none;}
+.comment-form .anonymouse-comment form input[type=submit]{margin-left: 0;}
+#id_comment{width: 100%; height: 50px; border-radius: 5px;border: 1px solid #ddd;}
+.comment-form .anonymouse-comment{margin: 40px 0;}
 .comment-form .anonymouse-comment p{display: inline-block;}
-.comment-form .anonymouse-comment form input{padding: 2px;border: 0; border-bottom: 1px solid #fd4326; margin-bottom: 15px;}
+.comment-form .anonymouse-comment form input{padding: 2px;margin-bottom: 15px;    border-radius: 5px;border: 1px solid #ddd; margin-left: 10px;}
+.comment-form .anonymouse-comment form > [type=submit]{padding: 2px; border-radius: 2px !important; width: 60px !important; background: #fff !important;    color: #fd4326 !important;}
+.comment-avatar{width: 70px;}
+.comment-box{width: 614px;}
+.comment-head{display: flex;}
 
-.comment-form .anonymouse-comment form > [type=submit]{padding: 2px;border: 1px solid #fd4326 !important; border-radius: 2px !important; width: 60px !important; background: #fff !important;    color: #fd4326 !important;}
-.comments-container{margin: 20px 0;}
-.comment-main-level{position: relative;}
-.comment-avatar{width: 50px; height: 50px; overflow: hidden; display: inline-block;     border-bottom-left-radius: 15px; border-top-right-radius: 15px;}
-.comment-box{ width: 91%; display: inline-block; position: absolute; margin-left: 10px; padding: 6px; background-color: #fff;}
-.comment-box .comment-head *{display: inline-block;}
+.comment-main-level{display: flex; flex-basis: 100%; flex-direction: row;}
 .comment-box:before{content: ''; position: absolute;top: 33%; left: -16px;border: 8px solid rgba(0, 0, 0, 0); border-right: 8px solid #fff;}
 #id_honeypot{visibility: hidden; display: none;}
 #id_submit{margin-top: 10px;margin-bottom: 10px;border-radius: 2px;}

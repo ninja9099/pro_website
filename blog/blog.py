@@ -54,7 +54,7 @@ class Article(TimeStampedModel):
     @property
     def get_article_image(self):
         """
-        return default imgae if image for article is not found  on server
+        return default image if image for article is not found  on server
 
         """
         try:
@@ -65,9 +65,9 @@ class Article(TimeStampedModel):
     def get_content_as_markdown(self):
         return markdown.markdown(self.article_content, safe_mode='escape')
 
-    @staticmethod
-    def get_published():
-        articles = Article.objects.filter(article_state='published')
+    @classmethod
+    def get_published(cls):
+        articles = cls.objects.filter(article_state='published')
         return articles
 
     @staticmethod

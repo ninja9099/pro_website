@@ -13,49 +13,46 @@
     <div class="trending-wrapper">
         {% for article in context.page.object_list|slice:":3"%}
         {% if forloop.counter == 1 %}
-        <div class="first">
+        <div class="first article-cover">
             <span class="badge badge-default">Trending</span>
             <img src="{{article.get_article_image}}"/>
-            <div class="first-article-details">
+            <div class="article-details">
                 <a href="{% url 'article' pk=article.id %}"><h3 class="abel">{{article.article_title}}</h3></a>
-                <span class="first-article-meta">
-                    <span class="float-left dosis">
+                <span class="article-meta">
+                    <span class="float-left abel">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
                     </span>
-                    <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
+                    <span class="float-right"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
             </div>
-             <span class="img-overlay"></span>
         </div>
         {% elif forloop.counter == 2 %}
-        <div class="second">
+        <div class="second article-cover">
             <span class="badge badge-default">Trending</span>
             <img src="{{article.get_article_image}}" />
-            <div class="second-article-details">
+            <div class="article-details">
                  <a href="{% url 'article' pk=article.id %}"><h3 class="abel">{{article.article_title}}</h3></a>
-                <span class="second-article-meta">
-                    <span class="float-left dosis">
+                <span class="article-meta">
+                    <span class="float-left abel">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
                     </span>
                     <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
             </div>
-            <span class="img-overlay"></span>
         </div>
         {% else %}
-        <div class="third">
+        <div class="third article-cover">
             <span class="badge badge-default">Trending</span>
             <img src="{{article.get_article_image}}" />
-            <div class="third-article-details">
+            <div class="article-details">
                  <a href="{% url 'article' pk=article.id %}"><h3 class="abel">{{article.article_title}}</h3></a>
-                <span class="third-article-meta">
-                    <span class="float-left dosis">
+                <span class="article-meta">
+                    <span class="float-left abel">
                         <a href="#" > <i class="fa fa-calendar-check-o"></i> {{article.created|date:"d M Y"}}</a>
                     </span>
-                    <span class="float-right dosis"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
+                    <span class="float-right"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
                 </span>
             </div>
-            <span class="img-overlay"></span>
         </div>
         {% endif %}
         {% empty %}
@@ -69,8 +66,9 @@
             <section class="programing">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#!">Programing</a>
+                        <a class="abel" href="">Programing</a>
                     </h2>
+
                 </div>
                 <div class="box-content">
                     <ul>
@@ -104,11 +102,14 @@
                       {% endfor %}
                     </ul>
               </div>
+                    <h5 class=" title float-right">
+                        <a class="show_all" href="">Show all <i class="fa fa-plus" ></i></a>
+                    </h5>
             </section>
             <section class="recent-posts">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#!">RECENT</a>
+                        <a class="abel" href="#">RECENT</a>
                     </h2>
                 </div>
                 {% for article in context.page|slice:":5" %}
@@ -163,7 +164,7 @@
             <section class="business">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#!">Ayurveda</a>
+                        <a class="abel" href="#">Ayurveda</a>
                     </h2>
                 </div>
                 <div class="box-content">
@@ -172,10 +173,10 @@
                         <div class="box-column">
                             <div class="box">
                                 <div class="box-thumbnail">
-                                    <a href="" style="background: url({{article.get_article_image}}) no-repeat center center; background-size: cover;">
+                                    <a href="{% url 'article' pk=article.id %}" style="background: url({{article.get_article_image}}) no-repeat center center; background-size: cover;">
                                         <span class="img-overlay"></span>
                                     </a>
-                                    <div class="first-tag" href=""><a href="#!">Business</a></div>
+                                    <div class="first-tag" href=""><a href="#">Business</a></div>
                                 </div>
                                 <div class="box-column-description">
                                     <h1 class="heading">
@@ -201,10 +202,10 @@
                 </div>
                 <div class="social-box-content">
                     <ul>
-                        <li><a href="#!" class="social-btn-twitter">Follow on Twitter <i class="fa fa-twitter"></i> </a></li>
-                        <li><a href="#!" class="social-btn-facebook">Like on Facebook <i class="fa fa-facebook"></i> </a></li>
-                        <li><a href="#!" class="social-btn-youtube">Subscribe on Youtube <i class="fa fa-youtube"></i> </a></li>
-                        <li><a href="#!" class="social-btn-instagram">Follow on Instagram <i class="fa fa-instagram"></i> </a></li>
+                        <li><a href="#" class="social-btn-twitter">Follow on Twitter <i class="fa fa-twitter"></i> </a></li>
+                        <li><a href="#" class="social-btn-facebook">Like on Facebook <i class="fa fa-facebook"></i> </a></li>
+                        <li><a href="#" class="social-btn-youtube">Subscribe on Youtube <i class="fa fa-youtube"></i> </a></li>
+                        <li><a href="#" class="social-btn-instagram">Follow on Instagram <i class="fa fa-instagram"></i> </a></li>
                     </ul>
                 </div>
             </div>
@@ -252,7 +253,7 @@
                 <div class="cat-box">
                     <ul>
                         {% for cat in context.categories %}
-                        <li><a href="{% url 'cat_article_list' cat_id=cat.id %}">{{cat}} <span class="badge badge-default float-right">{{cat.articles}}</span></li></a>
+                        <li><i class="fa fa-chevron-right"></i> <a href="{% url 'cat_article_list' cat_id=cat.id %}">{{cat}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

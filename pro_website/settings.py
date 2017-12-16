@@ -23,7 +23,7 @@ SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['67.205.159.112', 'lifeinabits.com']
+ALLOWED_HOSTS = ['67.205.159.112', 'lifeinabits.com', '127.0.0.1']
 LOGIN_URL = '/login/'
 
 # Application definition
@@ -242,3 +242,9 @@ TRACK_QUERY_STRING= True
 
 # notifications settings
 NOTIFICATIONS_SOFT_DELETE=True
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kamanipankaj9099@gmail.com'
+EMAIL_HOST_PASSWORD = 'mitalghadiya'
