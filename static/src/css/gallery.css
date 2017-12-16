@@ -44,6 +44,7 @@ body{background-color:#fff;}
 .programing .box-thumbnail{position: relative;}
 .programing .box-thumbnail:after{content: no-close-quote; position: absolute; left: 0; bottom: 0; width: 100%; height: 151px;background: url(http://3.bp.blogspot.com/-LnvazGBvKh8/VskckSkmzxI/AAAAAAAAC4s/erEgI6A_ih4/s1600-r/metabg.png) repeat-x; opacity: .8;}
 .programing .box-thumbnail a{height: 244px; width: 100%; position: relative; display: block;}
+.programing .box-thumbnail:hover  a:before{content: ''; left: 0; right: 0; top: 0; bottom: 0; opacity: 0.5; position: absolute; background-color:rgba(40,35,40,0.30);}
 .img-overlay{position: absolute;left: 0;top: 0; z-index: 1; width: 100%; height: 100%; background-color: rgba(134, 125, 134, 0);}
 .box-wrapper .box-bottom-content{width: 100%; min-height: 101px; background-color: #1c1c1c; position: relative; width: 100%;
     min-height: 110.8px; z-index: 2; padding: 15px;  box-sizing: border-box;}
@@ -53,6 +54,8 @@ body{background-color:#fff;}
 .box-content ul li{display: block;    width: 48.6%;    float: right;    margin: 0 0 10px;    padding: 0 0 10px;}
 .list-box-thumbnail { display: table-cell; width: 100px; height: 70px; vertical-align: middle; position: relative;}
 .list-box-thumbnail a{display: block; height: 70px;}
+.list-box-thumbnail:hover  a:before{content: ''; left: 0; right: 0; top: 0; bottom: 0; opacity: 0.5; position: absolute; background-color:rgba(40,35,40,0.30);}
+
 .list-box-title{padding-left: 10px; display: table-cell; margin-left: 10px;}
 .list-box-title .recent-date{color: #000;}
 .list-box-title h4{ font-size: 16px; font-family:Abel; margin-bottom: 5px;}
@@ -110,9 +113,8 @@ a.read-more { display: inline-block; margin-bottom: 0; font-weight: 700; text-al
 
 
 
-
 /*hove effects*/
-.box-thumbnail:hover .img-overlay, .list-box-thumbnail:hover .img-overlay, .block-image:hover .img-overlay, .popular-post-thumbnail:hover .img-overlay {background-color:rgba(40,35,40,0.30);}
+.box-thumbnail:hover .img-overlay, .block-image:hover .img-overlay, .popular-post-thumbnail:hover .img-overlay {background-color:rgba(40,35,40,0.30);}
 a:hover h3, a:hover h4, a:hover h5, a:hover h1, h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,a:hover{color: #fd4326 !important;}
 a.read-more:hover, .first-tag >a:hover {background: #fff !important ;border: 1px solid #fd4326 !important;}
  .page-number:hover{ background: #fd4326 !important ;}

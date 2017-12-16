@@ -68,7 +68,6 @@
                     <h2 class="title">
                         <a class="abel" href="">Programing</a>
                     </h2>
-
                 </div>
                 <div class="box-content">
                     <ul>
@@ -78,7 +77,6 @@
                             <div class="box-thumbnail">
                                 <a href="{% url 'article' pk=article.id %}" style="background:url({{article.get_article_image}}) no-repeat center center; background-size: cover;">
                                 </a>
-                                <span class="img-overlay"></span>
                             </div>
                             <div class="box-bottom-content">
                                 <a href="{% url 'article' pk=article.id %}">
@@ -91,10 +89,9 @@
                         <li>
                             <div class="list-box-thumbnail" >
                                 <a href="{% url 'article' pk=article.id %}" style="background: url({{article.get_article_image}}) no-repeat center center; background-size: cover;"></a>
-                                <span class="img-overlay"></span>
                             </div>
                             <div class="barlow list-box-title">
-                                <h4>{{article.article_title}}</h4>
+                                <h4><a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a></h4>
                                <span class="recent-date"><time>{{article.created|date:"d M Y"}}</time></span>
                             </div>
                         </li>
