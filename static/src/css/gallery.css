@@ -31,7 +31,7 @@ body{background-color:#fff;}
 
 /* for left and right-half*/
 .box-title {position: relative;}
-.left-half{padding: 0; margin-right: 40px; width: 70%; display: table-cell;float: left;} 
+.left-half{padding: 0; margin-right: 40px; width: 70%; display: table-cell;float: left;}
 .right-half{padding: 0; width: 28%; display: table-cell;}
 .box-title h2, .posts-title h2 { display: block;color: #1c1c1c; padding-bottom: 13px; border-bottom: 1px solid #f5f5f5; margin-bottom: 15px;
     text-decoration: none; font-size: 18px;letter-spacing: 1px;text-transform: uppercase; line-height: 1.5; font-family: Dosis; font-weight: 600;
@@ -71,7 +71,7 @@ h1, h2, h3, h4 { margin: 0; position: relative; letter-spacing: 1px; line-height
 .post .description .heading{line-height: 1.2;font-size: 21px;}
 .description .description-meta span{color: #bdbdbd; margin:10px 0px; display: block;}
 .description-meta >span >  time{border-bottom: 1px dashed;}
-a.read-more { display: inline-block; margin-bottom: 0; font-weight: 700; text-align: left; vertical-align: middle;    cursor: pointer;background-image: none; white-space: nowrap;line-height: 25px; height: 25px; color: #fff;background-color: #fd4326; border-radius: 2px; font-size: 11px;  text-transform: uppercase; padding: 0 10px; margin-top: 3px; outline: none;  border: none;  overflow: hidden;}
+a.read-more{padding: 5px; border: 1px solid #fd4326; border-radius: 2px; font-size: 11px; color: #fd4326;}
 .blog-pager{margin-bottom: 20px;}
 .blog-pager ul li {display: inline-block;}
 .page-number{display: block; margin-right: 6px; padding: 0 12px; background: #fff; color: #fd4326; border: 0; border: 1px solid #fd4326; text-transform: uppercase;line-height: 32px; font-weight: 400; border-radius: 2px;}
@@ -101,7 +101,7 @@ a.read-more { display: inline-block; margin-bottom: 0; font-weight: 700; text-al
 .popular-posts-box-content .popular-post-meta .heading{font-size: 15px; line-height: 1; }
 .popular-posts-box-content .popular-post-thumbnail a{width: 120px;height: 70px;display: table-cell; position: relative;}
 .popular-posts-box-content .item-content{margin-bottom: 10px; overflow: hidden;}
-
+.popular-post-meta .article-author{margin-top: 6px; display: inline-block;}
 
 /*for categories*/
 .categories .cat-box ul li {display: block; padding: 8px 0; border-bottom: 1px solid #F5F5F5; position: relative;}
@@ -115,7 +115,12 @@ a.read-more { display: inline-block; margin-bottom: 0; font-weight: 700; text-al
 
 /*hove effects*/
 .box-thumbnail:hover .img-overlay, .block-image:hover .img-overlay, .popular-post-thumbnail:hover .img-overlay {background-color:rgba(40,35,40,0.30);}
-a:hover h3, a:hover h4, a:hover h5, a:hover h1, h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,a:hover{color: #fd4326 !important;}
-a.read-more:hover, .first-tag >a:hover {background: #fff !important ;border: 1px solid #fd4326 !important;}
+a:hover h3, a:hover h4, a:hover h5, a:hover h1, h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,a:hover{color: #fd4326;}
+a.read-more:hover, .first-tag >a:hover {background: #fd4326;    color: #fff ;}
  .page-number:hover{ background: #fd4326 !important ;}
  .page-number:hover a{color:#fff !important;}
+
+
+
+ /*for advertisement*/
+.ad-middle{display: flex; background: #efefef; height: 182px;}

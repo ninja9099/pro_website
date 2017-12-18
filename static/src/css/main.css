@@ -134,7 +134,7 @@ ul{list-style-type: none;}
 
 
 /*foooooooter section*/
-footer{background: var(--ltblk-color); height: 350px;}
+footer{background: var(--ltblk-color); height: 350px; overflow: hidden;}
 footer .container{max-width: 1109px;}
 footer address{width: 170px;display: inline-block;}
 footer .container .footer-left{padding: 20px; color: #ddd;}
@@ -172,3 +172,32 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 .profile-dropdown li {padding: 5px 0;}
 
 /* end of notifications and profile dropdown*/
+
+/*for rating html */
+.rating > input { display: none; }
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+.rating > label {
+  color: #ddd;
+ float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
