@@ -37,8 +37,7 @@ def article_analytics(request, article_set):
 
 # for future use
 def handle_uploaded_file(f, type=None):
-    import pdb
-    pdb.set_trace()
+
     with open('some/file/name.txt', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)

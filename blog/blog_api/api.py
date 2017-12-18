@@ -11,7 +11,7 @@ from rest_framework.renderers import JSONRenderer
 class NotAllowedError(APIException):
     status_code = 504
     default_detail = 'your are not allowed to do the work of others.'
-    default_code = 'fraudulant '
+    default_code = 'fraudulent '
 
 def rest_exc_handler(exc, context):
     # Call REST framework's default exception handler first,

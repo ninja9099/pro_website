@@ -3,10 +3,11 @@ textarea:focus, input:focus, select:focus {outline: none !important;}
 *{padding: 0; margin: 0; box-sizing: border-box;}
 h1, h2, h3, h4, h5, h6{margin: 0 !important;} 
 .blog-banner{height: 450px; position: relative;}
-.blog-banner .article-meta{position: absolute; top: auto;bottom: 45px;padding: 20px; background:#070707;border-radius: 5px;}
-.one-six{padding-top: 20px; padding-bottom: 20px; position: absolute; left: 59px;}
-.two-six{padding-top: 20px; padding-bottom: 20px;}
-.four-six{padding-top: 20px;padding-bottom: 20px;}
+.blog-banner .article-meta{position: absolute; top: auto;bottom: 45px;padding: 20px; border-radius: 5px;}
+.container-wrapper{display: flex; flex-direction: row;flex-basis: 100%; flex-wrap: wrap; align-items: flex-start;justify-content: space-around;}
+/*.one-six{padding-top: 20px; padding-bottom: 20px; width: 0%;}*/
+.two-six{padding-top: 20px; padding-bottom: 20px; width: 30%;}
+.four-six{padding-top: 20px;padding-bottom: 20px; width: 65%;}
 .one-six .social-comments ul li{border:1px solid rgba(0, 0, 0, 0.13); border-radius:5px; margin-bottom: 4px;padding: 5px; width: 50px; height: 50px; background-color: #fff;}
 
 /*for social-share-article*/
@@ -19,6 +20,8 @@ h1, h2, h3, h4, h5, h6{margin: 0 !important;}
 
 /*for comments*/
 [for~=id_honeypot]{display: none;}
+.comments-container h3{padding: 20px 0;}
+.label.label-info{display: inline;    padding: 4px;    font-size: 11px;    color: #fff;    text-align: center;    white-space: nowrap;    vertical-align: baseline;    border-radius: 1em;    margin-left: 5px;    margin-right: 5px;}
 .comment-form .anonymouse-comment form input[type=submit]{margin-left: 0;}
 #id_comment{width: 100%; height: 50px; border-radius: 5px;border: 1px solid #ddd;}
 .comment-form .anonymouse-comment{margin: 40px 0;}
@@ -68,6 +71,8 @@ h4.interested{position: relative;margin: 54px 0 !important; font-size: 23px; let
 .slic-article-meta h4 {margin-top:10px !important; height: 40px;}
 span.created-meta{margin-top:10px; font-size: 12px; color: #3a6186;}
 /* ends for slides*/
+
+
 /* for collapsable list */
 .collapsibleListClosed::before{content:'\f0da';margin-right: 2px;}
 .collapsibleListOpen > .collapsibleList{margin-left: 10px;}

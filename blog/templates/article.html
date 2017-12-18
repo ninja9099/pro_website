@@ -22,33 +22,33 @@
     </div>    
 </div>
 <div class="container-wrapper">
-    <div class="one-six">
-        <div class="social-comments fixme animated center">
-            {% load comments %}
-
-            {% get_comment_count for article as comment_count %}
-            <ul>
-            <li><a href="#" id="article-like">
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                </a>
-                <p>{{article.count_likes}}</p>
-            </li>
-            <li>
-            <a href="#disqus_thread">
-                <i class="fa fa-comment-o" aria-hidden="true"></i>
-            </a>
-                <p>{{comment_count}}</p>
-            </li>
-            <li>
-            <a href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-            </a>
-            <p> 20 </p>
-            </li>
-            </ul>
-        </div>
-    </div>
-    <div class="four-six col-md-8 justify abel">
+{#    <div class="one-six">#}
+{#        <div class="social-comments fixme animated center">#}
+{#            {% load comments %}#}
+{##}
+{#            {% get_comment_count for article as comment_count %}#}
+{#            <ul>#}
+{#            <li><a href="#" id="article-like">#}
+{#                <i class="fa fa-thumbs-up" aria-hidden="true"></i>#}
+{#                </a>#}
+{#                <p>{{article.count_likes}}</p>#}
+{#            </li>#}
+{#            <li>#}
+{#            <a href="#disqus_thread">#}
+{#                <i class="fa fa-comment-o" aria-hidden="true"></i>#}
+{#            </a>#}
+{#                <p>{{comment_count}}</p>#}
+{#            </li>#}
+{#            <li>#}
+{#            <a href="#">#}
+{#                <i class="fa fa-eye" aria-hidden="true"></i>#}
+{#            </a>#}
+{#            <p> 20 </p>#}
+{#            </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="four-six justify abel">
        {% autoescape off %}
            {{article.article_content}}
         {% endautoescape %}
@@ -66,8 +66,7 @@
             <div class="comment-list">
             {% get_comment_list for article as comments %}
                 <div class="comments-container">
-                <h2>Comments <a href="http://lifeinabits.com">Lifeinabits</a></h2>
-                <hr>
+                <h3>Comments <a href="http://lifeinabits.com">Lifeinabits</a></h3>
                 {% for comment in comments %}
                     {% include 'comment.html'%}
                 {% empty %}
@@ -75,6 +74,7 @@
                 {% endfor %}
                 </div>
             </div>
+            <hr>
            <div class="comment-form">
                 {% if user.is_authenticated %}
                     {% get_comment_form for article as form %}
@@ -135,8 +135,7 @@
         </div>
         {% endif %}
     </div>
-    <div class="two-six col-md-4">
-        <!-- <div class="rating">{% include  'rating.html' %}</div> -->
+    <div class="two-six">
         <div class="box-title">
             <h2>Author</h2>
         </div>
@@ -215,7 +214,6 @@
 <script>hljs.initHighlightingOnLoad();</script>
 <script type="text/javascript" src="{% static 'src/slick/slick.min.js' %}"></script>
 <script src="{%static 'src/js/lib/CollapsibleLists.js' %}"></script>
-
  <script>
     $(function() {
       $('.slick-slides').slick({

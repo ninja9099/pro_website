@@ -68,17 +68,15 @@
                     <h2 class="title">
                         <a class="abel" href="">Programing</a>
                     </h2>
-
                 </div>
                 <div class="box-content">
                     <ul>
-                     {% for article in context.page|slice:":5" %}  <!-- for programing -->
+                     {% for article in context.page|slice:":3" %}  <!-- for programing -->
                       {% if forloop.counter == 1 %}
                         <div class="box-wrapper">
                             <div class="box-thumbnail">
                                 <a href="{% url 'article' pk=article.id %}" style="background:url({{article.get_article_image}}) no-repeat center center; background-size: cover;">
                                 </a>
-                                <span class="img-overlay"></span>
                             </div>
                             <div class="box-bottom-content">
                                 <a href="{% url 'article' pk=article.id %}">
@@ -91,15 +89,19 @@
                         <li>
                             <div class="list-box-thumbnail" >
                                 <a href="{% url 'article' pk=article.id %}" style="background: url({{article.get_article_image}}) no-repeat center center; background-size: cover;"></a>
-                                <span class="img-overlay"></span>
                             </div>
                             <div class="barlow list-box-title">
-                                <h4>{{article.article_title}}</h4>
+                                <h4><a href="{% url 'article' pk=article.id %}">{{article.article_title}}</a></h4>
                                <span class="recent-date"><time>{{article.created|date:"d M Y"}}</time></span>
                             </div>
                         </li>
                       {% endif %}
                       {% endfor %}
+                    <li>
+                        <div class="ad-middle">
+
+                        </div>
+                    </li>
                     </ul>
               </div>
                     <h5 class=" title float-right">
@@ -212,7 +214,7 @@
             <div  class="widget facebook1">
                 <div class="box-title">
                     <h2 class="title">
-                        <a class="abel" href="#!">FACCEBOOK</a>
+                        <a class="abel" href="#!">FACEBOOK</a>
                     </h2>
                 </div>
                 <div class="facebook-box-content">
@@ -236,7 +238,8 @@
                                     </a>
                                 </div>
                                 <div class="popular-post-meta">
-                                    <h4 class="heading barlow dosis abel"> {{article.article_title}}</h4>
+                                    <h4 class="heading abel"> <a href="{% url  'article' pk=article.id %}">{{article.article_title| truncatechars:60}}</a></h4>
+                                    <span class="article-author abel">Writer:<em>{{ article.article_author.get_full_name }}</em></span>
                                 </div>
                             </div>
                         </li>
