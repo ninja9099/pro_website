@@ -116,8 +116,9 @@
         </div>
         <!--<hr style="border-top: 1px solid #f6d339;">-->
         {% if related_articles %}
-        <h4 class="interested  barlow">Related Posts</h4>
-        <div class="slides-container slick-slides">
+            <div class="back-color-holder">
+            <h4 class="interested  barlow">Related Posts</h4>
+            <div class="slides-container slick-slides">
             {% for article in related_articles %}
                 <div class="related-article col-md-3">
                     <span class="badge badge-default">{{article.article_subcategory}}</span>
@@ -135,14 +136,20 @@
         </div>
         {% endif %}
     </div>
+    </div>
     <div class="two-six">
         <div class="box-title">
             <h2>Author</h2>
         </div>
         <div class="author-post barlow">
-                <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><img src="{{article.article_author.userprofile.get_profile_image}}"/></a>
+            <div class="author-post-wrapper">
+                <div class="author-image">
+{#                    {% url 'profile' profile_id=article.article_author.userprofile.id %}#}
+                    <img src="{{article.article_author.userprofile.get_profile_image}}"/>
+                </div>
                 <div class="author-info">
-                    <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}"><h3 class="name">{{article.article_author.get_full_name}}</h3>
+                    <a href="{% url 'profile' profile_id=article.article_author.userprofile.id %}">
+                        <h3 class="name">{{article.article_author.get_full_name}}</h3>
                     </a>
                     <h4>
                     {% autoescape off %}
@@ -150,30 +157,30 @@
                     {% endautoescape %}
                     </h4>
                 </div>
-                <div class="contact ltylw">
-                  <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
-                  <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
-                  <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-                  <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google"></i></a>
-                </div>
+            </div>
+            <div class="contact ltylw">
+                <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
+                <a href="https://twitter.com/kamalkkk987" rel="me noopener" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/kp9099" rel="me noopener" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                <a href="https://plus.google.com/+Pankajkamani" rel="me noopener" target="_blank" title="Google+"><i class="fa fa-google"></i></a>
+             </div>
         </div>
         <div class="box-title">
-            <h2>TAGS <i class="fa fa-tags" aria-hidden="true"></i></h2>
+            <h2 class="barlow">TAGS</h2>
         </div>
-        <div class="box">
+        <div class="box tag-box">
             <div class="tags dosis">
                 {% for tag, count in popular_tags %}
                 <a href="{% url 'tag' tag %}" class="btn btn-xs btn-default">
                         {{ tag }} <span class="badge">{{ count }}</span>
                 </a>
-                    <!-- <a href="{% url 'tag' tag %}"><span class="label label-default">{{ tag }} {{ count }}</span></a> -->
                 {% endfor %}
             </div>
         </div>
         <div class="box-title">
             <h2>Blog Archives</h2>
         </div>
-        <div class="box barlow">
+        <div class="box  archive-box barlow">
         <ul class="root collapsibleList dosis">
           {% for key, value in article_analytics.items %}
             <li>{{key}}
@@ -193,12 +200,13 @@
         </ul>
         </div>
        <div class="box-title">
-            <h2>Recent Posts <i class="fa fa-tags" aria-hidden="true"></i></h2>
+            <h2>Recent Posts</h2>
         </div>
         <div class="abel recent">
             <ul class="dosis">
                 {% for article in recent %}
-                <li class="recent-article" style="background-image: url({{article.get_article_image}}); background-size: cover;">
+                <li class="recent-article">
+                    <div class="back-blur-container" style="background-image: url({{article.get_article_image}}); background-size: cover;"></div>
                     <p class="ltylw">
                         <a href="{% url 'article' pk=article.id %}">
                         {{article.article_title | truncatechars:25}}</a>
@@ -220,8 +228,10 @@
         slidesToShow:3,
         slidesToScroll: 1,
         lazyLoad: 'ondemand',
-        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>",
-        nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>",
+        arrows : false,
+          pauseOnFocus:true,
+        autoplay:true,
+        dots:true,
         responsive: [
     {
       breakpoint: 768,

@@ -178,6 +178,7 @@ def Rec(sender, **kwargs):
         notify.send(user,recipient=commented_on.article_author, target=commented_on, verb='Commented On', comment_url=url)
     else:
         pass
+    return True
 
 
 @receiver(post_save, sender=Article)

@@ -38,8 +38,9 @@ body{background-color:#fff;}
     font-style: normal;margin-top: 20px;}
 .box-title h2 a, .posts-title h2 a {color: #1c1c1c; }
 .box-title h2:before, .posts-title h2:before {  position: absolute; content: ''; bottom: 0px;  left: 0; width: 36px; height: 3px; background-color: #fd4326;}
-.box-content{width: 100%; height: 364px; display: table-cell;}
+.box-content{width: 100%; height: 364px;}
 .box-content ul{height: inherit;}
+.business > .box-content > ul{display: flex;}
 .box-wrapper{width: 50%; margin-right: 10px; height: inherit; overflow: hidden; float: left;}
 .programing .box-thumbnail{position: relative;}
 .programing .box-thumbnail:after{content: no-close-quote; position: absolute; left: 0; bottom: 0; width: 100%; height: 151px;background: url(http://3.bp.blogspot.com/-LnvazGBvKh8/VskckSkmzxI/AAAAAAAAC4s/erEgI6A_ih4/s1600-r/metabg.png) repeat-x; opacity: .8;}
@@ -72,7 +73,7 @@ h1, h2, h3, h4 { margin: 0; position: relative; letter-spacing: 1px; line-height
 .description .description-meta span{color: #bdbdbd; margin:10px 0px; display: block;}
 .description-meta >span >  time{border-bottom: 1px dashed;}
 a.read-more{padding: 5px; border: 1px solid #fd4326; border-radius: 2px; font-size: 11px; color: #fd4326;}
-.blog-pager{margin-bottom: 20px;}
+.blog-pager{margin: 30px 0;}
 .blog-pager ul li {display: inline-block;}
 .page-number{display: block; margin-right: 6px; padding: 0 12px; background: #fff; color: #fd4326; border: 0; border: 1px solid #fd4326; text-transform: uppercase;line-height: 32px; font-weight: 400; border-radius: 2px;}
 .page-number a{color: #fd4326 !important;}
