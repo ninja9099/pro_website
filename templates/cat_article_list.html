@@ -33,8 +33,8 @@
                         </a>
                     </h2>
                     <time>{{article.created|date:"d M Y"}}  </time> <i class="fa fa-user-o" ></i> {{article.get_author_profile.full_name}} <i class="fa fa-comment-o"></i> {% load comments %}
-            {% get_comment_count for article as comment_count %}
-            {{comment_count}}
+                        {% get_comment_count for article as comment_count %}
+                        {{comment_count}}
 
                 </div>
                 <div class="description">
@@ -43,7 +43,7 @@
                     </p>
                 </div>
                 <div class="read-more-button">
-                    <span><a href="{% url 'article' pk=article.id %}" >Read More... <i class="fa fa-plus"></i></a> </span>
+                    <span><a href="{% url 'article' pk=article.id %}" >Read More...</a> </span>
                 </div>
                 <div class="share-article center">
                     <div class="center share-box">
@@ -55,11 +55,33 @@
                     </div>
                 </div>
             </div>
-            </div>
-            <hr>
-    {% endfor %}
+        </div>
+        <hr>
+        {% endfor %}
+            <div class="blog-pager">
+            {% if context.page.has_other_pages %}
+                <ul>
+                {% if context.page.has_previous %}
+                  <li class="page-number"><a href="?page={{ context.page.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                   <li class="page-number disabled"><a href="#">&laquo;</a></li>
+                {% endif %}
+                {% for i in context.page.paginator.page_range %}
+                  {% if context.page.number == i %}
+                    <li class="page-number current"><strong>{{i}}</strong></li>
+                  {% else %}
+                    <li class="page-number"><a  href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if context.page.has_next %}
+                  <li class="page-number"><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="page-number disabled"><span>&raquo;</span></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+        </div>
     </div>
-
     <div class="two-six col-md-4">
         <div class="box-title">
             <h2>Tags</h2>
@@ -84,28 +106,5 @@
             </ul>
         </div>
     </div>
-</div>
-<div class="blog-pager">
-    {% if context.page.has_other_pages %}
-        <ul>
-        {% if context.page.has_previous %}
-          <li class="page-number"><a href="?page={{ context.page.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-           <li class="page-number disabled"><a href="#">&laquo;</a></li>
-        {% endif %}
-        {% for i in context.page.paginator.page_range %}
-          {% if context.page.number == i %}
-            <li class="page-number current"><strong>{{i}}</strong></li>
-          {% else %}
-            <li class="page-number"><a  href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if context.page.has_next %}
-          <li class="page-number"><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li class="page-number disabled"><span>&raquo;</span></li>
-        {% endif %}
-      </ul>
-    {% endif %}
 </div>
 {% endblock %}

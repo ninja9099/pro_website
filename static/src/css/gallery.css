@@ -73,11 +73,7 @@ h1, h2, h3, h4 { margin: 0; position: relative; letter-spacing: 1px; line-height
 .description .description-meta span{color: #bdbdbd; margin:10px 0px; display: block;}
 .description-meta >span >  time{border-bottom: 1px dashed;}
 a.read-more{padding: 5px; border: 1px solid #fd4326; border-radius: 2px; font-size: 11px; color: #fd4326;}
-.blog-pager{margin: 30px 0;}
-.blog-pager ul li {display: inline-block;}
-.page-number{display: block; margin-right: 6px; padding: 0 12px; background: #fff; color: #fd4326; border: 0; border: 1px solid #fd4326; text-transform: uppercase;line-height: 32px; font-weight: 400; border-radius: 2px;}
-.page-number a{color: #fd4326 !important;}
-.current{background-color: #fd4326;color: #fff;}
+
 .box-column{float: left; width: 48%; margin-right: 10px; margin-bottom: 10px; max-height: 500px; display: table-cell;}
 .box-column .box .box-thumbnail{height: 200px; position: relative;}
 .box-column .box .box-thumbnail a{height: 200px; display: block; position: relative;}
@@ -118,8 +114,7 @@ a.read-more{padding: 5px; border: 1px solid #fd4326; border-radius: 2px; font-si
 .box-thumbnail:hover .img-overlay, .block-image:hover .img-overlay, .popular-post-thumbnail:hover .img-overlay {background-color:rgba(40,35,40,0.30);}
 a:hover h3, a:hover h4, a:hover h5, a:hover h1, h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,a:hover{color: #fd4326;}
 a.read-more:hover, .first-tag >a:hover {background: #fd4326;    color: #fff ;}
- .page-number:hover{ background: #fd4326 !important ;}
- .page-number:hover a{color:#fff !important;}
+
 
 
 

@@ -31,25 +31,27 @@ def index(request):
 
 
 @login_required
+# @permission_required('blog.create_article', raise_exception=True)
 def create_article(request):
-    if request.method=="GET":
-        form = ArticleForm()
+    if request.user.has_perm('blog.create_article'):
+        if request.method=="GET":
+            form = ArticleForm()
+        if request.is_ajax() and request.method == "POST":
+            form = ArticleForm(request.POST, request.FILES)
+            if form.is_valid():
+                article_instance = form.save(commit=False)
+                article_instance.article_state = "draft"
+                article_instance.article_author = request.user
+                article_instance.save()
+                form.save_m2m()
+                return JsonResponse({'success':True, 'message':'Your article\
+                 is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
+            else:
+                return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
 
-    if request.is_ajax() and request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)
-        if form.is_valid():
-            article_instance = form.save(commit=False)
-            article_instance.article_state = "draft"
-            article_instance.article_author = request.user
-            article_instance.save()
-            form.save_m2m()
-            return JsonResponse({'success':True, 'message':'Your article\
-             is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
-        else:
-            return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
-
-    return render(request, 'article_template.html', {"form":form, 'url':reverse('article_submit')})
-
+        return render(request, 'article_template.html', {"form":form, 'url':reverse('article_submit')})
+    else:
+        return True
 
 @login_required
 @permission_required('blog.change_article', raise_exception=True)

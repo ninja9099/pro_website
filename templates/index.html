@@ -2,11 +2,11 @@
 
 {% block container %}
 	{% load static %}
-		<section class="image-section relative">
-			<img class="relative" src="{% static 'src/images/1.jpeg'%}" alt="img"/>
+		<section class="image-section relative center">
 			<div class="welcome-caption absolute">
-				<h1 class="barlow">Welcome to <strong>LifeInaBits</strong></h1>
-				<h3 class="barlow">Place to Share Knowledge and enhance society</h3>
+                <h1 class="dosis">Inspire Or Get Inspired By Others </h1>
+                <h2 class="dosis">Learn and share Knowledge</h2>
+                <a href="{% url 'login' %}">Join LifeInaBits </a>
 			</div>
 		</section>
 		<section style="" class="second-section">
@@ -78,7 +78,7 @@
                         <a href="{% url 'cat_article_list' cat_id=cat.id %}">
                             <div class="cat-wrapper center" style=" background: url({{cat.category_image.url}}) center; background-size: cover;">
                                 <p class="cat-name barlow">{{cat.category_name}}</p>
-                                <span class="badge badge-warning">{{cat.articles}}</span>
+                                <h1 class="cat_count j_slab">{{cat.articles}}</h1>
                             </div>
                         </a>
 					</div>

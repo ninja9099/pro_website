@@ -58,8 +58,30 @@
             </div>
             <hr>
     {% endfor %}
+        <div class="blog-pager">
+            {% if context.page.has_other_pages %}
+                <ul>
+                {% if context.page.has_previous %}
+                  <li class="page-number"><a href="?page={{ context.page.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                   <li class="page-number disabled"><a href="#">&laquo;</a></li>
+                {% endif %}
+                {% for i in context.page.paginator.page_range %}
+                  {% if context.page.number == i %}
+                    <li class="page-number current"><strong>{{i}}</strong></li>
+                  {% else %}
+                    <li class="page-number"><a  href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if context.page.has_next %}
+                  <li class="page-number"><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="page-number disabled"><span>&raquo;</span></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+        </div>
     </div>
-
     <div class="two-six col-md-4">
         <div class="box-title">
             <h2>Tags</h2>
@@ -85,27 +107,5 @@
         </div>
     </div>
 </div>
-<div class="blog-pager">
-    {% if context.page.has_other_pages %}
-        <ul>
-        {% if context.page.has_previous %}
-          <li class="page-number"><a href="?page={{ context.page.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-           <li class="page-number disabled"><a href="#">&laquo;</a></li>
-        {% endif %}
-        {% for i in context.page.paginator.page_range %}
-          {% if context.page.number == i %}
-            <li class="page-number current"><strong>{{i}}</strong></li>
-          {% else %}
-            <li class="page-number"><a  href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if context.page.has_next %}
-          <li class="page-number"><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li class="page-number disabled"><span>&raquo;</span></li>
-        {% endif %}
-      </ul>
-    {% endif %}
-</div>
+
 {% endblock %}
