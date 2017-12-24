@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 from user_profile import views as custom_auth_views
 from blog import views as article_views
 import notifications.urls
+from django_comments.feeds import LatestCommentFeed
 
 urlpatterns = [
 
@@ -41,5 +42,7 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls'),  name="blog"),
     url(r'^tracking/', include('tracking.urls')),
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
-    url(r'^complete/social-oauth2$', custom_auth_views.social_auth, name="social_auth")
+    url(r'^complete/social-oauth2$', custom_auth_views.social_auth, name="social_auth"),
+    url(r'^feeds/latest/$', LatestCommentFeed()),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

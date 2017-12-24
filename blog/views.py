@@ -4,7 +4,7 @@ import markdown
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleForm
-from blog import Article, ArticleLikes
+from blog import Article, ArticleLikes, Category
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse_lazy
@@ -31,25 +31,27 @@ def index(request):
 
 
 @login_required
+# @permission_required('blog.create_article', raise_exception=True)
 def create_article(request):
-    if request.method=="GET":
-        form = ArticleForm()
+    if request.user.has_perm('blog.create_article'):
+        if request.method=="GET":
+            form = ArticleForm()
+        if request.is_ajax() and request.method == "POST":
+            form = ArticleForm(request.POST, request.FILES)
+            if form.is_valid():
+                article_instance = form.save(commit=False)
+                article_instance.article_state = "draft"
+                article_instance.article_author = request.user
+                article_instance.save()
+                form.save_m2m()
+                return JsonResponse({'success':True, 'message':'Your article\
+                 is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
+            else:
+                return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
 
-    if request.is_ajax() and request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)
-        if form.is_valid():
-            article_instance = form.save(commit=False)
-            article_instance.article_state = "draft"
-            article_instance.article_author = request.user
-            article_instance.save()
-            form.save_m2m()
-            return JsonResponse({'success':True, 'message':'Your article\
-             is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
-        else:
-            return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
-
-    return render(request, 'article_template.html', {"form":form, 'url':reverse('article_submit')})
-
+        return render(request, 'article_template.html', {"form":form, 'url':reverse('article_submit')})
+    else:
+        return True
 
 @login_required
 @permission_required('blog.change_article', raise_exception=True)
@@ -159,15 +161,16 @@ def tag(request, tag_name):
 
 
 def category_view(request, cat_id):
-    query_set = Article.objects.filter(id=cat_id)
+    query_set = Article.objects.filter(article_category=cat_id)
     page_no = request.GET.get('page')
     page = _paginate(query_set, 3, page_no)
     context = core.create_context(request)
-    context.push({'page':page})
+    category = Category.objects.get(id=cat_id)
+    context.push({'page':page, 'category': category})
     return render(request,'cat_article_list.html', {'context': context})
 
 
-# TDME  move to core part  in the blog api
+# TD ME  move to core part  in the blog api
 @receiver(comment_was_posted)
 def Rec(sender, **kwargs):
     user= kwargs.get('request').user
@@ -178,6 +181,7 @@ def Rec(sender, **kwargs):
         notify.send(user,recipient=commented_on.article_author, target=commented_on, verb='Commented On', comment_url=url)
     else:
         pass
+    return True
 
 
 @receiver(post_save, sender=Article)

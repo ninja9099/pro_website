@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-
+from django_comments.moderation import CommentModerator, moderator
 
 ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
 

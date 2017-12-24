@@ -13,7 +13,7 @@
 {% block container %}
 <div class="container-wrapper">
     <div class="">
-        <h2>Articles tagged with "<i><strong>{{tag_name}}</strong></i>"</h2>
+        <h2>Articles listed with category "<i><strong>{{context.category}}</strong></i>"</h2>
     </div>
     <div class="four-six col-md-8 abel">
         {% load static %}
@@ -26,15 +26,15 @@
             </div>
             <div class="card-info col-md-7">
                 <div class="heading">
-                    <span class="cat_posted "><a class="dosis" href="{% url 'tag' tag_name %}">{{tag_name}}</a></span>
+                    <span class="cat_posted "><a class="dosis" href="{% url 'cat_article_list' cat_id=context.category.id %}">{{category}}</a></span>
                     <h2>
                         <a href="{% url 'article' pk=article.id %}">
                             {{article.article_title|truncatechars:140}}
                         </a>
                     </h2>
                     <time>{{article.created|date:"d M Y"}}  </time> <i class="fa fa-user-o" ></i> {{article.get_author_profile.full_name}} <i class="fa fa-comment-o"></i> {% load comments %}
-            {% get_comment_count for article as comment_count %}
-            {{comment_count}}
+                        {% get_comment_count for article as comment_count %}
+                        {{comment_count}}
 
                 </div>
                 <div class="description">
@@ -43,7 +43,7 @@
                     </p>
                 </div>
                 <div class="read-more-button">
-                    <span><a href="{% url 'article' pk=article.id %}" >Read More... <i class="fa fa-plus"></i></a> </span>
+                    <span><a href="{% url 'article' pk=article.id %}" >Read More...</a> </span>
                 </div>
                 <div class="share-article center">
                     <div class="center share-box">
@@ -55,10 +55,10 @@
                     </div>
                 </div>
             </div>
-            </div>
-            <hr>
-    {% endfor %}
-        <div class="blog-pager">
+        </div>
+        <hr>
+        {% endfor %}
+            <div class="blog-pager">
             {% if context.page.has_other_pages %}
                 <ul>
                 {% if context.page.has_previous %}
@@ -107,5 +107,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

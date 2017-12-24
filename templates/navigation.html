@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default fixme">
     <div class="container">
         <ul class="nav navbar-nav dosis">
-          <li class="home_li"><a href="/">Home</a></li>
+          <li class="home_li"><a class="lobster" style="font-size: 25px;" href="/">Life-In-a-Bits</a></li>
           <li class="blog_li"><a href="/blog/">Blog</a></li>
           <li class="writer_li"><a href="{% url 'article_submit' %}">Become a Writer</a></li>
           <li class="about_li"><a href="#">About me</a></li>
@@ -24,18 +24,19 @@
                       <img width="25" height="25" src="{{user.userprofile.get_profile_image}}">
                   </a>
                   <ul class=" abel dropdown-menu profile-dropdown">
-                      <li><a href="#!" ><img width="25" height="25" src="{{user.userprofile.get_profile_image}}"></a></li>
                       <li><a href="/profile/{{user.id}}"><i class="fa fa-user" aria-hidden="true"></i> {{user.get_full_name}} </a></li>
                       <li><a href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
                   </ul>
               </li>
           {% else %}
-              <li><a href="https://www.facebook.com/LifeBits-120274515294153"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-              <li><a href="https://plus.google.com/u/0/+Pankajkamani"><i class="fa fa-google" aria-hidden="true"></i></a></li>
-              <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-              <li><a href=""><i class="fa fa-search" aria-hidden="true"></i></a></li>
-              <li><a class="dosis" href="/login/"><i class="fa fa-sign-in fa-1x" aria-hidden="true"></i></a></li>
-            {% endif %}
+
+{#              <li><a href="https://www.facebook.com/LifeBits-120274515294153"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>#}
+{#              <li><a href="https://plus.google.com/u/0/+Pankajkamani"><i class="fa fa-google" aria-hidden="true"></i></a></li>#}
+{#              <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>#}
+{#              <li><a href=""><i class="fa fa-search" aria-hidden="true"></i></a></li>#}
+              <li><a class="login-button dosis" href="/login/">Log In</a></li>
+              <li><a class="sign-up-button dosis" href="{% url 'sign-up' %}">Sign up</a></li>
+          {% endif %}
         </ul>
   </div>
 </nav>

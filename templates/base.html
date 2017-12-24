@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>
         {% block title %} lifeinabits {% endblock %}
     </title>
@@ -17,27 +16,20 @@
         <!--empty block to add any links further required in dev-->
     {% endblock %}
 
-    <script src="{% static 'src/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'src/js/lib/jquery.js' %}"></script>
     <script src="{% static 'src/js/lib/jquery.cookie.js' %}"></script>
-    <script type="text/javascript" src="{% static 'src/js/boot.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/lib/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'src/js/index.js' %}"></script>
     {% block scripts %}
         <!--empty block of adding further links in the page-->
     {% endblock %}
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-9740719465646712",
-        enable_page_level_ads: true
-      });
-    </script>
 </head>
 <body>
 
 	<div class="main-wrapper">
         {% block branding %}
         <!--for main branding    -->
-            {% include 'main_branding.html' %}
+{#            {% include 'main_branding.html' %}#}
         {% endblock %}
 
         <!-- for main navigation menu  -->

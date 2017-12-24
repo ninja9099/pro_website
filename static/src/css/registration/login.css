@@ -3,7 +3,7 @@
 .form-wrapper{max-width: 520px; overflow: hidden; margin: auto; padding:59px 93px;}
 .login-form{border: 1px solid #d8dee2; padding: 25px; border-radius: 5px; margin-bottom: 10px;  background-color: #fff;}
 .login-group >.btn{font-size: 17px;}
-.register-link{border: 1px solid #d8dee2; padding: 15px 20px;border-radius: 5px; margin-bottom: 10px;}
+.register-link{border: 1px solid #d8dee2; padding: 15px 20px;border-radius: 5px; margin-bottom: 10px; background-color: #fff;}
 .login-logo{width: 100px; height: 100px;border-radius: 50%;}
 .social-group >ul>li{display: inline-block;width: 46px;height: 46px;display: inline-block;margin-left: 10px;padding: 5px 12px;
     font-size: 25px;border: 1px dashed #f6d300;border-radius: 5px;}
