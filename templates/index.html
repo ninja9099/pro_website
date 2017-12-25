@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block branding %}
+    <!--for main branding    -->
+{% endblock %}
 {% block container %}
 	{% load static %}
 		<section class="image-section relative center">
@@ -108,5 +110,10 @@
 				</div>
 			</div>
 		</section>
+    <style>
+    .navbar{background: #C33764;
+    background: -webkit-linear-gradient(to right, #1D2671, #C33764);
+    background: linear-gradient(to right, #1D2671, #C33764);}
+    </style>
 {% endblock  %}
 
