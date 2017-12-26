@@ -29,7 +29,7 @@ var badge = $("#notification_badge");
                 }
                 else{
                     badge.hide();
-                    $(".fa-bell").css('color', "#ddd");
+                    $(".fa-bell").css('color', "#dd0901");
                 }
             },
             fail: function (xhr) {
@@ -65,7 +65,7 @@ var badge = $("#notification_badge");
                     if (typeof item.timestamp !== 'undefined') {
                         message = message + " " + new Date(item.timestamp).toDateString();
                     }
-                    return '<a href="' + JSON.parse(item.data).comment_url + '"><li>' + message + '</li></a>';
+                    return  + '<li>' + message + '</li>';
 
                 }).join('');
                 // language=JQuery-CSS

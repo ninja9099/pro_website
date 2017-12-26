@@ -7,11 +7,11 @@ define('ajax',
 				$.ajaxSetup({
 		    		headers: {
 		        		'X-CSRFToken': $.cookie('csrftoken')
-		    		}	
+		    		}
 				});
 			},
 			start:function(){
 				this.init();
-			}	
+			}
 		}
 });

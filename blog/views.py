@@ -54,7 +54,7 @@ def create_article(request):
         return True
 
 @login_required
-@permission_required('blog.change_article', raise_exception=True)
+# @permission_required('blog.change_article', raise_exception=True)
 def edit_article(request, pk):
     article = get_object_or_404(Article, pk=pk)
     if request.method =='GET':
@@ -73,7 +73,7 @@ def edit_article(request, pk):
             article_instance.save()
             form.save_m2m()
             if article_instance.article_state == "published":
-                notify.send(article_instance.article_author, recipient=User.objects.all(), verb="New article by %s"%(article_instance.article_author))
+                notify.send(article_instance.article_author, recipient=User.objects.all(), verb="New article by %s"%(article_instance.article_author), comment_url=reversed(article_instance))
             return JsonResponse({'success':True, 'message':'Your article is saved'})
         else:
             return JsonResponse({'success':False, "error":render_to_string('errors.html', {'form':form})})

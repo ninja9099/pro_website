@@ -170,7 +170,7 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 #notification_board:before{content: ''; position: inherit;top: -11px; right: 17px; border: 5px solid transparent; border-bottom: 5px solid #282828;}
 #notification_board > li{text-align: center; color: #fff; padding: 2px; margin-bottom:5px; border-bottom:1px solid #343232; }
 .navbar-default .navbar-nav>.open>a {background: #282828 !important;}
-.profile-li{position: relative; margin:5px;border-radius: 5px; padding: 8px 0;}
+.profile-li{position: relative; margin:5px;border-radius: 5px; padding: 1px 0;}
 .profile-li a{padding: 0 !important;}
 .profile-li  a > img {border-radius: 50%; width: 25px; height: 25px;}
 .profile-dropdown {background: #fff; padding: 10px; left: -133px; top: 124%;}
