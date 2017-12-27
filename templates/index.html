@@ -2,6 +2,11 @@
 {% block branding %}
     <!--for main branding    -->
 {% endblock %}
+
+{% block scripts %}
+    {% load static %}
+    <script type="text/javascript" data-main="{% static 'src/js/index' %}" src="{% static 'src/js/lib/require.js' %}"></script>
+{% endblock %}
 {% block container %}
 	{% load static %}
 		<section class="image-section relative center">

@@ -193,3 +193,6 @@ def create_profile(sender, **kwargs):
 
 def social_auth(request):
    return redirect('homepage')
+
+def about_me(request):
+    return render(request, 'about_me.html')
