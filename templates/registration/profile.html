@@ -16,9 +16,8 @@
                         </a>
                     </div>
                     <div class="name-container">
-                        <p>
-                            <span>{{user.get_full_name}}</span>
-                            {{user.userprofile.article_reads.all|length}}
+                        <p class="text-capitalize text-center">
+                            {{user.userprofile.get_display_name}}
                         </p>
                     </div>
                     <p class="add-bio">

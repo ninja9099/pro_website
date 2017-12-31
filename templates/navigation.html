@@ -1,10 +1,10 @@
-<nav class="navbar navbar-default fixme">
+<nav class="navbar navbar-default">
     <div class="container">
         <ul class="nav navbar-nav dosis">
           <li class="home_li"><a class="lobster" style="font-size: 25px;" href="/">Life-In-a-Bits</a></li>
-          <li class="blog_li"><a href="/blog/">Blog</a></li>
-          <li class="writer_li"><a href="{% url 'article_submit' %}">Become a Writer</a></li>
-          <li class="about_li"><a href="#">About me</a></li>
+          <li class="blog_li topBotomBordersIn"><a href="/blog/">Blog</a></li>
+          <li class="writer_li topBotomBordersIn"><a href="{% url 'article_submit' %}">Become a Writer</a></li>
+          <li class="about_li topBotomBordersIn"><a href="#">About me</a></li>
         </ul>
         <ul class="nav navbar-nav float-right">
 
@@ -15,16 +15,22 @@
                       <i class="fa fa-bell" aria-hidden="true" ></i>
                       <span id="notification_badge" class="badge notification_badge" data-url="{% url 'notifications:live_unread_notification_count' %}"></span>
                   </a>
-                <ul id="notification_board" class="abel dropdown-menu">
-                    <li>No notifications yet</li>
-                </ul>
+                <div id="notification_board" class="abel dropdown-menu">
+                   <div class="header">
+                        <a class="float-left" href="/notifications/">Notifications</a>
+                        <a class="float-right" href="#">Mark all as read</a>
+                   </div>
+                    <div class="body text-center"></div>
+                    <div class="footer">
+                    </div>
+                </div>
               </li>
-              <li class="abel profile-li">
-                  <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" href="#!" >
+              <li class="profile-li">
+                  <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" href="#" >
                       <img width="25" height="25" src="{{user.userprofile.get_profile_image}}">
                   </a>
-                  <ul class=" abel dropdown-menu profile-dropdown">
-                      <li><a href="/profile/{{user.id}}"><i class="fa fa-user" aria-hidden="true"></i> {{user.get_full_name}} </a></li>
+                  <ul class="abel dropdown-menu profile-dropdown">
+                      <li><a href="/profile/{{user.id}}"><i class="fa fa-user" aria-hidden="true"></i> {{user.userprofile.get_display_name}} </a></li>
                       <li><a href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a></li>
                   </ul>
               </li>

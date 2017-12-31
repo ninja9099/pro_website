@@ -5,7 +5,7 @@
 
 {% block scripts %}
     {% load static %}
-    <script type="text/javascript" data-main="{% static 'src/js/index' %}" src="{% static 'src/js/lib/require.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/index.js' %}"></script>
 {% endblock %}
 {% block container %}
 	{% load static %}
@@ -16,6 +16,7 @@
                 <a href="{% url 'login' %}">Join LifeInaBits </a>
 			</div>
 		</section>
+        {% if context.fresh_article %}
 		<section style="" class="second-section">
 			<div class="container">
 				<div class="fresh-heading">
@@ -73,6 +74,7 @@
 				</div>
 			</div>
 		</section>
+    {% endif %}
         <!-- category sections    -->
 		<section class="second-section">
 			<div class="container">
@@ -94,7 +96,7 @@
 			</div>
 		</section>
         <!-- end of category -->
-		<section class="third-section" style="background-image: url({% static 'src/images/back-third4.jpg' %});">
+		<section class="third-section">
 			<div class="container" >
 				<h1 class="center barlow">Articles you may intrested in slide show here makes it great place for work </h1>
 				<div class="article-wrapper">

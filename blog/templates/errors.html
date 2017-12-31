@@ -1,0 +1,8 @@
+<div class="alert alert-danger fade in alert-dismissable">
+		{{ form.non_field_errors }}
+		{% for field in form %}
+			{% if field.errors %}
+		    	<strong>{{ field.label }}</strong> {{ field.errors|striptags }}<br>
+			{% endif %}
+	{% endfor %}
+</div>

@@ -15,7 +15,6 @@ ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
 
 
 class Article(TimeStampedModel):
-    
 
     ARTICLE_STATES_CHOICES = [
         ('published', 'Published'), 
@@ -49,7 +48,6 @@ class Article(TimeStampedModel):
     def publish(self):
         self.article_state = 'published'
         return True;
-        
 
     @property
     def get_article_image(self):
@@ -59,7 +57,7 @@ class Article(TimeStampedModel):
         """
         try:
             return self.article_image.url
-        except:
+        except ValueError:
             return settings.DEFAULT_ARTICLE_IMAGE
 
     def get_content_as_markdown(self):
@@ -84,7 +82,6 @@ class Article(TimeStampedModel):
                     tag_dict[tag] += 1
         return tag_dict.items()
 
-
     def get_summary(self):
         if len(self.article_content) > 255:
             return '{0}...'.format(self.article_content[:255])
@@ -94,10 +91,8 @@ class Article(TimeStampedModel):
     def get_summary_as_markdown(self):
         return markdown.markdown(self.get_summary(), safe_mode='escape')
 
-
     def get_author_profile(self):
         return self.article_author.userprofile
-
 
     def get_absolute_url(self):
         return u'/article-edit/%d' % self.id

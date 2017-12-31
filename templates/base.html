@@ -11,15 +11,16 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'src/css/boot.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css'%}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'src/css/awesome.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     {% block links %}
         <!--empty block to add any links further required in dev-->
     {% endblock %}
 
-{#    <script src="{% static 'src/js/lib/jquery.js' %}"></script>#}
-{#    <script src="{% static 'src/js/lib/jquery.cookie.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'src/js/lib/bootstrap.min.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'src/js/index.js' %}"></script>#}
+    <script src="{% static 'src/js/lib/jquery.js' %}"></script>
+    <script src="{% static 'src/js/lib/jquery.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/lib/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/notification.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/index.js' %}"></script>
     {% block scripts %}
         <!--empty block of adding further links in the page-->
     {% endblock %}
@@ -29,7 +30,7 @@
 	<div class="main-wrapper">
         {% block branding %}
         <!--for main branding    -->
-            {% include 'main_branding.html' %}
+{#            {% include 'main_branding.html' %}#}
         {% endblock %}
 
         <!-- for main navigation menu  -->

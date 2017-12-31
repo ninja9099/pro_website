@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import markdown
-from django.shortcuts import render, render_to_response, get_object_or_404
-from django.views import View
+from django.shortcuts import render, get_object_or_404
 from .forms import ArticleForm
 from blog import Article, ArticleLikes, Category
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.urlresolvers import reverse_lazy
 from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #  for comments
@@ -72,8 +70,6 @@ def edit_article(request, pk):
     if request.method == 'POST' and request.is_ajax():
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid() and form.is_multipart():
-            # core.handle_uploaded_file(request.FILES['file'],  type='article') for future use 
-            # article_instance.article_image = request.FILES['file'][0]
             article_instance = form.save(commit=False)
             article_instance.save()
             form.save_m2m()
@@ -89,7 +85,7 @@ def user_liked(user_id, article_id):
     try:
         if ArticleLikes.objects.get(article_id=article_id, user_id=user_id).count():
             return True
-    except:
+    except ObjectDoesNotExist:
         return False
 
 

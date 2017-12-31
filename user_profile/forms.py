@@ -3,14 +3,13 @@ from django import forms
 from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User
 from .models import UserProfile
-from django.contrib.admin import widgets       
+from django.contrib.admin import widgets
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from .widgets import ProfilePicWidget
-years = range(1991, 2017)
-gender_choices = [('male', 'Male'), ('female', 'Female'),('notspecified', 'Dont Specify')]
 
+years = range(1991, 2017)
 class LoginForm(forms.Form):
 
     username = forms.CharField(error_messages={'required': 'username is required'}, required=True,label='Login Id', max_length=100, help_text="id to login in the system ie. John_Doe")
@@ -25,9 +24,8 @@ class LoginForm(forms.Form):
             raise forms.ValidationError(_('User "%s" Not Found.' % username))
         return username
 
+
 class SignUpForm(UserCreationForm):
-    # first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    # last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
     
     class Meta:
@@ -39,7 +37,7 @@ class SignUpForm(UserCreationForm):
         try:
             user = User.objects.filter(email=email)
         except User.DoesNotExist:
-            pass
+            user = None
             
         if user:
             raise forms.ValidationError(_('User with email  "%s" already exists.' % email))
@@ -47,22 +45,22 @@ class SignUpForm(UserCreationForm):
 
 
 class UserProfileForm(forms.ModelForm):
+
     birth_date = forms.DateField(widget=forms.SelectDateWidget(years=years))
-    mobile = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control'}))
     profile_picture = forms.ImageField(widget=ProfilePicWidget(attrs={'width':50, 'height':50}))
+
     class Meta:
         model=UserProfile
         fields = [
             'profile_picture',
             'birth_date',
-            'address',
-            'mobile',
             'gender',
             'about_me',
+            'short_intro',
         ]
         widgets = {
-            'address': Textarea(attrs={'cols': 80, 'rows': 2, 'class':'form-control'}),
-            'about_me': Textarea(attrs={'cols': 80, 'rows': 2, 'class':'form-control'}),
+            'about_me': Textarea(attrs={'cols': 20, 'rows': 2, 'class':'form-control'}),
+            'short_intro': Textarea(attrs={'cols': 20, 'rows': 1, 'class': 'form-control'}),
 
         }
 

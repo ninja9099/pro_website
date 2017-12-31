@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import os
-import json
-import requests
 import urllib2
-
 from PIL import Image
 from django.core.files import File
 from urlparse import urlparse
@@ -17,15 +13,11 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.shortcuts import render, render_to_response,redirect
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse, Http404
 from django.urls import reverse
-from .forms import LoginForm,UserProfileForm
-from django.template import RequestContext
+from .forms import LoginForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from . models import UserProfile
-from django.forms import ModelForm, Textarea
-from django.views.generic.edit import UpdateView
 from user_profile.forms import UserProfileForm, SignUpForm
-from django.views.decorators.cache import cache_page
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
@@ -154,6 +146,7 @@ def sign_up(request):
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+
 @login_required
 def edit_profile(request, profile_id):
     if request.method=='GET':
@@ -178,7 +171,7 @@ def edit_profile(request, profile_id):
             user_profile.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'profile_id':request.user.id}))
         else:
-            return render(request, 'userprofile_update_form.html', {'form': user_profile})
+            return render(request, "userprofile_update_form.html", {'form': user_profile})
 
 
 @receiver(post_save, sender=User)
@@ -193,6 +186,7 @@ def create_profile(sender, **kwargs):
 
 def social_auth(request):
    return redirect('homepage')
+
 
 def about_me(request):
     return render(request, 'about_me.html')
