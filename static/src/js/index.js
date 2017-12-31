@@ -7,15 +7,13 @@ $(document).ready(function(){
     var lastScrollTop = 0;
     $(window).scroll(function(event){
        var st = $(this).scrollTop();
-
-       if (st > lastScrollTop || st===0 ){
-           $('.navbar').removeClass('fix-navbar');
+       if (st > lastScrollTop){
+           $('.navbar').addClass('nav-up');
        } else {
           // up scroll code
-           $('.navbar').addClass('fix-navbar');
+           $('.navbar').removeClass('nav-up');
 
        }
        lastScrollTop = st;
     });
-
 });

@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>
         {% block title %} lifeinabits {% endblock %}
     </title>
+
     {% block http-meta %}
-    <!--block for defining the meta classes in the html page for search engine optimization-->
+        <!--block for defining the meta classes in the html page for search engine optimization-->
         <meta charset="UTF-8">
     {% endblock %}
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'src/css/boot.css'%}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css'%}"/>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'src/css/boot.css'%}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css'%}"/>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
     {% block links %}
         <!--empty block to add any links further required in dev-->
     {% endblock %}
 
-    <script src="{% static 'src/js/lib/jquery.js' %}"></script>
-    <script src="{% static 'src/js/lib/jquery.cookie.js' %}"></script>
-    <script type="text/javascript" src="{% static 'src/js/lib/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'src/js/notification.js' %}"></script>
-    <script type="text/javascript" src="{% static 'src/js/index.js' %}"></script>
+        <script type="text/javascript" src="{% static 'src/js/lib/jquery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'src/js/lib/jquery.cookie.js' %}"></script>
+        <script type="text/javascript" src="{% static 'src/js/lib/ajax_setup.js'%}"></script>
+        <script type="text/javascript" src="{% static 'src/js/lib/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'src/js/notification.js' %}"></script>
+        <script type="text/javascript" src="{% static 'src/js/index.js' %}"></script>
+
     {% block scripts %}
         <!--empty block of adding further links in the page-->
     {% endblock %}
+
 </head>
 <body>
-
+    <div id="top" style="visibility: hidden;"></div>
 	<div class="main-wrapper">
         {% block branding %}
         <!--for main branding    -->
@@ -38,14 +45,15 @@
             {%  include  'navigation.html' %}
         <!--main content   -->
         {% endblock %}
+
         {% block container %}{% endblock  %}
 
-    <a id="backtotop" class="absolute"><i class="fa fa-chevron-up"></i></a>
+    <a id="back-to-top" class="absolute"><i class="fa fa-chevron-up"></i></a>
+
     </div>
         {% block footer %}
             {% include  'footer.html' %}
         {% endblock %}
-    <!--other scripts for loading in to the body  html-->
 
 </body>
 </html>

@@ -1,17 +1,9 @@
-define('ajax',
-	['jquery','cookie'],
-	function($, cookie){
-		console.log('ajax_setup completed');
-		return {
-			init:function(){
-				$.ajaxSetup({
-		    		headers: {
-		        		'X-CSRFToken': $.cookie('csrftoken')
-		    		}
-				});
-			},
-			start:function(){
-				this.init();
-			}
+
+//for setting up the ajax env
+(function ajax_set_up(){
+	$.ajaxSetup({
+		headers: {
+			'X-CSRFToken': $.cookie('csrftoken')
 		}
-});
+	});
+})();

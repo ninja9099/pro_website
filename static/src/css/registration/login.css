@@ -5,6 +5,6 @@ body{background-color: #f7f8fa;}
 .login-form{border: 1px solid #d8dee2; padding: 25px; border-radius: 5px; margin-bottom: 10px;  background-color: #fff;}
 .login-group >.btn{font-size: 17px;}
 .register-link{border: 1px solid #d8dee2; padding: 15px 20px;border-radius: 5px; margin-bottom: 10px; background-color: #fff;}
-.login-logo{width: 100px; height: 100px;border-radius: 50%;}
-.social-group >ul>li{display: inline-block;width: 46px;height: 46px;display: inline-block;margin-left: 10px;padding: 5px 12px;
-    font-size: 25px;border: 1px dashed #f6d300;border-radius: 5px;}
+.social-group > ul{display: flex; flex-basis: 100%; flex-direction: row;}
+.social-group > ul > li{ width: calc(100%/3); margin-left: 10px;padding: 5px 12px; font-size: 25px;}
+.social-group > ul > li > a {color: #fff;}
