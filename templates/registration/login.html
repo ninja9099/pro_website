@@ -17,14 +17,15 @@
     <div class="container">
       <div class="form-wrapper">
         <div class="form-group">
-          <h2 class="abel center">Sign in to LifeInaBits</h2>
+          <h2 class="roboto-thin center"><span class="lobster">LifeInaBits</span></h2>
+            <h6 class="roboto-thin text-center">Log In </h6>
         </div>
-        <form action="" method="post" class="login-form abel" role="form">
+        <form action="" method="post" class="login-form roboto-thin" role="form">
           {% csrf_token %}
           {{form.non_field_errors}}
           <input type="hidden" name="next" value="{{next}}">
           <div class="form-group">
-            <label for="id_username" class="abel">Username</label>
+            <label for="id_username">Username</label>
             <input id="id_username" name="username" type="text" class="form-control">
             <span class="error  alert-danger">{{form.username.errors}}</span>
           </div>
@@ -37,14 +38,14 @@
             <label><input type="checkbox" id="remember"> Remember me</label>
           </div>
           <div class="login-group form-group center">
-            <button type="submit" name="submit" class="btn btn-success  barlow btn-block">Sign in</button>
+            <button type="submit" name="submit" class="btn btn-success  btn-block roboto-thin">Sign in</button>
           </div>
         </form>
-        <div class="register-link form-group">
-            New to LifeInaBits?<a href="{% url 'sign-up' %}">  Register Now!</a>
+        <div class="register-link form-group roboto-thin">
+            New to LifeInaBits?<a href="{% url 'sign-up' %}"> Register Now!</a>
         </div>
         <div class="form-group social-group center">
-          <h4 class="center abel">Sign-in using</h4>
+          <h4 class="center roboto-thin">Sign-in using</h4>
           <ul>
             <li class="facebook"><a href="{% url 'social:begin' 'facebook' %}?next={% url 'social_auth' %}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
             <li class="google"><a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'social_auth' %}" class="btn-floating red"><i class="fa fa-google"></i></a></li>

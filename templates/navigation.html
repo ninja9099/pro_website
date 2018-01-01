@@ -4,7 +4,7 @@
           <li class="home_li topBotomBordersIn"><a class="lobster" style="font-size: 25px;" href="/">Life-In-a-Bits</a></li>
           <li class="blog_li topBotomBordersIn"><a href="/blog/">Blog</a></li>
           <li class="writer_li topBotomBordersIn"><a href="{% url 'article_submit' %}">Become a Writer</a></li>
-          <li class="about_li topBotomBordersIn"><a href="#">About me</a></li>
+          <li class="about_li topBotomBordersIn"><a href="/about_me/">About me</a></li>
         </ul>
         <ul class="nav navbar-nav float-right">
 
@@ -36,10 +36,10 @@
               </li>
           {% else %}
 
-{#              <li><a href="https://www.facebook.com/LifeBits-120274515294153"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>#}
-{#              <li><a href="https://plus.google.com/u/0/+Pankajkamani"><i class="fa fa-google" aria-hidden="true"></i></a></li>#}
-{#              <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>#}
-{#              <li><a href=""><i class="fa fa-search" aria-hidden="true"></i></a></li>#}
+              <li><a href="https://www.facebook.com/LifeBits-120274515294153"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="https://plus.google.com/u/0/+Pankajkamani"><i class="fa fa-google" aria-hidden="true"></i></a></li>
+              <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              <li><a href=""><i class="fa fa-search" aria-hidden="true"></i></a></li>
               <li><a class="login-button dosis" href="/login/">Log In</a></li>
               <li><a class="sign-up-button dosis" href="{% url 'sign-up' %}">Sign up</a></li>
           {% endif %}

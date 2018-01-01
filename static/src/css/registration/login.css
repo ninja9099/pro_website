@@ -1,6 +1,6 @@
 /* login css */
 body{background-color: #f7f8fa;}
-.form-group label, input{font-size: 17px; font-weight: normal;}
+.form-group label, input{font-size: 17px; font-weight: 300;}
 .form-wrapper{max-width: 520px; overflow: hidden; margin: auto; padding:59px 93px;}
 .login-form{border: 1px solid #d8dee2; padding: 25px; border-radius: 5px; margin-bottom: 10px;  background-color: #fff;}
 .login-group >.btn{font-size: 17px;}
