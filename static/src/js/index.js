@@ -3,6 +3,12 @@ $(document).ready(function(){
     update_badge();
     $("#notifications").on('click', fetch_notifications);
 
+    $('#id_search_button').click(function (e){
+        e.preventDefault()
+        $("#search-form").toggleClass('search_active');
+        $(this).parent().toggleClass('border-active')
+    });
+
     // for header fixing the animations
     var lastScrollTop = 0;
     $(window).scroll(function(event){
@@ -16,6 +22,6 @@ $(document).ready(function(){
        }
        lastScrollTop = st;
     });
-    //
+    
 
 });

@@ -1,8 +1,8 @@
 
 body{background-color: #f7f8fa;}
 *:focus{outline: none!important;}
-label{font-family: Roboto;font-weight: 300;}
-.signup-container{    max-width: 370px !important;}
+label{font-weight: 300;}
+.signup-container{margin: 10px auto; max-width: 370px !important;}
 #login-page{border-radius: 4px; position:relative; margin: 0 auto; padding: 20px; border:1px solid #ededed; background-color: #fff; padding-bottom: 0;}
 .form-control {box-shadow: none!important;}
 .intro {background: #fff; padding: 10px; margin: 1px 0; border: 1px solid #ededed;}

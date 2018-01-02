@@ -40,6 +40,7 @@
 .abel{font-family: Abel, sans-serif !important;}
 .j_slab{font-family: Josefin Slab, sans-serif !important}
 .roboto-thin{font-family:'Roboto', sans-serif !important; font-weight: 300;}
+.roboto{font-family:'Roboto', sans-serif !important;}
 .lobster{font-family: 'Lobster', cursive;}
 
 /* for social share*/
@@ -80,7 +81,7 @@ ul{list-style-type: none;}
 .welcome-caption h2{margin: 36px;}
 .welcome-caption a{background-color: var(--ylw-color); padding: 10px; border: 1px solid var(--ylw-color);border-radius: 2em; color:var(--blk-color);}
 .welcome-caption a:hover{color: var(--blk-color); background-color:#fff; border-color: #fff;}
-.navbar-nav li{margin: 10px 10px;}
+.navbar-nav li{margin: 15px 10px;}
 .navbar-nav li > a{color: var(--ylw-color) !important; padding:5px 10px;}
 .navbar-nav li:hover > a{color: var(--wht-color) !important;}
 .nav ul li { color: var(--ylw-color);}
@@ -208,7 +209,7 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 .error{font-size: 11px; color: #ff0000; font-style: italic;}
 
 /*for fixing navbar*/
-.nav-up {top: -50px;}
+.nav-up {top: -65px;}
 
 /*for notification dropdown*/
 #notification_board{ padding: 0;min-width: 300px; left: -140px;top: 42px; border: none; min-height: 223px; max-height: 500px; background-color: #f0f8ff;}
@@ -224,3 +225,12 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 .topBotomBordersIn a:before{top: 0;transform: translateY(-10px);}
 .topBotomBordersIn a:after{bottom: 0; transform: translateY(10px);}
 .topBotomBordersIn a:hover:before, .topBotomBordersIn a:hover:after{ opacity: 1; transform: translateY(0px);}
+
+/* for java-script*/
+
+.search_active{visibility: visible !important;  opacity: 1 !important;}
+.border-active{ box-shadow:0 0 0 1px #ff0 inset;}
+#id_search_button{display: inline-block;padding: 7px;}
+.search_li input{color: #fff; padding:0; background: transparent !important; -webkit-appearance: button-bevel; display: inline-block;}
+.search_li input:focus {outline: none !important; color: #ff0 !important;}
+#search-form {visibility: hidden;display: inline-block;opacity: 0; transition: visibility 0s, opacity 0.5s linear;}

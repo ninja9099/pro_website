@@ -71,3 +71,4 @@ function fetch_notifications() {
     });
 }
 
+
