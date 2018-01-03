@@ -47,7 +47,7 @@
         <div class="form-group social-group center">
           <h4 class="center roboto-thin">Sign-in using</h4>
           <ul>
-            <li class="facebook"><a href="{% url 'social:begin' 'facebook' %}?next={% url 'social_auth' %}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+            <li class="facebook"><a href="{% url 'social:begin' 'facebook' %}?next={% url 'social_auth' %}?display=popup"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
             <li class="google"><a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'social_auth' %}" class="btn-floating red"><i class="fa fa-google"></i></a></li>
             <li class="twitter"><a href="{% url 'social:begin' 'twitter' %}?next={% url 'social_auth' %}" class="btn-floating green"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
           </ul>
