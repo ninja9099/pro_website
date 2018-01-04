@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
-	
 {% block container %}
-  <div class="wrapper content container">
-    <div class="form-container col-md-8 left_part">
+  <div class="profile_update_wrapper container">
+    <div class="left_part">
     <form method="post" action="" enctype="multipart/form-data">
        {% csrf_token %}
        		{% if form.non_field_errors %}
@@ -13,75 +12,33 @@
 			    </ul>
 		  	{% endif %}
 	{% for field in form %}
-		  <div class="col-md-12 row" id="{{ field.auto_id }}_container">
+		  <div class="row" id="{{ field.auto_id }}_container">
 		    {{ field.help_text }}
-		    <div class="col-md-2 left">
+		    <div>
 		      {{ field.label_tag }}
 		    </div>
-		    <div class="col-md-10 right" id="{{ field.auto_id }}_div">
+		    <div class=" " id="{{ field.auto_id }}_div">
 		     {{ field }}
 		    </div>
-		    <div class="error col-md-12"><span>
+		    <div class="error"><span>
 		      {{ field.errors }}
 		    </span></div>
 		  </div>
   	{% endfor %}
-  	<div class="col-md-6 submit">
+  	<div class="submit">
     <input class="btn btn-primary" type="submit" name="Save" value="submit">
   	</div>
   	</form>
 	</div>
-  <div class="right_part col-md-3">
-    blah blah
+  <div class="right_part">
+
   </div>
 </div>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/profile.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'src/css/bootstrap.min.css' %}">
 <style type="text/css">
-body{
-  background: linear-gradient(to left, #3a6186 , #89253e);
-}
-.form-control{
-  width: 227px !important;
-}
-  .wrapper {
-    margin-bottom: 24px;
-  }
-  .btn{
-      min-width: 200px;
-  }
-  label{
-    width: auto;
-    height: auto;
-    color: #fff
-  }
-  .form-container{
-  	max-width: 890px;
-    margin: 56px auto;
-    overflow: hidden;
-    margin: auto;
-  }
-  .left{
-  	float: left;
-  	display: inline-block;
-    text-align: left;
-  }
-  .right{
-  	float: right;
-  	display: inline-block;
-    text-align: left;
-  }
-  #id_birth_date select{
-  	max-width: 100px;
-  	display: inline-block;
-  }
-  .row{
-  	padding: 10px;
-    margin: 10px;
-  }
-  .submit {
-  	text-align: center;
-  }
+    .row{padding: 15px;}
+    .profile_update_wrapper{display: flex; flex-basis:100%; flex-direction: row;}
+    .left_part{width: 50%; margin: 20px;}
+    .right_part{width: 40%; margin: 20px;}
 </style>
 {% endblock %}

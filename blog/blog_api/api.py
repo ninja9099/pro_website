@@ -8,10 +8,12 @@ from rest_framework.exceptions import APIException
 from rest_framework.views import exception_handler
 from rest_framework.renderers import JSONRenderer
 
+
 class NotAllowedError(APIException):
     status_code = 504
     default_detail = 'your are not allowed to do the work of others.'
     default_code = 'fraudulent '
+
 
 def rest_exc_handler(exc, context):
     # Call REST framework's default exception handler first,
@@ -32,23 +34,24 @@ def rest_exc_handler(exc, context):
 
     return response
 
+
 @api_view(['GET', 'POST', 'DELETE'])
 @renderer_classes((JSONRenderer,))
 def article_likes(request, pk):
     """
-    list all comments or pst a new comment if user is logged in anonymous posting is not allowed
+    list all comments or post a new comment if user is logged in anonymous posting is not allowed
     error codes :
         404 comment with supplied id not found in the base
         400 data invalid
     """
     
     try:
-        article_likes = ArticleLikes.objects.filter(article_id=pk)
+        likes = ArticleLikes.objects.filter(article_id=pk)
     except ArticleLikes.DoesNotExist:
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     if request.method == 'GET':
-        serializer = ArticleLikesSerializer(article_likes, many=True)
+        serializer = ArticleLikesSerializer(likes, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -60,8 +63,7 @@ def article_likes(request, pk):
                 return Response(content, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            # return Response(status=status.HTTP_400_BAD_REQUEST)
-            raise NotAllowedError()
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
         if int(request.data.get('user_id')) == request.user.id:

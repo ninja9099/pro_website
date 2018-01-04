@@ -1,34 +1,57 @@
 {% extends '../base.html' %}
+{% block links %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/registration/signup.css'%}"/>
+{% endblock %}
+{% block branding %}
+{#    branding not required here thanks #}
+{% endblock %}
 {% block container %}
-  <div id="login-page" class="row">
+<div class="container signup-container">
+    <div class="intro">
+          <h2 class="text-center">
+            Join <span class="lobster">LifeInabits</span>
+          </h2>
+          <p class="text-center dosis">
+              Share Your Thoughts
+          </p>
+    </div>
+    <div id="login-page" class="row">
       <form method="post" action=""  class="login-form">
         {% csrf_token %}
-          
-            <span class="error  alert-danger">{{form.username.errors}}</span>
-            <label for="id_username" class="center-align">Username</label>
-            <input id="id_username" type="text" class="validate" name="username">
-        
-
-            <span class="error  alert-danger">{{form.email.errors}}</span>
-            <label for="id_email" class="center-align">Email</label>
-            <input id="id_email" type="email" name="email">
-
-        
-            <span class="error  alert-danger">{{form.password1.errors}}</span>
-            <label for="id_password1">Password</label>
-            <input id="id_password1" type="password" class="validate" name="password1">
-         
-       
-            <span class="error  alert-danger">{{form.password2.errors}}</span>
-            <label for="id_password2">Re-type password</label>
-            <input id="id_password2" type="password" name="password2">
-         
-        
-            <button type="submit" name="Submit" class="btn waves-effect waves-light col s12">Register Now</button>
-         
-            <p class="margin center medium-small sign-up">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+          <div class="form-group">
+              <label for="id_username" class="center-align">Username</label>
+              <input id="id_username" type="text" class="validate form-control" name="username">
+              <span class="error">{{form.username.errors}}</span>
           </div>
+          <div class="form-group">
+              <label for="id_email" class="center-align">Email</label>
+              <input class="form-control" id="id_email" type="email" name="email">
+              <span class="error">{{form.email.errors}}</span>
+          </div>
+          <div class="form-group">
+              <label for="id_password1">Password</label>
+              <input id="id_password1" type="password" class="validate form-control" name="password1">
+              <span class="error">{{form.password1.errors}}</span>
+          </div>
+
+        <div class="form-group">
+            <label for="id_password2">Re-type password</label>
+            <input class="form-control" id="id_password2" type="password" name="password2">
+            <span class="error">{{form.password2.errors}}</span>
         </div>
-      </form>
+        <div class="form-group text-center">
+            <button type="submit" name="Submit" class="btn sign-up">Register</button>
+            <button type="submit" name="Submit" class="btn sign-up">Reset</button>
+        </div>
+{#          <p class="margin center">Already have an account? <a href="{% url 'login' %}">Login <i class="fa fa-arrow-right"></i> </a></p>#}
+        </form>
     </div>
-    {% endblock %}
+    <div class="agreement-with-sign-up">
+        <p class="text-center">
+            By signing up, you agree to our <a>Terms of Service.</a>
+            Already have an account? <a href="{% url 'login' %}"> Log in </a>
+        </p>
+    </div>
+</div>
+{% endblock %}

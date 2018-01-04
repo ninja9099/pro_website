@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block branding %}
+    <!--for main branding    -->
+{% endblock %}
 
 {% block container %}
 	{% load static %}
@@ -9,6 +12,7 @@
                 <a href="{% url 'login' %}">Join LifeInaBits </a>
 			</div>
 		</section>
+        {% if context.fresh_article %}
 		<section style="" class="second-section">
 			<div class="container">
 				<div class="fresh-heading">
@@ -66,6 +70,7 @@
 				</div>
 			</div>
 		</section>
+    {% endif %}
         <!-- category sections    -->
 		<section class="second-section">
 			<div class="container">
@@ -87,9 +92,9 @@
 			</div>
 		</section>
         <!-- end of category -->
-		<section class="third-section" style="background-image: url({% static 'src/images/back-third4.jpg' %});">
+		<section class="third-section">
 			<div class="container" >
-				<h1 class="center barlow">Articles you may intrested in slide show here makes it great place for work </h1>
+				<h1 class="center barlow">Articles you may interested in slide show here makes it great place for work </h1>
 				<div class="article-wrapper">
 					<div class="article-box">
 						<div class="article ">
@@ -108,5 +113,10 @@
 				</div>
 			</div>
 		</section>
+    <style>
+    .navbar{background: #C33764;
+    background: -webkit-linear-gradient(to right, #1D2671, #C33764);
+    background: linear-gradient(to right, #1D2671, #C33764);}
+    </style>
 {% endblock  %}
 

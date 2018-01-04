@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import markdown
-from django.shortcuts import render, render_to_response, get_object_or_404
-from django.views import View
+from django.shortcuts import render, get_object_or_404
 from .forms import ArticleForm
 from blog import Article, ArticleLikes, Category
-from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.urlresolvers import reverse_lazy
 from tracking_analyzer.models import Tracker
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #  for comments
@@ -20,21 +18,24 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.urls import reverse
 from blog_api import core
+from django.db.models import ObjectDoesNotExist
 
 
-# homepage
 def index(request):
     context = core.create_context(request)
-    fresh = context.get('article_set').latest('created')
-    context.push({'fresh_article': fresh})
+    try:
+        fresh = context.get('article_set').latest('created')
+        context.push({'fresh_article': fresh})
+    except ObjectDoesNotExist:
+        pass
     return render(request, 'index.html', {"context": context})
 
 
 @login_required
-# @permission_required('blog.create_article', raise_exception=True)
+@permission_required('blog.create_article', raise_exception=True)
 def create_article(request):
     if request.user.has_perm('blog.create_article'):
-        if request.method=="GET":
+        if request.method == "GET":
             form = ArticleForm()
         if request.is_ajax() and request.method == "POST":
             form = ArticleForm(request.POST, request.FILES)
@@ -44,46 +45,47 @@ def create_article(request):
                 article_instance.article_author = request.user
                 article_instance.save()
                 form.save_m2m()
-                return JsonResponse({'success':True, 'message':'Your article\
+                return JsonResponse({'success': True, 'message': 'Your article\
                  is saved at <a href="/blog/article_edit/{}">here</a>'.format(article_instance.id)})
             else:
-                return JsonResponse({"success":False, "error":render_to_string('errors.html', {'form':form})})
+                return JsonResponse({"success": False, "error": render_to_string('errors.html', {'form': form})})
 
-        return render(request, 'article_template.html', {"form":form, 'url':reverse('article_submit')})
+        return render(request, 'article_template.html', {"form": form, 'url': reverse('article_submit')})
     else:
         return True
+
 
 @login_required
 @permission_required('blog.change_article', raise_exception=True)
 def edit_article(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    if request.method =='GET':
+    if request.method == 'GET':
         if request.user == article.article_author:
-            form  = ArticleForm(instance=article)
-            return render(request, 'article_template.html', {"form":form, 'url':reverse('article_edit', kwargs={'pk':article.id})})
+            form = ArticleForm(instance=article)
+            return render(request, 'article_template.html',
+                          {"form": form, 'url': reverse('article_edit', kwargs={'pk': article.id})})
         else:
             return HttpResponse('<h1>Error 403 Not Allowed</h1>')
 
-    if request.method =='POST' and request.is_ajax():
+    if request.method == 'POST' and request.is_ajax():
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid() and form.is_multipart():
-            # core.handle_uploaded_file(request.FILES['file'],  type='article') for future use 
-            # article_instance.article_image = request.FILES['file'][0]
             article_instance = form.save(commit=False)
             article_instance.save()
             form.save_m2m()
             if article_instance.article_state == "published":
-                notify.send(article_instance.article_author, recipient=User.objects.all(), verb="New article by %s"%(article_instance.article_author))
-            return JsonResponse({'success':True, 'message':'Your article is saved'})
+                notify.send(article_instance.article_author, recipient=User.objects.all(),
+                            verb="New article by %s" % (article_instance.article_author))
+            return JsonResponse({'success': True, 'message': 'Your article is saved'})
         else:
-            return JsonResponse({'success':False, "error":render_to_string('errors.html', {'form':form})})
+            return JsonResponse({'success': False, "error": render_to_string('errors.html', {'form': form})})
 
 
 def user_liked(user_id, article_id):
     try:
         if ArticleLikes.objects.get(article_id=article_id, user_id=user_id).count():
             return True
-    except:
+    except ObjectDoesNotExist:
         return False
 
 
@@ -106,12 +108,12 @@ def BlogIndex(request, **kwargs):
     view for Homepage of blog
     """
     if request.method == "GET":
-        query_set = Article.get_published().order_by('-article_views',  '-created')
+        query_set = Article.get_published().order_by('-article_views', '-created')
         page_no = request.GET.get('page')
-        page = _paginate(query_set,3, page_no)
+        page = _paginate(query_set, 3, page_no)
         context = core.create_context(request)
-        context.push({'page':page})
-        return render( request, 'gallery.html', {'context':context})
+        context.push({'page': page})
+        return render(request, 'gallery.html', {'context': context})
 
 
 def article_view(request, pk):
@@ -123,16 +125,18 @@ def article_view(request, pk):
     Tracker.objects.create_from_request(request, article)
     popular_tags = Article.get_counted_tags()
     recent = Article.get_published().order_by('-created').exclude(id=article.id)[:7]
-    related_articles = Article.get_published().filter(article_subcategory=article.article_subcategory).exclude(id=article.id)[:5]
+    related_articles = Article.get_published().filter(article_subcategory=article.article_subcategory).exclude(
+        id=article.id)[:5]
     if request.user.is_authenticated:
         request.user.userprofile.article_reads.add(article);
     return render(request, 'article.html', {
         'popular_tags': popular_tags,
         'article': article,
-        'recent': recent ,
+        'recent': recent,
         'article_analytics': core.article_analytics(request, Article.objects.all()),
         'related_articles': related_articles,
-        })
+    })
+
 
 @login_required
 def article_preview(request):
@@ -145,10 +149,10 @@ def article_preview(request):
 
             return HttpResponse(html)
 
-        else:   # pragma: no cover
+        else:  # pragma: no cover
             return HttpResponseBadRequest()
 
-    except Exception:   # pragma: no cover
+    except Exception:  # pragma: no cover
         return HttpResponseBadRequest()
 
 
@@ -157,7 +161,7 @@ def tag(request, tag_name):
     query_set = Article.objects.filter(tags__name=tag_name).filter(article_state='published')
     page = _paginate(query_set, 3, request.GET.get('page'))
     context.push({'page': page})
-    return render(request, 'tagged_articles.html',{'tag_name':tag_name, 'context':context} )
+    return render(request, 'tagged_articles.html', {'tag_name': tag_name, 'context': context})
 
 
 def category_view(request, cat_id):
@@ -166,19 +170,20 @@ def category_view(request, cat_id):
     page = _paginate(query_set, 3, page_no)
     context = core.create_context(request)
     category = Category.objects.get(id=cat_id)
-    context.push({'page':page, 'category': category})
-    return render(request,'cat_article_list.html', {'context': context})
+    context.push({'page': page, 'category': category})
+    return render(request, 'cat_article_list.html', {'context': context})
 
 
 # TD ME  move to core part  in the blog api
 @receiver(comment_was_posted)
 def Rec(sender, **kwargs):
-    user= kwargs.get('request').user
+    user = kwargs.get('request').user
     comment = kwargs.get('comment')
     url = comment.get_content_object_url()
     commented_on = comment.content_object
     if user.is_authenticated:
-        notify.send(user,recipient=commented_on.article_author, target=commented_on, verb='Commented On', comment_url=url)
+        notify.send(user, recipient=commented_on.article_author, target=commented_on, verb='Commented On',
+                    comment_url=url)
     else:
         pass
     return True

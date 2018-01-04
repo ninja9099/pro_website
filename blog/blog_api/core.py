@@ -6,6 +6,7 @@ from django.template import RequestContext
 from blog.blog import Category
 from django.db.models import Count, F
 
+
 def create_context(request):
     context = RequestContext(request)
     article_set = Article.get_published().order_by('-article_views', '-created').annotate(likes=Count('articlelikes'))
@@ -34,6 +35,7 @@ def article_analytics(request, article_set):
         except:
             pass
     return article_by_year
+
 
 # for future use
 def handle_uploaded_file(f, type=None):
