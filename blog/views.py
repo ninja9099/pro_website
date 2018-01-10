@@ -52,8 +52,7 @@ def create_article(request):
 
         return render(request, 'article_template.html', {"form": form, 'url': reverse('article_submit')})
     else:
-        return True
-
+        return HttpResponse('<h1>You are not allowed to write an article please contact your administrator</h1>')
 
 @login_required
 @permission_required('blog.change_article', raise_exception=True)

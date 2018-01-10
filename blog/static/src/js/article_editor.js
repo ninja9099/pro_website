@@ -1,15 +1,9 @@
 $(document).ready(function(){
-	var editor = CKEDITOR.replace( 'id_article_content' );
 	var url = $('#url').val()
-	// method for observing changes in editor
-		  editor.on( 'change', function( evt ) {
-			// getData() returns CKEditor's HTML content.
-			console.log( 'Total bytes: ' + evt.editor.getData().length );
-			$('#save').addClass('unsaved')
-	});
-
+	$('.note-editor').css("width", "100%");
 	$("#preview").click(function(e){
-		var data = CKEDITOR.instances.id_article_content.getData();
+		debugger;
+		var data = $("#id_article_content").val();
 		e.preventDefault()
 		$.ajax({
 		  url: '/blog/article/preview',
@@ -32,9 +26,6 @@ $(document).ready(function(){
 	$("#save").click(function(e){
 		e.preventDefault()
 
-		for ( instance in CKEDITOR.instances ){
-			CKEDITOR.instances[instance].updateElement();
-		}
 		var formData = new FormData($('form')[0]);
 		var img = $('#id_article_image')[0].files[0];
 		debugger;

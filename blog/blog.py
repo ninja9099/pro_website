@@ -30,7 +30,7 @@ class Article(TimeStampedModel):
     article_followed = models.IntegerField(default=0)
     article_ratings = models.FloatField(default=0.0, blank=True)
     article_views = models.PositiveIntegerField(default=0)
-    article_content = models.CharField(max_length=400000)
+    article_content = models.TextField('Article Content')
     article_author = models.ForeignKey(User)
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
     article_flike_url = models.URLField('Like plugin url', blank=True)

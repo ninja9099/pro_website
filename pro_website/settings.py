@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'notifications',
     'taggit',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +106,7 @@ NOTIFICATIONS_USE_JSONFIELD = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bits',
+        'NAME': 'axis',
         'USER': 'lifeinabits',
         'PASSWORD': 'life@bits',
         'HOST': 'localhost',
@@ -196,6 +197,7 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
+
 MEDIA_URL = '/media/'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '521839123051-vgpj873gn87j9ir3vc765dqdpeu8um58.apps.googleusercontent.com'
@@ -248,3 +250,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'kamanipankaj9099@gmail.com'
 EMAIL_HOST_PASSWORD = 'mitalghadiya'
+
+SUMMERNOTE_CONFIG = { 'width': '100%',  'height': '480',}

@@ -34,7 +34,7 @@
 
 <div class="editore editore-form">
     <div class="col-md-9 editore-pannel">
-        {{ form.article_content }}
+        {{ form.article_content|safe }}
     </div>
     <div class="col-md-3 side-pannel barlow">
         <h2>Post Settings</h2>
@@ -104,4 +104,7 @@
 </div>
   {% load static %}
 <script type="text/javascript" data-main="{% static 'src/js/article_editor.js' %}" src="{% static 'src/js/lib/require.js'%}"></script>
+<style>
+.note-editable { height: 150vh; width: 90vw; }
+</style>
 {% endblock%}

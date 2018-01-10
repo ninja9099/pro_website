@@ -45,5 +45,8 @@ urlpatterns = [
     url(r'^complete/social-oauth2$', custom_auth_views.social_auth, name="social_auth"),
     url(r'^about_me/', custom_auth_views.about_me, name='about me'),
     url(r'^feeds/latest/$', LatestCommentFeed()),
+    url(r'^summernote/', include('django_summernote.urls')),
+]
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
