@@ -150,7 +150,7 @@ footer .container .footer-middle{padding: 20px; color: #ddd;}
 footer .container .footer-right{padding: 20px;}
 footer .container .footer-right .form-inline{padding: 10px;}
 footer .footer-right > ul >li{width: 46px;height: 46px; display: inline-block; margin-left: 10px;padding: 5px 12px;font-size: 25px;}
-footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(--ltywl-color);}
+footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(--ltywl-color); margin-bottom: 20px !important; margin-top: 20px !important;}
 .footer-right .form-inline .form-control:focus, .btn:focus{border-color: var(--ltywl-color); box-shadow: inset 0 1px 1px var(--ltywl-color), 0 0 8px var(--ltywl-color);}
 .footer-right .form-inline .btn-primary{background-color: var(--ltywl-color); color: var(--blk-color);border-color: var(--ltywl-color);}
 .footer-right .form-inline input, .btn {border-radius: 0;}

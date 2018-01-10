@@ -22,7 +22,6 @@ class ArticleAdmin(SummernoteModelAdmin):
                     'article_subcategory',
                     'article_followed',
                     'article_ratings',
-                    'article_content',
                     'article_views',
                     'created',
                     'modified',

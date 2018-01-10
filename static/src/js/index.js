@@ -1,5 +1,6 @@
 $(document).ready(function(){
     //for updating the notifications
+    $('[data-toggle="tooltip"]').tooltip(); 
     update_badge();
     $("#notifications").on('click', fetch_notifications);
 

@@ -16,7 +16,7 @@ padding: 0; display: flex; flex-direction: row;flex-basis: 100%; flex-wrap: wrap
 .social-comments ul{display: flex; flex-direction: row;align-items: space-around;}
 .social-comments ul li{margin-bottom: 10px; font-size: 20px; margin-right: 10px;}
 .social-comments ul li a {width: 50px; margin-right: 10px;}
-.social-comments ul li span{border: 1px solid #5cb85c; width: 50px; position: relative;}
+.social-comments ul li span{border: 1px solid #5cb85c; width: 50px; position: relative;border-radius: 3px;}
 .social-comments ul li span div.arrow-left{width: 0;  height: 0;   border-top: 10px solid transparent; border-bottom: 10px solid transparent;border-right: 10px solid #5cb85c;position: absolute;top: 22%;left: -10px;}/*for social-share-article*/
 .four-six .social-share-article {display: block; width: 100%; margin-top: 20px;}
 .four-six .social-share-article ul{display: flex;}
@@ -28,7 +28,7 @@ padding: 0; display: flex; flex-direction: row;flex-basis: 100%; flex-wrap: wrap
 /*for comments*/
 [for~=id_honeypot]{display: none;}
 .comments-container h3{padding: 20px 0;}
-.label.label-info{display: inline;    padding: 4px;    font-size: 11px;    color: #fff;    text-align: center;    white-space: nowrap;    vertical-align: baseline;    border-radius: 1em;    margin-left: 5px;    margin-right: 5px;}
+.label.label-info{display: inline; padding: 4px; line-height: 2; font-size: 11px; color: #fff; text-align: center;    white-space: nowrap;    vertical-align: baseline;    border-radius: 1em;    margin-left: 5px;    margin-right: 5px;}
 .comment-form .anonymouse-comment form input[type=submit]{margin-left: 0;}
 #id_comment{width: 100%; height: 50px; border-radius: 5px;border: 1px solid #ddd;}
 .comment-form .anonymouse-comment{margin: 40px 0;}
@@ -74,7 +74,7 @@ padding: 0; display: flex; flex-direction: row;flex-basis: 100%; flex-wrap: wrap
 .slick-prev {left: -12px !important;    top: 53px !important;}
 .slick-next:before{color: #ef4430 !important;}
 .slick-prev:before{color: #ef4430 !important;}
-h4.interested{position: relative;margin: 54px 0 !important; font-size: 23px; letter-spacing: 3px; border-bottom: 1px solid #f9f5f5; padding: 10px 0;}
+h4.interested{position: relative;margin: 54px 0 !important; font-size: 23px; letter-spacing: 3px; border-bottom: 1px solid #f9f5f5; padding: 20px;}
 .slide-image-wrapper {max-height:110px;}
 .slide-image-wrapper  img{max-height:110px;}
 .slic-article-meta h4 {margin-top:10px !important; height: 40px;}

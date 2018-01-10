@@ -152,7 +152,7 @@ def edit_profile(request, profile_id):
     if request.method=='GET':
         if request.GET.get('edit', 'false') == 'false':
             article_reads = request.user.userprofile.article_reads.all()
-            return render(request, 'registration/profile.html', {"articles_written":len(request.user.article_set.all()),"article_reads":article_reads })
+            return render(request, 'registration/profile.html', {"articles_written":request.user.article_set.all().count,"article_reads":article_reads })
         else:
             try:
                 profile = UserProfile.objects.get(user__id=profile_id)
@@ -165,9 +165,8 @@ def edit_profile(request, profile_id):
                 raise PermissionDenied
 
     if request.method == "POST":
-        user_profile  = UserProfileForm(request.POST, request.FILES, instance=UserProfile.objects.get(pk=profile_id))
+        user_profile  = UserProfileForm(request.POST, request.FILES, instance=UserProfile.objects.get(user__id=profile_id))
         if user_profile.is_valid():
-            # user_profile.profile_picture=request.FILES['profile_picture']
             user_profile.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'profile_id':request.user.id}))
         else:
@@ -181,7 +180,7 @@ def create_profile(sender, **kwargs):
         user_profile.save()
         return True
     else:
-        pass
+        return HttpResponse("Something went wrong please try again later")
 
 
 def social_auth(request):
