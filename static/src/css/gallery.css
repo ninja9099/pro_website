@@ -52,7 +52,7 @@ body{background-color:#fff;}
 .box-wrapper .box-bottom-content a h3{margin: 0; color: #fff;}
 .recent-date{font-weight: 400; font-style: normal; color: #fff; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;}
 .recent-date:before{content: '\f133'; font-family: fontawesome; margin-right: 5px;}
-.box-content ul li{display: block;    width: 48.6%;    float: right;    margin: 0 0 10px;    padding: 0 0 10px;}
+.box-content ul li{display: block;    width: 48.6%;    float: right;    margin: 0 0 10px;}
 .list-box-thumbnail { display: table-cell; width: 100px; height: 70px; vertical-align: middle; position: relative;}
 .list-box-thumbnail a{display: block; height: 70px;}
 .list-box-thumbnail:hover  a:before{content: ''; left: 0; right: 0; top: 0; bottom: 0; opacity: 0.5; position: absolute; background-color:rgba(40,35,40,0.30);}
@@ -119,4 +119,4 @@ a.read-more:hover, .first-tag >a:hover {background: #fd4326;    color: #fff ;}
 
 
  /*for advertisement*/
-.ad-middle{display: flex; background: #efefef; height: 182px;}
+.ad-middle{display: flex; background: #efefef; height: 194px;}

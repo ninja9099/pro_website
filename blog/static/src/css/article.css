@@ -26,23 +26,26 @@ padding: 0; display: flex; flex-direction: row;flex-basis: 100%; flex-wrap: wrap
 
 
 /*for comments*/
-[for~=id_honeypot]{display: none;}
+[for~=id_honeypot], #id_honeypot{display: none;}
 .comments-container h3{padding: 20px 0;}
 .label.label-info{display: inline; padding: 4px; line-height: 2; font-size: 11px; color: #fff; text-align: center;    white-space: nowrap;    vertical-align: baseline;    border-radius: 1em;    margin-left: 5px;    margin-right: 5px;}
-.comment-form .anonymouse-comment form input[type=submit]{margin-left: 0;}
-#id_comment{width: 100%; height: 50px; border-radius: 5px;border: 1px solid #ddd;}
-.comment-form .anonymouse-comment{margin: 40px 0;}
-.comment-form .anonymouse-comment p{display: inline-block;}
-.comment-form .anonymouse-comment form input{padding: 2px;margin-bottom: 15px;    border-radius: 5px;border: 1px solid #ddd; margin-left: 10px;}
-.comment-form .anonymouse-comment form > [type=submit]{padding: 2px; border-radius: 2px !important; width: 60px !important; background: #fff !important;    color: #fd4326 !important;}
+.comment-form h4{margin:20px 0 !important;}
 .comment-avatar{width: 70px;}
 .comment-box{width: 614px;}
 .comment-head{display: flex;}
+#id_comment{width: 350px; height: 100px; border-radius: 5px;border: 1px solid #ddd; box-shadow: none; margin-bottom: 20px;}
+.comment-form .anonymouse-comment{margin: 40px 0;}
+.comment-form .anonymouse-comment p{display: flex;}
+.comment-form .anonymouse-comment p label{width:150px;}
+p.submit {margin-top: 30px;}
+.comment-form .anonymouse-comment form input[type=submit]{margin-left: 0; margin: 10px 0;margin-right: 0px;min-width: 80px;margin-right: 10px;background: #008000;color: #fff;}
+.comment-form .anonymouse-comment form input{padding: 2px;margin-bottom: 15px; border-radius: 5px;border: 1px solid #ddd;}
 
 .comment-main-level{display: flex; flex-basis: 100%; flex-direction: row;}
 .comment-box:before{content: ''; position: absolute;top: 33%; left: -16px;border: 8px solid rgba(0, 0, 0, 0); border-right: 8px solid #fff;}
-#id_honeypot{visibility: hidden; display: none;}
-#id_submit{margin-top: 10px;margin-bottom: 10px;border-radius: 2px;}
+.comments-list{padding:20px;}
+.comments-list:nth-child(odd){background: #f8f8f8;}
+.comments-list:nth-child(even){background: #fff;}
 /* comments ends here*/
 
 /*for tw0-six column*/
@@ -86,6 +89,6 @@ span.created-meta{margin-top:10px; font-size: 12px; color: #3a6186;}
 .archive-box{margin: 19px 0;}
 .collapsibleListClosed::before{content:'\f0da';margin-right: 2px; font-family: fontAwesome;}
 .collapsibleListOpen > .collapsibleList{margin-left: 10px;}
-.collapsibleListOpen:before{content:'\f0d7'; margin-right: 2px;}
+.collapsibleListOpen:before{content:'\f0d7'; margin-right: 2px; font-family: fontAwesome;}
 
 /* for sticky sidebar*/

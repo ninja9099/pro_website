@@ -3,7 +3,9 @@
         <ul class="nav navbar-nav roboto">
           <li class="home_li topBotomBordersIn"><a class="lobster" style="font-size: 25px;" href="/">Life-In-a-Bits</a></li>
           <li class="blog_li topBotomBordersIn "><a href="/blog/">Blog</a></li>
+          {% if perms.create_article %}
           <li class="writer_li topBotomBordersIn"><a href="{% url 'article_submit' %}">Become a Writer</a></li>
+          {% endif %}
           <li class="about_li topBotomBordersIn"><a href="/about_me/">About me</a></li>
         </ul>
         <ul class="nav navbar-nav float-right">
@@ -34,10 +36,9 @@
                   </ul>
               </li>
           {% else %}
-
-{#              <li><a href="https://www.facebook.com/LifeBits-120274515294153"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>#}
-{#              <li><a href="https://plus.google.com/u/0/+Pankajkamani"><i class="fa fa-google" aria-hidden="true"></i></a></li>#}
-{#              <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>#}
+              <!-- <li><a href="https://www.facebook.com/LifeBits-120274515294153"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="https://plus.google.com/u/0/+Pankajkamani"><i class="fa fa-google" aria-hidden="true"></i></a></li>
+              <li><a href="https://twitter.com/MonsterKp1"><i class="fa fa-twitter" aria-hidden="true"></i></a></li> -->
               <li class="search_li">
                     <form id="search-form" class="form-inline" action="/search">
                       <label class="sr-only" for="id_search">Search</label>

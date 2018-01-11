@@ -25,4 +25,18 @@ $(document).ready(function(){
     });
     
 
+    // for back to top 
+    $("#backtotop").click(function () {
+      debugger;
+        $("body,html").animate({
+            scrollTop: 0
+        }, 600);
+    });
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > 150) {
+            $(".back-to-top").addClass("visible");
+        } else {
+            $(".back-to-top").removeClass("visible");
+        }
+    });
 });

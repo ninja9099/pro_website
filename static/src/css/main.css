@@ -175,7 +175,7 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 .profile-dropdown:before{content: ''; position: inherit;top: -12px; right: 45%; border: 5px solid transparent; border-bottom: 5px solid #ff0;}
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{ background-color:unset;}
 .profile-dropdown li {padding: 5px 0;}
-.navbar-nav>li>.dropdown-menu {}
+.navbar-nav>li>.dropdown-menu {margin-top: 4px;}
 
 /* end of notifications and profile dropdown*/
 
@@ -235,3 +235,7 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 .search_li input{color: #fff; padding:0; background: transparent !important; -moz-appearance: menuitem; -webkit-appearance: button-bevel; display: inline-block;}
 .search_li input:focus {outline: none !important; color: #ff0 !important;}
 #search-form {visibility: hidden;display: inline-block;opacity: 0; transition: visibility 0s, opacity 0.5s linear;}
+
+.back-to-top{z-index:999; display:none; position: fixed;right: 50px;height: 50px;width: 50px;background: #0ef826; bottom: 50px;padding: 13px 17px;color: #fff; border-radius: 50%;}
+.back-to-top a{ color: #fff;}
+.visible{display: block;}

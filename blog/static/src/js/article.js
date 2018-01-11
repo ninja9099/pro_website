@@ -3,6 +3,7 @@ $(document).ready(function(){
 	//  for collapsible list
 	CollapsibleLists.apply();
 	// for the slick slider
+	$("#id_url").val("http://lifeinabits.com")
 	$('.slick-slides').slick({
         slidesToShow:3,
         slidesToScroll: 1,

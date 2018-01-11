@@ -68,12 +68,12 @@
                 {% for comment in comments %}
                     {% include 'comment.html'%}
                 {% empty %}
-                    <p>No Comments Yet! Be the First to comment</p>
+                    <p>No Comments Yet!  Be the First to comment</p>
                 {% endfor %}
                 </div>
             </div>
-            <hr>
-           <div class="comment-form">
+           <hr> 
+           <div class="comment-form roboto">
                 {% if user.is_authenticated %}
                     {% get_comment_form for article as form %}
                     <h4>Leave a Reply</h4>
@@ -89,25 +89,8 @@
                     <input class="btn btn-success" type="submit" value="Comment" id="id_submit" />
                     </form>
                 {% else %}
-                    <div class="alert alert-danger alert-dismissable">
-                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                          <strong>Alert !</strong> Anonymouse comments are not notified to the author <a href="{% url 'login' %}">Login to get quick reply</a>
-                    </div>
                     <div class="anonymouse-comment">
-                        {% get_comment_form for article as comment_form %}
-                    <form action="{% comment_form_target %}" method="post">
-                        {% csrf_token %}
-                         <fieldset>
-                             <legend>leave a reply</legend>
-                        {{ comment_form}}
-                        <tr>
-                            <td colspan="2">
-                                <input type="submit" name="submit" value="Post">
-                                <input type="submit" name="preview" value="Preview">
-                            </td>
-                        </tr>
-                         </fieldset>
-                    </form>
+                        {% render_comment_form for article %}
                     </div>
                 {% endif %}
            </div>
@@ -115,11 +98,11 @@
         <!--<hr style="border-top: 1px solid #f6d339;">-->
         {% if related_articles %}
             <div class="back-color-holder">
-            <h4 class="interested  barlow">Related Posts</h4>
+            <h4 class="interested  barlow text-center">Related Posts</h4>
             <div class="slides-container slick-slides">
             {% for article in related_articles %}
                 <div class="related-article col-md-3">
-                    <span class="badge badge-default">{{article.article_subcategory}}</span>
+                    <!-- <span class="badge badge-default">{{article.article_subcategory}}</span> -->
                     <div class="slide-image-wrapper">
                         <a href="{% url 'article' pk=article.id %}">
                             <img data-lazy="{{article.get_article_image}}" />
