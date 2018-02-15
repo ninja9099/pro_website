@@ -44,4 +44,5 @@ urlpatterns = [
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
     url(r'^complete/social-oauth2$', custom_auth_views.social_auth, name="social_auth"),
     url(r'^feeds/latest/$', LatestCommentFeed()),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %} "{{tag_name}}" | lifeinabits {% endblock %}
+
+{% block links%}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/tag_view.css' %}"/>
+{% endblock%}
+{% block script %}
+    <!--future use scripts-->
+{% endblock %}
+
+{% block container %}
+<div class="container-wrapper">
+    <div class="">
+        <h2>Articles listed with category "<i><strong>{{context.category}}</strong></i>"</h2>
+    </div>
+    <div class="four-six col-md-8 abel">
+        {% load static %}
+        {% for article in context.page.object_list %}
+        <div class="card-wrapper">
+            <div class="card-img col-md-5">
+                <a href="{% url 'article' pk=article.id %}">
+                    <img src="{{article.get_article_image}}"/>
+                </a>
+            </div>
+            <div class="card-info col-md-7">
+                <div class="heading">
+                    <span class="cat_posted "><a class="dosis" href="{% url 'cat_article_list' cat_id=context.category.id %}">{{category}}</a></span>
+                    <h2>
+                        <a href="{% url 'article' pk=article.id %}">
+                            {{article.article_title|truncatechars:140}}
+                        </a>
+                    </h2>
+                    <time>{{article.created|date:"d M Y"}}  </time> <i class="fa fa-user-o" ></i> {{article.get_author_profile.full_name}} <i class="fa fa-comment-o"></i> {% load comments %}
+            {% get_comment_count for article as comment_count %}
+            {{comment_count}}
+
+                </div>
+                <div class="description">
+                    <p class="justify">
+                        {{article.get_summary|striptags |truncatechars:100}}
+                    </p>
+                </div>
+                <div class="read-more-button">
+                    <span><a href="{% url 'article' pk=article.id %}" >Read More... <i class="fa fa-plus"></i></a> </span>
+                </div>
+                <div class="share-article center">
+                    <div class="center share-box">
+                        <a href="" ><i class="fa fa-heart-o" ></i></a>
+                        <a href="" ><i class="fa fa-facebook-f" ></i></a>
+                        <a href="" ><i class="fa fa-google"></i></a>
+                        <a href="" ><i class="fa fa-twitter"></i></a>
+                        <a href="" ><i class="fa fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <hr>
+    {% endfor %}
+    </div>
+
+    <div class="two-six col-md-4">
+        <div class="box-title">
+            <h2>Tags</h2>
+        </div>
+        <div class="tag-container box">
+            {% for tag, count in context.popular_tags %}
+                <a href="{% url 'tag' tag %}" class="btn btn-xs btn-default">
+                        {{ tag }} <span class="badge badge-info">{{ count }}</span>
+                </a>
+                {% endfor %}
+        </div>
+        <div class="box-title">
+            <h2>Categories</h2>
+        </div>
+        <div class="categories box">
+            <ul>
+                {% for cat in context.categories %}
+                <li class="left abel"><a href="{% url 'cat_article_list' cat_id=cat.id %}">
+                   <i class="fa fa-chevron-right" ></i> {{cat}} <span class="badge badge-default float-right">{{cat.articles}}</span></a>
+                 </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="blog-pager">
+    {% if context.page.has_other_pages %}
+        <ul>
+        {% if context.page.has_previous %}
+          <li class="page-number"><a href="?page={{ context.page.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+           <li class="page-number disabled"><a href="#">&laquo;</a></li>
+        {% endif %}
+        {% for i in context.page.paginator.page_range %}
+          {% if context.page.number == i %}
+            <li class="page-number current"><strong>{{i}}</strong></li>
+          {% else %}
+            <li class="page-number"><a  href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if context.page.has_next %}
+          <li class="page-number"><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="page-number disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+    {% endif %}
+</div>
+{% endblock %}

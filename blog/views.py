@@ -4,7 +4,7 @@ import markdown
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import View
 from .forms import ArticleForm
-from blog import Article, ArticleLikes
+from blog import Article, ArticleLikes, Category
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse_lazy
@@ -159,15 +159,16 @@ def tag(request, tag_name):
 
 
 def category_view(request, cat_id):
-    query_set = Article.objects.filter(id=cat_id)
+    query_set = Article.objects.filter(article_category=cat_id)
     page_no = request.GET.get('page')
     page = _paginate(query_set, 3, page_no)
     context = core.create_context(request)
-    context.push({'page':page})
+    category = Category.objects.get(id=cat_id)
+    context.push({'page':page, 'category': category})
     return render(request,'cat_article_list.html', {'context': context})
 
 
-# TDME  move to core part  in the blog api
+# TD ME  move to core part  in the blog api
 @receiver(comment_was_posted)
 def Rec(sender, **kwargs):
     user= kwargs.get('request').user

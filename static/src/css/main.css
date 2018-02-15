@@ -97,7 +97,6 @@ ul{list-style-type: none;}
 /*for card */
 .fresh {box-shadow: 0 2px 15px rgba(0, 0, 0, .5);}
 .fresh > .cover{height: 180px;border-radius: 2px 2px 0 0; position: relative;}
-.fresh > .cover:before{ content: "Article title that is too long";top: 0;left: 0;right: 0;left: 0;opacity: 0.5;color: white;position: absolute;height: inherit;padding: 67px;font-size: 28px;text-shadow: 10px 9px 2px #0a0a0a;}
 .fresh> .info{background: #fff; height: 100px; overflow: hidden;border-radius: 0 0 2px 2px;position: relative;}
 .fresh > .info > .recipe {display: block;position: absolute;top: 0;left: 0;width: 134px;height: inherit;background: #b80d0d;font-family: sans-serif;font-size: 14px;color: #FFF;text-transform: uppercase;text-decoration: none;text-align: center;border-radius: 0 0 0 2px;}
 .fresh > .info > .recipe >i{display: block;margin: 19px 0 15px;}
@@ -166,10 +165,12 @@ footer .container .footer-right h3 {font-size: 20px;padding: 0 10px; color: var(
 .profile-li{position: relative; margin:5px;border-radius: 5px; padding: 8px 0px;}
 .profile-li a{padding: 0 !important;}
 .profile-li  a > img {border-radius: 50%; width: 25px; height: 25px;}
-.profile-dropdown {background: #282828; padding: 10px; left: -133px; top: 124%;}
+.profile-dropdown {background: #fff; padding: 10px; left: -133px; top: 124%;}
+.profile-dropdown li a {color: #000000 !important;}
 .profile-dropdown:before{content: ''; position: inherit;top: -12px; right: 8px; border: 5px solid transparent; border-bottom: 5px solid #ff0;}
-.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{color: #fff; background-color:unset; }
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{ background-color:unset;}
 .profile-dropdown li {padding: 5px 0;}
+.navbar-nav>li>.dropdown-menu {border-radius: 3px;}
 
 /* end of notifications and profile dropdown*/
 

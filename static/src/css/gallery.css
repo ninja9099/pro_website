@@ -83,7 +83,7 @@ a.read-more{padding: 5px; border: 1px solid #fd4326; border-radius: 2px; font-si
 .box-column .box .box-thumbnail a{height: 200px; display: block; position: relative;}
 .box-column .box .box-thumbnail .first-tag {position: absolute; top: 15px; left: 15px; z-index: 2;}
 .box-column .box .box-thumbnail .first-tag a {background: #fd4326;color: #fff; height: 20px; line-height: 20px; display: inline-block; padding: 0 6px; font-size: 12px;font-weight: 400;border-radius: 2px;}
-.box-column .box .box-column-description .heading{display: block;color: #1c1c1c; line-height: 1.2em;margin-bottom: 5px;text-decoration: none; font-size: 19px;letter-spacing: 1px; font-family: Abel; font-weight: 400;font-style: normal;}
+.box-column .box .box-column-description .heading{    word-break: break-all; text-align: justify; display: block;color: #1c1c1c; line-height: 1.2em;margin-bottom: 5px;text-decoration: none; font-size: 19px;letter-spacing: 1px; font-family: Abel; font-weight: 400;font-style: normal;}
 .box-column .box .box-column-description {padding-top: 10px;padding-right: 10px; height:85px;}
 .box-column .box .box-column-description .recent-date{color: #867e7f;}
 /*ends here*/
