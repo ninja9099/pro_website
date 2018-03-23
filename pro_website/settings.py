@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'taggit',
     'django_summernote',
     'taggit_serializer',
+    'autoslug',
 ]
 
 MIDDLEWARE = [

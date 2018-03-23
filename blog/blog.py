@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django_comments.moderation import CommentModerator, moderator
+from autoslug import AutoSlugField
+
 
 ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
 
@@ -33,8 +34,7 @@ class Article(TimeStampedModel):
     article_content = models.TextField('Article Content')
     article_author = models.ForeignKey(User)
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
-    article_flike_url = models.URLField('Like plugin url', blank=True)
-    slug = models.SlugField(max_length=250, blank=True)
+    slug = AutoSlugField(unique=True)
     tags = TaggableManager()
 
     class Meta:
