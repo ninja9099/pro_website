@@ -19,7 +19,7 @@ class ArticleSerializer(TaggitSerializer, serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    article = serializers.PrimaryKeyRelatedField(many=True, queryset=Article.objects.all())
+    article_written = serializers.PrimaryKeyRelatedField(many=True, queryset=Article.objects.all())
     class Meta:
         model= User 
         fields = ('id',
@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name',
             'email',
             'is_active',
-            'article'
+            'article_written'
             )
 
 
