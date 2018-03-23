@@ -32,7 +32,7 @@ class Article(TimeStampedModel):
     article_ratings = models.FloatField(default=0.0, blank=True)
     article_views = models.PositiveIntegerField(default=0)
     article_content = models.TextField('Article Content')
-    article_author = models.ForeignKey(User)
+    article_author = models.ForeignKey(User,  related_name='article', on_delete=models.CASCADE)
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
     slug = AutoSlugField(unique=True,populate_from='article_title')
     tags = TaggableManager()
