@@ -40,7 +40,7 @@ class Article(TimeStampedModel):
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")
-        ordering = ('-article_views', 'created',)
+        ordering = ('-article_views', 'created',)   
 
     def __str__(self):
         return self.article_title
