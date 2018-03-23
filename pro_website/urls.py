@@ -22,9 +22,10 @@ from user_profile import views as custom_auth_views
 from blog import views as article_views
 import notifications.urls
 from django_comments.feeds import LatestCommentFeed
+from blog.blog_api import urls
 
 urlpatterns = [
-
+    url(r'^api/', include('blog.blog_api.urls')),
     url(r'^$', article_views.index, name='homepage'),
     url('', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
@@ -46,6 +47,7 @@ urlpatterns = [
     url(r'^about_me/', custom_auth_views.about_me, name='about me'),
     url(r'^feeds/latest/$', LatestCommentFeed()),
     url(r'^summernote/', include('django_summernote.urls')),
+
 ]
 
 if settings.DEBUG:
