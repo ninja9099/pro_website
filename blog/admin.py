@@ -16,6 +16,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 class ArticleAdmin(SummernoteModelAdmin):
     list_display = ['article_title',
+                    'slug',
                     'article_author',
                     'article_image',
                     'article_category',

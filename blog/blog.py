@@ -34,7 +34,7 @@ class Article(TimeStampedModel):
     article_content = models.TextField('Article Content')
     article_author = models.ForeignKey(User)
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
-    slug = AutoSlugField(unique=True)
+    slug = AutoSlugField(unique=True,populate_from='article_title')
     tags = TaggableManager()
 
     class Meta:
