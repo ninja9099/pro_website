@@ -22,10 +22,10 @@ from user_profile import views as custom_auth_views
 from blog import views as article_views
 import notifications.urls
 from django_comments.feeds import LatestCommentFeed
-from blog.blog_api import urls
+from blog import urls as blog_urls
 
 urlpatterns = [
-    url(r'^api/', include('blog.blog_api.urls')),
+    # url(r'^api/', include('blog_urls')),
     url(r'^$', article_views.index, name='homepage'),
     url('', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
