@@ -124,7 +124,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAdminUser',
     ],
     'PAGE_SIZE': 10,
-    'EXCEPTION_HANDLER': 'blog.blog_api.api.rest_exc_handler',
 
 }
 
