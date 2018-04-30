@@ -22,11 +22,10 @@ from blog_api import api
 
 urlpatterns = [
     url(r'^$', views.BlogIndex, name="blog_home"),
-    url(r'^article/(?P<pk>\d+)', views.article_view, name="article"),
-    url(r'^article/preview', views.article_preview, name="preview"),
+    # url(r'^article/preview', views.article_preview, name="preview"),
     url(r'^article_submit/$', views.create_article, name="article_submit"),
     url(r'^article_edit/(?P<pk>\d+)$', views.edit_article, name="article_edit"),
-    url(r'^article_likes/(?P<pk>\d+)$', api.article_likes, name="article_likes"),
+    # url(r'^article_likes/(?P<pk>\d+)$', api.article_likes, name="article_likes"),
     url(r'^category/(?P<cat_id>\d+)$', views.category_view, name='cat_article_list'),
     url(r'^tag/(?P<tag_name>.+)/$', views.tag, name='tag'),
 ]

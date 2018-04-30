@@ -1,78 +1,52 @@
-import exceptions
-from rest_framework import status
-from rest_framework.decorators import api_view,renderer_classes
-from rest_framework.response import Response
-from serializers import ArticleLikesSerializer
-from blog.blog import ArticleLikes
-from rest_framework.exceptions import APIException
-from rest_framework.views import exception_handler
+
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from blog.blog import Article
+from serializers import ArticleSerializer
 
 
-class NotAllowedError(APIException):
-    status_code = 504
-    default_detail = 'your are not allowed to do the work of others.'
-    default_code = 'fraudulent '
-
-
-def rest_exc_handler(exc, context):
-    # Call REST framework's default exception handler first,
-    # to get the standard error response.
-    response = exception_handler(exc, context)
-    # Now add the HTTP status code to the response.
-    if response is not None:
-        response.data['status_code'] = response.status_code
-        if response.status_code == 403:
-            response.data = {'error':'please login to proceed','error_code':403}
-        elif response.status_code == 400:
-            response.data = {'error':'server error please try after refreshing page','error_code':400}
-        elif response.status_code == 404:
-            response.data = {'error':'you did not liked this article yet','error_code':404}
-    
-    if isinstance(exc, exceptions.AssertionError):
-        print(exc.detail())
-
-    return response
-
-
-@api_view(['GET', 'POST', 'DELETE'])
-@renderer_classes((JSONRenderer,))
-def article_likes(request, pk):
+@csrf_exempt
+def article_list(request):
     """
-    list all comments or post a new comment if user is logged in anonymous posting is not allowed
-    error codes :
-        404 comment with supplied id not found in the base
-        400 data invalid
+    List all code articles, or create a new article.
     """
-    
-    try:
-        likes = ArticleLikes.objects.filter(article_id=pk)
-    except ArticleLikes.DoesNotExist:
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
     if request.method == 'GET':
-        serializer = ArticleLikesSerializer(likes, many=True)
-        return Response(serializer.data)
+        articles = Article.objects.all()
+        serializer = ArticleSerializer(articles, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
-        if int(request.data.get('user_id')) == request.user.id:
-            serializer = ArticleLikesSerializer(data=request.data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                content = {'total_likes':len(ArticleLikes.objects.filter(article_id=pk))}
-                return Response(content, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-    
+        data = JSONParser().parse(request)
+        serializer = ArticleSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def article_detail(request, pk):
+    """
+    Retrieve, update or delete a code article.
+    """
+    try:
+        article = Article.objects.get(pk=pk)
+    except article.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = ArticleSerializer(article)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = ArticleSerializer(article, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
     elif request.method == 'DELETE':
-        if int(request.data.get('user_id')) == request.user.id:
-            try:
-                like = ArticleLikes.objects.filter(article_id=pk, user_id=request.user)
-                like.delete()
-                content = {'total_likes':len(ArticleLikes.objects.filter(article_id=pk))}
-                return Response(content, status=status.HTTP_201_CREATED)
-            except :
-                return Response(status=status.HTTP_404_NOT_FOUND)
-        else:
-            raise NotAllowedError()
+        article.delete()
+        return HttpResponse(status=204)

@@ -23,9 +23,11 @@ from blog import views as article_views
 import notifications.urls
 from django_comments.feeds import LatestCommentFeed
 from blog import urls as blog_urls
+from blog import api_urls  
 
 urlpatterns = [
-    # url(r'^api/', include('blog_urls')),
+    url(r'^blog_api/', include(api_urls), name="api_v1"),
+    url(r'^api/', include(blog_urls)),
     url(r'^$', article_views.index, name='homepage'),
     url('', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),

@@ -153,7 +153,7 @@ def edit_profile(request, profile_id):
     if request.method=='GET':
         if request.GET.get('edit', 'false') == 'false':
             article_reads = request.user.userprofile.article_reads.all()
-            return render(request, 'registration/profile.html', {"articles_written":request.user.article_set.all().count,"article_reads":article_reads })
+            return render(request, 'registration/profile.html', {"articles_written":request.user.article_written.all().count,"article_reads":article_reads })
         else:
             try:
                 profile = UserProfile.objects.get(user__id=profile_id)
