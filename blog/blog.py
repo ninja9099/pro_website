@@ -29,7 +29,6 @@ class Article(TimeStampedModel):
     article_category = models.ForeignKey('Category', on_delete=models.CASCADE)
     article_subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     article_followed = models.IntegerField(default=0)
-    article_ratings = models.FloatField(default=0.0, blank=True)
     article_views = models.PositiveIntegerField(default=0)
     article_content = models.TextField('Article Content')
     article_author = models.ForeignKey(User,  related_name='article_written', on_delete=models.CASCADE)
@@ -125,3 +124,21 @@ class ArticleLikes(TimeStampedModel):
         verbose_name = 'Article like'
         verbose_name_plural = 'Article Likes'
         unique_together = (("article_id", "user_id"),)
+
+
+class ArticleRating(TimeStampedModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, related_name='rating', on_delete=models.CASCADE)
+    article_ratings = models.FloatField(default=0.0, blank=True)
+    feedback = models.CharField(max_length=500, blank=True)
+
+    class Meta:
+        verbose_name = 'Article Rating'
+        verbose_name_plural = 'Article Ratings'
+        unique_together = (("user", "article"),)
+
+
+class ArticleFollowings(TimeStampedModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, related_name='followings', on_delete=models.CASCADE)
+    is_followed = models.BooleanField(default=True)
