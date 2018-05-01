@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'blog',
     'user_profile',
     'django_comments',
-    'rest_framework',
+    'tastypie',
     'tracking',
     'social_django',
     'tracking_analyzer',
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'notifications',
     'taggit',
     'django_summernote',
-    'taggit_serializer',
     'autoslug',
 ]
 

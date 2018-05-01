@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.urls import reverse
-from blog_api import core
+import core
 from django.db.models import ObjectDoesNotExist
 
 

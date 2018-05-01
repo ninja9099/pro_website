@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-from blog.blog import Article #ArticleLikes
+from blog import Article #ArticleLikes
 from django.template import RequestContext
-from blog.blog import Category
+from blog import Category
 from django.db.models import Count, F
 
 

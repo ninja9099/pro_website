@@ -1,11 +1,9 @@
+from django.conf import settings
+from django.conf.urls import url, include
+from api import ArticleResource
 
-from . import views
-from blog_api import api
-from django.conf.urls import url  # include
-from rest_framework.urlpatterns import format_suffix_patterns
+article_resource = ArticleResource()
 
 urlpatterns = [
-    url(r'^article/$', api.article_list),
-    url(r'^article/(?P<pk>[0-9]+)/$', api.article_detail),
+    url(r'^', include(article_resource.urls)),
 ]
-urlpatterns = format_suffix_patterns(urlpatterns)
