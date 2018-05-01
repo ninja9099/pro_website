@@ -1,9 +1,12 @@
 from django.conf import settings
 from django.conf.urls import url, include
-from api import ArticleResource
+from api import ArticleResource, UserResource
+from tastypie.api import Api
 
-article_resource = ArticleResource()
+v1_api = Api(api_name='v1')
+v1_api.register(UserResource())
+v1_api.register(ArticleResource())
 
 urlpatterns = [
-    url(r'^', include(article_resource.urls)),
+    url(r'^', include(v1_api.urls)),
 ]
