@@ -1,5 +1,5 @@
 
-from blog import Article
+from blog import Article, ArticleRating, ArticleFollowings
 from tastypie import fields
 from django.contrib.auth.models import User
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
@@ -24,7 +24,10 @@ class UserResource(ModelResource):
 class ArticleResource(ModelResource):
     
     author = fields.ToOneField(UserResource, 'article_author', full=True)
-    
+    followings = fields.ToManyField(
+        'blog.api.ArticleFollowingResource', 'followings', related_name='followings', full=True, null=True, blank=True)
+    ratings = fields.ToManyField(
+        'blog.api.ArticleRatingResource', 'rating', related_name='rating', full=True, null=True, blank=True)
     class Meta:
         queryset = Article.objects.all()
         resource_name = 'article'
@@ -32,3 +35,23 @@ class ArticleResource(ModelResource):
             'slug': ALL,
             'created': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
+
+
+class ArticleFollowingResource(ModelResource):
+    article = fields.ToOneField(ArticleResource, 'article')
+    user = fields.ToOneField(UserResource, 'user')
+    
+    class Meta:
+        queryset = ArticleFollowings.objects.all()
+        resource_name = 'following'
+        fields = ["__all__"]
+
+class ArticleRatingResource(ModelResource):
+    rating_article = fields.ToOneField(ArticleResource, 'article')
+    rating_user = fields.ToOneField(UserResource, 'user')
+    class Meta:
+        resource_name = 'rating'
+        queryset = ArticleRating.objects.all()
+        fields = [
+            "__all__"
+        ]

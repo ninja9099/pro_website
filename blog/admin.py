@@ -26,8 +26,6 @@ class ArticleAdmin(SummernoteModelAdmin):
                     'article_image',
                     'article_category',
                     'article_subcategory',
-                    'article_followed',
-                    'article_views',
                     'created',
                     'modified',
                     ]
@@ -49,7 +47,7 @@ class ArticleRatingAdmin(admin.ModelAdmin):
         'user',
         'article',
         'article_ratings',
-        'feedback'
+        'feedbacks'
         ]
     list_filter = ['article_ratings', 'user']
 

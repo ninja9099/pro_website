@@ -28,8 +28,6 @@ class Article(TimeStampedModel):
     article_image = models.ImageField(upload_to=ARTICLE_IMAGE_PATH, height_field=None, width_field=None, blank=True)
     article_category = models.ForeignKey('Category', on_delete=models.CASCADE)
     article_subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
-    article_followed = models.IntegerField(default=0)
-    article_views = models.PositiveIntegerField(default=0)
     article_content = models.TextField('Article Content')
     article_author = models.ForeignKey(User,  related_name='article_written', on_delete=models.CASCADE)
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
@@ -39,7 +37,7 @@ class Article(TimeStampedModel):
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")
-        ordering = ('-article_views', 'created',)   
+        ordering = ('created',)   
 
     def __str__(self):
         return self.article_title
@@ -130,7 +128,7 @@ class ArticleRating(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, related_name='rating', on_delete=models.CASCADE)
     article_ratings = models.FloatField(default=0.0, blank=True)
-    feedback = models.CharField(max_length=500, blank=True)
+    feedbacks = models.CharField(max_length=500, blank=True)
 
     class Meta:
         verbose_name = 'Article Rating'
