@@ -107,13 +107,23 @@ NOTIFICATIONS_USE_JSONFIELD = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pankaj_api',
-        'USER': 'lifeinabits',
-        'PASSWORD': 'life@bits',
+        'NAME': 'lifeinabits',
+        'USER': 'pankaj',
+        'PASSWORD': 'pankaj',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'pankaj_api',
+#         'USER': 'lifeinabits',
+#         'PASSWORD': 'life@bits',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 REST_FRAMEWORK = {

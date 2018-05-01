@@ -8,7 +8,6 @@ from django.conf.urls import include, url
 
 class UserResource(ModelResource):
     
-    fullname = fields.CharField(attribute="get_full_name", readonly=True)
     articles_authored = fields.ToManyField(
         'blog.api.ArticleResource', 'article_written', related_name='article_written')
     
@@ -28,6 +27,9 @@ class ArticleResource(ModelResource):
         'blog.api.ArticleFollowingResource', 'followings', related_name='followings', full=True, null=True, blank=True)
     ratings = fields.ToManyField(
         'blog.api.ArticleRatingResource', 'rating', related_name='rating', full=True, null=True, blank=True)
+    tags = fields.CharField(attribute='get_counted_tags', readonly=True)
+    article_image = fields.CharField(attribute='get_article_image', readonly=True, null=True, blank=True)
+
     class Meta:
         queryset = Article.objects.all()
         resource_name = 'article'
