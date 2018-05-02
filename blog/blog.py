@@ -46,7 +46,6 @@ class Article(TimeStampedModel):
         self.article_state = 'published'
         return True;
 
-    @property
     def get_article_image(self):
         """
         return default image if image for article is not found  on server
@@ -117,6 +116,7 @@ class SubCategory(models.Model):
 class ArticleLikes(TimeStampedModel):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     article_id = models.ForeignKey(Article, on_delete=models.CASCADE)
+    is_liked = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Article like'
@@ -140,3 +140,5 @@ class ArticleFollowings(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, related_name='followings', on_delete=models.CASCADE)
     is_followed = models.BooleanField(default=True)
+    class Meta:
+        unique_together = (("user", "article"),)

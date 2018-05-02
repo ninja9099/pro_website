@@ -18,7 +18,6 @@ class TaggedResource(ModelResource):
 
 class UserResource(ModelResource):
     
-    fullname = fields.CharField(attribute="get_full_name", readonly=True)
     articles_authored = fields.ToManyField(
         'blog.api.ArticleResource', 'article_written', related_name='article_written')
     
@@ -39,6 +38,9 @@ class ArticleResource(ModelResource):
     ratings = fields.ToManyField(
         'blog.api.ArticleRatingResource', 'rating', related_name='rating', full=True, null=True, blank=True)
     article_tags = fields.ToManyField('blog.api.TaggedResource', 'tags',  full=True)
+    article_image = fields.CharField(
+        attribute='get_article_image', readonly=True, null=True, blank=True)
+
     class Meta:
         queryset = Article.objects.all()
         resource_name = 'article'
