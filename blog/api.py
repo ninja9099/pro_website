@@ -6,6 +6,16 @@ from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
 
+
+from tastypie.fields import ListField
+from taggit.models import Tag, TaggedItem
+
+class TaggedResource(ModelResource):
+    tags = ListField()
+
+    class Meta:
+        queryset = Tag.objects.all()
+
 class UserResource(ModelResource):
     
     fullname = fields.CharField(attribute="get_full_name", readonly=True)
@@ -28,6 +38,7 @@ class ArticleResource(ModelResource):
         'blog.api.ArticleFollowingResource', 'followings', related_name='followings', full=True, null=True, blank=True)
     ratings = fields.ToManyField(
         'blog.api.ArticleRatingResource', 'rating', related_name='rating', full=True, null=True, blank=True)
+    article_tags = fields.ToManyField('blog.api.TaggedResource', 'tags',  full=True)
     class Meta:
         queryset = Article.objects.all()
         resource_name = 'article'
