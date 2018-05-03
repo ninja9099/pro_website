@@ -30,6 +30,14 @@ class User(AbstractUser):
     @cached_property
     def get_all_comments(self):
         return list([item for item in self.comment_comments.all()])
+    
+    
+    def get_full_name(self):
+        if self.first_name:
+            return "{0} {1}".format(self.first_name, self.last_name)
+        else:
+            return "{0}".format(self.username)
+            
 
 class UserProfile(models.Model):
     """

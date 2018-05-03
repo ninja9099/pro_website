@@ -20,8 +20,9 @@ class UserResource(ModelResource):
     
     articles_authored = fields.ToManyField(
         'blog.api.ArticleResource', 'article_written', related_name='article_written')
-    comments = ListField(attribute='get_all_comments', readonly=True,)
+    comments = ListField(attribute='get_all_comments', readonly=True)
     
+    full_name = fields.CharField(attribute="get_full_name", readonly=True)
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
@@ -31,19 +32,21 @@ class UserResource(ModelResource):
         authorization = DjangoAuthorization()
 
 
+
 class ArticleResource(ModelResource):
     
     author = fields.ToOneField(UserResource, 'article_author', full=True)
-    # followings = fields.ToManyField(
-    #     'blog.api.ArticleFollowingResource', 'followings', related_name='followings', full=True, null=True, blank=True)
     article_tags = fields.ToManyField('blog.api.TaggedResource', 'tags',  full=True)
     article_image = fields.CharField(
         attribute='get_article_image', readonly=True, null=True, blank=True)
     follow_list = fields.ListField(null=True, blank=True)
     total_rating = fields.FloatField()
+    likes = ListField(attribute='get_likes', readonly=True)
+    comments = ListField()
+
 
     class Meta:
-        queryset = Article.objects.all()
+        queryset = Article.objects.filter(article_state="published")
         resource_name = 'article'
         filtering = {
             'slug': ALL,
@@ -62,6 +65,7 @@ class ArticleResource(ModelResource):
 
 
 class ArticleFollowingResource(ModelResource):
+    
     article = fields.ToOneField(ArticleResource, 'article')
     user = fields.ToOneField(UserResource, 'user')
     
@@ -70,7 +74,10 @@ class ArticleFollowingResource(ModelResource):
         resource_name = 'following'
         fields = ["__all__"]
 
+
+
 class ArticleRatingResource(ModelResource):
+    
     rating_article = fields.ToOneField(ArticleResource, 'article')
     rating_user = fields.ToOneField(UserResource, 'user')
     class Meta:

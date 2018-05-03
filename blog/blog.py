@@ -5,12 +5,13 @@ import markdown
 from django.db import models
 from django.db.models import Count
 from model_utils.models import TimeStampedModel
-# from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from autoslug import AutoSlugField
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.functional import cached_property
+
 
 User = settings.AUTH_USER_MODEL
 ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
@@ -95,8 +96,10 @@ class Article(TimeStampedModel):
     def get_absolute_url(self):
         return u'/article-edit/%d' % self.id
 
-    def count_likes(self):
-        return self.articlelikes_set.all().count()
+    def get_likes(self):
+        return [{'user':like.user_id, 'article': like.article_id} for like in self.articlelikes_set.filter(is_liked=True)]
+
+
 
 
 class Category(models.Model):
