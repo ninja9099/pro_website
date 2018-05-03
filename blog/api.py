@@ -33,14 +33,15 @@ class UserResource(ModelResource):
 class ArticleResource(ModelResource):
     
     author = fields.ToOneField(UserResource, 'article_author', full=True)
-    followings = fields.ToManyField(
-        'blog.api.ArticleFollowingResource', 'followings', related_name='followings', full=True, null=True, blank=True)
+    # followings = fields.ToManyField(
+    #     'blog.api.ArticleFollowingResource', 'followings', related_name='followings', full=True, null=True, blank=True)
     ratings = fields.ToManyField(
         'blog.api.ArticleRatingResource', 'rating', related_name='rating', full=True, null=True, blank=True)
     article_tags = fields.ToManyField('blog.api.TaggedResource', 'tags',  full=True)
     article_image = fields.CharField(
         attribute='get_article_image', readonly=True, null=True, blank=True)
-
+    follow_list = fields.ListField()
+    total_rating = fields.FloatField()
     class Meta:
         queryset = Article.objects.all()
         resource_name = 'article'
@@ -49,6 +50,13 @@ class ArticleResource(ModelResource):
             'created': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
 
+    def dehydrate_follow_list(self, bundle):
+        return list(set(bundle.obj.followings.filter(is_followed=True).values_list('user', flat=True)))
+
+    def dehydrate_total_rating(self, bundle):
+        toatal_rating = 0.0
+        s = reduce(lambda x, y : x + y, [rating.article_ratings for rating in bundle.obj.rating.all()])
+        return s/bundle.obj.rating.all().count()
 
 class ArticleFollowingResource(ModelResource):
     article = fields.ToOneField(ArticleResource, 'article')
