@@ -63,6 +63,7 @@ class UserProfileForm(forms.ModelForm):
             'short_intro': Textarea(attrs={'cols': 20, 'rows': 1, 'class': 'form-control'}),
 
         }
+    pass
 
 
 

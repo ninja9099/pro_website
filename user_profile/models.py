@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from blog.blog import Article
 from django.contrib.auth.models import AbstractUser
-
+from django.utils.functional import cached_property
 
 PROFILE_PIC_PATH = settings.IMAGE_PATH + 'profile_images/'
 cover_photo = 'static/src/images/user_profile/cover/'
@@ -17,11 +17,19 @@ default_image = settings.DEFAULT_USER_IMAGE
 
 
 class User(AbstractUser):
+
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to=PROFILE_PIC_PATH, default=default_image,blank=True)
     
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+
+    @cached_property
+    def get_all_comments(self):
+        return list([item for item in self.comment_comments.all()])
 
 class UserProfile(models.Model):
     """

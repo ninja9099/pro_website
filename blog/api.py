@@ -20,6 +20,7 @@ class UserResource(ModelResource):
     
     articles_authored = fields.ToManyField(
         'blog.api.ArticleResource', 'article_written', related_name='article_written')
+    comments = ListField(attribute='get_all_comments', readonly=True,)
     
     class Meta:
         queryset = User.objects.all()
@@ -38,8 +39,9 @@ class ArticleResource(ModelResource):
     article_tags = fields.ToManyField('blog.api.TaggedResource', 'tags',  full=True)
     article_image = fields.CharField(
         attribute='get_article_image', readonly=True, null=True, blank=True)
-    follow_list = fields.ListField()
+    follow_list = fields.ListField(null=True, blank=True)
     total_rating = fields.FloatField()
+
     class Meta:
         queryset = Article.objects.all()
         resource_name = 'article'
@@ -53,8 +55,11 @@ class ArticleResource(ModelResource):
 
     def dehydrate_total_rating(self, bundle):
         toatal_rating = 0.0
-        s = reduce(lambda x, y : x + y, [rating.article_ratings for rating in bundle.obj.rating.all()])
-        return s/bundle.obj.rating.all().count()
+        if bundle.obj.rating.exists():
+            s = reduce(lambda x, y : x + y, [rating.article_ratings for rating in bundle.obj.rating.all()])
+            toatal_rating = s/bundle.obj.rating.all().count()
+        return toatal_rating
+
 
 class ArticleFollowingResource(ModelResource):
     article = fields.ToOneField(ArticleResource, 'article')
