@@ -22,6 +22,8 @@ class User(AbstractUser):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to=PROFILE_PIC_PATH, default=default_image,blank=True)
+    article_reads = models.ManyToManyField(
+        Article, related_name="user_reads", blank=True)
     
     class Meta:
         verbose_name = 'User'
@@ -31,13 +33,15 @@ class User(AbstractUser):
     def get_all_comments(self):
         return list([item for item in self.comment_comments.all()])
     
-    
+
     def get_full_name(self):
         if self.first_name:
             return "{0} {1}".format(self.first_name, self.last_name)
         else:
             return "{0}".format(self.username)
-            
+
+    def get_article_reads(self):
+        return [read for read in self.article_reads.all()]
 
 class UserProfile(models.Model):
     """
@@ -54,7 +58,7 @@ class UserProfile(models.Model):
     birth_date = models.DateField('Birth Date', default='1900-01-01', blank=True, null=True)
     user_type = models.PositiveSmallIntegerField(choices=user_type_choices, null=False, help_text="Admin(1)/Moderator(2)/Normal(3)")
     gender = models.CharField(choices=GENDER_CHOICES, blank=True, default='notspecified', max_length=15)
-    article_reads = models.ManyToManyField(Article, related_name="user_reads", blank=True) # fix the issue of not getting number
+     # fix the issue of not getting number
     about_me = models.TextField(blank=True, max_length=1000)
     short_intro = models.CharField(blank=True, max_length=100)
     is_active = models.BooleanField(default=True)

@@ -35,7 +35,7 @@ class Article(TimeStampedModel):
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
     slug = AutoSlugField(unique=True,populate_from='article_title')
     tags = TaggableManager()
-
+    
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")
