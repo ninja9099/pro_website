@@ -111,7 +111,7 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    catagory_id = models.ForeignKey('Category', on_delete=models.CASCADE)
+    catagory_id = models.ForeignKey('Category', related_name='sub_categories', on_delete=models.CASCADE)
     category_name = models.CharField(max_length=255)
 
     def __str__(self):

@@ -1,5 +1,5 @@
 
-from blog import Article, ArticleRating, ArticleFollowings
+from blog import Article, ArticleRating, ArticleFollowings, Category, SubCategory
 from tastypie import fields
 # from django.contrib.auth.models import User
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
@@ -78,7 +78,6 @@ class ArticleFollowingResource(ModelResource):
     class Meta:
         queryset = ArticleFollowings.objects.all()
         resource_name = 'following'
-        fields = ["__all__"]
 
 
 
@@ -89,6 +88,21 @@ class ArticleRatingResource(ModelResource):
     class Meta:
         resource_name = 'rating'
         queryset = ArticleRating.objects.all()
-        fields = [
-            "__all__"
-        ]
+        
+
+
+class CategoryResource(ModelResource):
+    sub_categories = fields.ToManyField('blog.api.SubCategoryResource', 'sub_categories', related_name='sub_categories', full=True)
+    class Meta:
+        queryset = Category.objects.all()
+        resource_name = 'category'
+       
+
+
+class SubCategoryResource(ModelResource):
+    subcategory = fields.ToOneField(CategoryResource, 'catagory_id')
+    class Meta:
+        queryset = SubCategory.objects.all()
+        resource_name = 'subcategory'
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'post', 'put', 'delete']
