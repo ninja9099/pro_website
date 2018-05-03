@@ -25,7 +25,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['67.205.159.112', 'lifeinabits.com', '127.0.0.1']
 LOGIN_URL = '/login/'
-
+AUTH_USER_MODEL = 'user_profile.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -107,7 +107,7 @@ NOTIFICATIONS_USE_JSONFIELD = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lifeinabits',
+        'NAME': 'lifeinabits2',
         'USER': 'pankaj',
         'PASSWORD': 'pankaj',
         'HOST': 'localhost',

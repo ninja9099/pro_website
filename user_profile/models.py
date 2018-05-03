@@ -6,6 +6,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from blog.blog import Article
+from django.contrib.auth.models import AbstractUser
+
 
 PROFILE_PIC_PATH = settings.IMAGE_PATH + 'profile_images/'
 cover_photo = 'static/src/images/user_profile/cover/'
@@ -13,6 +15,13 @@ cover_photo = 'static/src/images/user_profile/cover/'
 user_type_choices = [(1, 'Admin'), (2, 'Moderator'), (3, 'Normal')]
 default_image = settings.DEFAULT_USER_IMAGE
 
+
+class User(AbstractUser):
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    profile_picture = models.ImageField(upload_to=PROFILE_PIC_PATH, default=default_image,blank=True)
+    
 
 class UserProfile(models.Model):
     """
@@ -25,7 +34,6 @@ class UserProfile(models.Model):
         ('female', 'Female'),
         ('notspecified', "Don't Specify")]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     profile_picture = models.ImageField(upload_to=PROFILE_PIC_PATH, default=default_image,blank=True)
     birth_date = models.DateField('Birth Date', default='1900-01-01', blank=True, null=True)
     user_type = models.PositiveSmallIntegerField(choices=user_type_choices, null=False, help_text="Admin(1)/Moderator(2)/Normal(3)")

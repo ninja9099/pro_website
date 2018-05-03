@@ -9,6 +9,7 @@ from .blog import (Article,
     ArticleRating,
     ArticleFollowings)
 from django_summernote.admin import SummernoteModelAdmin
+from django import forms
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -17,6 +18,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class SubCategoryAdmin(admin.ModelAdmin):
     list_display = ['category_name', 'catagory_id']
+
+
 
 
 class ArticleAdmin(SummernoteModelAdmin):
@@ -41,8 +44,21 @@ class ArticleLikesAdmin(admin.ModelAdmin):
     list_filter = ['user_id']
 
 
-class ArticleRatingAdmin(admin.ModelAdmin):
+class ArticleRatingForm(forms.ModelForm):
+    class Meta:
+        model = ArticleRating
+        fields = ("__all__")
     
+    def clean(self):
+        article_rating = self.cleaned_data.get('article_ratings')
+       
+        if article_rating > 5 or article_rating < 0:
+            raise forms.ValidationError("Rating is 0 To 5 only ")
+        return self.cleaned_data
+
+
+class ArticleRatingAdmin(admin.ModelAdmin):
+    form = ArticleRatingForm
     list_display = [
         'user',
         'article',

@@ -1,11 +1,11 @@
 
 from blog import Article, ArticleRating, ArticleFollowings
 from tastypie import fields
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
-
+from user_profile.models import User
 
 from tastypie.fields import ListField
 from taggit.models import Tag, TaggedItem
@@ -35,8 +35,6 @@ class ArticleResource(ModelResource):
     author = fields.ToOneField(UserResource, 'article_author', full=True)
     # followings = fields.ToManyField(
     #     'blog.api.ArticleFollowingResource', 'followings', related_name='followings', full=True, null=True, blank=True)
-    ratings = fields.ToManyField(
-        'blog.api.ArticleRatingResource', 'rating', related_name='rating', full=True, null=True, blank=True)
     article_tags = fields.ToManyField('blog.api.TaggedResource', 'tags',  full=True)
     article_image = fields.CharField(
         attribute='get_article_image', readonly=True, null=True, blank=True)

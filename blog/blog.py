@@ -5,13 +5,14 @@ import markdown
 from django.db import models
 from django.db.models import Count
 from model_utils.models import TimeStampedModel
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from autoslug import AutoSlugField
+from django.core.validators import MaxValueValidator, MinValueValidator
 
-
+User = settings.AUTH_USER_MODEL
 ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
 
 
@@ -37,7 +38,8 @@ class Article(TimeStampedModel):
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")
-        ordering = ('created',)   
+        ordering = ('created',)
+
 
     def __str__(self):
         return self.article_title
