@@ -2,7 +2,7 @@
 from django import forms
 from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User
-from .models import UserProfile
+
 from django.contrib.admin import widgets
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -44,26 +44,7 @@ class SignUpForm(UserCreationForm):
         return email
 
 
-class UserProfileForm(forms.ModelForm):
 
-    birth_date = forms.DateField(widget=forms.SelectDateWidget(years=years))
-    profile_picture = forms.ImageField(widget=ProfilePicWidget(attrs={'width':50, 'height':50}))
-
-    class Meta:
-        model=UserProfile
-        fields = [
-            'profile_picture',
-            'birth_date',
-            'gender',
-            'about_me',
-            'short_intro',
-        ]
-        widgets = {
-            'about_me': Textarea(attrs={'cols': 20, 'rows': 2, 'class':'form-control'}),
-            'short_intro': Textarea(attrs={'cols': 20, 'rows': 1, 'class': 'form-control'}),
-
-        }
-    pass
 
 
 

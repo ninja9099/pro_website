@@ -25,14 +25,13 @@ class SubCategoryAdmin(admin.ModelAdmin):
 class ArticleAdmin(SummernoteModelAdmin):
     list_display = ['article_title',
                     'slug',
-                    'article_author',
                     'article_image',
                     'article_category',
                     'article_subcategory',
                     'created',
                     'modified',
                     ]
-    list_filter = ['article_author', 'article_subcategory']
+    list_filter = ['article_subcategory']
     summer_note_fields = ('article_content',)
 
 

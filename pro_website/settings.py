@@ -107,7 +107,7 @@ NOTIFICATIONS_USE_JSONFIELD = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lifeinabits2',
+        'NAME': 'lifeinabits',
         'USER': 'pankaj',
         'PASSWORD': 'pankaj',
         'HOST': 'localhost',

@@ -1,3 +1,3 @@
 *.pyc
 .idea/*
-migrations/*
+v_pro/*

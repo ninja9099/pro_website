@@ -16,55 +16,56 @@ from django.urls import reverse
 from .forms import LoginForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from . models import UserProfile
-from user_profile.forms import UserProfileForm, SignUpForm
+
+from user_profile.forms import SignUpForm
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 
 def user_details(strategy, details, response, user=None, *args, **kwargs):
-    if user:
-        if kwargs['is_new']:
-            if kwargs.get('backend').__class__.__name__ == 'GoogleOAuth2':
-                profile = UserProfile.objects.create(
-                    user=user,
-                    gender = response.get('gender'),
-                    user_type=3,
-                    )
-                img_url = response.get('image').get('url')
-                img_name = urlparse(img_url).path.split('/')[-1]
-                img_temp = NamedTemporaryFile(delete=True)
-                img_temp.write(urllib2.urlopen(img_url).read())
-                profile.profile_picture.save(img_name, File(img_temp))
-                img_temp.flush()
-                return True
+    # if user:
+    #     if kwargs['is_new']:
+    #         if kwargs.get('backend').__class__.__name__ == 'GoogleOAuth2':
+    #             profile = UserProfile.objects.create(
+    #                 user=user,
+    #                 gender = response.get('gender'),
+    #                 user_type=3,
+    #                 )
+    #             img_url = response.get('image').get('url')
+    #             img_name = urlparse(img_url).path.split('/')[-1]
+    #             img_temp = NamedTemporaryFile(delete=True)
+    #             img_temp.write(urllib2.urlopen(img_url).read())
+    #             profile.profile_picture.save(img_name, File(img_temp))
+    #             img_temp.flush()
+    #             return True
 
-            if kwargs.get('backend').__class__.__name__ == "FacebookOAuth2":
-                profile = UserProfile.objects.create(
-                    user=user,
-                    gender = response.get('gender'),
-                    user_type=3,
-                    )
-                img_url = response.get('picture').get('data').get('url')
-                img_name = urlparse(img_url).path.split('/')[-1]
-                img_temp = NamedTemporaryFile(delete=True)
-                img_temp.write(urllib2.urlopen(img_url).read())
-                profile.profile_picture.save(img_name, File(img_temp))
-                img_temp.flush()
-                return True
+    #         if kwargs.get('backend').__class__.__name__ == "FacebookOAuth2":
+    #             profile = UserProfile.objects.create(
+    #                 user=user,
+    #                 gender = response.get('gender'),
+    #                 user_type=3,
+    #                 )
+    #             img_url = response.get('picture').get('data').get('url')
+    #             img_name = urlparse(img_url).path.split('/')[-1]
+    #             img_temp = NamedTemporaryFile(delete=True)
+    #             img_temp.write(urllib2.urlopen(img_url).read())
+    #             profile.profile_picture.save(img_name, File(img_temp))
+    #             img_temp.flush()
+    #             return True
 
-            if kwargs.get('backend').__class__.__name__  == 'TwitterOAuth':
-                profile = UserProfile.objects.create(
-                    user=user,
-                    user_type=3,
-                    )
-                img_url = response.get('profile_image_url')
-                img_name = urlparse(img_url).path.split('/')[-1]
-                img_temp = NamedTemporaryFile(delete=True)
-                img_temp.write(urllib2.urlopen(img_url).read())
-                profile.profile_picture.save(img_name, File(img_temp))
-                img_temp.flush()
-                return True
+    #         if kwargs.get('backend').__class__.__name__  == 'TwitterOAuth':
+    #             profile = UserProfile.objects.create(
+    #                 user=user,
+    #                 user_type=3,
+    #                 )
+    #             img_url = response.get('profile_image_url')
+    #             img_name = urlparse(img_url).path.split('/')[-1]
+    #             img_temp = NamedTemporaryFile(delete=True)
+    #             img_temp.write(urllib2.urlopen(img_url).read())
+    #             profile.profile_picture.save(img_name, File(img_temp))
+    #             img_temp.flush()
+    #             return True
+    pass
 
 
 def _login_ajax(request,username, password, remember):
@@ -156,7 +157,7 @@ def edit_profile(request, profile_id):
             return render(request, 'registration/profile.html', {"articles_written":request.user.article_written.all().count,"article_reads":article_reads })
         else:
             try:
-                profile = UserProfile.objects.get(user__id=profile_id)
+                profile = User.objects.get(user__id=profile_id)
             except:
                 raise Http404
             if request.user == profile.user:
@@ -174,14 +175,14 @@ def edit_profile(request, profile_id):
             return render(request, "userprofile_update_form.html", {'form': user_profile})
 
 
-@receiver(post_save, sender=User)
-def create_profile(sender, **kwargs):
-    if kwargs.get('created'):
-        user_profile =UserProfile(user=kwargs.get('instance'), user_type=3)
-        user_profile.save()
-        return True
-    else:
-        return HttpResponse("Something went wrong please try again later")
+# @receiver(post_save, sender=User)
+# def create_profile(sender, **kwargs):
+#     if kwargs.get('created'):
+#         user_profile =UserProfile(user=kwargs.get('instance'), user_type=3)
+#         user_profile.save()
+#         return True
+#     else:
+#         return HttpResponse("Something went wrong please try again later")
 
 
 def social_auth(request):

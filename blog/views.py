@@ -127,7 +127,7 @@ def article_view(request, pk):
     related_articles = Article.get_published().filter(article_subcategory=article.article_subcategory).exclude(
         id=article.id)[:5]
     if request.user.is_authenticated:
-        request.user.userprofile.article_reads.add(article);
+        request.user.article_reads.add(article);
     return render(request, 'article.html', {
         'popular_tags': popular_tags,
         'article': article,
