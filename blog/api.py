@@ -23,7 +23,7 @@ class UserResource(ModelResource):
     comments = ListField(attribute='get_all_comments', readonly=True)
     full_name = fields.CharField(attribute="get_full_name", readonly=True)
     article_reads = ListField(attribute='get_article_reads', readonly=True)
-
+    profile_picture = fields.CharField(attribute='get_profile_image', readonly=True)
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'

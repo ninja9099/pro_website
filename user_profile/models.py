@@ -15,7 +15,6 @@ cover_photo = 'static/src/images/user_profile/cover/'
 user_type_choices = [(1, 'Admin'), (2, 'Moderator'), (3, 'Normal')]
 default_image = settings.DEFAULT_USER_IMAGE
 
-
 class User(AbstractUser):
 
     bio = models.TextField(max_length=500, blank=True)
@@ -44,13 +43,12 @@ class User(AbstractUser):
         return [read for read in self.article_reads.all()]
 
 
-    @property
     def get_profile_image(self):
         """
         get profile image for the user and if not found returns  the 
         default images
         """
         try:
-            return self.profile_picture.url
+            return self.profile_picture
         except AttributeError:
             return settings.DEFAULT_USER_IMAGE
