@@ -1,3 +1,4 @@
 *.pyc
 .idea/*
 v_pro/*
+.vscode/
