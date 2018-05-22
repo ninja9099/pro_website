@@ -1,0 +1,9 @@
+.navigation-full{box-shadow: 0px 1px 1px 0px #d8d8d8; width: 100% !important;}
+.nav-fix{overflow: hidden;position: fixed; top: 0;left: 0;right: 0;background: #fff;z-index: 9;width: 100%;}
+.navbar{margin: 20px 20px;}
+.navbar-brand{border: 2px solid #464646;font-size: 24px; padding: 0!important; position: relative; line-height: 1.9 !important;}
+.navbar-brand span.left{padding: 10px; padding: 9px 12px; background: #464646; color: #fff;}
+.navbar-brand span.right{padding: 10px; padding: 9px 12px; color: #464646 !important; letter-spacing: 3px;}
+.navbar-nav > li {display: inline-block; position: relative; padding: 10px 60px 15px 0;}
+.navbar-nav > li > a{ text-transform: capitalize; padding: 0; font-size: 16px; color: #1C2220; line-height: 1.278;text-decoration: none; font-weight: 400;}
+.navbar-nav > li:hover a{border-top: 2px solid #1C2220; top: -2px; background-color: #fff;}
