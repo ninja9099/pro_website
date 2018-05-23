@@ -10,6 +10,9 @@ import { ArticleComponent } from './article/article.component';
 import { AuthorProfileComponent } from './author-profile/author-profile.component';
 import { BlogWritterComponent } from './blog-writter/blog-writter.component';
 import { CommentComponent } from './shared/comment/comment.component';
+import { AppRoutingModule } from './/app-routing.module';
+import { HomepageComponent } from './homepage/homepage.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -21,10 +24,13 @@ import { CommentComponent } from './shared/comment/comment.component';
     ArticleComponent,
     AuthorProfileComponent,
     BlogWritterComponent,
-    CommentComponent
+    CommentComponent,
+    HomepageComponent,
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
