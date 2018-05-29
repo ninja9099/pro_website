@@ -9,7 +9,7 @@ export class ArticleComponent implements OnInit {
   constructor(private _route: ActivatedRoute) { }
 
   ngOnInit() {
-    let id = +this._route.snapshot.paramMap.get('id');
+    const id = +this._route.snapshot.paramMap.get('id');
   }
 
 }
