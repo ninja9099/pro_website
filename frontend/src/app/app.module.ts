@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ArticleModule } from './article/article.module';
 import { RouterModule } from '@angular/router';
+import { GetArticlesService } from './article/get-articles.service';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { RouterModule } from '@angular/router';
       { path: '', component: HomepageComponent },
       { path: '**', component: PageNotFoundComponent }, ])
   ],
-  providers: [],
+  providers: [GetArticlesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
