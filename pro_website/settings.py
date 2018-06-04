@@ -48,12 +48,14 @@ INSTALLED_APPS = [
     'taggit',
     'django_summernote',
     'autoslug',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'tracking.middleware.VisitorTrackingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -252,3 +254,11 @@ EMAIL_HOST_USER = 'kamanipankaj9099@gmail.com'
 EMAIL_HOST_PASSWORD = 'mitalghadiya'
 
 SUMMERNOTE_CONFIG = { 'width': '100%',  'height': '480',}
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+    'google.com',
+    'hostname.example.com',
+    'localhost:8000',
+    '127.0.0.1:9000'
+)

@@ -15,7 +15,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ArticleModule } from './article/article.module';
 import { RouterModule } from '@angular/router';
 import { GetArticlesService } from './article/get-articles.service';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,7 @@ import { GetArticlesService } from './article/get-articles.service';
     BrowserModule,
     AngularFontAwesomeModule,
     ArticleModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: HomepageComponent },
       { path: '**', component: PageNotFoundComponent }, ])
