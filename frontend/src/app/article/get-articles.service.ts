@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 
 const httpOptions = {
@@ -11,11 +12,12 @@ const httpOptions = {
 
 @Injectable()
 export class GetArticlesService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _route: ActivatedRoute) {
    }
   articleUrl = 'http://127.0.0.1:8000/api/v1/article/';
-
-  getArticles() {
-    return this.http.get(this.articleUrl);
+  getArticle(id) {
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    return this.http.get(this.articleUrl + id);
   }
 }

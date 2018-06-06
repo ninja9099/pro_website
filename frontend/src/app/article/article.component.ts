@@ -11,8 +11,8 @@ export class ArticleComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _ArticleService: GetArticlesService) { }
   ngOnInit() {
     const id = +this._route.snapshot.paramMap.get('id');
-    console.log(id);
-    this._ArticleService.getArticles().subscribe(
+
+    this._ArticleService.getArticle(id).subscribe(
       data => {this.articles = data;
         console.log(this.articles);
       },
