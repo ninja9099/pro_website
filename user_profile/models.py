@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 import os
 from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
 from blog.blog import Article
 from django.contrib.auth.models import AbstractUser
@@ -21,8 +20,7 @@ class User(AbstractUser):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to=PROFILE_PIC_PATH, default=default_image,blank=True)
-    article_reads = models.ManyToManyField(
-        Article, related_name="user_reads", blank=True)
+    article_reads = models.ManyToManyField(Article, related_name="user_reads", blank=True)
     
     class Meta:
         verbose_name = 'User'

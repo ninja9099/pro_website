@@ -10,6 +10,14 @@ from user_profile.models import User
 from tastypie.fields import ListField
 from taggit.models import Tag, TaggedItem
 
+class HomePageResources(ModelResource):
+    pass
+
+
+
+
+
+
 class TaggedResource(ModelResource):
     tags = ListField()
 
