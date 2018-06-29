@@ -22,6 +22,8 @@ from django.db.models import ObjectDoesNotExist
 
 
 def index(request):
+    import pdb
+    pdb.set_trace()
     context = core.create_context(request)
     try:
         fresh = context.get('article_set').latest('created')

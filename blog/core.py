@@ -9,7 +9,7 @@ from django.db.models import Count, F
 
 def create_context(request):
     context = RequestContext(request)
-    article_set = Article.get_published().order_by('-article_views', '-created').annotate(likes=Count('articlelikes'))
+    article_set = Article.get_published().order_by('-created').annotate(likes=Count('articlelikes'))
     categories = Category.objects.annotate(articles=Count('article')).order_by('-articles')
     context.push({
         'categories': categories,

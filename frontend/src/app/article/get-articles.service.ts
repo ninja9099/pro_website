@@ -16,8 +16,9 @@ export class GetArticlesService {
    }
   articleUrl = 'http://127.0.0.1:8000/api/v1/article/';
   getArticle(id) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     return this.http.get(this.articleUrl + id);
+  }
+  getArticles(range , limit) {
+    return this.http.get(this.articleUrl);
   }
 }
