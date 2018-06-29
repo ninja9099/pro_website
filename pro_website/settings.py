@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'autoslug',
     'corsheaders',
+    'my_self',
 ]
 
 MIDDLEWARE = [

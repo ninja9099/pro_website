@@ -2,19 +2,69 @@
 from blog import Article, ArticleRating, ArticleFollowings, Category, SubCategory
 from tastypie import fields
 # from django.contrib.auth.models import User
-from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
+from tastypie.resources import ModelResource, Resource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
 from user_profile.models import User
 
 from tastypie.fields import ListField
 from taggit.models import Tag, TaggedItem
+from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
+
+
+class MySelfResource(ModelResource):
+    class Meta:
+        queryset = MySelf.objects.all()
+        resource_name = 'myself'
+        excludes = []
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        authorization = DjangoAuthorization()
+
+
+class MyWorkfResource(ModelResource):
+    class Meta:
+        queryset = MyWork.objects.all()
+        resource_name = 'mywork'
+        excludes = []
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        authorization = DjangoAuthorization()
+
+
+class ServicesResource(ModelResource):
+    class Meta:
+        queryset = Services.objects.all()
+        resource_name = 'services'
+        excludes = []
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        authorization = DjangoAuthorization()
+
+
+class TeamResource(ModelResource):
+    class Meta:
+        queryset = Team.objects.all()
+        resource_name = 'team'
+        excludes = []
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        authorization = DjangoAuthorization()
 
 class HomePageResources(ModelResource):
-    pass
-
-
-
+   
+    mywork = fields.ToManyField(
+        'MyWorkfResource', 'mywork', full=True)
+    services = fields.ToManyField(
+        'ServicesResource', 'services', full=True)
+    team = fields.ToManyField('TeamResource',
+                              'article_written', full=True)
+    
+    class Meta:
+        queryset = MySelf.objects.all()
+        resource_name = 'homepageresource'
+        allowed_methods = ['get']
+        authorization = DjangoAuthorization()
 
 
 
@@ -26,8 +76,7 @@ class TaggedResource(ModelResource):
 
 class UserResource(ModelResource):
     
-    articles_authored = fields.ToManyField(
-        'blog.api.ArticleResource', 'article_written', related_name='article_written')
+    articles_authored = fields.ToManyField('blog.api.ArticleResource', 'article_written', related_name='article_written')
     comments = ListField(attribute='get_all_comments', readonly=True)
     full_name = fields.CharField(attribute="get_full_name", readonly=True)
     article_reads = ListField(attribute='get_article_reads', readonly=True)

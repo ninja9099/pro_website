@@ -11,8 +11,7 @@ class MySelf(models.Model):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to="", default=default_image, blank=True)
-    article_reads = models.ManyToManyField(Article, related_name="user_reads", blank=True)
-    article_authored = models.ManyToManyField(Article, related_name='article_authored',blank=True)
+    authored = models.ManyToManyField(Article, blank=True)
     why_hire = models.CharField(max_length=30, blank=True)
 
 class MyWork(models.Model):
