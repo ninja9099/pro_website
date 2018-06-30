@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django_user_agents',
     'notifications',
     'taggit',
-    'django_summernote',
     'autoslug',
     'corsheaders',
     'my_self',

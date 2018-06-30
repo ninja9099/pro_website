@@ -8,7 +8,7 @@ from .blog import (Article,
     ArticleLikes,
     ArticleRating,
     ArticleFollowings)
-from django_summernote.admin import SummernoteModelAdmin
+
 from django import forms
 
 
@@ -22,7 +22,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 
 
-class ArticleAdmin(SummernoteModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
     list_display = ['article_title',
                     'slug',
                     'article_image',
@@ -32,7 +32,6 @@ class ArticleAdmin(SummernoteModelAdmin):
                     'modified',
                     ]
     list_filter = ['article_subcategory']
-    summer_note_fields = ('article_content',)
 
 
 class ArticleLikesAdmin(admin.ModelAdmin):

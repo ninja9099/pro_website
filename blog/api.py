@@ -53,20 +53,18 @@ class TeamResource(ModelResource):
 
 class HomePageResources(ModelResource):
    
-    mywork = fields.ToManyField(
-        'MyWorkfResource', 'mywork', full=True)
-    services = fields.ToManyField(
-        'ServicesResource', 'services', full=True)
-    team = fields.ToManyField('TeamResource',
-                              'article_written', full=True)
-    
+    mywork = fields.ToManyField('MyWorkfResource', 'mywork',null=True, blank=True)
+    services = fields.ToManyField('ServicesResource', 'services',null=True, blank=True)
+    team = fields.ToManyField('TeamResource','article_written', null=True, blank=True)
+    carousel_images = fields.ListField(null=True, blank=True)
     class Meta:
         queryset = MySelf.objects.all()
         resource_name = 'homepageresource'
         allowed_methods = ['get']
         authorization = DjangoAuthorization()
 
-
+    def dehydrate_carousel_images(self, bundle):
+        return list(CarouselImages.objects.all().values_list('carousel_image_url', flat=True))
 
 class TaggedResource(ModelResource):
     tags = ListField()

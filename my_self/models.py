@@ -3,10 +3,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 from blog.blog import Article
+from user_profile.models import User
 # Create your models here.
 
 default_image = "/default.png"
 class MySelf(models.Model):
+    user = models.OneToOneField(User,  related_name='related_user', on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
