@@ -1,7 +1,7 @@
 
 from blog import Article, ArticleRating, ArticleFollowings, Category, SubCategory
 from tastypie import fields
-# from django.contrib.auth.models import User
+
 from tastypie.resources import ModelResource, Resource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
@@ -57,7 +57,7 @@ class HomePageResources(ModelResource):
    
     mywork = fields.ToManyField('MyWorkfResource', 'mywork',null=True, blank=True)
     services = fields.ToManyField('ServicesResource', 'services',null=True, blank=True)
-    team = fields.ListField(null=True, blank=True)
+    # team = fields.ForeignKey('TeamResource', 'team',null=True, blank=True)
     carousel_images = fields.ListField(null=True, blank=True)
 
     class Meta:
@@ -69,8 +69,6 @@ class HomePageResources(ModelResource):
     def dehydrate_carousel_images(self, bundle):
         return list(CarouselImages.objects.all().values_list('carousel_image_url', flat=True))
 
-    def dehydrate_team(self,bundle):
-        return list(Team.objects.all().values_list('dev_name','dev_image','dev_exp'))
 
 class TaggedResource(ModelResource):
     tags = ListField()
@@ -97,7 +95,7 @@ class UserResource(ModelResource):
 
 class ArticleResource(ModelResource):
     
-    author = fields.ToOneField(UserResource, 'article_author', full=True)
+    author = fields.ForeignKey(UserResource, 'article_author', full=True)
     article_tags = fields.ToManyField('blog.api.TaggedResource', 'tags',  full=True)
     article_image = fields.CharField(
         attribute='get_article_image', readonly=True, null=True, blank=True)
