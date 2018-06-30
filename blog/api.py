@@ -12,6 +12,8 @@ from taggit.models import Tag, TaggedItem
 from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
 
 
+
+
 class MySelfResource(ModelResource):
     class Meta:
         queryset = MySelf.objects.all()
@@ -55,8 +57,9 @@ class HomePageResources(ModelResource):
    
     mywork = fields.ToManyField('MyWorkfResource', 'mywork',null=True, blank=True)
     services = fields.ToManyField('ServicesResource', 'services',null=True, blank=True)
-    team = fields.ToManyField('TeamResource','article_written', null=True, blank=True)
+    team = fields.ListField(null=True, blank=True)
     carousel_images = fields.ListField(null=True, blank=True)
+
     class Meta:
         queryset = MySelf.objects.all()
         resource_name = 'homepageresource'
@@ -65,6 +68,9 @@ class HomePageResources(ModelResource):
 
     def dehydrate_carousel_images(self, bundle):
         return list(CarouselImages.objects.all().values_list('carousel_image_url', flat=True))
+
+    def dehydrate_team(self,bundle):
+        return list(Team.objects.all().values_list('dev_name','dev_image','dev_exp'))
 
 class TaggedResource(ModelResource):
     tags = ListField()

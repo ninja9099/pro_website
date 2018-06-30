@@ -7,6 +7,7 @@ from user_profile.models import User
 # Create your models here.
 
 default_image = "/default.png"
+
 class MySelf(models.Model):
     user = models.OneToOneField(User,  related_name='related_user', on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
@@ -30,7 +31,11 @@ class Services(models.Model):
     carousel_image_url = models.ImageField(upload_to="", default=default_image, blank=True)
     service_description = models.CharField(max_length=500)
 
-class Team(models.Model):
+class Team(User):
+    class Meta:
+        app_label = 'my_self'
+        verbose_name = 'Team'
+        verbose_name_plural = 'Teams'
     dev_name = models.CharField(max_length=255)
     dev_image = models.ImageField(upload_to="", default=default_image, blank=True)
     dev_exp = models.CharField(max_length=255, blank=True)
