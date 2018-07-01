@@ -137,7 +137,11 @@ class ArticleFollowingResource(ModelResource):
     class Meta:
         queryset = ArticleFollowings.objects.all()
         resource_name = 'following'
-
+        filtering = {
+            'article': ALL,
+            'user': ALL,
+            'created': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
+        }
 
 
 class ArticleRatingResource(ModelResource):

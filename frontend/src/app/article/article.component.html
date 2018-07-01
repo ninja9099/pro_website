@@ -8,41 +8,9 @@
         <img src="assets/business.jpg" class="article-image">
       </header>
       <div class="article-content">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a enim vel nulla vehicula vehicula. Cras egestas, leo eu
-          fermentum blandit, leo libero vulputate velit, feugiat elementum ex arcu vestibulum turpis. Maecenas ut arcu at
-          nulla rutrum ullamcorper. Maecenas eu erat nec elit efficitur iaculis in non est. Sed quis euismod augue. Donec
-          quis facilisis nibh, vel condimentum est. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Suspendisse tincidunt sagittis lacinia. Vestibulum sed pretium felis. Aenean tempor mattis aliquet.
-          Donec quis tristique sem. Vestibulum ultricies rutrum ligula molestie gravida. Cras mollis neque sit amet gravida
-          pretium.
-          <br>
-          <br>
-          <br> Nam at justo vel ligula laoreet lobortis ac nec sapien. Ut sit amet augue mi. Aenean non dignissim nibh. Cras
-          congue risus eu augue dapibus, non sagittis magna efficitur. Mauris interdum tortor dui, eu rutrum magna tristique
-          sit amet. In mollis, turpis a eleifend fermentum, lacus massa sollicitudin eros, sed tempor arcu nulla eget nisi.
-          Mauris in aliquam ligula. Quisque tristique quam non diam fringilla ultrices. Orci varius natoque penatibus et
-          magnis dis parturient montes, nascetur ridiculus mus. Cras sollicitudin, nulla ac laoreet tempus, nisl nunc egestas
-          sem, sed pulvinar ex sapien sit amet sem. Nulla quis nulla diam. Phasellus vitae ornare ligula. Ut varius dapibus
-          libero sit amet rutrum.
-          <br>
-          <br>
-          <br> Nulla facilisi. Curabitur condimentum tortor vitae sapien dictum vehicula. Sed ultricies, odio in sollicitudin
-          lobortis, ligula sapien mollis sapien, et consequat nisi libero ut diam. Proin condimentum risus vel dolor elementum
-          congue. Etiam rutrum, justo vitae tempor consequat, magna metus mollis dui, vitae mattis risus leo a tortor. Nulla
-          vehicula nunc a facilisis luctus. Mauris imperdiet, justo at iaculis commodo, elit diam maximus odio, sit amet
-          elementum eros quam vehicula nulla. Maecenas interdum, massa id feugiat fringilla, massa magna vehicula lacus,
-          quis posuere eros orci quis mauris. Aenean neque urna, egestas sit amet enim sed, posuere egestas risus. Aenean
-          nisl orci, maximus sit amet maximus quis, ullamcorper vitae arcu. Quisque sed nisi diam. Duis vitae enim vulputate,
-          iaculis velit quis, lobortis neque. Donec maximus rhoncus diam, non egestas magna elementum at. Proin vulputate
-          est lacus, eu consequat urna aliquam sit amet. Nunc malesuada lacinia justo, vitae hendrerit est fermentum eu.
-          <br>
-          <br> , in sodales ante. Nulla ut massa mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum
-          tortor in odio accumsan consectetur. Morbi eu ornare augue. Duis sit amet nulla convallis, vestibulum felis et,
-          porta leo.
-        </p>
+         {{article.article_content}}
       </div>
-
+       <p *ngFor="let  tag of article.article_tags">{{tag.name}}{{tag.title}}</p>
       <!-- <h3 class="author-heading barlow">Author</h3> -->
       <div class="author">
         <div class="author-wrapper">
@@ -243,4 +211,26 @@
       <div class="box" style="width: 100%; height: 200px;"></div>
     </div>
   </div>
+</div>
+<h1>
+  My Contacts
+</h1>
+<div>
+  <table style="width:100%">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Address</th>
+    </tr>
+    <tr>
+      <td> {{ article.article_content }} </td>
+      <td> {{ article.article_title }} </td>
+      <td> {{ article.follow_list }} </td>
+      <td> {{ article.likes }} </td>
+      <td> {{ article.slug }} </td>
+    </tr>
+  </table>
+
 </div>
