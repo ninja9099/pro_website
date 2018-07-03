@@ -9,23 +9,19 @@ import { ApiService } from '../api.service';
 export class ArticleComponent implements OnInit {
   private article: Array<object> = [];
   private article_followings: any[];
+  private article_author: any[];
+
   constructor(private _route: ActivatedRoute, private _ApiService: ApiService) { }
   ngOnInit() {
     const id = +this._route.snapshot.paramMap.get('id');
     this.getArticle(id);
-    this.getFollowings(id);
   }
 
   public getArticle(article_id) {
     this._ApiService.getArticle(article_id).subscribe((data: Array<object>) => {
       this.article = data;
+      this.article_author = data.author;
       console.log(this.article);
-    });
-  }
-  public getFollowings(article_id) {
-    this._ApiService.getArticleFollowings(article_id).subscribe((data: Array<object>) => {
-      this.article_followings = data;
-      console.log(this.article_followings);
     });
   }
 }

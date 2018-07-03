@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import os
+
 from django.db import models
 from django.conf import settings
 from blog.blog import Article
@@ -29,7 +29,6 @@ class User(AbstractUser):
     @cached_property
     def get_all_comments(self):
         return list([item for item in self.comment_comments.all()])
-    
 
     def get_full_name(self):
         if self.first_name:

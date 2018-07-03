@@ -67,6 +67,10 @@ class Article(TimeStampedModel):
         articles = cls.objects.filter(article_state='published')
         return articles
 
+    @cached_property
+    def get_all_comments(self):
+        return list([item for item in self.comment_comments.all()])
+    
     @staticmethod
     def get_counted_tags():
         tag_dict = {}

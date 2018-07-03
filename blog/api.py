@@ -102,7 +102,7 @@ class ArticleResource(ModelResource):
     follow_list = fields.ListField(null=True, blank=True)
     total_rating = fields.FloatField()
     likes = ListField(attribute='get_likes', readonly=True)
-    comments = ListField()
+    comments = fields.ListField(attribute='get_all_comments',readonly=True, blank=True, null=True)
     total_reads = fields.IntegerField()
 
     class Meta:
