@@ -15,7 +15,7 @@
       <div class="author">
         <div class="author-wrapper">
           <div class="author-image">
-            <img src="/media/images/profile_images/default_user.png" />
+            <!-- <img [src]=article_author.profile_picture/> -->
           </div>
           <div class="author-description">
             <h1>{{article_author.full_name}}</h1>
@@ -211,26 +211,4 @@
       <div class="box" style="width: 100%; height: 200px;"></div>
     </div>
   </div>
-</div>
-<h1>
-  My Contacts
-</h1>
-<div>
-  <table style="width:100%">
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Phone</th>
-      <th>Email</th>
-      <th>Address</th>
-    </tr>
-    <tr>
-      <td> {{ article.article_content }} </td>
-      <td> {{ article.article_title }} </td>
-      <td> {{ article.follow_list }} </td>
-      <td> {{ article.likes }} </td>
-      <td> {{ article.slug }} </td>
-    </tr>
-  </table>
-
 </div>

@@ -10,6 +10,7 @@ export class ArticleComponent implements OnInit {
   private article: Array<object> = [];
   private article_followings: any[];
   private article_author: any[];
+  private artilce_list: any[];
 
   constructor(private _route: ActivatedRoute, private _ApiService: ApiService) { }
   ngOnInit() {
@@ -20,7 +21,6 @@ export class ArticleComponent implements OnInit {
   public getArticle(article_id) {
     this._ApiService.getArticle(article_id).subscribe((data: Array<object>) => {
       this.article = data;
-      this.article_author = data.author;
       console.log(this.article);
     });
   }
