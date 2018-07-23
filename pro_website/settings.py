@@ -23,7 +23,7 @@ SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['67.205.159.112', 'lifeinabits.com', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 LOGIN_URL = '/login/'
 AUTH_USER_MODEL = 'user_profile.User'
 # Application definition
@@ -109,7 +109,7 @@ NOTIFICATIONS_USE_JSONFIELD = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'axis',
+        'NAME': 'test1',
         'USER': 'lifeinabits',
         'PASSWORD': 'life@bits',
         'HOST': 'localhost',

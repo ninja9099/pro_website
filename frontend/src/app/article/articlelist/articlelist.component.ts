@@ -9,6 +9,7 @@ import { ApiService } from '../../api.service';
 })
 export class ArticleListComponent implements OnInit {
   private artilce_list: any[];
+  private data:any[];
 
   constructor(private _route: ActivatedRoute, private _ApiService: ApiService) { }
   ngOnInit() {
@@ -16,7 +17,9 @@ export class ArticleListComponent implements OnInit {
   }
   public get_article_list(range, limit) {
     this._ApiService.getArticles(null, limit).subscribe((data: Array<object>) => {
-      this.artilce_list = data.objects;
+      // tslint:disable-next-line:no-debugger
+      debugger;
+      this.artilce_list = data['objects'];
       console.log(data);
     });
   }
