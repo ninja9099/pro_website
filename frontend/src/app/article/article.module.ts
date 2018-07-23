@@ -4,7 +4,7 @@ import { ArticleComponent } from './article.component';
 import { RouterModule } from '@angular/router';
 import { BlogWritterComponent } from './blog-writter/blog-writter.component';
 import { ArticleListComponent } from './articlelist/articlelist.component';
-
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   imports: [
@@ -12,7 +12,8 @@ import { ArticleListComponent } from './articlelist/articlelist.component';
     RouterModule.forChild([
       { path: 'articles', component: ArticleListComponent },
       { path: 'article/:id', component: ArticleComponent },
-      { path: 'write_new', component: BlogWritterComponent} ])
+      { path: 'write_new', component: BlogWritterComponent} ]),
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent, ]
 })
