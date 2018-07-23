@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogWritterComponent implements OnInit {
 
+  public editorContent = 'My Document\'s Title';
   constructor() { }
 
   ngOnInit() {

@@ -30,7 +30,7 @@
 					<ul>
 						<li>
 							<label for="editordata">Content</label>
-							<div id="myTextarea" [froalaEditor]>Hello, Froala!</div>
+							<div [froalaEditor] [(froalaModel)]="editorContent"></div>
 						</li>
 					</ul>
 				</div>
