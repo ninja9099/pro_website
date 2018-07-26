@@ -10,12 +10,37 @@ from user_profile.models import User
 from tastypie.fields import ListField
 from taggit.models import Tag, TaggedItem
 from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
+from django.core.paginator import (
+    InvalidPage,
+    Paginator
+)
+
+def _get_parameter(request, name):
+    '''
+    Helper: abstraction to recover paremeters from POST or GET
+    either
+    '''
+
+    if request.POST:
+        try:
+            return request.POST[name]
+        except KeyError, e:
+            # print e
+            return None
+    if request.GET:
+        try:
+            return request.GET[name]
+        except KeyError as e:
+            return None
+
 
 
 
 
 class MySelfResource(ModelResource):
+    
     class Meta:
+        
         queryset = MySelf.objects.all()
         resource_name = 'myself'
         excludes = []
@@ -25,7 +50,9 @@ class MySelfResource(ModelResource):
 
 
 class MyWorkfResource(ModelResource):
+    
     class Meta:
+        
         queryset = MyWork.objects.all()
         resource_name = 'mywork'
         excludes = []
@@ -36,6 +63,7 @@ class MyWorkfResource(ModelResource):
 
 class ServicesResource(ModelResource):
     class Meta:
+        
         queryset = Services.objects.all()
         resource_name = 'services'
         excludes = []
@@ -45,7 +73,9 @@ class ServicesResource(ModelResource):
 
 
 class TeamResource(ModelResource):
+    
     class Meta:
+        
         queryset = Team.objects.all()
         resource_name = 'team'
         excludes = []
@@ -57,17 +87,67 @@ class HomePageResources(ModelResource):
    
     mywork = fields.ToManyField('MyWorkfResource', 'mywork',null=True, blank=True)
     services = fields.ToManyField('ServicesResource', 'services',null=True, blank=True)
-    # team = fields.ForeignKey('TeamResource', 'team',null=True, blank=True)
     carousel_images = fields.ListField(null=True, blank=True)
 
     class Meta:
         queryset = MySelf.objects.all()
-        resource_name = 'homepageresource'
+        resource_name = 'main'
         allowed_methods = ['get']
         authorization = DjangoAuthorization()
 
+
+    def prepend_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/index$" % self._meta.resource_name,
+                self.wrap_view('index'), name="landing_gear")
+        ]
+
     def dehydrate_carousel_images(self, bundle):
         return list(CarouselImages.objects.all().values_list('carousel_image_url', flat=True))
+    
+    def index(self, request, *args, **kwargs):
+
+        self.method_check(request, allowed=['get'])
+        self.is_authenticated(request)
+        self.throttle_check(request)
+
+        article_res = ArticleResource(api_name='v1')
+        
+        page_offset = _get_parameter(request, 'offset')
+        page_limit = _get_parameter(request, 'limit')
+        article_limit = _get_parameter(request, 'article_limit')
+
+        object_list = []
+
+        
+        popular_articles = Article.objects.filter(article_state="published").order_by('-modified')
+        paginator = Paginator(popular_articles, int(page_limit))
+        
+        try:
+            page = paginator.page(1)
+        except InvalidPage:
+            raise Http404("Sorry, no results on that page.")    
+
+
+       
+
+        
+        article_bundle = []
+        for article in popular_articles:
+            bundle = article_res.build_bundle(obj=article, request=request)
+            bundle = article_res.full_dehydrate(bundle)
+            article_bundle.append(bundle)
+
+        object_list = {
+            'objects': article_bundle,
+        }
+
+        self.log_throttled_access(request)
+        return self.create_response(request, object_list)
+
+
+
+
 
 
 class TaggedResource(ModelResource):
@@ -112,6 +192,16 @@ class ArticleResource(ModelResource):
             'slug': ALL,
             'created': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
+
+    def prepend_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/home_page_resource/$" % self._meta.resource_name,
+                self.wrap_view('home_page_resource'), name="api_dispatch_detail"),
+            url(r"^(?P<resource_name>%s)/app_exists/$" % self._meta.resource_name,
+                self.wrap_view('app_exists'), name="api_app_exists"),
+            url(r"^(?P<resource_name>%s)/top_tags/$" % self._meta.resource_name,
+                self.wrap_view('top_tags'), name="api_top_tags"),
+        ]
 
     def dehydrate_follow_list(self, bundle):
         return list(set(bundle.obj.followings.filter(is_followed=True).values_list('user', flat=True)))
