@@ -24,6 +24,7 @@ class MyWork(models.Model):
     
 
 class CarouselImages(models.Model):
+    image_name = models.CharField(max_length=50, blank=True)
     carousel_image_url = models.ImageField(upload_to="", default=default_image, blank=True)
     is_active = models.BooleanField(default=True)
     

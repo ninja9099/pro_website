@@ -12,7 +12,7 @@ class MyWorkAdmin(admin.ModelAdmin):
     list_display = ['project_image',
                     'project_url',
                     'project_description',]
-
+    list_display_links = ('project_description',)
 
 class MySelfAdmin(admin.ModelAdmin):
     list_display = ['bio',
@@ -26,8 +26,10 @@ class MySelfAdmin(admin.ModelAdmin):
         return len([p.article_title for p in obj.authored.all()])
 
 class CarouselImagesAdmin(admin.ModelAdmin):
-    list_display = ['carousel_image_url',
-                    'is_active']
+    list_display = [
+        'image_name',
+        'carousel_image_url',
+        'is_active']
 
 class ServicesAdmin(admin.ModelAdmin):
     list_display = ['carousel_image_url',
