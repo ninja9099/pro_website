@@ -3,16 +3,50 @@ from blog import Article, ArticleRating, ArticleFollowings, Category, SubCategor
 from tastypie import fields
 
 from tastypie.resources import ModelResource, Resource, ALL, ALL_WITH_RELATIONS
+from tastypie.authentication import BasicAuthentication
+
 from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
 from user_profile.models import User
-
+from django_comments.models import Comment
 from taggit.models import Tag, TaggedItem
 from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
 from django.core.paginator import (
     InvalidPage,
     Paginator
 )
+
+class DjangoCookieBasicAuthentication(BasicAuthentication):
+    '''
+     If the user is already authenticated by a django session it will 
+     allow the request (useful for ajax calls) . If it is not, defaults
+     to basic authentication, which other clients could use.
+    '''
+    def __init__(self, *args, **kwargs):
+        super(DjangoCookieBasicAuthentication, self).__init__(*args, **kwargs)
+
+    def is_authenticated(self, request, **kwargs):
+        from django.contrib.sessions.models import Session
+        if 'sessionid' in request.COOKIES:
+            s = Session.objects.get(pk=request.COOKIES['sessionid'])
+            if '_auth_user_id' in s.get_decoded():
+                u = User.objects.get(id=s.get_decoded()['_auth_user_id'])
+                request.user = u
+                return True
+        return super(DjangoCookieBasicAuthentication, self).is_authenticated(request, **kwargs)
+
+
+
+class CommentResource(ModelResource):
+    class Meta:
+        queryset = Comment.objects.all()
+        resource_name = 'comment'
+        excludes = []
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        authorization = DjangoAuthorization()
+
+
 
 def _get_parameter(request, name):
     '''
@@ -90,7 +124,7 @@ class HomePageResources(ModelResource):
         resource_name = 'main'
         allowed_methods = ['get']
         authorization = DjangoAuthorization()
-
+        authentication = DjangoCookieBasicAuthentication()
 
     def prepend_urls(self):
         return [
@@ -170,8 +204,8 @@ class ArticleResource(ModelResource):
     follow_list = fields.ListField(null=True, blank=True)
     total_rating = fields.FloatField()
     likes = fields.ListField(attribute='get_likes', readonly=True)
-    comments = fields.ListField(attribute='get_all_comments',readonly=True, blank=True, null=True)
-    total_reads = fields.IntegerField()
+    comments = fields.ToManyField('blog.api.CommentResource', 'article_comments',blank=True,null=True, full=True)
+    total_reads = fields.IntegerField(default=0, blank=True)
 
     class Meta:
         queryset = Article.objects.filter(article_state="published")

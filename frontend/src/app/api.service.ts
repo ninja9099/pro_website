@@ -18,10 +18,23 @@ export class ApiService {
 
   articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/';
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/';
+  home_resource = 'http://localhost:8000/api/v1/main/';
+  recent_articles = 'http://127.0.0.1:8000/api/v1/main/index';
+
+
   getArticle(id) {
     return this.http.get(this.articleUrl + id);
   }
+
   getArticles(range, limit) {
     return this.http.get(this.articleUrl);
+  }
+
+  getHomeResource() {
+    return this.http.get(this.home_resource);
+  }
+
+  getRecentArticles(limit) {
+    return this.http.get(this.recent_articles + '?limit=' + limit);
   }
 }

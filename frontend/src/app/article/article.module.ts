@@ -15,6 +15,6 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
       { path: 'write_new', component: BlogWritterComponent} ]),
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
-  declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent, ]
+  declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent,]
 })
 export class ArticleModule { }

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
-
+import { IArticle } from '../shared/article-interface.article';
 @Component({
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-  private article: Array<object> = [];
+
+  private article: IArticle[];
   private article_followings: any[];
   private article_author: any[];
   private artilce_list: any[];
@@ -19,9 +20,8 @@ export class ArticleComponent implements OnInit {
   }
 
   public getArticle(article_id) {
-    this._ApiService.getArticle(article_id).subscribe((data: Array<object>) => {
+    this._ApiService.getArticle(article_id).subscribe((data: IArticle[]) => {
       this.article = data;
-      console.log(this.article);
     });
   }
 }

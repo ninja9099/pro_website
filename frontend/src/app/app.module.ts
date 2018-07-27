@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { ArticleComponent } from './article/article.component';
-import { AuthorProfileComponent } from './author-profile/author-profile.component';
 import { CommentComponent } from './shared/comment/comment.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -21,7 +20,6 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    AuthorProfileComponent,
     CommentComponent,
     HomepageComponent,
     PageNotFoundComponent,
