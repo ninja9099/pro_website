@@ -13,6 +13,7 @@ import { ArticleModule } from './article/article.module';
 import { RouterModule } from '@angular/router';
 import { ApiService } from './api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFontAwesomeModule,
     ArticleModule,
     HttpClientModule,
+    UserModule,
     RouterModule.forRoot([
       { path: '', component: HomepageComponent },
       { path: '**', component: PageNotFoundComponent }, ])

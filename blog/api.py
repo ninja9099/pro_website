@@ -193,8 +193,13 @@ class UserResource(ModelResource):
         detail_allowed_methods = ['get', 'post', 'put', 'delete']
         authorization = DjangoAuthorization()
 
-
-
+    def prepend_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/login$" % self._meta.resource_name,
+                self.wrap_view('login'), name="login")
+        ]
+    def login(self, request, *args, **kwargs):
+        import pdb; pdb.set_trace()
 class ArticleResource(ModelResource):
     
     author = fields.ForeignKey(UserResource, 'article_author', full=True)
