@@ -29,7 +29,8 @@ class CarouselImages(models.Model):
     is_active = models.BooleanField(default=True)
     
 class Services(models.Model):
-    carousel_image_url = models.ImageField(upload_to="", default=default_image, blank=True)
+    service_name = models.CharField(max_length=255)
+    service_image = models.ImageField(upload_to="", default=default_image, blank=True)
     service_description = models.CharField(max_length=500)
 
 class Team(User):

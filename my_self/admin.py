@@ -32,8 +32,10 @@ class CarouselImagesAdmin(admin.ModelAdmin):
         'is_active']
 
 class ServicesAdmin(admin.ModelAdmin):
-    list_display = ['carousel_image_url',
-                    'service_description']
+    list_display = [
+        'service_name',
+        'service_image',
+        'service_description']
 
 class TeamAdmin(admin.ModelAdmin):
     list_display = ['dev_name',

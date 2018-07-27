@@ -7,7 +7,6 @@ from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
 from user_profile.models import User
 
-from tastypie.fields import ListField
 from taggit.models import Tag, TaggedItem
 from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
 from django.core.paginator import (
@@ -32,9 +31,6 @@ def _get_parameter(request, name):
             return request.GET[name]
         except KeyError as e:
             return None
-
-
-
 
 
 class MySelfResource(ModelResource):
@@ -85,8 +81,8 @@ class TeamResource(ModelResource):
 
 class HomePageResources(ModelResource):
    
-    mywork = fields.ToManyField(MyWorkResource,'mywork',null=True)
-    services = fields.ToManyField('ServicesResource', 'services',null=True, blank=True)
+    mywork = fields.ToManyField('blog.api.MyWorkResource','mywork',null=True)
+    services = fields.ListField(null=True, blank=True)
     carousel_images = fields.ListField(null=True, blank=True)
 
     class Meta:
@@ -105,6 +101,8 @@ class HomePageResources(ModelResource):
     def dehydrate_carousel_images(self, bundle):
         return list(CarouselImages.objects.all().values_list('carousel_image_url', flat=True))
 
+    def dehydrate_services(self, bundle):
+        return list(Services.objects.all().values_list('service_name','service_image', 'service_description'))
 
     def index(self, request, *args, **kwargs):
         
@@ -141,7 +139,7 @@ class HomePageResources(ModelResource):
 
 
 class TaggedResource(ModelResource):
-    tags = ListField()
+    tags = fields.ListField()
 
     class Meta:
         queryset = Tag.objects.all()
@@ -149,9 +147,9 @@ class TaggedResource(ModelResource):
 class UserResource(ModelResource):
     
     articles_authored = fields.ToManyField('blog.api.ArticleResource', 'article_written', related_name='article_written')
-    comments = ListField(attribute='get_all_comments', readonly=True)
+    comments = fields.ListField(attribute='get_all_comments', readonly=True)
     full_name = fields.CharField(attribute="get_full_name", readonly=True)
-    article_reads = ListField(attribute='get_article_reads', readonly=True)
+    article_reads = fields.ListField(attribute='get_article_reads', readonly=True)
     profile_picture = fields.CharField(attribute='get_profile_image', readonly=True)
     class Meta:
         queryset = User.objects.all()
@@ -171,7 +169,7 @@ class ArticleResource(ModelResource):
         attribute='get_article_image', readonly=True, null=True, blank=True)
     follow_list = fields.ListField(null=True, blank=True)
     total_rating = fields.FloatField()
-    likes = ListField(attribute='get_likes', readonly=True)
+    likes = fields.ListField(attribute='get_likes', readonly=True)
     comments = fields.ListField(attribute='get_all_comments',readonly=True, blank=True, null=True)
     total_reads = fields.IntegerField()
 
