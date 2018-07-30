@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../api.service';
-import { IArticle } from '../shared/article-interface.article';
+import { ApiService } from '../_services/api.service';
+import { IArticle } from '../_interfaces/article-interface.article';
 @Component({
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']

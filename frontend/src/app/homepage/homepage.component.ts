@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
-import { IArticle } from '../shared/article-interface.article';
-import { IResponse } from '../shared/user-interface';
+import { ApiService } from '../_services/api.service';
+import { IArticle } from '../_interfaces/article-interface.article';
+import { IResponse } from '../_interfaces/user-interface';
 
 @Component({
   selector: 'app-homepage',
@@ -24,7 +24,7 @@ export class HomepageComponent implements OnInit {
   public home() {
     this._ApiService.getHomeResource().subscribe((data: IResponse) => {
       this.home_resources = data.objects;
-      console.log(this.home_resources)
+      console.log(this.home_resources);
 
     });
 

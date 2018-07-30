@@ -200,6 +200,7 @@ class UserResource(ModelResource):
         ]
     def login(self, request, *args, **kwargs):
         import pdb; pdb.set_trace()
+        
 class ArticleResource(ModelResource):
     
     author = fields.ForeignKey(UserResource, 'article_author', full=True)
