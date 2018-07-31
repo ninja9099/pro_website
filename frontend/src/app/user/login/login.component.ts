@@ -13,11 +13,12 @@ import { first } from 'rxjs/operators/first';
 
 export class LoginComponent implements OnInit {
 
+  loginForm: FormGroup;
   loading = false;
   loginModel = {};
   submitted = false;
   returnUrl: string;
-  loginform: FormGroup;
+
 
   constructor(private _loginservice: LoginService,
               private route: ActivatedRoute,
@@ -26,26 +27,28 @@ export class LoginComponent implements OnInit {
               ) { }
 
   ngOnInit() {
-    this.loginform = this.formBuilder.group({
-      email: ['', Validators.required],
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
     this._loginservice.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  get f() { return this.loginform.controls; }
+  get f() { return this.loginForm.controls; }
 
   onSubmit() {
     this.submitted = true;
-    if (this.loginform.invalid) {
+    if (this.loginForm.invalid) {
       // tslint:disable-next-line:no-debugger
       debugger;
       return;
     }
     this.loading = true;
-    this._loginservice.login(this.f.email.value, this.f.password.value)
+    this._loginservice.login(this.f.username.value, this.f.password.value)
       .pipe(first()).subscribe(data => {
+        // tslint:disable-next-line:no-debugger
+        debugger;
         this.router.navigate([this.returnUrl]);
       },
       error => {

@@ -1,10 +1,11 @@
 
 from blog import Article, ArticleRating, ArticleFollowings, Category, SubCategory
 from tastypie import fields
-
+import json
 from tastypie.resources import ModelResource, Resource, ALL, ALL_WITH_RELATIONS
 from tastypie.authentication import BasicAuthentication
-
+from django.contrib.auth import authenticate
+from django.http import HttpResponse
 from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
 from user_profile.models import User
@@ -199,7 +200,19 @@ class UserResource(ModelResource):
                 self.wrap_view('login'), name="login")
         ]
     def login(self, request, *args, **kwargs):
-        import pdb; pdb.set_trace()
+        data = json.loads(request.body)
+        username = data.get('username')
+        password = data.get('password')
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponse('fine')
+            else:
+                return HttpResponse('inactive')
+        else:
+            return HttpResponse('bad')
         
 class ArticleResource(ModelResource):
     

@@ -8,9 +8,13 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
-
-    return this.http.post<any>(`/auth/login`, { username: username, password: password }).pipe(map(user => {
+    const body = { user: username, password: password };
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    return this.http.post('http://localhost:8000/api/v1/user/login', body).pipe(map(user => {
       // login successful if there's a jwt token in the response
+      // tslint:disable-next-line:no-debugger
+      debugger;
       if (user && user.token) {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
