@@ -15,7 +15,6 @@ export class ApiService {
   constructor(private http: HttpClient, private _route: ActivatedRoute) {
   }
   articleUrl = 'http://127.0.0.1:8000/api/v1/article/';
-
   articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/';
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/';
   home_resource = 'http://localhost:8000/api/v1/main/';

@@ -6,8 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor() { }
-  ngOnInit() {
-  }
 
+  public context: string = localStorage.getItem('context');
+
+  constructor() { }
+
+  ngOnInit() {
+    $('#' + this.context).addClass('active');
+  }
+  onClick(e) {
+    $('.active').removeClass('active');
+    $('#' + this.context).addClass('active');
+    localStorage.setItem('context', e.target.parentElement.id);
+  }
 }

@@ -9,10 +9,14 @@ import { ApiService } from '../../_services/api.service';
 })
 export class ArticleListComponent implements OnInit {
   private artilce_list: any[];
-  private data:any[];
+  private data: any[];
+  public context: string = localStorage.getItem('context');
 
   constructor(private _route: ActivatedRoute, private _ApiService: ApiService) { }
   ngOnInit() {
+    localStorage.setItem('context', 'blog');
+    $('.active').removeClass('active');
+    $('#' + this.context).addClass('active');
     this.get_article_list(null, 10);
   }
   public get_article_list(range, limit) {

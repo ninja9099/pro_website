@@ -19,6 +19,8 @@ export class HomepageComponent implements OnInit {
     const limit = 5;
     this.home();
     this.recent_articles(limit);
+    const context: string = localStorage.getItem('context') || 'home';
+    $('#' + context).addClass('active');
   }
 
   public home() {

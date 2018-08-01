@@ -8,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class BlogWritterComponent implements OnInit {
 
   public editorContent = 'My Document\'s Title';
+  public context: string = localStorage.getItem('context');
   constructor() { }
 
   ngOnInit() {
+    localStorage.setItem('context', 'writer');
+    $('.active').removeClass('active');
+    $('#' + this.context).addClass('active');
   }
 
 }

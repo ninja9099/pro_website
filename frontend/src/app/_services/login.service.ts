@@ -15,7 +15,7 @@ export class LoginService {
       // login successful if there's a jwt token in the response
       // tslint:disable-next-line:no-debugger
       debugger;
-      if (user && user.token) {
+      if (user && user['token']) {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
       }
