@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserModule } from './user/user.module';
 import { FormsModule, FormBuilder } from '@angular/forms';
 import { LoginService } from './_services/login.service';
+import { AlertComponent } from './alert/alert.component';
+import { AlertService } from './_services/alert.service';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { LoginService } from './_services/login.service';
     CommentComponent,
     HomepageComponent,
     PageNotFoundComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { LoginService } from './_services/login.service';
       { path: '', component: HomepageComponent },
       { path: '**', component: PageNotFoundComponent }, ])
   ],
-  providers: [ApiService, LoginService, FormBuilder],
+  providers: [ApiService, LoginService, FormBuilder, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

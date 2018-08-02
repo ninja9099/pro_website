@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
     $('#' + this.context).addClass('active');
   }
   onClick(e) {
-    $('.active').removeClass('active');
-    $('#' + this.context).addClass('active');
+    $('li.active').removeClass('active');
     localStorage.setItem('context', e.target.parentElement.id);
+    $('#' + this.context).addClass('active');
   }
 }

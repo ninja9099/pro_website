@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../_services/api.service';
 import { IArticle } from '../_interfaces/article-interface.article';
 import { IResponse } from '../_interfaces/user-interface';
+import { AlertService } from '../_services/alert.service';
 
 @Component({
   selector: 'app-homepage',
@@ -14,12 +15,14 @@ export class HomepageComponent implements OnInit {
   private home_resources: any[];
 
 
-  constructor(private _ApiService: ApiService ) { }
+  constructor(private _ApiService: ApiService, private _alert: AlertService) { }
   ngOnInit() {
     const limit = 5;
     this.home();
     this.recent_articles(limit);
     const context: string = localStorage.getItem('context') || 'home';
+    // tslint:disable-next-line:no-debugger
+    this._alert.success('blah blah ho ha hu hooooo');
     $('#' + context).addClass('active');
   }
 

@@ -12,8 +12,8 @@ export class BlogWritterComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    localStorage.setItem('context', 'writer');
     $('.active').removeClass('active');
+    localStorage.setItem('context', 'writer');
     $('#' + this.context).addClass('active');
   }
 
