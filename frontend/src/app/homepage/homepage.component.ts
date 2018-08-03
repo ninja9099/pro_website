@@ -18,11 +18,8 @@ export class HomepageComponent implements OnInit {
   constructor(private _ApiService: ApiService, private _alert: AlertService) { }
   ngOnInit() {
     const limit = 5;
-    this.home();
     this.recent_articles(limit);
     const context: string = localStorage.getItem('context') || 'home';
-    // tslint:disable-next-line:no-debugger
-    this._alert.success('blah blah ho ha hu hooooo');
     $('#' + context).addClass('active');
   }
 

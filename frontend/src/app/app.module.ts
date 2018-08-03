@@ -18,6 +18,8 @@ import { FormsModule, FormBuilder } from '@angular/forms';
 import { LoginService } from './_services/login.service';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './_services/alert.service';
+import { AuthGuard } from './_guards/auth.guard';
+
 
 
 @NgModule({
@@ -38,10 +40,10 @@ import { AlertService } from './_services/alert.service';
     FormsModule,
     UserModule,
     RouterModule.forRoot([
-      { path: '', component: HomepageComponent },
+      { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
       { path: '**', component: PageNotFoundComponent }, ])
   ],
-  providers: [ApiService, LoginService, FormBuilder, AlertService],
+  providers: [ApiService, LoginService, FormBuilder, AlertService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
