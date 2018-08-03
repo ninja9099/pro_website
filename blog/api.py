@@ -1,40 +1,30 @@
 
-from blog import Article, ArticleRating, ArticleFollowings, Category, SubCategory
-from tastypie import fields
 import json
+import warnings
+from tastypie import fields
 from tastypie.resources import ModelResource, Resource, ALL, ALL_WITH_RELATIONS
-from tastypie.authentication import BasicAuthentication
+from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication,Authentication
 from django.contrib.auth import authenticate
 from django.http import HttpResponse
 from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
-from user_profile.models import User
 from django_comments.models import Comment
 from taggit.models import Tag, TaggedItem
-from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
 from django.core.paginator import (
     InvalidPage,
     Paginator
 )
-
-class DjangoCookieBasicAuthentication(BasicAuthentication):
-    '''
-     If the user is already authenticated by a django session it will 
-     allow the request (useful for ajax calls) . If it is not, defaults
-     to basic authentication, which other clients could use.
-    '''
-    def __init__(self, *args, **kwargs):
-        super(DjangoCookieBasicAuthentication, self).__init__(*args, **kwargs)
-
-    def is_authenticated(self, request, **kwargs):
-        from django.contrib.sessions.models import Session
-        if 'sessionid' in request.COOKIES:
-            s = Session.objects.get(pk=request.COOKIES['sessionid'])
-            if '_auth_user_id' in s.get_decoded():
-                u = User.objects.get(id=s.get_decoded()['_auth_user_id'])
-                request.user = u
-                return True
-        return super(DjangoCookieBasicAuthentication, self).is_authenticated(request, **kwargs)
+from tastypie.models import ApiKey
+from django.contrib.auth import login
+from django.conf import settings
+from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
+from user_profile.models import User
+from blog import (Article, 
+    ArticleRating,
+    ArticleFollowings,
+    Category,
+    SubCategory
+)
 
 
 
@@ -125,7 +115,7 @@ class HomePageResources(ModelResource):
         resource_name = 'main'
         allowed_methods = ['get']
         authorization = DjangoAuthorization()
-        authentication = DjangoCookieBasicAuthentication()
+        authentication = Authentication()
 
     def prepend_urls(self):
         return [
@@ -201,19 +191,31 @@ class UserResource(ModelResource):
         ]
     def login(self, request, *args, **kwargs):
         data = json.loads(request.body)
-        username = data.get('username')
+        username = data.get('user')
         password = data.get('password')
-
+        # import pdb; pdb.set_trace()
         user = authenticate(username=username, password=password)
+        res = {}
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponse('fine')
-            else:
-                return HttpResponse('inactive')
+                try:
+                    apikey = ApiKey.objects.get(user=user).key
+                except Exception as e:
+                    print str(e)
+                    warnings.warn("Your API key is not available\n Contact Admin at" + settings.EMAIL_ADMIN + \
+                    'to generate api key')
+
+                    res = {'is_authenticated': False, 'message': "Your API key is not available \n \
+                    Contact Admin at" + settings.EMAIL_ADMIN + \
+                    'to generate api key'}
+                else:
+                    res.update({'user': user,'is_authenticated': True, 'message': 'Login successful', 'apikey': apikey })  
         else:
-            return HttpResponse('bad')
-        
+            res = {'is_authenticated': False, 'message': 'Please Check your Credentials :)'}
+        self.log_throttled_access(request)
+        return self.create_response(request, res)
+
 class ArticleResource(ModelResource):
     
     author = fields.ForeignKey(UserResource, 'article_author', full=True)

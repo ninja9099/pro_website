@@ -27,6 +27,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 LOGIN_URL = '/login/'
 AUTH_USER_MODEL = 'user_profile.User'
 # Application definition
+EMAIL_ADMIN = "kamanipankaj9099@gmail.com"
+
 
 INSTALLED_APPS = [
     'django.contrib.auth',

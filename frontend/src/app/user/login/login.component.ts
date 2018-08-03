@@ -3,6 +3,7 @@ import { LoginService } from '../../_services/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators/first';
+import { AlertService } from '../../_services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router,
+              public _alert: AlertService,
               ) { }
 
   ngOnInit() {
@@ -49,7 +51,14 @@ export class LoginComponent implements OnInit {
       .pipe(first()).subscribe(data => {
         // tslint:disable-next-line:no-debugger
         debugger;
-        this.router.navigate([this.returnUrl]);
+        this.loading = false;
+        if (data['is_authenticated']) {
+          this._alert.success(data['message']);
+          // this.router.navigate([this.returnUrl]);
+          this.router.navigateByUrl(this.returnUrl);
+        } else {
+          this._alert.error(data['message']);
+        }
       },
       error => {
         console.log('login failure wrong userid nd password combinations');

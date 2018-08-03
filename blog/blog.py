@@ -11,7 +11,8 @@ from django.conf import settings
 from autoslug import AutoSlugField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.functional import cached_property
-
+from django.db.models import signals
+from tastypie.models import create_api_key
 
 User = settings.AUTH_USER_MODEL
 ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
@@ -149,3 +150,9 @@ class ArticleFollowings(TimeStampedModel):
     is_followed = models.BooleanField(default=True)
     class Meta:
         unique_together = (("user", "article"),)
+
+
+
+
+
+signals.post_save.connect(create_api_key, sender=User)
