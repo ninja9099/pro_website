@@ -3,6 +3,7 @@ import { ApiService } from '../_services/api.service';
 import { IArticle } from '../_interfaces/article-interface.article';
 import { IResponse } from '../_interfaces/user-interface';
 import { AlertService } from '../_services/alert.service';
+import { GlobalVars } from '../app.component';
 
 @Component({
   selector: 'app-homepage',
@@ -14,13 +15,12 @@ export class HomepageComponent implements OnInit {
   private articles: IArticle[];
   private home_resources: any[];
 
-
-  constructor(private _ApiService: ApiService, private _alert: AlertService) { }
+  constructor(private _ApiService: ApiService, private _alert: AlertService, public _gvars: GlobalVars) { 
+    _gvars.context = 'home';
+  }
   ngOnInit() {
     const limit = 5;
     this.recent_articles(limit);
-    const context: string = localStorage.getItem('context') || 'home';
-    $('#' + context).addClass('active');
   }
 
   public home() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../_services/api.service';
+import { GlobalVars } from '../../app.component';
 
 
 @Component({
@@ -12,11 +13,11 @@ export class ArticleListComponent implements OnInit {
   private data: any[];
   public context: string = localStorage.getItem('context');
 
-  constructor(private _route: ActivatedRoute, private _ApiService: ApiService) { }
+  constructor(private _route: ActivatedRoute, private _ApiService: ApiService, public _gvars: GlobalVars) { 
+    _gvars.context = 'blog';
+   }
   ngOnInit() {
-    localStorage.setItem('context', 'blog');
-    $('.active').removeClass('active');
-    $('#' + this.context).addClass('active');
+
     this.get_article_list(null, 10);
   }
   public get_article_list(range, limit) {

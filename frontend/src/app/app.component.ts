@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'life-ina-bits';
+}
+
+
+@Injectable()
+export class GlobalVars implements OnInit {
+  public isLoggedIn = false;
+  public context: string ;
+
+  ngOnInit() {
+    if (localStorage.getItem('user')) {
+      this.isLoggedIn = true;
+    }
+  }
 }

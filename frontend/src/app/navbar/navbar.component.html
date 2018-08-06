@@ -17,18 +17,21 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav navbar-right roboto-thin">
-          <li id="home">
-            <a (click)="onClick($event)" [routerLink]="['/']">Home</a>
+        <ul class="nav navbar-nav navbar-right roboto-thin">  
+          <li [ngClass]="{active : _gvars.context == 'home' }" id="home">
+            <a  [routerLink]="['/']">Home</a>
           </li>
-          <li id="blog">
-            <a  (click)="onClick($event)" [routerLink]="['/articles']" >Blog</a>
+          <li id="blog" [ngClass]="{active :_gvars.context == 'blog'}">
+            <a  [routerLink]="['/articles']" >Blog</a>
           </li>
-          <li id="writer">
-            <a (click)="onClick($event)" [routerLink]="['/write_new']">Write</a>
+          <li id="writer" [ngClass]="{active : _gvars.context == 'writer'}">
+            <a  [routerLink]="['/write_new']">Write</a>
           </li>
-          <li id="aboutme">
+          <li id="login" *ngIf="!_gvars.isLoggedIn" [ngClass]="{active : _gvars.context == 'login'}">
             <a  [routerLink]="['/auth/login']">Login</a>
+          </li>
+          <li id="logout" *ngIf="_gvars.isLoggedIn">
+            <a (click)="logOut()">Logout</a>
           </li>
         </ul>
       </div>

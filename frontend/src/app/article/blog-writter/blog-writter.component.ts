@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalVars } from '../../app.component';
 
 @Component({
   selector: 'app-blog-writter',
@@ -8,13 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class BlogWritterComponent implements OnInit {
 
   public editorContent = 'My Document\'s Title';
-  public context: string = localStorage.getItem('context');
-  constructor() { }
+  constructor(public _gvars: GlobalVars) {
+    _gvars.context = 'writer';
+  }
 
   ngOnInit() {
-    $('.active').removeClass('active');
     localStorage.setItem('context', 'writer');
-    $('#' + this.context).addClass('active');
   }
 
 }

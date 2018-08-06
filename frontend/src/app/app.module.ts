@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
+import { AppComponent, GlobalVars } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 // import { ArticleComponent } from './article/article.component';
@@ -43,7 +43,7 @@ import { AuthGuard } from './_guards/auth.guard';
       { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
       { path: '**', component: PageNotFoundComponent }, ])
   ],
-  providers: [ApiService, LoginService, FormBuilder, AlertService, AuthGuard],
+  providers: [ApiService, LoginService, FormBuilder, AlertService, AuthGuard, GlobalVars],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
