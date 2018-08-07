@@ -17,4 +17,7 @@ export class NavbarComponent {
     this._loginService.logout();
     this._gvars.isLoggedIn = false;
   }
+
 }
+
+

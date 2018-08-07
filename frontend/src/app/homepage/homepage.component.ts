@@ -4,6 +4,7 @@ import { IArticle } from '../_interfaces/article-interface.article';
 import { IResponse } from '../_interfaces/user-interface';
 import { AlertService } from '../_services/alert.service';
 import { GlobalVars } from '../app.component';
+import { LoginCheckerService } from '../_helpers/login-checker.service';
 
 @Component({
   selector: 'app-homepage',
@@ -15,8 +16,15 @@ export class HomepageComponent implements OnInit {
   private articles: IArticle[];
   private home_resources: any[];
 
-  constructor(private _ApiService: ApiService, private _alert: AlertService, public _gvars: GlobalVars) { 
+  constructor(private _ApiService: ApiService,
+    private _alert: AlertService,
+    public _gvars: GlobalVars, public _loginChecker: LoginCheckerService) {
+
     _gvars.context = 'home';
+    if (_loginChecker.is_loggedin()) {
+      _gvars.isLoggedIn = true;
+    }
+
   }
   ngOnInit() {
     const limit = 5;

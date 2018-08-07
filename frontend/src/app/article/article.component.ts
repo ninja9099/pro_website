@@ -18,8 +18,6 @@ export class ArticleComponent implements OnInit {
    }
   ngOnInit() {
     // tslint:disable-next-line:no-debugger
-    debugger;
-    localStorage.setItem('context', 'blog');
     const id = +this._route.snapshot.paramMap.get('id');
     this.getArticle(id);
   }

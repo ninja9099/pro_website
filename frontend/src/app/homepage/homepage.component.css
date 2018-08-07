@@ -46,6 +46,6 @@
 .recent-box{align-items: flex-start; margin: 20px 0px; display: flex;flex-basis: 100%; flex-direction: row; justify-content: space-between;}
 .recent-box .recent-left{ margin-right: 40px;}
 .recent-box .recent-right h1  a{text-decoration: none; color: #484848;}
-.recent-box .recent-right h1  a:hover{color: #00685c;}
+.recent-box .recent-right h1  a:hover{color: #31bbab;}
 .recent-right h1{margin: 0;}
 .recent-right p{font-size: 20px; font-family: 'Roboto' sans-serif;}

@@ -12,7 +12,7 @@ export class AppComponent {
 
 @Injectable()
 export class GlobalVars implements OnInit {
-  public isLoggedIn = false;
+  public isLoggedIn;
   public context: string ;
 
   ngOnInit() {

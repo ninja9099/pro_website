@@ -19,6 +19,7 @@ import { LoginService } from './_services/login.service';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './_services/alert.service';
 import { AuthGuard } from './_guards/auth.guard';
+import { LoginCheckerService } from './_helpers/login-checker.service';
 
 
 
@@ -43,7 +44,7 @@ import { AuthGuard } from './_guards/auth.guard';
       { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
       { path: '**', component: PageNotFoundComponent }, ])
   ],
-  providers: [ApiService, LoginService, FormBuilder, AlertService, AuthGuard, GlobalVars],
+  providers: [ApiService, LoginService, FormBuilder, AlertService, AuthGuard, GlobalVars, LoginCheckerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
