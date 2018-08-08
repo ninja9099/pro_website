@@ -115,7 +115,7 @@ class HomePageResources(ModelResource):
         resource_name = 'main'
         allowed_methods = ['get']
         authorization = DjangoAuthorization()
-        authentication = Authentication()
+        authentication = ApiKeyAuthentication()
 
     def prepend_urls(self):
         return [

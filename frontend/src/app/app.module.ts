@@ -12,14 +12,15 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ArticleModule } from './article/article.module';
 import { RouterModule } from '@angular/router';
 import { ApiService } from './_services/api.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserModule } from './user/user.module';
-import { FormsModule, FormBuilder } from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from './_services/login.service';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './_services/alert.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginCheckerService } from './_helpers/login-checker.service';
+import { JwtInterceptor } from './_helpers/jwtinterceptor.service';
 
 
 
@@ -39,12 +40,27 @@ import { LoginCheckerService } from './_helpers/login-checker.service';
     ArticleModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     UserModule,
     RouterModule.forRoot([
       { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
       { path: '**', component: PageNotFoundComponent }, ])
   ],
-  providers: [ApiService, LoginService, FormBuilder, AlertService, AuthGuard, GlobalVars, LoginCheckerService],
+  providers: [
+    ApiService,
+    LoginService,
+    FormBuilder,
+    AlertService,
+    AuthGuard,
+    GlobalVars,
+    LoginCheckerService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,28 +1,32 @@
-<form class="form-style-7">
+<form class="form-style-7" #ctrl="ngForm">
 	<div class="editor-container">
 		<h2 class="title text-center">Write your thoughts here ... </h2>
 		<div class="editor-wrapper">
 				<div class="side-bar">
 					<ul>
 						<li>
-						    <label for="name">Title</label>
-						    <input type="text" name="name" maxlength="100">
-						    <span>Suitable and relavant title</span>
+						    <label for="title">Title</label>
+						    <input (change)="onChange($event)" type="text" [ngClass]="{invalid: title.invalid && (title.dirty || title.touched)}" name="title" maxlength="100" required [(ngModel)]="article.article_title" #title="ngModel">
+							<span>Suitable and relavant title</span>
 						</li>
 						<li>
-						    <label for="email">Tags</label>
-						    <input type="email" name="email" maxlength="100">
+						    <label for="tags">Tags</label>
+							<input [ngClass]="{invalid: title.invalid && (tags.dirty || tags.touched)}" type="text" name="tags" maxlength="100" required id="tags" [(ngModel)]="article.article_tags" #tags="ngModel">
 						    <span>Enter keywords here </span>
 						</li>
 						<li>
 						    <label for="url">Image</label>
-						    <input type="file" name="url" maxlength="100">
+							<input [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" id="article-image" name="article-image" required [(ngModel)]="article.article_image" #image="ngModel">
+								
 						    <span>Your article poster (500*500)</span>
 						</li>
 						<li>
-						    <label for="bio">Category</label>
-						    <select name="bio" onkeyup="adjust_textarea(this)"></select>
-						    <span>Specify category your article belongs to</span>
+						    <label for="category">Category</label>
+						    <select id="category" [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" #ctgry required>
+								<option></option>
+								<option *ngFor="let cat 	 categories" value="{{cat.id}}">{{cat.category_name}}</option>
+							</select>
+							<span>Specify category your article belongs to</span>
 						</li>
 					</ul>
 				</div>
@@ -31,13 +35,14 @@
 						<li>
 							<label for="editordata">Content</label>
 							<div [froalaEditor] [(froalaModel)]="editorContent"></div>
+							<div [froalaView]="editorContent"></div>
 						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="row submit-footer">
-				<button class="btn btn-primary">Draft</button>
-				<button class="btn btn-primary">Submit</button>
+				<button  [disabled]="ctrl.form.invalid" class="btn btn-primary">Draft</button>
+				<button [disabled]="ctrl.form.invalid" class="btn btn-primary">Submit</button>
 			</div>
 	</div>
 </form>

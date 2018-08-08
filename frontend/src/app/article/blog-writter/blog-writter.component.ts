@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVars } from '../../app.component';
 import { LoginCheckerService } from '../../_helpers/login-checker.service';
+import { IArticle } from '../../_interfaces/article-interface.article';
+import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../_services/api.service';
+
 @Component({
   selector: 'app-blog-writter',
   templateUrl: './blog-writter.component.html',
@@ -8,8 +12,12 @@ import { LoginCheckerService } from '../../_helpers/login-checker.service';
 })
 export class BlogWritterComponent implements OnInit {
 
-  public editorContent = 'My Document\'s Title';
-  constructor(public _gvars: GlobalVars, public _loginChecker: LoginCheckerService) {
+  article = {};
+  categories = [];
+  constructor(public _gvars: GlobalVars,
+    public _loginChecker: LoginCheckerService,
+    private _ApiService: ApiService,
+  ) {
     _gvars.context = 'writer';
     // tslint:disable-next-line:no-debugger
     if (_loginChecker.is_loggedin()) {
@@ -18,7 +26,18 @@ export class BlogWritterComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.setItem('context', 'writer');
-  }
 
+    localStorage.setItem('context', 'writer');
+    this.get_cat();
+  }
+  onChange(e) {
+    console.log(e);
+  }
+  get_cat() {
+    this._ApiService.getCategories().subscribe(data => {
+      this.categories = data['objects'];
+      // tslint:disable-next-line:no-debugger
+      debugger;
+    });
+  }
 }

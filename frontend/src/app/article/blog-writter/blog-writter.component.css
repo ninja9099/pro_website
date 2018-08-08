@@ -6,6 +6,15 @@ http://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascr
  * @author Lea Verou
  */
 
+
+	.invalid {border: 2px solid #b24d4b ! important;}
+	.invalid ::after{
+		content: "this field is not valid";
+		background-color: yellow;
+		color: red;
+		font-weight: bold;
+	}
+
 code[class*="language-"],
 pre[class*="language-"] {
 	color: black;

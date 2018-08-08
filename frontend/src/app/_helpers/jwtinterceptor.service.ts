@@ -1,24 +1,29 @@
-// import { Injectable } from '@angular/core';
-// import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-// import { Observable } from 'rxjs';
-// import { LoginService } from '../_services/login.service';
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { LoginService } from '../_services/login.service';
 
-// @Injectable()
-// export class JwtInterceptor implements HttpInterceptor {
-//   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-//     // add authorization header with jwt token if available
-//     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-//     if (currentUser && currentUser.token) {
-//       request = request.clone({
-//         setHeaders: {
-//           Authorization: `Bearer ${currentUser.token}`
-//         }
-//       });
-//     }
+@Injectable()
+export class JwtInterceptor implements HttpInterceptor {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // add authorization header with jwt token if available
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = JSON.parse(localStorage.getItem('apikey'));
 
-//     return next.handle(request);
-//   }
-// }
+    if (user && token) {
+      request = request.clone({
+        setHeaders: {
+            Authorization: `ApiKey ${user}: ${token}`
+            // Authorization: ApiKey<username>: <api_key>
+        }
+      });
+    }
+
+    return next.handle(request);
+  }
+}
 
 
 // @Injectable()

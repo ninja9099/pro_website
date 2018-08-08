@@ -19,7 +19,7 @@ export class ApiService {
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/';
   home_resource = 'http://localhost:8000/api/v1/main/';
   recent_articles = 'http://127.0.0.1:8000/api/v1/main/index';
-
+  categories = 'http://127.0.0.1:8000/api/v1/category';
 
   getArticle(id) {
     return this.http.get(this.articleUrl + id);
@@ -35,5 +35,8 @@ export class ApiService {
 
   getRecentArticles(limit) {
     return this.http.get(this.recent_articles + '?limit=' + limit);
+  }
+  getCategories() {
+    return this.http.get(this.categories);
   }
 }
