@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { IArticle } from '../_interfaces/article-interface.article';
 
 
 const httpOptions = {
@@ -14,13 +15,14 @@ const httpOptions = {
 export class ApiService {
   constructor(private http: HttpClient, private _route: ActivatedRoute) {
   }
+
   articleUrl = 'http://127.0.0.1:8000/api/v1/article/';
   articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/';
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/';
   home_resource = 'http://localhost:8000/api/v1/main/';
   recent_articles = 'http://127.0.0.1:8000/api/v1/main/index';
   categories = 'http://127.0.0.1:8000/api/v1/category';
-
+  post_article = 'http://127.0.0.1:8000/api/v1/category';
   getArticle(id) {
     return this.http.get(this.articleUrl + id);
   }
@@ -38,5 +40,8 @@ export class ApiService {
   }
   getCategories() {
     return this.http.get(this.categories);
+  }
+  saveArticle(article): Observable<IArticle> {
+    return this.http.post<any>(this.post_article, article);
   }
 }

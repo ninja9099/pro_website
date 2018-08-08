@@ -24,7 +24,7 @@
 						    <label for="category">Category</label>
 						    <select id="category" [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" #ctgry required>
 								<option></option>
-								<option *ngFor="let cat 	 categories" value="{{cat.id}}">{{cat.category_name}}</option>
+								<option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.category_name}}</option>
 							</select>
 							<span>Specify category your article belongs to</span>
 						</li>
@@ -34,15 +34,15 @@
 					<ul>
 						<li>
 							<label for="editordata">Content</label>
-							<div [froalaEditor] [(froalaModel)]="editorContent"></div>
+							<div [froalaEditor]='options' [(froalaModel)]="editorContent"></div>
 							<div [froalaView]="editorContent"></div>
 						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="row submit-footer">
-				<button  [disabled]="ctrl.form.invalid" class="btn btn-primary">Draft</button>
-				<button [disabled]="ctrl.form.invalid" class="btn btn-primary">Submit</button>
+				<button (click)="draft()" [disabled]="ctrl.form.invalid" class="btn btn-primary">Draft</button>
+				<button (click)="save()" class="btn btn-primary">Submit</button>
 			</div>
 	</div>
 </form>
