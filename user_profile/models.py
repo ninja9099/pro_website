@@ -37,10 +37,6 @@ class User(AbstractUser):
         else:
             return "{0}".format(self.username)
 
-    def get_article_reads(self):
-        return [read for read in self.article_reads.all()]
-
-
     def get_profile_image(self):
         """
         get profile image for the user and if not found returns  the 

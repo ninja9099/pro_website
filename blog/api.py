@@ -121,7 +121,6 @@ class UserResource(ModelResource):
     articles_authored = fields.ToManyField('blog.api.ArticleResource', 'article_written', related_name='article_written')
     comments = fields.ListField(attribute='get_all_comments', readonly=True)
     full_name = fields.CharField(attribute="get_full_name", readonly=True)
-    article_reads = fields.ListField(attribute='get_article_reads', readonly=True)
     profile_picture = fields.CharField(attribute='get_profile_image', readonly=True)
     class Meta:
         queryset = User.objects.all()
@@ -176,7 +175,6 @@ class ArticleResource(ModelResource):
     total_rating = fields.FloatField()
     likes = fields.ListField(attribute='get_likes', readonly=True)
     comments = fields.ToManyField('blog.api.CommentResource', 'article_comments',blank=True,null=True, full=True)
-    total_reads = fields.IntegerField(default=0, blank=True)
     article_category = fields.ForeignKey('blog.api.CategoryResource', 'article_category', full=True)
     article_subcategory = fields.ForeignKey('blog.api.SubCategoryResource', 'article_subcategory', full=True)
     class Meta:
@@ -202,10 +200,6 @@ class ArticleResource(ModelResource):
             toatal_rating = s/bundle.obj.rating.all().count()
         return toatal_rating
 
-    def dehydrate_total_reads(self, bundle):
-        total_reads = 0
-        if bundle.obj.user_reads.exists():
-            return bundle.obj.user_reads.count()
 
 
 class ArticleFollowingResource(ModelResource):
