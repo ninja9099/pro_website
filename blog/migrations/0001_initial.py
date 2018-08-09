@@ -30,7 +30,6 @@ class Migration(migrations.Migration):
                 ('article_content', models.TextField(null=True, verbose_name='Article Content')),
                 ('article_state', models.CharField(choices=[('published', 'Published'), ('draft', 'Draft'), ('approval', 'Approval'), ('archived', 'Archived')], default='draft', max_length=20)),
                 ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='article_title', unique=True)),
-                ('fake_field', models.CharField(max_length=122)),
                 ('article_author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='article_written', to=settings.AUTH_USER_MODEL)),
             ],
             options={

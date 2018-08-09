@@ -30,7 +30,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ['article_title',
-                    'slug',
+                    'article_slug',
                     'article_image',
                     'article_category',
                     'article_subcategory',

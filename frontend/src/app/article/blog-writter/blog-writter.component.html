@@ -10,6 +10,7 @@
 							<span>Suitable and relavant title</span>
 						</li>
 						<li>
+							<tag-input editable='true' theme='bootstrap'></tag-input>
 						    <label for="tags">Tags</label>
 							<input [ngClass]="{invalid: title.invalid && (tags.dirty || tags.touched)}" type="text" name="tags" maxlength="100" required id="tags" [(ngModel)]="article.article_tags" #tags="ngModel">
 						    <span>Enter keywords here </span>

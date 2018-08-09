@@ -8,7 +8,8 @@ from api import (
 	CategoryResource,
 	SubCategoryResource,
 	# HomePageResources,
-	CommentResource
+	CommentResource,
+	ArticleTagsResource
 	)
 from tastypie.api import Api
 
@@ -21,6 +22,7 @@ v1_api.register(CategoryResource())
 v1_api.register(SubCategoryResource())
 # v1_api.register(HomePageResources())
 v1_api.register(CommentResource())
+v1_api.register(ArticleTagsResource())
 
 urlpatterns = [
     url(r'^', include(v1_api.urls)),

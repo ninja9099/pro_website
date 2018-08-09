@@ -21,7 +21,8 @@ from .models import (Article,
     ArticleRating,
     ArticleFollowings,
     Category,
-    SubCategory
+    SubCategory,
+    ArticleTags,
 )
 
 
@@ -118,7 +119,7 @@ def _get_parameter(request, name):
 
 class UserResource(ModelResource):
     
-    articles_authored = fields.ToManyField('blog.api.ArticleResource', 'article_written', related_name='article_written')
+    articles_authored = fields.ToManyField('blog.api.ArticleResource', 'article_written', related_name='article_written',)
     comments = fields.ListField(attribute='get_all_comments', readonly=True)
     full_name = fields.CharField(attribute="get_full_name", readonly=True)
     profile_picture = fields.CharField(attribute='get_profile_image', readonly=True)
@@ -166,10 +167,23 @@ class UserResource(ModelResource):
         self.log_throttled_access(request)
         return self.create_response(request, res)
 
+
+class ArticleTagsResource(ModelResource):
+    class Meta:
+        queryset = ArticleTags.objects.all()
+        resource_name = 'tags'
+        filtering = {   
+            'slug': ALL,
+        }
+        
+        allowed_methods = ['get','post']
+        authentication= Authentication()
+        authorization = Authorization()
+
 class ArticleResource(ModelResource):
     
     author = fields.ForeignKey(UserResource, 'article_author', full=True)
-    # article_tags = fields.ToManyField( 'tags',  full=True)
+    article_tags = fields.ToManyField(ArticleTagsResource, 'tags',  full=True, blank=True, null=True)
     article_image = fields.CharField(attribute='get_article_image', readonly=True, null=True, blank=True)
     follow_list = fields.ListField(null=True, blank=True)
     total_rating = fields.FloatField()
@@ -183,6 +197,7 @@ class ArticleResource(ModelResource):
         filtering = {   
             'slug': ALL,
             'created': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
+            'article_title':ALL,
         }
         
         allowed_methods = ['get','post']
@@ -218,7 +233,6 @@ class ArticleFollowingResource(ModelResource):
 
 
 class ArticleRatingResource(ModelResource):
-    
     rating_article = fields.ToOneField(ArticleResource, 'article')
     rating_user = fields.ToOneField(UserResource, 'user')
     class Meta:
@@ -228,15 +242,13 @@ class ArticleRatingResource(ModelResource):
 
 
 class CategoryResource(ModelResource):
-    sub_categories = fields.ToManyField('blog.api.SubCategoryResource', 'sub_categories', related_name='sub_categories', full=True)
     class Meta:
         queryset = Category.objects.all()
         resource_name = 'category'
        
 
 
-class SubCategoryResource(ModelResource):
-    category = fields.ToOneField(CategoryResource, 'catagory_id')  
+class SubCategoryResource(ModelResource):  
     class Meta:
         queryset = SubCategory.objects.all()
         resource_name = 'subcategory'

@@ -18,8 +18,8 @@ ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
 
 class ArticleTags(models.Model):
     name = models.CharField(max_length=100,blank=True)
-    slug = AutoSlugField(unique=True,populate_from='name')
-
+    slug = AutoSlugField(unique=True, populate_from='name')
+    fake_field = models.CharField(max_length=10)
 
 class Article(TimeStampedModel):
 
@@ -37,9 +37,9 @@ class Article(TimeStampedModel):
     article_content = models.TextField('Article Content', null=True)
     article_author = models.ForeignKey(User,  related_name='article_written', on_delete=models.CASCADE)
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
-    slug = AutoSlugField(unique=True,populate_from='article_title')
+    article_slug = AutoSlugField(unique=True,populate_from='article_title')
     article_tags = models.ManyToManyField(ArticleTags, related_name='article_tags', blank=True, verbose_name='tags')
-    fake_field = models.CharField(max_length=122)
+
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")

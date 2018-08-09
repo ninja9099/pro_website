@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVars } from '../../app.component';
 import { LoginCheckerService } from '../../_helpers/login-checker.service';
-import { IArticle, CArticle } from '../../_interfaces/article-interface.article';
+
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../_services/api.service';
 
