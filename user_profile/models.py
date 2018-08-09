@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.conf import settings
-from blog.blog import Article
+from blog.models import Article
 from django.contrib.auth.models import AbstractUser
 from django.utils.functional import cached_property
 

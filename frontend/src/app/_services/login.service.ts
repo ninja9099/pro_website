@@ -17,6 +17,7 @@ export class LoginService {
         // store user details and  token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(response['user']));
         localStorage.setItem('apikey', JSON.stringify(response['apikey']));
+        localStorage.setItem('user_resource', JSON.stringify(response['user_resource']));
       }
       return response;
     }

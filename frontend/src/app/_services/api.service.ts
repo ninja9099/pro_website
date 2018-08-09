@@ -22,7 +22,9 @@ export class ApiService {
   home_resource = 'http://localhost:8000/api/v1/main/';
   recent_articles = 'http://127.0.0.1:8000/api/v1/main/index';
   categories = 'http://127.0.0.1:8000/api/v1/category';
-  post_article = 'http://127.0.0.1:8000/api/v1/category';
+  subcategories = 'http://127.0.0.1:8000/api/v1/subcategory/';
+  post_article = 'http://127.0.0.1:8000/api/v1/article/';
+
   getArticle(id) {
     return this.http.get(this.articleUrl + id);
   }
@@ -40,6 +42,9 @@ export class ApiService {
   }
   getCategories() {
     return this.http.get(this.categories);
+  }
+  getSubCategories(catagory_id) {
+    return this.http.get(this.subcategories + '?catagory_id=' + catagory_id);
   }
   saveArticle(article): Observable<IArticle> {
     return this.http.post<any>(this.post_article, article);

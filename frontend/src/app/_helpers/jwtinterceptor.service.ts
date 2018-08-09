@@ -7,8 +7,6 @@ import { LoginService } from '../_services/login.service';
 export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
-    // tslint:disable-next-line:no-debugger
-    debugger;
     const user = JSON.parse(localStorage.getItem('user'));
     const token = JSON.parse(localStorage.getItem('apikey'));
 

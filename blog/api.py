@@ -9,7 +9,6 @@ from django.http import HttpResponse
 from tastypie.authorization import Authorization, DjangoAuthorization
 from django.conf.urls import include, url
 from django_comments.models import Comment
-from taggit.models import Tag, TaggedItem
 from django.core.paginator import (
     InvalidPage,
     Paginator
@@ -19,7 +18,7 @@ from django.contrib.auth import login
 from django.conf import settings
 from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
 from user_profile.models import User
-from blog import (Article, 
+from .models import (Article, 
     ArticleRating,
     ArticleFollowings,
     Category,
@@ -163,12 +162,6 @@ class HomePageResources(ModelResource):
         return self.create_response(request, object_list)
 
 
-class TaggedResource(ModelResource):
-    tags = fields.ListField()
-
-    class Meta:
-        queryset = Tag.objects.all()
-
 class UserResource(ModelResource):
     
     articles_authored = fields.ToManyField('blog.api.ArticleResource', 'article_written', related_name='article_written')
@@ -182,7 +175,9 @@ class UserResource(ModelResource):
         excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         allowed_methods = ['get']
         detail_allowed_methods = ['get', 'post', 'put', 'delete']
-        authorization = DjangoAuthorization()
+        authentication = ApiKeyAuthentication()
+        always_return_data = True
+        # authorization = DjangoAuthorization()
 
     def prepend_urls(self):
         return [
@@ -193,7 +188,6 @@ class UserResource(ModelResource):
         data = json.loads(request.body)
         username = data.get('user')
         password = data.get('password')
-        # import pdb; pdb.set_trace()
         user = authenticate(username=username, password=password)
         res = {}
         if user is not None:
@@ -210,7 +204,10 @@ class UserResource(ModelResource):
                     Contact Admin at" + settings.EMAIL_ADMIN + \
                     'to generate api key'}
                 else:
-                    res.update({'user': user,'is_authenticated': True, 'message': 'Login successful', 'apikey': apikey })  
+                    user_res = UserResource(api_name='v1')
+                    bundle = user_res.build_bundle(obj=user, request=request)
+                    bundle = user_res.full_dehydrate(bundle)
+                    res.update({'user': user,'user_resource':bundle, 'is_authenticated': True, 'message': 'Login successful', 'apikey': apikey })  
         else:
             res = {'is_authenticated': False, 'message': 'Please Check your Credentials :)'}
         self.log_throttled_access(request)
@@ -219,23 +216,26 @@ class UserResource(ModelResource):
 class ArticleResource(ModelResource):
     
     author = fields.ForeignKey(UserResource, 'article_author', full=True)
-    article_tags = fields.ToManyField('blog.api.TaggedResource', 'tags',  full=True)
-    article_image = fields.CharField(
-        attribute='get_article_image', readonly=True, null=True, blank=True)
+    # article_tags = fields.ToManyField( 'tags',  full=True)
+    article_image = fields.CharField(attribute='get_article_image', readonly=True, null=True, blank=True)
     follow_list = fields.ListField(null=True, blank=True)
     total_rating = fields.FloatField()
     likes = fields.ListField(attribute='get_likes', readonly=True)
     comments = fields.ToManyField('blog.api.CommentResource', 'article_comments',blank=True,null=True, full=True)
     total_reads = fields.IntegerField(default=0, blank=True)
-
+    article_category = fields.ForeignKey('blog.api.CategoryResource', 'article_category', full=True)
+    article_subcategory = fields.ForeignKey('blog.api.SubCategoryResource', 'article_subcategory', full=True)
     class Meta:
         queryset = Article.objects.filter(article_state="published")
         resource_name = 'article'
-        filtering = {
+        filtering = {   
             'slug': ALL,
             'created': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
-
+        
+        allowed_methods = ['get','post']
+        authentication= Authentication()
+        authorization = Authorization()
     
 
     def dehydrate_follow_list(self, bundle):
@@ -288,9 +288,12 @@ class CategoryResource(ModelResource):
 
 
 class SubCategoryResource(ModelResource):
-    subcategory = fields.ToOneField(CategoryResource, 'catagory_id')
+    category = fields.ToOneField(CategoryResource, 'catagory_id')  
     class Meta:
         queryset = SubCategory.objects.all()
         resource_name = 'subcategory'
         allowed_methods = ['get']
         detail_allowed_methods = ['get', 'post', 'put', 'delete']
+        filtering = {
+            'catagory_id': ['exact']
+        }

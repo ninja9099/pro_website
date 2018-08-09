@@ -22,9 +22,18 @@
 						</li>
 						<li>
 						    <label for="category">Category</label>
-						    <select id="category" [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" #ctgry required>
+						    <select (change)="fetchSuvctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" #ctgry required>
 								<option></option>
-								<option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.category_name}}</option>
+								<option *ngFor="let cat of categories" value="{{cat.resource_uri}}">{{cat.category_name}}</option>
+							</select>
+							<span>Specify category your article belongs to</span>
+						</li>
+						<li>
+							<label for="sub-category">Sub-Category</label>
+							<select [disabled]="!article.article_category" name="sub-category" id="sub-category" [ngClass]="{invalid: subctgry.invalid && (subctgry.dirty || subctgry.touched)}" [(ngModel)]="article.article_subcategory"
+							 #subctgry required>
+								<option></option>
+								<option *ngFor="let subcat of sub_categories" value="{{subcat.resource_uri}}">{{subcat.category_name}}</option>
 							</select>
 							<span>Specify category your article belongs to</span>
 						</li>
@@ -34,7 +43,7 @@
 					<ul>
 						<li>
 							<label for="editordata">Content</label>
-							<div [froalaEditor]='options' [(froalaModel)]="editorContent"></div>
+							<textarea [froalaEditor]='options' [(froalaModel)]="article.article_content"></textarea>
 							<div [froalaView]="editorContent"></div>
 						</li>
 					</ul>

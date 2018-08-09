@@ -2,14 +2,20 @@
 
 from __future__ import unicode_literals
 from django.contrib import admin
-from .blog import (Article, 
+from .models import (Article, 
     Category,
     SubCategory, 
     ArticleLikes,
     ArticleRating,
-    ArticleFollowings)
+    ArticleFollowings,
+    ArticleTags,)
 
 from django import forms
+
+
+class ArticleTagsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug']
+
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -74,9 +80,13 @@ class ArticleFollowingsAdmin(admin.ModelAdmin):
         'is_followed',
     ]
     list_filter = ['user']
+
+
+
 admin.site.register(ArticleLikes, ArticleLikesAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(ArticleRating, ArticleRatingAdmin)
 admin.site.register(ArticleFollowings, ArticleFollowingsAdmin)
+admin.site.register(ArticleTags, ArticleTagsAdmin)

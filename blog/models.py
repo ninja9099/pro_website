@@ -5,7 +5,6 @@ import markdown
 from django.db import models
 from django.db.models import Count
 from model_utils.models import TimeStampedModel
-from taggit.managers import TaggableManager
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from autoslug import AutoSlugField
@@ -16,6 +15,10 @@ from tastypie.models import create_api_key
 
 User = settings.AUTH_USER_MODEL
 ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
+
+class ArticleTags(models.Model):
+    name = models.CharField(max_length=100,blank=True)
+    slug = AutoSlugField(unique=True,populate_from='name')
 
 
 class Article(TimeStampedModel):
@@ -29,14 +32,14 @@ class Article(TimeStampedModel):
     article_title = models.CharField(max_length=255, db_index=True, help_text="please provide title of your article",
                                      unique=True)
     article_image = models.ImageField(upload_to=ARTICLE_IMAGE_PATH, height_field=None, width_field=None, blank=True)
-    article_category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    article_subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
-    article_content = models.TextField('Article Content')
+    article_category = models.ForeignKey('Category', related_name="cat_set", on_delete=models.CASCADE, null=True)
+    article_subcategory = models.ForeignKey('SubCategory',related_name="sucat_set", on_delete=models.CASCADE, null=True)
+    article_content = models.TextField('Article Content', null=True)
     article_author = models.ForeignKey(User,  related_name='article_written', on_delete=models.CASCADE)
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
     slug = AutoSlugField(unique=True,populate_from='article_title')
-    tags = TaggableManager()
-    
+    article_tags = models.ManyToManyField(ArticleTags, related_name='article_tags', blank=True, verbose_name='tags')
+    fake_field = models.CharField(max_length=122)
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")
@@ -72,19 +75,19 @@ class Article(TimeStampedModel):
     def get_all_comments(self):
         return list([item for item in self.comment_comments.all()])
     
-    @staticmethod
-    def get_counted_tags():
-        tag_dict = {}
-        query = Article.objects.filter(article_state='published').annotate(tagged=Count(
-            'tags')).filter(tags__gt=0)
-        for obj in query:
-            for tag in obj.tags.names():
-                if tag not in tag_dict:
-                    tag_dict[tag] = 1
+    # @staticmethod
+    # def get_counted_tags():
+    #     tag_dict = {}
+    #     query = Article.objects.filter(article_state='published').annotate(tagged=Count(
+    #         'tags')).filter(tags__gt=0)
+    #     for obj in query:
+    #         for tag in obj.tags.names():
+    #             if tag not in tag_dict:
+    #                 tag_dict[tag] = 1
 
-                else:  # pragma: no cover
-                    tag_dict[tag] += 1
-        return tag_dict.items()
+    #             else:  # pragma: no cover
+    #                 tag_dict[tag] += 1
+    #     return tag_dict.items()
 
     def get_summary(self):
         if len(self.article_content) > 255:
@@ -114,7 +117,7 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    catagory_id = models.ForeignKey('Category', related_name='sub_categories', on_delete=models.CASCADE)
+    catagory_id = models.ForeignKey('Category', related_name='sub_categories',)
     category_name = models.CharField(max_length=255)
 
     def __str__(self):

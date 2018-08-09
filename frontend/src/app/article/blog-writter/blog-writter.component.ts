@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVars } from '../../app.component';
 import { LoginCheckerService } from '../../_helpers/login-checker.service';
-import { IArticle } from '../../_interfaces/article-interface.article';
+import { IArticle, CArticle } from '../../_interfaces/article-interface.article';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../_services/api.service';
 
@@ -10,10 +10,14 @@ import { ApiService } from '../../_services/api.service';
   templateUrl: './blog-writter.component.html',
   styleUrls: ['./blog-writter.component.css']
 })
+
 export class BlogWritterComponent implements OnInit {
 
   article = {};
   categories = [];
+  sub_categories = [];
+  editorContent = '';
+  article_title = ''; 
 
   public options: Object = {
     placeholderText: 'Edit Your Content Here!',
@@ -21,10 +25,11 @@ export class BlogWritterComponent implements OnInit {
     events: {
       'froalaEditor.focus': function (e, editor) {
         console.log(editor.selection.get());
+
       },
       'froalaEditor.contentChanged': function(e, editor) {
         console.log(e.editorContent);
-        debugger;
+
         console.log(editor);
       }
     }
@@ -49,15 +54,24 @@ export class BlogWritterComponent implements OnInit {
   get_cat() {
     this._ApiService.getCategories().subscribe(data => {
       this.categories = data['objects'];
+    });
+  }
+
+  fetchSuvctgry(cat) {
+    console.log(cat);
+    this._ApiService.getSubCategories(cat).subscribe(data => {
       // tslint:disable-next-line:no-debugger
       debugger;
+      this.sub_categories = data['objects'];
     });
   }
 
   save() {
+    // tslint:disable-next-line:no-debugger
     debugger;
-    const  article = this.article;
-    this._ApiService.saveArticle(article).subscribe(data => {
+    this.article['article_content'] = this.editorContent;
+    this.article['author'] = JSON.parse(localStorage.getItem('user_resource')).resource_uri;
+    this._ApiService.saveArticle(this.article).subscribe(data => {
       console.log(data);
     });
   }
