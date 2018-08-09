@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'taggit',
     'autoslug',
     'corsheaders',
-    'my_self',
+    'django_seed',
 ]
 
 MIDDLEWARE = [

@@ -16,7 +16,6 @@ from django.core.paginator import (
 from tastypie.models import ApiKey
 from django.contrib.auth import login
 from django.conf import settings
-from my_self.models import MySelf, MyWork,CarouselImages,Services,Team,CompanyInfo
 from user_profile.models import User
 from .models import (Article, 
     ArticleRating,
@@ -57,109 +56,64 @@ def _get_parameter(request, name):
             return None
 
 
-class MySelfResource(ModelResource):
-    
-    class Meta:
-        
-        queryset = MySelf.objects.all()
-        resource_name = 'myself'
-        excludes = []
-        allowed_methods = ['get']
-        detail_allowed_methods = ['get', 'post', 'put', 'delete']
-        authorization = DjangoAuthorization()
-
-
-class MyWorkResource(ModelResource):
-    
-    class Meta:
-        
-        queryset = MyWork.objects.all()
-        resource_name = 'mywork'
-        excludes = []
-        allowed_methods = ['get']
-        detail_allowed_methods = ['get', 'post', 'put', 'delete']
-        authorization = DjangoAuthorization()
-
-
-class ServicesResource(ModelResource):
-    class Meta:
-        
-        queryset = Services.objects.all()
-        resource_name = 'services'
-        excludes = []
-        allowed_methods = ['get']
-        detail_allowed_methods = ['get', 'post', 'put', 'delete']
-        authorization = DjangoAuthorization()
-
-
-class TeamResource(ModelResource):
-    
-    class Meta:
-        
-        queryset = Team.objects.all()
-        resource_name = 'team'
-        excludes = []
-        allowed_methods = ['get']
-        detail_allowed_methods = ['get', 'post', 'put', 'delete']
-        authorization = DjangoAuthorization()
-
-class HomePageResources(ModelResource):
+# 
+# class HomePageResources(ModelResource):
    
-    mywork = fields.ToManyField('blog.api.MyWorkResource','mywork',null=True)
-    services = fields.ListField(null=True, blank=True)
-    carousel_images = fields.ListField(null=True, blank=True)
+#     mywork = fields.ToManyField('blog.api.MyWorkResource','mywork',null=True)
+#     services = fields.ListField(null=True, blank=True)
+#     carousel_images = fields.ListField(null=True, blank=True)
 
-    class Meta:
-        queryset = MySelf.objects.all()
-        resource_name = 'main'
-        allowed_methods = ['get']
-        authorization = DjangoAuthorization()
-        authentication = ApiKeyAuthentication()
+#     class Meta:
+#         queryset = MySelf.objects.all()
+#         resource_name = 'main'
+#         allowed_methods = ['get']
+#         authorization = DjangoAuthorization()
+#         authentication = ApiKeyAuthentication()
 
-    def prepend_urls(self):
-        return [
-            url(r"^(?P<resource_name>%s)/index$" % self._meta.resource_name,
-                self.wrap_view('index'), name="landing_gear")
-        ]
+#     def prepend_urls(self):
+#         return [
+#             url(r"^(?P<resource_name>%s)/index$" % self._meta.resource_name,
+#                 self.wrap_view('index'), name="landing_gear")
+#         ]
 
-    def dehydrate_carousel_images(self, bundle):
-        return list(CarouselImages.objects.all().values_list('carousel_image_url', flat=True))
+#     def dehydrate_carousel_images(self, bundle):
+#         return list(CarouselImages.objects.all().values_list('carousel_image_url', flat=True))
 
-    def dehydrate_services(self, bundle):
-        return list(Services.objects.all().values_list('service_name','service_image', 'service_description'))
+#     def dehydrate_services(self, bundle):
+#         return list(Services.objects.all().values_list('service_name','service_image', 'service_description'))
 
-    def index(self, request, *args, **kwargs):
+#     def index(self, request, *args, **kwargs):
         
-        self.method_check(request, allowed=['get'])
-        self.is_authenticated(request)
-        self.throttle_check(request)
+#         self.method_check(request, allowed=['get'])
+#         self.is_authenticated(request)
+#         self.throttle_check(request)
 
-        article_res = ArticleResource(api_name='v1')
-        page_offset = _get_parameter(request, 'offset')
-        page_limit = _get_parameter(request, 'limit')
-        article_limit = _get_parameter(request, 'article_limit')
+#         article_res = ArticleResource(api_name='v1')
+#         page_offset = _get_parameter(request, 'offset')
+#         page_limit = _get_parameter(request, 'limit')
+#         article_limit = _get_parameter(request, 'article_limit')
 
-        object_list = []
+#         object_list = []
 
-        popular_articles = Article.objects.filter(article_state="published").order_by('-modified')
-        paginator = Paginator(popular_articles, int(page_limit))
+#         popular_articles = Article.objects.filter(article_state="published").order_by('-modified')
+#         paginator = Paginator(popular_articles, int(page_limit))
         
-        try:
-            page = paginator.page(1)
-        except InvalidPage:
-            raise Http404("Sorry, no results on that page.")    
+#         try:
+#             page = paginator.page(1)
+#         except InvalidPage:
+#             raise Http404("Sorry, no results on that page.")    
 
-        article_bundle = []
-        for article in popular_articles:
-            bundle = article_res.build_bundle(obj=article, request=request)
-            bundle = article_res.full_dehydrate(bundle)
-            article_bundle.append(bundle)
+#         article_bundle = []
+#         for article in popular_articles:
+#             bundle = article_res.build_bundle(obj=article, request=request)
+#             bundle = article_res.full_dehydrate(bundle)
+#             article_bundle.append(bundle)
 
-        object_list = {
-            'articles': article_bundle,
-        }
-        self.log_throttled_access(request)
-        return self.create_response(request, object_list)
+#         object_list = {
+#             'articles': article_bundle,
+#         }
+#         self.log_throttled_access(request)
+#         return self.create_response(request, object_list)
 
 
 class UserResource(ModelResource):
