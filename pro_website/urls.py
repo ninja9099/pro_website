@@ -17,17 +17,15 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-from rest_framework import routers
-from blog import views as api_views
 import notifications.urls
 from django_comments.feeds import LatestCommentFeed
+from blog import urls as api_urls
 
 urlpatterns = [
+    url(r'^', include(api_urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('rest_framework.urls')),
-    url(r'^articles/$', api_views.article_list),
-    url(r'^articles/(?P<pk>[0-9]+)/$', api_views.article_detail),
+    
 ]   
 
 if settings.DEBUG:
