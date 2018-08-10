@@ -7,13 +7,23 @@ http://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascr
  */
 
 
-	.invalid {border: 2px solid #b24d4b ! important;}
-	.invalid ::after{
-		content: "this field is not valid";
-		background-color: yellow;
-		color: red;
-		font-weight: bold;
-	}
+.invalid {border-bottom: 2px solid #b24d4b ! important;}
+.invalid ::after{
+	content: "this field is not valid";
+	background-color: yellow;
+	color: red;
+	font-weight: bold;
+}
+
+.box-input {
+	display: inline;
+	vertical-align: middle;
+	border: none;
+	padding: 0 .5rem;
+	height: 38px;
+	font-size: 1em;
+	font-family: Roboto,"Helvetica Neue",sans-serif;
+}
 
 code[class*="language-"],
 pre[class*="language-"] {
@@ -172,7 +182,7 @@ ul > li> span {    font-style: italic;
 .mce-tinymce{box-shadow: none !important; border-radius: 4px !important; margin: 4px !important; border:1px solid #DDDDDD !important;}
 .side-bar{display: flex; width: 24%; flex-flow: column;}
 .side-bar ul li {display: flex; flex-flow: column; flex-basis: 100%; margin-bottom: 25px;}
-ul li input, ul li select {
+/* ul li input, ul li select {
     display: block;
     height: 34px;
     padding: 6px 12px;
@@ -188,8 +198,32 @@ ul li input, ul li select {
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
+} */
 
 .editor-container h2 {margin: 10px 20px; font-family: Raleway,sans-serif;}
 .submit-footer{text-align: center;}
 .submit-footer button{min-width: 150px;border-radius: 0px !important;}
+
+
+.box-input {
+	display: inline !important;
+	vertical-align: middle !important;
+	padding: 0 .5rem !important;
+	height: 38px !important;
+	font-size: 1em !important;
+	font-family: Roboto,"Helvetica Neue",sans-serif !important;
+	border-bottom: 2px solid #cfd2d5 !important;
+	background-color: #fff !important;
+}
+.box-input:focus, .box-input:active, .box-input:hover {
+	display: inline !important;
+	vertical-align: middle !important;
+	padding: 0 .5rem !important;
+	height: 38px !important;
+	font-size: 1em !important;
+	font-family: Roboto,"Helvetica Neue",sans-serif !important;
+	border-bottom: 2px solid #0275d8 !important;
+	outline-color: #0275d8 !important;
+	outline: none !important;
+	background-color: #fff !important;
+}

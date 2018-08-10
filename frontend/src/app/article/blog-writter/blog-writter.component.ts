@@ -22,6 +22,7 @@ export class BlogWritterComponent implements OnInit {
   public options: Object = {
     placeholderText: 'Edit Your Content Here!',
     charCounterCount: false,
+    minHeight:500,
     events: {
       'froalaEditor.focus': function (e, editor) {
         console.log(editor.selection.get());
@@ -57,7 +58,7 @@ export class BlogWritterComponent implements OnInit {
     });
   }
 
-  fetchSuvctgry(cat) {
+  fetchSubctgry(cat) {
     console.log(cat);
     this._ApiService.getSubCategories(cat).subscribe(data => {
       // tslint:disable-next-line:no-debugger

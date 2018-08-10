@@ -6,24 +6,24 @@
 					<ul>
 						<li>
 						    <label for="title">Title</label>
-						    <input (change)="onChange($event)" type="text" [ngClass]="{invalid: title.invalid && (title.dirty || title.touched)}" name="title" maxlength="100" required [(ngModel)]="article.article_title" #title="ngModel">
+						    <input class="box-input" (change)="onChange($event)" type="text" [ngClass]="{invalid: title.invalid && (title.dirty || title.touched)}" name="title" maxlength="100" required [(ngModel)]="article.article_title" #title="ngModel">
 							<span>Suitable and relavant title</span>
 						</li>
 						<li>
-							<tag-input editable='true' theme='bootstrap'></tag-input>
-						    <label for="tags">Tags</label>
+							<tag-input  [(ngModel)]="article.article_tags" name="tags" editable='true' theme='bootstrap'></tag-input>
+						    <!-- <label for="tags">Tags</label>
 							<input [ngClass]="{invalid: title.invalid && (tags.dirty || tags.touched)}" type="text" name="tags" maxlength="100" required id="tags" [(ngModel)]="article.article_tags" #tags="ngModel">
-						    <span>Enter keywords here </span>
+						    <span>Enter keywords here </span> -->
 						</li>
 						<li>
 						    <label for="url">Image</label>
-							<input [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" id="article-image" name="article-image" required [(ngModel)]="article.article_image" #image="ngModel">
+							<input class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" id="article-image" name="article-image" required [(ngModel)]="article.article_image" #image="ngModel">
 								
 						    <span>Your article poster (500*500)</span>
 						</li>
 						<li>
 						    <label for="category">Category</label>
-						    <select (change)="fetchSuvctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" #ctgry required>
+						    <select class="box-input" (change)="fetchSubctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" #ctgry required>
 								<option></option>
 								<option *ngFor="let cat of categories" value="{{cat.resource_uri}}">{{cat.category_name}}</option>
 							</select>
@@ -31,7 +31,7 @@
 						</li>
 						<li>
 							<label for="sub-category">Sub-Category</label>
-							<select [disabled]="!article.article_category" name="sub-category" id="sub-category" [ngClass]="{invalid: subctgry.invalid && (subctgry.dirty || subctgry.touched)}" [(ngModel)]="article.article_subcategory"
+							<select class="box-input" [disabled]="!article.article_category" name="sub-category" id="sub-category" [ngClass]="{invalid: subctgry.invalid && (subctgry.dirty || subctgry.touched)}" [(ngModel)]="article.article_subcategory"
 							 #subctgry required>
 								<option></option>
 								<option *ngFor="let subcat of sub_categories" value="{{subcat.resource_uri}}">{{subcat.category_name}}</option>
@@ -44,7 +44,7 @@
 					<ul>
 						<li>
 							<label for="editordata">Content</label>
-							<textarea [froalaEditor]='options' [(froalaModel)]="article.article_content"></textarea>
+							<textarea  [froalaEditor]='options' [(froalaModel)]="article.article_content"></textarea>
 							<div [froalaView]="editorContent"></div>
 						</li>
 					</ul>
