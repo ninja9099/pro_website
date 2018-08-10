@@ -7,9 +7,6 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.functional import cached_property
 
-from django.db.models import signals
-from tastypie.models import create_api_key
-
 PROFILE_PIC_PATH = settings.IMAGE_PATH + 'profile_images/'
 cover_photo = 'static/src/images/user_profile/cover/'
 
@@ -46,7 +43,3 @@ class User(AbstractUser):
             return self.profile_picture
         except AttributeError:
             return settings.DEFAULT_USER_IMAGE
-
-    
-    
-signals.post_save.connect(create_api_key, sender=User)

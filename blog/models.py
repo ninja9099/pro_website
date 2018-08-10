@@ -10,8 +10,7 @@ from django.conf import settings
 from autoslug import AutoSlugField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.functional import cached_property
-from django.db.models import signals
-from tastypie.models import create_api_key
+
 
 User = settings.AUTH_USER_MODEL
 ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
@@ -19,7 +18,6 @@ ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
 class ArticleTags(models.Model):
     name = models.CharField(max_length=100,blank=True)
     slug = AutoSlugField(unique=True, populate_from='name')
-    fake_field = models.CharField(max_length=10)
 
 class Article(TimeStampedModel):
 
@@ -39,7 +37,7 @@ class Article(TimeStampedModel):
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
     article_slug = AutoSlugField(unique=True,populate_from='article_title')
     article_tags = models.ManyToManyField(ArticleTags, related_name='article_tags', blank=True, verbose_name='tags')
-
+    
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")
@@ -153,9 +151,3 @@ class ArticleFollowings(TimeStampedModel):
     is_followed = models.BooleanField(default=True)
     class Meta:
         unique_together = (("user", "article"),)
-
-
-
-
-
-signals.post_save.connect(create_api_key, sender=User)

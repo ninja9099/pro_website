@@ -17,8 +17,8 @@ export class BlogWritterComponent implements OnInit {
   categories = [];
   sub_categories = [];
   editorContent = '';
-  article_title = ''; 
-
+  article_title = '';
+  tags = [];
   public options: Object = {
     placeholderText: 'Edit Your Content Here!',
     charCounterCount: false,
@@ -71,6 +71,15 @@ export class BlogWritterComponent implements OnInit {
     // tslint:disable-next-line:no-debugger
     debugger;
     this.article['article_content'] = this.editorContent;
+    this.article['article_tags'].forEach(element => {
+      // tslint:disable-next-line:no-debugger
+      this.tags.push({
+        'name': element.display,
+        'slug': element.value,
+        'fake_field': element.value, });
+      debugger;
+    });
+    this.article['article_tags'] = this.tags;
     this.article['author'] = JSON.parse(localStorage.getItem('user_resource')).resource_uri;
     this._ApiService.saveArticle(this.article).subscribe(data => {
       console.log(data);

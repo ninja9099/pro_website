@@ -41,10 +41,8 @@ INSTALLED_APPS = [
     'blog',
     'user_profile',
     'django_comments',
-    'tastypie',
-    'tracking',
+    'rest_framework',
     'social_django',
-    'tracking_analyzer',
     'django_user_agents',
     'notifications',
     'taggit',
@@ -55,7 +53,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'tracking.middleware.VisitorTrackingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -235,16 +232,6 @@ TRACK_USE_GEOIP =True
 GEOIP_CACHE_TYPE = 0
 GEOIP_PATH =os.path.join(BASE_DIR, 'static/geoip-data/')
 
-DEFAULT_TRACKING_TEMPLATE = 'tracking/visitor_map.html'
-
-# django-tracking2 settings
-TRACK_AJAX_REQUESTS =True
-TRACK_ANONYMOUS_USERS =True
-TRACK_PAGEVIEWS =True
-
-TRACK_IGNORE_STATUS_CODES = [400, 404, 403, 405, 410, 500]
-TRACK_REFERER =True
-TRACK_QUERY_STRING= True
 
 # notifications settings
 NOTIFICATIONS_SOFT_DELETE=True
