@@ -197,3 +197,48 @@ def category_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def subcategory_list(request):
+    """
+    List all code Articles, or create a new Article.
+    """
+    if request.method == 'GET':
+        subcategory = SubCategory.objects.all()
+        serializer = SubCategorySerializer(subcategory, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = SubCategorySerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+@api_view(['GET', 'POST', 'PUT'])
+def subcategory_detail(request, pk):
+    """
+    Retrieve, update or delete a code Article.
+    """
+    try:
+        subcategory = SubCategory.objects.get(pk=pk)
+    except SubCategory.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = CategorySerializer(subcategory)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = SubCategorySerializer(subcategory, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        subcategory.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
