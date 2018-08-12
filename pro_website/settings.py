@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user_profile',
     'django_comments',
     'rest_framework',
+    'rest_framework.authtoken',
     'social_django',
     'django_user_agents',
     'notifications',

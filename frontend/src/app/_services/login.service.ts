@@ -8,13 +8,15 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
-    const body = { user: username, password: password };
+    const body = { username: username, password: password, 'content_type':'application/json'};
     // tslint:disable-next-line:no-debugger
-    return this.http.post('http://localhost:8000/api/v1/user/login', body).pipe(map(response => {
-
+    debugger;
+    return this.http.post('http://127.0.0.1:8000/api/v1/api-token/', body).pipe(map(response => {
+      debugger;
       // login successful if there's a user and  token in the response
       if (response && response['apikey'] && response['user']) {
         // store user details and  token in local storage to keep user logged in between page refreshes
+        debugger;
         localStorage.setItem('user', JSON.stringify(response['user']));
         localStorage.setItem('apikey', JSON.stringify(response['apikey']));
         localStorage.setItem('user_resource', JSON.stringify(response['user_resource']));

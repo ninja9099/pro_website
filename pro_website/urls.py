@@ -22,9 +22,9 @@ from django_comments.feeds import LatestCommentFeed
 from blog import urls as api_urls
 
 urlpatterns = [
-    url(r'^', include(api_urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('rest_framework.urls')),
+    url(r'^api/v1/', include(api_urls)),
     
 ]   
 

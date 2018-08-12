@@ -16,7 +16,9 @@ export class ApiService {
   constructor(private http: HttpClient, private _route: ActivatedRoute) {
   }
 
-  articleUrl = 'http://127.0.0.1:8000/articles/?format=json&username=pam&password=pankaj@123';
+  base_url: string = 'http://127.0.0.1:8000/api/v1/?content_type=application/json';
+  get_token: string  = this.base_url + 'api-token' 
+  articles = this.base_url + 'articles/?format=json';
   articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/';
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/';
   home_resource = 'http://localhost:8000/api/v1/main/';
@@ -26,11 +28,11 @@ export class ApiService {
   post_article = 'http://127.0.0.1:8000/api/v1/article/';
 
   getArticle(id) {
-    return this.http.get(this.articleUrl + id);
+    return this.http.get(this.articles + id);
   }
 
   getArticles(range, limit) {
-    return this.http.get(this.articleUrl);
+    return this.http.get(this.articles);
   }
 
   getHomeResource() {
