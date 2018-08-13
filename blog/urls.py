@@ -1,9 +1,11 @@
 from django.conf.urls import url, include
 from blog import views as api_views
 from rest_framework.authtoken import views
+from .views import CustomObtainAuthToken
+
 
 urlpatterns = [
-    url(r'^api-token/', views.obtain_auth_token),
+    url(r'^api-token/', CustomObtainAuthToken.as_view()),
     url(r'^articles/$', api_views.article_list),
     url(r'^articles/(?P<pk>[0-9]+)/$', api_views.article_detail),
     url(r'^tags/$', api_views.tag_list),

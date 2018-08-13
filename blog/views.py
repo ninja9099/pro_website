@@ -7,6 +7,17 @@ from blog.serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+
+class CustomObtainAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data['token'])
+        return Response({'is_authenticated': True, 'token': token.key, 'id': token.user_id, 'username': token.user.username })
+
+
+
 
 @csrf_exempt
 @api_view(['GET', 'POST'])
