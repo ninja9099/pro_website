@@ -1,4 +1,5 @@
 from django.contrib.auth.models import Group
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from user_profile.models import User
 from blog.models import Article, ArticleTags, Category
 from django.views.decorators.csrf import csrf_exempt
@@ -9,12 +10,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from django.conf import settings
+from rest_framework.settings import api_settings
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
         token = Token.objects.get(key=response.data['token'])
-        return Response({'is_authenticated': True, 'token': token.key, 'id': token.user_id, 'username': token.user.username })
+        return Response({'is_authenticated': True, 'token': token.key, 'id': token.user_id, 'user': token.user.username })
 
 
 
@@ -25,10 +28,14 @@ def article_list(request):
     """
     List all code Articles, or create a new Article.
     """
+
+    queryset = Article.objects.all()
+    pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
+    paginator = pagination_class()
+    page = paginator.paginate_queryset(queryset, request)
     if request.method == 'GET':
-        articles = Article.objects.all()
-        serializer = ArticleSerializer(articles, many=True)
-        return Response(serializer.data)
+        serializer = ArticleSerializer(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)

@@ -10,7 +10,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('url', 'username', 'email', 'groups')
 
-
 class GroupSerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -39,7 +38,6 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = ('article_title', 'article_image', 'article_category','likes','tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
-
 
 class CategorySerializer(serializers.ModelSerializer):
     

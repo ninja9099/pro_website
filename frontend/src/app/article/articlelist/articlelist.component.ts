@@ -28,7 +28,7 @@ export class ArticleListComponent implements OnInit {
     this._ApiService.getArticles(null, limit).subscribe((data: Array<object>) => {
       // tslint:disable-next-line:no-debugger
       debugger;
-      this.article_list = data['objects'];
+      this.article_list = data['results'];
       console.log(data);
     });
   }

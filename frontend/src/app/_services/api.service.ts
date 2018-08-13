@@ -16,16 +16,17 @@ export class ApiService {
   constructor(private http: HttpClient, private _route: ActivatedRoute) {
   }
 
-  base_url: string = 'http://127.0.0.1:8000/api/v1/?content_type=application/json';
-  get_token: string  = this.base_url + 'api-token' 
-  articles = this.base_url + 'articles/?format=json';
-  articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/';
-  articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/';
-  home_resource = 'http://localhost:8000/api/v1/main/';
-  recent_articles = 'http://127.0.0.1:8000/api/v1/main/index';
-  categories = 'http://127.0.0.1:8000/api/v1/category';
-  subcategories = 'http://127.0.0.1:8000/api/v1/subcategory/';
-  post_article = 'http://127.0.0.1:8000/api/v1/article/';
+  format = '?format=json';
+  base_url = 'http://127.0.0.1:8000/api/v1/';
+  get_token: string = this.base_url + 'api-token' + this.format;
+  articles = this.base_url + 'articles/' + this.format;
+  articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/' + this.format;
+  articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/' + this.format;
+  home_resource = 'http://localhost:8000/api/v1/main/' + this.format;
+  recent_articles = 'http://127.0.0.1:8000/api/v1/main/index' + this.format;
+  categories = 'http://127.0.0.1:8000/api/v1/category' + this.format;
+  subcategories = 'http://127.0.0.1:8000/api/v1/subcategory/' + this.format;
+  post_article = 'http://127.0.0.1:8000/api/v1/article/' + this.format;
 
   getArticle(id) {
     return this.http.get(this.articles + id);
@@ -40,7 +41,7 @@ export class ApiService {
   }
 
   getRecentArticles(limit) {
-    return this.http.get(this.recent_articles + '?limit=' + limit);
+    return this.http.get(this.recent_articles + '&limit=' + limit);
   }
   getCategories() {
     return this.http.get(this.categories);
