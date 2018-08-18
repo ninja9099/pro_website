@@ -28,7 +28,7 @@ def article_list(request):
     """
     List all code Articles, or create a new Article.
     """
-
+    
     queryset = Article.objects.all()
     pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
     paginator = pagination_class()
@@ -79,10 +79,20 @@ def tag_list(request):
     """
     List all code Articles, or create a new Article.
     """
+    # if request.method == 'GET':
+    #     tags = ArticleTags.objects.all()
+    #     serializer = ArticleTagsSerializer(tags, many=True)
+    #     return Response(serializer.data)
+
+    queryset = ArticleTags.objects.all()
+    pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
+    paginator = pagination_class()
+    page = paginator.paginate_queryset(queryset, request)
+    
     if request.method == 'GET':
-        tags = ArticleTags.objects.all()
-        serializer = ArticleTagsSerializer(tags, many=True)
-        return Response(serializer.data)
+        serializer = ArticleTagsSerializer(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)

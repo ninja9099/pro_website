@@ -21,7 +21,7 @@ import { AlertService } from './_services/alert.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginCheckerService } from './_helpers/login-checker.service';
 import { JwtInterceptor } from './_helpers/jwtinterceptor.service';
-
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 
 @NgModule({
@@ -42,6 +42,7 @@ import { JwtInterceptor } from './_helpers/jwtinterceptor.service';
     FormsModule,
     ReactiveFormsModule,
     UserModule,
+    ToastModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
       { path: '**', component: PageNotFoundComponent }, ])

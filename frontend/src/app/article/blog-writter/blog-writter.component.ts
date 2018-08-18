@@ -30,7 +30,6 @@ export class BlogWritterComponent implements OnInit {
       },
       'froalaEditor.contentChanged': function(e, editor) {
         console.log(e.editorContent);
-
         console.log(editor);
       }
     }
@@ -54,7 +53,8 @@ export class BlogWritterComponent implements OnInit {
 
   get_cat() {
     this._ApiService.getCategories().subscribe(data => {
-      this.categories = data['objects'];
+      debugger;
+      this.categories = data;
     });
   }
 

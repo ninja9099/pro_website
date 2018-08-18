@@ -24,7 +24,7 @@ export class ApiService {
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/' + this.format;
   home_resource = 'http://localhost:8000/api/v1/main/' + this.format;
   recent_articles = 'http://127.0.0.1:8000/api/v1/main/index' + this.format;
-  categories = 'http://127.0.0.1:8000/api/v1/category' + this.format;
+  categories = 'http://127.0.0.1:8000/api/v1/category/' + this.format;
   subcategories = 'http://127.0.0.1:8000/api/v1/subcategory/' + this.format;
   post_article = 'http://127.0.0.1:8000/api/v1/article/' + this.format;
 

@@ -8,7 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups')
+        fields = ('url', 'username', 'email')
+        exclude = ('password', 'groups',  'user_permissions' )
 
 class GroupSerializer(serializers.ModelSerializer):
     
@@ -34,10 +35,9 @@ class ArticleTagsSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     likes = ArticleLikesSerializer(source='articlelikes_set',  many=True)
     tags = ArticleTagsSerializer(source="article_tags", many=True)
-    
     class Meta:
         model = Article
-        fields = ('article_title', 'article_image', 'article_category','likes','tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
+        fields = ('article_author', 'article_title', 'article_image', 'article_category','likes','tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
 
 class CategorySerializer(serializers.ModelSerializer):
     
