@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'social_django',
     'django_user_agents',
-    'notifications',
     'taggit',
     'autoslug',
     'corsheaders',
