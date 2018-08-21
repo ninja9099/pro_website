@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { GlobalVars } from '../../app.component';
 import { LoginCheckerService } from '../../_helpers/login-checker.service';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../_services/api.service';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'app-blog-writter',
@@ -14,15 +15,15 @@ import { ApiService } from '../../_services/api.service';
 export class BlogWritterComponent implements OnInit {
 
   article = {};
-  categories = [];
-  sub_categories = [];
-  editorContent = '';
-  article_title = '';
+  categories = {};
+  sub_categories = {};
+  article_image;
   tags = [];
+
   public options: Object = {
     placeholderText: 'Edit Your Content Here!',
     charCounterCount: false,
-    minHeight:500,
+    minHeight: 500,
     events: {
       'froalaEditor.focus': function (e, editor) {
         console.log(editor.selection.get());
@@ -38,12 +39,16 @@ export class BlogWritterComponent implements OnInit {
   constructor(public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,
     private _ApiService: ApiService,
+    public vcr: ViewContainerRef,
+    public toastr: ToastsManager,
+    private fb: FormBuilder,
   ) {
     _gvars.context = 'writer';
     // tslint:disable-next-line:no-debugger
     if (_loginChecker.is_loggedin()) {
       _gvars.isLoggedIn = true;
     }
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -53,36 +58,48 @@ export class BlogWritterComponent implements OnInit {
 
   get_cat() {
     this._ApiService.getCategories().subscribe(data => {
-      debugger;
       this.categories = data;
     });
   }
 
   fetchSubctgry(cat) {
-    console.log(cat);
+
     this._ApiService.getSubCategories(cat).subscribe(data => {
-      // tslint:disable-next-line:no-debugger
-      debugger;
-      this.sub_categories = data['objects'];
+      this.sub_categories = data
     });
   }
 
   save() {
-    // tslint:disable-next-line:no-debugger
-    debugger;
-    this.article['article_content'] = this.editorContent;
-    this.article['article_tags'].forEach(element => {
+    this.tags.forEach(element => {
       // tslint:disable-next-line:no-debugger
       this.tags.push({
         'name': element.display,
         'slug': element.value,
         'fake_field': element.value, });
-      debugger;
     });
     this.article['article_tags'] = this.tags;
-    this.article['author'] = JSON.parse(localStorage.getItem('user_resource')).resource_uri;
-    this._ApiService.saveArticle(this.article).subscribe(data => {
+    this.article['author'] = JSON.parse(localStorage.getItem('user'));
+    this.article['article_image'] = this.article_image;
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    this._ApiService.saveArticle(JSON.stringify(this.article)).subscribe(data => {
       console.log(data);
+      // tslint:disable-next-line:no-debugger
+      this.toastr.success('You are awesome!', 'Success!');
+    },
+    error => {
+      this.toastr.error(JSON.stringify(error.error), 'Error!');
     });
+  }
+
+  onFileChange(event) {
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      // tslint:disable-next-line:no-debugger
+      debugger;
+      this.article_image = file;
+    }
   }
 }

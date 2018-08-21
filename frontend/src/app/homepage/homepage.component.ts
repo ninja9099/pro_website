@@ -19,7 +19,7 @@ export class HomepageComponent implements OnInit {
 
   constructor(private _ApiService: ApiService,
     private _alert: AlertService,
-    public _gvars: GlobalVars, 
+    public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,
     public toastr: ToastsManager,
     public vcr: ViewContainerRef
@@ -34,13 +34,11 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
     const limit = 10;
     this.recent_articles(limit);
-    
   }
 
   public home() {
     this._ApiService.getHomeResource().subscribe((data: IResponse) => {
       this.home_resources = data.objects;
-      
       console.log(this.home_resources);
 
     });

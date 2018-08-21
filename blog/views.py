@@ -28,7 +28,7 @@ def article_list(request):
     """
     List all code Articles, or create a new Article.
     """
-    
+    import pdb; pdb.set_trace()
     queryset = Article.objects.all()
     pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
     paginator = pagination_class()
@@ -39,10 +39,12 @@ def article_list(request):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = ArticleSerializer(data=data)
+        serializer = ArticleSerializer(data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print  serializer.errors
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
@@ -227,12 +229,17 @@ def category_detail(request, pk):
 
 @csrf_exempt
 @api_view(['GET', 'POST'])
-def subcategory_list(request):
+def subcategory_list(request, cat_id=None):
     """
     List all code Articles, or create a new Article.
     """
+    cat_id = request.query_params.get('catagory_id', None)
+
     if request.method == 'GET':
-        subcategory = SubCategory.objects.all()
+        if cat_id:
+            subcategory = SubCategory.objects.filter(catagory_id=cat_id)
+        else:
+            subcategory = SubCategory.objects.all()
         serializer = SubCategorySerializer(subcategory, many=True)
         return Response(serializer.data)
 
