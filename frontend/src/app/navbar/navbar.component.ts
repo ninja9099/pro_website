@@ -16,6 +16,7 @@ export class NavbarComponent {
   logOut() {
     this._loginService.logout();
     this._gvars.isLoggedIn = false;
+    location.reload();
   }
 
 }

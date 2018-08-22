@@ -46,6 +46,9 @@ def article_list(request):
         else:
             print  serializer.errors
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+
 
 @csrf_exempt
 @api_view(['GET', 'POST', 'PUT'])

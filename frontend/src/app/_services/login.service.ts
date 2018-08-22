@@ -17,6 +17,7 @@ export class LoginService {
         // store user details and  token in local storage to keep user logged in between page refreshes
         debugger;
         localStorage.setItem('user', JSON.stringify(response['user']));
+        localStorage.setItem('user_id', JSON.stringify(response['id']));
         localStorage.setItem('apikey', JSON.stringify(response['token']));
         localStorage.setItem('user_resource', JSON.stringify(response['user_resource']));
       }
@@ -28,5 +29,6 @@ export class LoginService {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
     localStorage.removeItem('apikey');
+    localStorage.removeItem('user_id');
   }
 }

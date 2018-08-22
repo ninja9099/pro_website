@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { GlobalVars } from '../../app.component';
 import { LoginCheckerService } from '../../_helpers/login-checker.service';
 
-import { FormsModule, FormBuilder, Validators } from '@angular/forms';
+import { FormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ApiService } from '../../_services/api.service';
 import { ToastsManager } from 'ng2-toastr';
 
@@ -41,7 +41,6 @@ export class BlogWritterComponent implements OnInit {
     private _ApiService: ApiService,
     public vcr: ViewContainerRef,
     public toastr: ToastsManager,
-    private fb: FormBuilder,
   ) {
     _gvars.context = 'writer';
     // tslint:disable-next-line:no-debugger
@@ -78,28 +77,14 @@ export class BlogWritterComponent implements OnInit {
         'fake_field': element.value, });
     });
     this.article['article_tags'] = this.tags;
-    this.article['author'] = JSON.parse(localStorage.getItem('user'));
+    this.article['author'] = JSON.parse(localStorage.getItem('user_id'));
     this.article['article_image'] = this.article_image;
-    // tslint:disable-next-line:no-debugger
-    debugger;
     this._ApiService.saveArticle(JSON.stringify(this.article)).subscribe(data => {
       console.log(data);
-      // tslint:disable-next-line:no-debugger
       this.toastr.success('You are awesome!', 'Success!');
     },
     error => {
       this.toastr.error(JSON.stringify(error.error), 'Error!');
     });
-  }
-
-  onFileChange(event) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      // tslint:disable-next-line:no-debugger
-      debugger;
-      this.article_image = file;
-    }
   }
 }
