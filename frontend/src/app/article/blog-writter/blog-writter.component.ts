@@ -77,8 +77,8 @@ export class BlogWritterComponent implements OnInit {
         'fake_field': element.value, });
     });
     this.article['article_tags'] = this.tags;
-    this.article['author'] = JSON.parse(localStorage.getItem('user_id'));
-    this.article['article_image'] = this.article_image;
+    this.article['article_author'] = JSON.parse(localStorage.getItem('user_id'));
+    // this.article['article_image'] = this.article.article_image;
     this._ApiService.saveArticle(JSON.stringify(this.article)).subscribe(data => {
       console.log(data);
       this.toastr.success('You are awesome!', 'Success!');

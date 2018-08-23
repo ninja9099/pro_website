@@ -6,7 +6,7 @@
 				<ul>
 					<li>
 						<label for="title">Title</label>
-						<input  class="box-input" type="text" [ngClass]="{invalid: title.invalid && (title.dirty || title.touched)}" name="title" maxlength="100" required [(ngModel)]="article.article_title" #title="ngModel">
+						<input  class="box-input" type="text" [ngClass]="{invalid: title.invalid && (title.dirty || title.touched)}" name="title" maxlength="100" required [(ngModel)]="article.article_title">
 						<span>Suitable and relavant title</span>
 					</li>
 					<li>
@@ -14,13 +14,13 @@
 					</li>
 					<li>
 						<label for="url">Image</label>
-						<input (change)="onFileChange($event)"  class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" id="article-image" name="article-image" required [(ngModel)]="article.article_image" #image>
+						<input (change)="onFileChange($event)"  class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" name="article-image" required [(ngModel)]="article.article_image" #image>
 							
 						<span>Your article poster (500*500)</span>
 					</li>
 					<li>
 						<label for="category">Category</label>
-						<select class="box-input" (change)="fetchSubctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" #ctgry required>
+						<select class="box-input" (change)="fetchSubctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" required>
 							<option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.category_name}}</option>
 						</select>
 						<span>Specify category your article belongs to</span>
