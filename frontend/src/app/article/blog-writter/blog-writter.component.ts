@@ -20,27 +20,23 @@ export class BlogWritterComponent implements OnInit {
   article_image;
   tags = [];
 
-  public options: Object = {
-    placeholderText: 'Edit Your Content Here!',
-    charCounterCount: false,
-    minHeight: 500,
-    events: {
-      'froalaEditor.focus': function (e, editor) {
-        console.log(editor.selection.get());
+  articleForm = this.fb.group({
+    article_title: ['', Validators.required],
+    article_tags: ['', Validators.required],
+    article_image: ['', Validators.required],
+    article_category: ['', Validators.required],
+    article_subcategory: ['', Validators.required],
+    article_content: ['', Validators.required],
 
-      },
-      'froalaEditor.contentChanged': function(e, editor) {
-        console.log(e.editorContent);
-        console.log(editor);
-      }
-    }
-  };
+  });
+
 
   constructor(public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,
     private _ApiService: ApiService,
     public vcr: ViewContainerRef,
     public toastr: ToastsManager,
+    private fb: FormBuilder,
   ) {
     _gvars.context = 'writer';
     // tslint:disable-next-line:no-debugger
@@ -54,7 +50,7 @@ export class BlogWritterComponent implements OnInit {
     localStorage.setItem('context', 'writer');
     this.get_cat();
   }
-
+  get f() { return this.articleForm.controls; }
   get_cat() {
     this._ApiService.getCategories().subscribe(data => {
       this.categories = data;

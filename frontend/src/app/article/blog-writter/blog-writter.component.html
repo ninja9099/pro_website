@@ -1,4 +1,4 @@
-<form class="form-style-7" #ctrl="ngForm" enctype="multipart/form-data">
+<form class="form-style-7" [formGroup]="articleForm">
 	<div class="editor-container">
 		<h2 class="title text-center">Write your thoughts here ... </h2>
 		<div class="editor-wrapper">
@@ -6,29 +6,29 @@
 				<ul>
 					<li>
 						<label for="title">Title</label>
-						<input  class="box-input" type="text" [ngClass]="{invalid: title.invalid && (title.dirty || title.touched)}" name="title" maxlength="100" required [(ngModel)]="article.article_title">
+						<input  class="box-input" type="text" formControlName="article_title" name="title">
 						<span>Suitable and relavant title</span>
 					</li>
 					<li>
-						<tag-input   [(ngModel)]="tags" name="tags" ></tag-input>
+						<tag-input [ngModel]="tags" formControlName="article_tags" ></tag-input>
+						
 					</li>
 					<li>
 						<label for="url">Image</label>
-						<input (change)="onFileChange($event)"  class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" name="article-image" required [(ngModel)]="article.article_image" #image>
+						<input (change)="onFileChange($event)"  class="box-input" type="file" name="article-image">
 							
 						<span>Your article poster (500*500)</span>
 					</li>
 					<li>
 						<label for="category">Category</label>
-						<select class="box-input" (change)="fetchSubctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" required>
+						<select class="box-input" (change)="fetchSubctgry(article.article_category)" id="category" name="category">
 							<option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.category_name}}</option>
 						</select>
 						<span>Specify category your article belongs to</span>
 					</li>
 					<li>
 						<label for="sub-category">Sub-Category</label>
-						<select class="box-input" [disabled]="!article.article_category" name="sub-category" id="sub-category" [ngClass]="{invalid: subctgry.invalid && (subctgry.dirty || subctgry.touched)}" [(ngModel)]="article.article_subcategory"
-							#subctgry required>
+						<select class="box-input"  name="sub-category" id="sub-category">
 							<option *ngFor="let subcat of sub_categories" value="{{subcat.id}}">{{subcat.category_name}}</option>
 						</select>
 						<span>Specify category your article belongs to</span>
