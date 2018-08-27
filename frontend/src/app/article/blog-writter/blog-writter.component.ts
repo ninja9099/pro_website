@@ -24,6 +24,7 @@ export class BlogWritterComponent implements OnInit {
     private _ApiService: ApiService,
     public vcr: ViewContainerRef,
     public toastr: ToastsManager,
+    private fb: FormBuilder,
   ) {
     _gvars.context = 'writer';
     if (_loginChecker.is_loggedin()) {
@@ -44,7 +45,7 @@ export class BlogWritterComponent implements OnInit {
       article_category: null,
       article_subcategory: null, });
   }
-
+  get f() { return this.articleForm.controls; }
   get_cat() {
     this._ApiService.getCategories().subscribe(data => {
       for (const key in data) {

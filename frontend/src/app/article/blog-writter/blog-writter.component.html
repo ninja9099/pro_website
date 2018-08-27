@@ -6,7 +6,7 @@
 				<ul>
 					<li>
 						<label for="title">Title</label>
-						<input  class="box-input" type="text" [ngClass]="{invalid: title.invalid && (title.dirty || title.touched)}" name="title" maxlength="100" required [(ngModel)]="article.article_title" #title="ngModel">
+						<input  class="box-input" type="text" formControlName="article_title" name="title">
 						<span>Suitable and relavant title</span>
 					</li>
 					<li>
