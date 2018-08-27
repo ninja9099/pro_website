@@ -28,7 +28,7 @@ def article_list(request):
     """
     List all code Articles, or create a new Article.
     """
-    import pdb; pdb.set_trace()
+    
     queryset = Article.objects.all()
     pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
     paginator = pagination_class()

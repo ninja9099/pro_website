@@ -1,4 +1,4 @@
-<form class="form-style-7" #ctrl="ngForm" enctype="multipart/form-data">
+<form class="form-style-7" #articleForm="ngForm" novalidate>
 	<div class="editor-container">
 		<h2 class="title text-center">Write your thoughts here ... </h2>
 		<div class="editor-wrapper">
@@ -10,17 +10,17 @@
 						<span>Suitable and relavant title</span>
 					</li>
 					<li>
-						<tag-input   [(ngModel)]="tags" name="tags" ></tag-input>
+						<tag-input   [(ngModel)]="article.article_tags" name="tags" ></tag-input>
 					</li>
 					<li>
 						<label for="url">Image</label>
-						<input (change)="onFileChange($event)"  class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" id="article-image" name="article-image" required [(ngModel)]="article.article_image" #image>
+						<input (change)="onFileChange($event)"  class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" name="article-image" required [(ngModel)]="article.article_image" #image="ngModel">
 							
 						<span>Your article poster (500*500)</span>
 					</li>
 					<li>
 						<label for="category">Category</label>
-						<select class="box-input" (change)="fetchSubctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" #ctgry required>
+						<select class="box-input" (change)="fetchSubctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" #ctgry="ngModel" required>
 							<option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.category_name}}</option>
 						</select>
 						<span>Specify category your article belongs to</span>
@@ -28,7 +28,7 @@
 					<li>
 						<label for="sub-category">Sub-Category</label>
 						<select class="box-input" [disabled]="!article.article_category" name="sub-category" id="sub-category" [ngClass]="{invalid: subctgry.invalid && (subctgry.dirty || subctgry.touched)}" [(ngModel)]="article.article_subcategory"
-							#subctgry required>
+							#subctgry="ngModel" required>
 							<option *ngFor="let subcat of sub_categories" value="{{subcat.id}}">{{subcat.category_name}}</option>
 						</select>
 						<span>Specify category your article belongs to</span>
@@ -45,9 +45,17 @@
 				</ul>
 			</div>
 		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="ispublish" ngModel> Publish Now ??
+			</label>
+		</div>
 		<div class="row submit-footer">
-			<button (click)="draft()" [disabled]="ctrl.form.invalid" class="btn btn-primary">Draft</button>
-			<button (click)="save()" class="btn btn-primary">Submit</button>
+			<button (click)="draft()" disabled="{articleForm.invalid}" class="btn btn-primary">Draft</button>
+			<button (click)="save()"  class="btn btn-primary">Submit</button>
 		</div>
 	</div>
+	Model : {{ article | json }}
+	<br>
+	Angular Model : {{ articleForm.value | json }}
 </form>

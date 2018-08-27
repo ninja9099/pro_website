@@ -2,9 +2,9 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { GlobalVars } from '../../app.component';
 import { LoginCheckerService } from '../../_helpers/login-checker.service';
 
-import { FormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ApiService } from '../../_services/api.service';
 import { ToastsManager } from 'ng2-toastr';
+import { CArticle } from '../../_interfaces/article-interface.article';
 
 @Component({
   selector: 'app-blog-writter',
@@ -14,28 +14,11 @@ import { ToastsManager } from 'ng2-toastr';
 
 export class BlogWritterComponent implements OnInit {
 
-  article = {};
-  categories = {};
-  sub_categories = {};
-  article_image;
-  tags = [];
-
-  public options: Object = {
-    placeholderText: 'Edit Your Content Here!',
-    charCounterCount: false,
-    minHeight: 500,
-    events: {
-      'froalaEditor.focus': function (e, editor) {
-        console.log(editor.selection.get());
-
-      },
-      'froalaEditor.contentChanged': function(e, editor) {
-        console.log(e.editorContent);
-        console.log(editor);
-      }
-    }
-  };
-
+  categories = [];
+  sub_categories = [];
+  public article: CArticle;
+  data = [];
+  image: any;
   constructor(public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,
     private _ApiService: ApiService,
@@ -43,7 +26,6 @@ export class BlogWritterComponent implements OnInit {
     public toastr: ToastsManager,
   ) {
     _gvars.context = 'writer';
-    // tslint:disable-next-line:no-debugger
     if (_loginChecker.is_loggedin()) {
       _gvars.isLoggedIn = true;
     }
@@ -53,33 +35,63 @@ export class BlogWritterComponent implements OnInit {
   ngOnInit() {
     localStorage.setItem('context', 'writer');
     this.get_cat();
+
+    this.article = new CArticle({
+      article_content : null,
+      article_image : null,
+      article_tags: null,
+      article_title: null,
+      article_category: null,
+      article_subcategory: null, });
   }
 
   get_cat() {
     this._ApiService.getCategories().subscribe(data => {
-      this.categories = data;
+      for (const key in data) {
+        if (data.hasOwnProperty(key)){
+          this.categories.push(data[key]);
+
+        }
+      }
     });
+  }
+
+  onFileChange(event) {
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    let reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.image = reader.result;
+      };
+    }
   }
 
   fetchSubctgry(cat) {
-
     this._ApiService.getSubCategories(cat).subscribe(data => {
-      this.sub_categories = data
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+        this.sub_categories.push(data[key]);
+        }
+      }
     });
   }
 
+  public preSave() {
+    let article_to_send = Object.assign({}, this.article);
+    article_to_send.article_image = this.image;
+    article_to_send.article_author = JSON.parse(localStorage.getItem('user_id'));
+    return JSON.stringify(article_to_send);
+  }
+
+
   save() {
-    this.tags.forEach(element => {
-      // tslint:disable-next-line:no-debugger
-      this.tags.push({
-        'name': element.display,
-        'slug': element.value,
-        'fake_field': element.value, });
-    });
-    this.article['article_tags'] = this.tags;
-    this.article['author'] = JSON.parse(localStorage.getItem('user_id'));
-    this.article['article_image'] = this.article_image;
-    this._ApiService.saveArticle(JSON.stringify(this.article)).subscribe(data => {
+    let article = this.preSave();
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    this._ApiService.saveArticle(article).subscribe(data => {
       console.log(data);
       this.toastr.success('You are awesome!', 'Success!');
     },

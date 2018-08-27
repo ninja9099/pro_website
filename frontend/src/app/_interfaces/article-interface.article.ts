@@ -30,12 +30,17 @@ export interface IArticle {
 
 export class CArticle {
 
-    constructor(
-    article_content: string,
-    article_image: string,
-    article_tags: Itags[],
-    article_title: string,
-    article_cat: string, ) { }
+    article_content: string;
+    article_image: object;
+    article_tags: any;
+    article_title: string;
+    article_category: any;
+    article_subcategory: any;
+    article_author: number;
+
+    constructor(values: Object = {}) {
+        // Constructor initialization
+        Object.assign(this, values);
+    }
+
 }
-
-

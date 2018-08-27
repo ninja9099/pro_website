@@ -3,7 +3,6 @@ from user_profile.models import User
 from rest_framework import serializers
 from blog.models import *
 
-
 class Base64ImageField(serializers.ImageField):
     """
     A Django REST framework field for handling image-uploads through raw post data.
@@ -83,16 +82,35 @@ class ArticleTagsSerializer(serializers.ModelSerializer):
         fields = ('id','name', 'slug', 'tagged_articles')
 
 class ArticleSerializer(serializers.ModelSerializer):
-    article_image = Base64ImageField( max_length=None, use_url=True,)
+    article_image = Base64ImageField(max_length=None)
     likes = ArticleLikesSerializer(source='articlelikes_set',  many=True, read_only=True)
-    tags = ArticleTagsSerializer(source="article_tags", many=True, read_only=True)
+    tags = ArticleTagsSerializer(source="article_tags", many=True)
     class Meta:
         model = Article
         fields = ('id','article_author', 'article_title', 'article_image', 'article_category','likes','tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
 
+    def create(self, validated_data):
+        import pdb; pdb.set_trace()
+        
+        print "in the create method"
+        user = User(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
 
+    def to_internal_value(self, data):
+        import pdb; pdb.set_trace()
+        for item in data.get('article_tags'):
+            tag = ArticleTags.objects.get_or_create(item)
 
-
+        ret = super().to_internal_value(instance)
+        return ret
+    # def create(self, validated_data):
+    #     import pdb; pdb.set_trace()
+    #     return super(ArticleSerializer, self).create(validated_data)
 
 class CategorySerializer(serializers.ModelSerializer):
     
