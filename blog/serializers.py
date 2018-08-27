@@ -68,7 +68,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class ArticleLikesSerializer(serializers.ModelSerializer):
-
+    
     class Meta:
         model = ArticleLikes
         fields = ('id','user_id', 'article_id', 'is_liked')
@@ -84,10 +84,11 @@ class ArticleTagsSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     article_image = Base64ImageField(max_length=None)
     likes = ArticleLikesSerializer(source='articlelikes_set',  many=True, read_only=True)
-    tags = ArticleTagsSerializer(source="article_tags", many=True)
+    # tags = ArticleTagsSerializer(source="article_tags", many=True)
+    article_tags = serializers.PrimaryKeyRelatedField(queryset=ArticleTags.objects.all(), many=True)
     class Meta:
         model = Article
-        fields = ('id','article_author', 'article_title', 'article_image', 'article_category','likes','tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
+        fields = ('id','article_author', 'article_title', 'article_image', 'article_category','likes','article_tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
 
     def create(self, validated_data):
         import pdb; pdb.set_trace()
@@ -104,8 +105,8 @@ class ArticleSerializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         import pdb; pdb.set_trace()
         for item in data.get('article_tags'):
-            tag = ArticleTags.objects.get_or_create(item)
-
+            tag_values = {'name':item.value}
+            tag = ArticleTags.objects.get_or_create(tag_values)
         ret = super().to_internal_value(instance)
         return ret
     # def create(self, validated_data):
