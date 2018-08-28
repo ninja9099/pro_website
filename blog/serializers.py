@@ -76,7 +76,7 @@ class ArticleLikesSerializer(serializers.ModelSerializer):
 
 class ArticleTagsSerializer(serializers.ModelSerializer):
     tagged_articles = serializers.StringRelatedField(many=True)
-
+    
     class Meta:
         model = ArticleTags
         fields = ('id','name', 'slug', 'tagged_articles')
@@ -84,34 +84,24 @@ class ArticleTagsSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     article_image = Base64ImageField(max_length=None)
     likes = ArticleLikesSerializer(source='articlelikes_set',  many=True, read_only=True)
-    # tags = ArticleTagsSerializer(source="article_tags", many=True)
     article_tags = serializers.PrimaryKeyRelatedField(queryset=ArticleTags.objects.all(), many=True)
     class Meta:
         model = Article
         fields = ('id','article_author', 'article_title', 'article_image', 'article_category','likes','article_tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
 
-    def create(self, validated_data):
-        import pdb; pdb.set_trace()
-        
-        print "in the create method"
-        user = User(
-            email=validated_data['email'],
-            username=validated_data['username']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
 
     def to_internal_value(self, data):
-        import pdb; pdb.set_trace()
-        for item in data.get('article_tags'):
-            tag_values = {'name':item.value}
-            tag = ArticleTags.objects.get_or_create(tag_values)
-        ret = super().to_internal_value(instance)
+        tags_to_add  = []
+        try:
+            for item in data.get('article_tags'):
+                tag_attached, is_there = ArticleTags.objects.get_or_create(name=item.get('value'))
+                tags_to_add.append(tag_attached.id)
+        except:
+            pass
+        tags = tags_to_add
+        data['article_tags'] = tags
+        ret = super(ArticleSerializer, self).to_internal_value(data)
         return ret
-    # def create(self, validated_data):
-    #     import pdb; pdb.set_trace()
-    #     return super(ArticleSerializer, self).create(validated_data)
 
 class CategorySerializer(serializers.ModelSerializer):
     

@@ -19,6 +19,9 @@ export class BlogWritterComponent implements OnInit {
   public article: CArticle;
   data = [];
   image: any;
+  has_catError = false;
+  hasSubcatError = false;
+
   constructor(public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,
     private _ApiService: ApiService,
@@ -35,14 +38,23 @@ export class BlogWritterComponent implements OnInit {
   ngOnInit() {
     localStorage.setItem('context', 'writer');
     this.get_cat();
-
-    this.article = new CArticle({
-      article_content : null,
-      article_image : null,
-      article_tags: null,
-      article_title: null,
-      article_category: null,
-      article_subcategory: null, });
+    let isDrfatPresent = localStorage.getItem('article');
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    if (isDrfatPresent !== undefined) {
+      let do_confirm = confirm('do you want to continue edit of draft');
+      if (do_confirm){
+      this.article = Object.assign({}, JSON.parse(isDrfatPresent));
+      } else {
+      this.article = new CArticle({
+        article_content : null,
+        article_image : null,
+        article_tags: null,
+        article_title: null,
+        article_category: 'default',
+        article_subcategory: 'default', });
+      }
+    }
   }
   get_cat() {
     this._ApiService.getCategories().subscribe(data => {
@@ -55,9 +67,23 @@ export class BlogWritterComponent implements OnInit {
     });
   }
 
+  validateCategory(value) {
+    if (value === 'default') {
+      this.has_catError = true;
+    } else { 
+      this.has_catError = false;
+    }
+  }
+
+  validateSubCategory (value) {
+    if (value === 'default') {
+      this.hasSubcatError = true;
+    } else {
+      this.hasSubcatError = false;
+    }
+  }
   onFileChange(event) {
     // tslint:disable-next-line:no-debugger
-    debugger;
     let reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
@@ -69,20 +95,25 @@ export class BlogWritterComponent implements OnInit {
   }
 
   fetchSubctgry(cat) {
-    this._ApiService.getSubCategories(cat).subscribe(data => {
-      for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-        this.sub_categories.push(data[key]);
+    if (cat !== 'default') {
+      this._ApiService.getSubCategories(cat).subscribe(data => {
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+          this.sub_categories.push(data[key]);
+          }
         }
-      }
-    });
+      });
+    }
   }
-
   public preSave() {
     let article_to_send = Object.assign({}, this.article);
     article_to_send.article_image = this.image;
     article_to_send.article_author = JSON.parse(localStorage.getItem('user_id'));
     return JSON.stringify(article_to_send);
+  }
+
+  draft () {
+    localStorage.setItem('article', JSON.stringify(this.article));
   }
 
 

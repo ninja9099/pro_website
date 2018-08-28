@@ -4,31 +4,37 @@
 		<div class="editor-wrapper">
 			<div class="side-bar">
 				<ul>
-					<li>
-						<label for="title">Title</label>
-						<input  class="box-input" type="text" formControlName="article_title" name="title">
+					<li [class.has-error]="title.invalid && ( title.dirty || title.touched)">
+						<label class="control-label" for="title">Title</label>
+						<input  class="box-input" [(ngModel)]="article.article_title" type="text" name="title" #title="ngModel" required>
 						<span>Suitable and relavant title</span>
 					</li>
-					<li>
-						<tag-input   [(ngModel)]="article.article_tags" name="tags" ></tag-input>
+					
+					<li [class.has-error]="tags.invalid && (tags.dirty || tags.touched)">
+						<label class="control-label" for="title">Tags</label>
+						<tag-input [(ngModel)]="article.article_tags" name="tags" #tags="ngModel" required></tag-input>
+						<span>type tag and press return ¬ </span>
 					</li>
-					<li>
-						<label for="url">Image</label>
-						<input (change)="onFileChange($event)"  class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" name="article-image" required [(ngModel)]="article.article_image" #image="ngModel">
-							
+					
+					<li [class.has-error]="image.invalid && (image.dirty || image.touched)">
+						<label class="control-label" for="url">Image</label>
+						<input (change)="onFileChange($event)" class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" name="article-image" required [(ngModel)]="article.article_image" #image="ngModel">
 						<span>Your article poster (500*500)</span>
 					</li>
-					<li>
-						<label for="category">Category</label>
-						<select class="box-input" (change)="fetchSubctgry(article.article_category)" id="category" name="category"  [ngClass]="{invalid: ctgry.invalid && (ctgry.dirty || ctgry.touched)}" [(ngModel)]="article.article_category" #ctgry="ngModel" required>
+					<li [class.has-error]="has_catError">
+						<label class="control-label" for="category">Category</label>
+						<select class="box-input" (change)="fetchSubctgry(article.article_category); validateCategory(ctgry.value)" (blur)="validateCategory($event)" id="category" name="category" [(ngModel)]="article.article_category" #ctgry="ngModel" required>
+							<option value="default" selected>Select Category...</option>
 							<option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.category_name}}</option>
 						</select>
 						<span>Specify category your article belongs to</span>
 					</li>
-					<li>
-						<label for="sub-category">Sub-Category</label>
-						<select class="box-input" [disabled]="!article.article_category" name="sub-category" id="sub-category" [ngClass]="{invalid: subctgry.invalid && (subctgry.dirty || subctgry.touched)}" [(ngModel)]="article.article_subcategory"
+					<li [class.has-error]="hasSubcatError">
+						<label class="control-label" for="sub-category">Sub-Category</label>
+						<select class="box-input" [disabled]="!article.article_category" name="sub-category" id="sub-category" (blur)="validateSubCategory($event)"
+						(change)="validateSubCategory(subctgry.value)" [(ngModel)]="article.article_subcategory"
 							#subctgry="ngModel" required>
+							<option value="default">Select Subcategory...</option>
 							<option *ngFor="let subcat of sub_categories" value="{{subcat.id}}">{{subcat.category_name}}</option>
 						</select>
 						<span>Specify category your article belongs to</span>
@@ -39,23 +45,17 @@
 				<ul>
 					<li>
 						<label for="editordata">Content</label>
-						<textarea  [froalaEditor]='options' [(froalaModel)]="article.article_content"></textarea>
-						<div [froalaView]="editorContent"></div>
+						<textarea  [froalaEditor]='options' [(froalaModel)]="article.article_content" ></textarea>
+						<!-- <div [froalaView]="editorContent"></div> -->
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div class="checkbox">
-			<label>
-				<input type="checkbox" name="ispublish" ngModel> Publish Now ??
-			</label>
-		</div>
 		<div class="row submit-footer">
-			<button (click)="draft()" disabled="{articleForm.invalid}" class="btn btn-primary">Draft</button>
-			<button (click)="save()"  class="btn btn-primary">Submit</button>
+			<button (click)="draft()" class="btn btn-default">Draft</button>
+			<button type="submit" [disabled] ="articleForm.invalid" (click)="save()"  class="btn btn-default">Submit</button>
+			<button type="button" class="btn btn-default" (click)="articleForm.reset()">reset</button>
 		</div>
+		{{articleForm.invalid}}
 	</div>
-	Model : {{ article | json }}
-	<br>
-	Angular Model : {{ articleForm.value | json }}
 </form>
