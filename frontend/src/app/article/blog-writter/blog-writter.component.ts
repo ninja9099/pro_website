@@ -35,25 +35,38 @@ export class BlogWritterComponent implements OnInit {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
+  public options: Object = {
+    placeholder: "Edit Me",
+    events: {
+      'froalaEditor.contentChanged': function (e, editor) {
+        // tslint:disable-next-line:no-debugger
+       this.save();
+        console.log(editor.selection.get());
+      }
+    }
+  }
+
+
   ngOnInit() {
     localStorage.setItem('context', 'writer');
     this.get_cat();
     let isDrfatPresent = localStorage.getItem('article');
-    // tslint:disable-next-line:no-debugger
-    debugger;
-    if (isDrfatPresent !== undefined) {
+    if (isDrfatPresent) {
       let do_confirm = confirm('do you want to continue edit of draft');
       if (do_confirm){
       this.article = Object.assign({}, JSON.parse(isDrfatPresent));
-      } else {
+      localStorage.removeItem('article');
+      }
+    } else {
       this.article = new CArticle({
-        article_content : null,
-        article_image : null,
+        article_content: null,
+        article_image: null,
         article_tags: null,
         article_title: null,
         article_category: 'default',
-        article_subcategory: 'default', });
-      }
+        article_subcategory: 'default',
+        article_id: null,
+      });
     }
   }
   get_cat() {
@@ -116,14 +129,27 @@ export class BlogWritterComponent implements OnInit {
     localStorage.setItem('article', JSON.stringify(this.article));
   }
 
+  updateArticle(id) {
+    this._ApiService.updateArticle(this.article, id).subscribe(data => {
+      // tslint:disable-next-line:no-debugger
+      debugger;
+      this.toastr.success('saved!', 'Success!');
+    });
+  }
+
 
   save() {
+    if (this.article.article_id) {
+      this.updateArticle(this.article.article_id);
+      return;
+    }
     let article = this.preSave();
-    // tslint:disable-next-line:no-debugger
-    debugger;
     this._ApiService.saveArticle(article).subscribe(data => {
       console.log(data);
       this.toastr.success('You are awesome!', 'Success!');
+      if ('id' in data) {
+        this.article.article_id = data.id;
+      }
     },
     error => {
       this.toastr.error(JSON.stringify(error.error), 'Error!');

@@ -56,6 +56,7 @@ def article_detail(request, pk):
     """
     Retrieve, update or delete a code Article.
     """
+    import pdb; pdb.set_trace()
     try:
         article = Article.objects.get(pk=pk)
     except Article.DoesNotExist:

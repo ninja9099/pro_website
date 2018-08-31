@@ -22,6 +22,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { LoginCheckerService } from './_helpers/login-checker.service';
 import { JwtInterceptor } from './_helpers/jwtinterceptor.service';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { ModalComponent } from './_directives/modal/modal.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     HomepageComponent,
     PageNotFoundComponent,
     AlertComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

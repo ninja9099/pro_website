@@ -37,7 +37,7 @@ export class CArticle {
     article_category: any;
     article_subcategory: any;
     article_author: number;
-
+    article_id: number;
     constructor(values: Object = {}) {
         // Constructor initialization
         Object.assign(this, values);

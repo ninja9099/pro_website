@@ -52,4 +52,7 @@ export class ApiService {
   saveArticle(article): Observable<IArticle> {
     return this.http.post<any>(this.post_article, article);
   }
+  updateArticle(article, id) {
+    return this.http.put<any>(this.post_article + id + '/', article);
+  }
 }
