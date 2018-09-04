@@ -193,7 +193,8 @@ STATICFILES_DIRS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+# STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'pro_website/frontend/src/assets')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')

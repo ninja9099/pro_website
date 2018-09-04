@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-// tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { IArticle } from '../_interfaces/article-interface.article';
-
+import 'rxjs/Rx';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -28,31 +27,41 @@ export class ApiService {
   subcategories = 'http://127.0.0.1:8000/api/v1/subcategory/' + this.format;
   post_article = 'http://127.0.0.1:8000/api/v1/articles/';
 
+  private catchError (error: any) {
+    console.log('request/response Error', error);
+    return Observable.throw(error.statusText);
+  }
+
+  private processData(res: Response) {
+    let body = res;
+    return body || {};
+  }
+
   getArticle(id) {
-    return this.http.get(this.articles + id);
+    return this.http.get(this.articles + id).map(this.processData).catch(this.catchError);
   }
 
-  getArticles(range, limit) {
-    return this.http.get(this.articles);
+  getArticles(range, limit): Observable<any> {
+    return this.http.get(this.articles).map(this.processData).catch(this.catchError);
   }
 
-  getHomeResource() {
-    return this.http.get(this.home_resource);
+  getHomeResource(): Observable<any> {
+    return this.http.get(this.home_resource).map(this.processData).catch(this.catchError);
   }
 
-  getRecentArticles(limit) {
-    return this.http.get(this.recent_articles + '&limit=' + limit);
+  getRecentArticles(limit): Observable<any> {
+    return this.http.get(this.recent_articles + '&limit=' + limit).map(this.processData).catch(this.catchError);
   }
-  getCategories() {
-    return this.http.get(this.categories);
+  getCategories(): Observable<any> {
+    return this.http.get(this.categories).map(this.processData).catch(this.catchError);
   }
-  getSubCategories(catagory_id) {
-    return this.http.get(this.subcategories + '&catagory_id=' + catagory_id);
+  getSubCategories(catagory_id): Observable<any> {
+    return this.http.get(this.subcategories + '&catagory_id=' + catagory_id).map(this.processData).catch(this.catchError);
   }
   saveArticle(article): Observable<IArticle> {
-    return this.http.post<any>(this.post_article, article);
+    return this.http.post<any>(this.post_article, article).map(this.processData).catch(this.catchError);
   }
   updateArticle(article, id) {
-    return this.http.put<any>(this.post_article + id + '/', article);
+    return this.http.put<any>(this.post_article + id + '/', article).map(this.processData).catch(this.catchError);
   }
 }

@@ -16,11 +16,11 @@ export class BlogWritterComponent implements OnInit {
 
   categories = [];
   sub_categories = [];
-  public article: CArticle;
   data = [];
   image: any;
   has_catError = false;
   hasSubcatError = false;
+  public article: CArticle;
 
   constructor(public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,
@@ -39,14 +39,10 @@ export class BlogWritterComponent implements OnInit {
     placeholder: "Edit Me",
     events: {
       'froalaEditor.contentChanged': function (e, editor) {
-        // tslint:disable-next-line:no-debugger
-       this.save();
         console.log(editor.selection.get());
       }
     }
   }
-
-
   ngOnInit() {
     localStorage.setItem('context', 'writer');
     this.get_cat();
@@ -72,9 +68,8 @@ export class BlogWritterComponent implements OnInit {
   get_cat() {
     this._ApiService.getCategories().subscribe(data => {
       for (const key in data) {
-        if (data.hasOwnProperty(key)){
+        if (data.hasOwnProperty(key)) {
           this.categories.push(data[key]);
-
         }
       }
     });
@@ -83,7 +78,8 @@ export class BlogWritterComponent implements OnInit {
   validateCategory(value) {
     if (value === 'default') {
       this.has_catError = true;
-    } else { 
+      return;
+    } else {
       this.has_catError = false;
     }
   }
@@ -91,6 +87,7 @@ export class BlogWritterComponent implements OnInit {
   validateSubCategory (value) {
     if (value === 'default') {
       this.hasSubcatError = true;
+      return ;
     } else {
       this.hasSubcatError = false;
     }

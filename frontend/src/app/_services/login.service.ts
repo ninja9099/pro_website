@@ -15,11 +15,9 @@ export class LoginService {
       // login successful if there's a user and  token in the response
       if (response && response['token'] && response['user']) {
         // store user details and  token in local storage to keep user logged in between page refreshes
-        debugger;
         localStorage.setItem('user', JSON.stringify(response['user']));
         localStorage.setItem('user_id', JSON.stringify(response['id']));
         localStorage.setItem('apikey', JSON.stringify(response['token']));
-        localStorage.setItem('user_resource', JSON.stringify(response['user_resource']));
       }
       return response;
     }

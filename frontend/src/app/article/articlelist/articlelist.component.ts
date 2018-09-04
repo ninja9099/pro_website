@@ -10,8 +10,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./articlelist.component.css']
 })
 export class ArticleListComponent implements OnInit {
-  private article_list: any[];
-  private data: any[];
+  public article_list: any[];
+  public data: any[];
   public context: string = localStorage.getItem('context');
 
   constructor(private _route: ActivatedRoute,
@@ -26,8 +26,6 @@ export class ArticleListComponent implements OnInit {
   }
   public get_article_list(range, limit) {
     this._ApiService.getArticles(null, limit).subscribe((data: Array<object>) => {
-      // tslint:disable-next-line:no-debugger
-      debugger;
       this.article_list = data['results'];
       console.log(data);
     });
