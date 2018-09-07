@@ -13,13 +13,12 @@ from rest_framework.authtoken.models import Token
 from django.conf import settings
 from rest_framework.settings import api_settings
 
+
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
         token = Token.objects.get(key=response.data['token'])
         return Response({'is_authenticated': True, 'token': token.key, 'id': token.user_id, 'user': token.user.username })
-
-
 
 
 @csrf_exempt
@@ -56,7 +55,6 @@ def article_detail(request, pk):
     """
     Retrieve, update or delete a code Article.
     """
-    import pdb; pdb.set_trace()
     try:
         article = Article.objects.get(pk=pk)
     except Article.DoesNotExist:
@@ -85,10 +83,6 @@ def tag_list(request):
     """
     List all code Articles, or create a new Article.
     """
-    # if request.method == 'GET':
-    #     tags = ArticleTags.objects.all()
-    #     serializer = ArticleTagsSerializer(tags, many=True)
-    #     return Response(serializer.data)
 
     queryset = ArticleTags.objects.all()
     pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
@@ -110,65 +104,17 @@ def tag_list(request):
 
 @csrf_exempt
 @api_view(['GET', 'POST', 'PUT'])
-def tag_detail(request, slug):
+def tag_detail(request, pk):
     """
     Retrieve, update or delete a code Article.
     """
     try:
-        tag = ArticleTags.objects.get(slug=slug)
+        tag = ArticleTags.objects.get(pk=pk)
     except ArticleTags.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = ArticleTagsSerializer(article)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = ArticleTagsSerializer(tag, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        tag.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-
-@csrf_exempt
-@api_view(['GET', 'POST'])
-def tag_list(request):
-    """
-    List all code Articles, or create a new Article.
-    """
-    if request.method == 'GET':
-        tags = ArticleTags.objects.all()
-        serializer = ArticleTagsSerializer(tags, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = ArticleSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@csrf_exempt
-@api_view(['GET', 'POST', 'PUT'])
-def tag_detail(request, slug):
-    """
-    Retrieve, update or delete a code Article.
-    """
-    try:
-        tag = ArticleTags.objects.get(slug=slug)
-    except ArticleTags.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = ArticleTagsSerializer(article)
+        serializer = ArticleTagsSerializer(tag)
         return Response(serializer.data)
 
     elif request.method == 'PUT':

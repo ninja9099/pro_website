@@ -16,13 +16,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserModule } from './user/user.module';
 import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from './_services/login.service';
-import { AlertComponent } from './alert/alert.component';
-import { AlertService } from './_services/alert.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginCheckerService } from './_helpers/login-checker.service';
 import { JwtInterceptor } from './_helpers/jwtinterceptor.service';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
-import { ModalComponent } from './_directives/modal/modal.component';
+
 
 
 @NgModule({
@@ -33,8 +31,7 @@ import { ModalComponent } from './_directives/modal/modal.component';
     CommentComponent,
     HomepageComponent,
     PageNotFoundComponent,
-    AlertComponent,
-    ModalComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -53,7 +50,6 @@ import { ModalComponent } from './_directives/modal/modal.component';
     ApiService,
     LoginService,
     FormBuilder,
-    AlertService,
     AuthGuard,
     GlobalVars,
     LoginCheckerService,

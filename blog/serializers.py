@@ -58,7 +58,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','url', 'username', 'email')
-        exclude = ('password', 'groups',  'user_permissions' )
+        exclude = ('password', 'groups', 'article_written', 'user_permissions' )
 
 class GroupSerializer(serializers.ModelSerializer):
     
@@ -85,9 +85,12 @@ class ArticleSerializer(serializers.ModelSerializer):
     article_image = Base64ImageField(max_length=None)
     likes = ArticleLikesSerializer(source='articlelikes_set',  many=True, read_only=True)
     article_tags = serializers.PrimaryKeyRelatedField(queryset=ArticleTags.objects.all(), many=True)
+    _s3_image_path = serializers.CharField(read_only=True)
+    short_description = serializers.CharField(source='get_summary_as_markdown', read_only=True)
+    
     class Meta:
         model = Article
-        fields = ('id','article_author', 'article_title', 'article_image', 'article_category','likes','article_tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
+        fields = ('id','_s3_image_path', 'article_author', 'article_title','short_description', 'article_image', 'article_category','likes','article_tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
 
 
     def to_internal_value(self, data):
@@ -107,14 +110,14 @@ class CategorySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Category
-        fields = ('id','category_name', 'category_image')
+        fields = ('id','category_name','cat_set','category_image')
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = SubCategory
-        fields = ('id','category_name', 'catagory_id',)
+        fields = ('id','category_name','sucat_set', 'catagory_id',)
 
 
 class ArticleRatingSerializer(serializers.ModelSerializer):

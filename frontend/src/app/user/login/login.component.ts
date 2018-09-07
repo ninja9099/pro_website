@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { LoginService } from '../../_services/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators/first';
-import { AlertService } from '../../_services/alert.service';
 import { GlobalVars } from '../../app.component';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'app-login',
@@ -26,16 +26,16 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router,
-              public _alert: AlertService,
               public _gvars: GlobalVars,
+              public vcr: ViewContainerRef,
+              public toastr: ToastsManager,
               ) {
                 _gvars.context = 'login';
+                this.toastr.setRootViewContainerRef(vcr);
               }
 
   ngOnInit() {
     if (this._gvars.isLoggedIn) {
-      // tslint:disable-next-line:no-debugger
-      debugger;
       this.router.navigate(['/']);
     }
     this.loginForm = this.formBuilder.group({
@@ -56,21 +56,18 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this._loginservice.login(this.f.username.value, this.f.password.value)
       .pipe(first()).subscribe(data => {
-        // tslint:disable-next-line:no-debugger
-        debugger;
         this.loading = false;
         if (data['is_authenticated']) {
-          this._alert.success(data['message']);
-          // this.router.navigate([this.returnUrl]);
+          this.toastr.success('Login successfull!', 'Success!');
           this.router.navigateByUrl(this.returnUrl);
           this._gvars.isLoggedIn = true;
         } else {
-          this._alert.error(data['message']);
           this._gvars.isLoggedIn = false;
         }
       },
       error => {
-        console.log('login failure wrong userid nd password combinations');
+        this.toastr.error('INCORRECT userid And password combinations', 'Login faulure!');
+        console.log('In correct userid and password combinations');
         this.loading = false;
       }
     );

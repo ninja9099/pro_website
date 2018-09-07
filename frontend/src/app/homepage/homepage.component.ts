@@ -2,7 +2,6 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ApiService } from '../_services/api.service';
 import { IArticle } from '../_interfaces/article-interface.article';
 import { IResponse } from '../_interfaces/user-interface';
-import { AlertService } from '../_services/alert.service';
 import { GlobalVars } from '../app.component';
 import { LoginCheckerService } from '../_helpers/login-checker.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -18,7 +17,6 @@ export class HomepageComponent implements OnInit {
   private home_resources: any[];
 
   constructor(private _ApiService: ApiService,
-    private _alert: AlertService,
     public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,
     public toastr: ToastsManager,

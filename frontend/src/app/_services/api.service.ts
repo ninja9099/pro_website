@@ -10,6 +10,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+
 @Injectable()
 export class ApiService {
   constructor(private http: HttpClient, private _route: ActivatedRoute) {
@@ -26,6 +27,7 @@ export class ApiService {
   categories = 'http://127.0.0.1:8000/api/v1/category/' + this.format;
   subcategories = 'http://127.0.0.1:8000/api/v1/subcategory/' + this.format;
   post_article = 'http://127.0.0.1:8000/api/v1/articles/';
+  tags = this.base_url + 'tags/';
 
   private catchError (error: any) {
     console.log('request/response Error', error);
@@ -36,6 +38,7 @@ export class ApiService {
     let body = res;
     return body || {};
   }
+
 
   getArticle(id) {
     return this.http.get(this.articles + id).map(this.processData).catch(this.catchError);
@@ -63,5 +66,8 @@ export class ApiService {
   }
   updateArticle(article, id) {
     return this.http.put<any>(this.post_article + id + '/', article).map(this.processData).catch(this.catchError);
+  }
+  getTag(id) {
+    return this.http.get(this.tags + id + '/').map(this.processData).catch(this.catchError);
   }
 }

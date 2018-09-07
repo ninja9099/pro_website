@@ -10,6 +10,22 @@ from django.conf import settings
 from autoslug import AutoSlugField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.functional import cached_property
+import uuid
+from django.conf import settings
+
+import boto3
+s3 = boto3.client("s3", region_name="us-west-2", aws_access_key_id="AKIAJYMIATLTOQWFJJRQ", aws_secret_access_key="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")
+
+
+def upload_to_s3(image, key):
+    res = s3.put_object(Body=image, Bucket='image-bucket-data-design', Key=key)
+    try:
+        url = settings.S3_BASE_URL + str(key)
+    except :
+        raise Exception("please define the s3 bcket path for image upload to s3 or remove that field from modal")
+    return url
+
+
 
 
 User = settings.AUTH_USER_MODEL
@@ -39,7 +55,8 @@ class Article(TimeStampedModel):
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
     article_slug = AutoSlugField(unique=True,populate_from='article_title')
     article_tags = models.ManyToManyField(ArticleTags, related_name='tagged_articles', blank=True, verbose_name='tags')
-    
+    # _s3_image_path = models.URLField(max_length=1000)
+
     class Meta:
         verbose_name = _("Article")
         verbose_name_plural = _("Articles")
@@ -75,36 +92,31 @@ class Article(TimeStampedModel):
     def get_all_comments(self):
         return list([item for item in self.comment_comments.all()])
     
-    # @staticmethod
-    # def get_counted_tags():
-    #     tag_dict = {}
-    #     query = Article.objects.filter(article_state='published').annotate(tagged=Count(
-    #         'tags')).filter(tags__gt=0)
-    #     for obj in query:
-    #         for tag in obj.tags.names():
-    #             if tag not in tag_dict:
-    #                 tag_dict[tag] = 1
+    @staticmethod
+    def get_counted_tags():
+        tag_dict = {}
+        query = Article.objects.filter(article_state='published').annotate(tagged=Count(
+            'tagged_articles')).filter(tags__gt=0)
+        for obj in query:
+            for tag in obj.tags.names():
+                if tag not in tag_dict:
+                    tag_dict[tag] = 1
 
-    #             else:  # pragma: no cover
-    #                 tag_dict[tag] += 1
-    #     return tag_dict.items()
+                else:  # pragma: no cover
+                    tag_dict[tag] += 1
+        return tag_dict.items()
 
     def get_summary(self):
-        if len(self.article_content) > 255:
-            return '{0}...'.format(self.article_content[:255])
-        else:
-            return self.article_content
+        return '{0}...'.format(self.article_content)
+     
 
     def get_summary_as_markdown(self):
         return markdown.markdown(self.get_summary(), safe_mode='escape')
 
-
-    def get_absolute_url(self):
-        return u'/article-edit/%d' % self.id
-
-    def get_likes(self):
-        return [{'user':like.user_id, 'article': like.article_id} for like in self.articlelikes_set.filter(is_liked=True)]
-
+    def save(self, *args, **kwargs):
+        # url = upload_to_s3(self.article_image, self.article_image.name)
+        # self._s3_image_path = url
+        super(Article, self).save(*args, **kwargs)
 
 
 

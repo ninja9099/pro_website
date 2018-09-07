@@ -14,7 +14,7 @@
                         <li class="tags">
                             <ul>
                                 <li *ngFor="let tag of article.article_tags"> 
-                                    <a href="{{tag.slug}}">{{tag.name}}</a>
+                                    <app-tag [tagid]="tag"></app-tag>
                                 </li>
                             </ul>
                         </li>
@@ -24,7 +24,6 @@
                     <h1>{{article.article_title| slice:0:30}}</h1>
                     <h2>Opening a door to the future</h2>
                     <p>{{article.article_content | slice:0:80}}</p>
-                    {{article.article_image}}
                     <p class="read-more">
                         <a routerLink='/article/{{article.id}}'>Read More</a>
                     </p>

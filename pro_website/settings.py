@@ -193,26 +193,12 @@ STATICFILES_DIRS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'pro_website/frontend/src/assets')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 
 MEDIA_URL = '/media/'
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '521839123051-vgpj873gn87j9ir3vc765dqdpeu8um58.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'iDcr-og5VGFy4Bo8Pd2tygpT'
-
-SOCIAL_AUTH_TWITTER_KEY = 'btuyBkzwuqHtMGJ52dnWdYOUw'
-SOCIAL_AUTH_TWITTER_SECRET = 'WEPvHzGOWOSxet426Cxk7r2PYeRmrPi6ja64rkXDwsCcYiAUAa'
-
-SOCIAL_AUTH_FACEBOOK_KEY = '181505989085886'
-SOCIAL_AUTH_FACEBOOK_SECRET = '1ce4c5145bf9de326589dd2f9a9f9177'
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'fields': 'id, name, email, age_range, gender, picture'
-}
 
 
 # settings related to article
@@ -224,8 +210,6 @@ DEFAULT_USER_IMAGE = '/media/images/profile_images/default_user.png'
 IMAGE_PATH = 'images/'
 VIDEO_PATH = 'videos/'
 
-TAGGIT_CASE_INSENSITIVE = True
-
 # google map integration for traffic tracking
 TRACK_USE_GEOIP =True
 
@@ -233,16 +217,6 @@ GEOIP_CACHE_TYPE = 0
 GEOIP_PATH =os.path.join(BASE_DIR, 'static/geoip-data/')
 
 
-# notifications settings
-NOTIFICATIONS_SOFT_DELETE=True
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'kamanipankaj9099@gmail.com'
-EMAIL_HOST_PASSWORD = 'mitalghadiya'
-
-SUMMERNOTE_CONFIG = { 'width': '100%',  'height': '480',}
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
@@ -251,3 +225,5 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
     '127.0.0.1:9000'
 )
+
+S3_BASE_URL = "https://s3-us-west-2.amazonaws.com/image-bucket-data-design/"

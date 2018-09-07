@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from '../_guards/auth.guard';
+import { CustomTagComponent } from '../_directives/tag.component';
 
 
 @NgModule({
@@ -19,12 +20,14 @@ import { AuthGuard } from '../_guards/auth.guard';
     TagInputModule,
     BrowserAnimationsModule,
 
+
     RouterModule.forChild([
       { path: 'articles', component: ArticleListComponent },
       { path: 'article/:id', component: ArticleComponent },
+      { path: 'tags/:id', component: ArticleListComponent },
       { path: 'write_new', component: BlogWritterComponent,  canActivate: [AuthGuard]} ]),
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
-  declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent,]
+  declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent, CustomTagComponent, ]
 })
 export class ArticleModule { }

@@ -46,9 +46,9 @@ export class BlogWritterComponent implements OnInit {
   ngOnInit() {
     localStorage.setItem('context', 'writer');
     this.get_cat();
-    let isDrfatPresent = localStorage.getItem('article');
+    const isDrfatPresent = localStorage.getItem('article');
     if (isDrfatPresent) {
-      let do_confirm = confirm('do you want to continue edit of draft');
+      const do_confirm = confirm('do you want to continue edit of draft');
       if (do_confirm){
       this.article = Object.assign({}, JSON.parse(isDrfatPresent));
       localStorage.removeItem('article');
@@ -94,9 +94,9 @@ export class BlogWritterComponent implements OnInit {
   }
   onFileChange(event) {
     // tslint:disable-next-line:no-debugger
-    let reader = new FileReader();
+    const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
+      const file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.image = reader.result;
@@ -116,7 +116,7 @@ export class BlogWritterComponent implements OnInit {
     }
   }
   public preSave() {
-    let article_to_send = Object.assign({}, this.article);
+    const article_to_send = Object.assign({}, this.article);
     article_to_send.article_image = this.image;
     article_to_send.article_author = JSON.parse(localStorage.getItem('user_id'));
     return JSON.stringify(article_to_send);
@@ -126,18 +126,24 @@ export class BlogWritterComponent implements OnInit {
     localStorage.setItem('article', JSON.stringify(this.article));
   }
 
-  updateArticle(id) {
-    this._ApiService.updateArticle(this.article, id).subscribe(data => {
+  updateArticle(updatedArticle, id) {
+    this._ApiService.updateArticle(updatedArticle, id).subscribe(data => {
       // tslint:disable-next-line:no-debugger
       debugger;
       this.toastr.success('saved!', 'Success!');
-    });
+    },
+      error => {
+        this.toastr.success('error!', 'Error!');
+  });
   }
 
 
   save() {
     if (this.article.article_id) {
-      this.updateArticle(this.article.article_id);
+      let updatedArticle = this.preSave();
+      this.updateArticle(updatedArticle, this.article.article_id);
+      // tslint:disable-next-line:no-debugger
+      debugger;
       return;
     }
     let article = this.preSave();
