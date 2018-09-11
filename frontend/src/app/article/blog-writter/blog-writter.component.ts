@@ -41,8 +41,9 @@ export class BlogWritterComponent implements OnInit {
       'froalaEditor.contentChanged': function (e, editor) {
         console.log(editor.selection.get());
       }
-    }
-  }
+    },
+    height: 450
+  };
   ngOnInit() {
     localStorage.setItem('context', 'writer');
     this.get_cat();
