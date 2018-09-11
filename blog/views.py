@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from user_profile.models import User
-from blog.models import Article, ArticleTags, Category
+from blog.models import Article, ArticleTags, Category, ArticleLikes
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from blog.serializers import *
@@ -226,4 +226,58 @@ def subcategory_detail(request, pk):
 
     elif request.method == 'DELETE':
         subcategory.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def like_list(request, article_id=None):
+    """
+    List all code Articles, or create a new Article.
+    """
+    import pdb; pdb.set_trace()
+    like_id = request.query_params.get('article_id', None)
+
+    if request.method == 'GET':
+        if like_id:
+            like = ArticleLikes.objects.filter(article_id=like_id)
+        else:
+            like = ArticleLikes.objects.all()
+        serializer = ArticleLikesSerializer(like, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = ArticleLikesSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+@api_view(['GET', 'POST', 'PUT'])
+def like_detail(request, article_id):
+    """
+    Retrieve, update or delete a code Article.
+    """
+    import pdb; pdb.set_trace()
+    try:
+        like = ArticleLikes.objects.get(article_id=article_id)
+    except ArticleLikes.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ArticleLikesSerializer(like)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = ArticleLikesSerializer(like, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        like.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

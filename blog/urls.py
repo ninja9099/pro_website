@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^category/(?P<pk>[0-9]+)/$', api_views.category_detail),
     url(r'^subcategory/$', api_views.subcategory_list),
     url(r'^subcategory/(?P<pk>[0-9]+)/$', api_views.subcategory_detail),
+    url(r'^likes/$', api_views.like_list),
+    url(r'^likes/(?P<article_id>[0-9]+)/$', api_views.like_detail),
 ]

@@ -10,6 +10,8 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from '../_guards/auth.guard';
 import { CustomTagComponent } from '../_directives/tag.component';
+import { LikeComponent } from '../_directives/like-component/like-component.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 @NgModule({
@@ -19,8 +21,7 @@ import { CustomTagComponent } from '../_directives/tag.component';
     ReactiveFormsModule,
     TagInputModule,
     BrowserAnimationsModule,
-
-
+    AngularFontAwesomeModule,
     RouterModule.forChild([
       { path: 'articles', component: ArticleListComponent },
       { path: 'article/:id', component: ArticleComponent },
@@ -28,6 +29,6 @@ import { CustomTagComponent } from '../_directives/tag.component';
       { path: 'write_new', component: BlogWritterComponent,  canActivate: [AuthGuard]} ]),
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
-  declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent, CustomTagComponent, ]
+  declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent, CustomTagComponent, LikeComponent ]
 })
 export class ArticleModule { }

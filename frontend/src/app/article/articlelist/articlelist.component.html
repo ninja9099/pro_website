@@ -8,13 +8,13 @@
                     <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
                     <ul class="details">
                         <li class="author">
-                            <a href="#">{{article.author.full_name}}</a>
+                            <a href="#"></a>
                         </li>
                         <li class="date">{{article.created | date }}</li>
                         <li class="tags">
                             <ul>
                                 <li *ngFor="let tag of article.article_tags"> 
-                                    <app-tag [tagid]="tag"></app-tag>
+                                    <app-tag *ngIf="tag" [tagid]="tag"></app-tag>
                                 </li>
                             </ul>
                         </li>
@@ -24,6 +24,7 @@
                     <h1>{{article.article_title| slice:0:30}}</h1>
                     <h2>Opening a door to the future</h2>
                     <p>{{article.article_content | slice:0:80}}</p>
+                    <app-like-component [objectid]="article.id" *ngIf="article.id"><i class="fa fa-thumbs-up"></i></app-like-component>
                     <p class="read-more">
                         <a routerLink='/article/{{article.id}}'>Read More</a>
                     </p>

@@ -70,4 +70,9 @@ export class ApiService {
   getTag(id) {
     return this.http.get(this.tags + id + '/').map(this.processData).catch(this.catchError);
   }
+  likeObject(objectid, likeobject): Observable <any> {
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    return this.http.put(this.base_url + 'likes/' + objectid + '/', likeobject);
+  }
 }

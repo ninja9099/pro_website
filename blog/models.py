@@ -20,7 +20,7 @@ import boto3
 def upload_to_s3(image, key):
     s3 = boto3.client("s3", region_name="us-west-2", aws_access_key_id="", aws_secret_access_key="")
 
-    res = s3.put_object(Body=image, Bucket='image-bucket-data-design', Key=key)
+    res = s3.put_object(Body=image, Bucket='', Key=key)
     try:
         url = settings.S3_BASE_URL + str(key)
     except :

@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent, GlobalVars } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
-// import { ArticleComponent } from './article/article.component';
 import { CommentComponent } from './shared/comment/comment.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -30,7 +29,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     FooterComponent,
     CommentComponent,
     HomepageComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
 
   ],
   imports: [
@@ -41,6 +40,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     FormsModule,
     ReactiveFormsModule,
     UserModule,
+    AngularFontAwesomeModule,
     ToastModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
