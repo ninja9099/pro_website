@@ -19,7 +19,6 @@ export class ApiService {
   format = '?format=json';
   base_url = 'http://127.0.0.1:8000/api/v1/';
   get_token: string = this.base_url + 'api-token' + this.format;
-  articles = this.base_url + 'articles/' + this.format;
   articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/' + this.format;
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/' + this.format;
   home_resource = 'http://localhost:8000/api/v1/main/' + this.format;
@@ -41,11 +40,11 @@ export class ApiService {
 
 
   getArticle(id) {
-    return this.http.get(this.articles + id).map(this.processData).catch(this.catchError);
+    return this.http.get(this.base_url +'articles/' +  id + this.format).map(this.processData).catch(this.catchError);
   }
 
   getArticles(range, limit): Observable<any> {
-    return this.http.get(this.articles).map(this.processData).catch(this.catchError);
+    return this.http.get(this.base_url +'articles/').map(this.processData).catch(this.catchError);
   }
 
   getHomeResource(): Observable<any> {

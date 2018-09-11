@@ -17,6 +17,8 @@ export class ArticleComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _ApiService: ApiService) {
    }
   ngOnInit() {
+     // tslint:disable-next-line:no-debugger
+      debugger;
     // tslint:disable-next-line:no-debugger
     const id = +this._route.snapshot.paramMap.get('id');
     this.getArticle(id);
@@ -24,6 +26,8 @@ export class ArticleComponent implements OnInit {
 
   public getArticle(article_id) {
     this._ApiService.getArticle(article_id).subscribe((data: IArticle[]) => {
+      // tslint:disable-next-line:no-debugger
+      debugger;
       this.article = data;
     });
   }

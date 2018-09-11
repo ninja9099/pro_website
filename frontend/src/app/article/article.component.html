@@ -3,14 +3,18 @@
     <div class="main-content">
       <header class="article-heading">
         <div class="article-title">
-          <h2>Lorem ipsum dolor sit amet consectetur adipiscing elit. Maecenas a enim vel nulla vehicula vehicula. Cras egestas</h2>
+          <h2>{{article.article_title}}</h2>
         </div>
         <img src="assets/business.jpg" class="article-image">
       </header>
       <div class="article-content">
-         {{article.article_content}}
+        <hr>
+        <p [innerHTML]="article.article_content"></p>
       </div>
-       <p *ngFor="let  tag of article.article_tags">{{tag.name}}{{tag.title}}</p>
+          <h3> Article tagged under...</h3>
+          <hr>
+          <app-tag *ngFor="let tag of article.article_tags"  [tagid]="tag"></app-tag>
+          <hr>
       <!-- <h3 class="author-heading barlow">Author</h3> -->
       <div class="author">
         <div class="author-wrapper">

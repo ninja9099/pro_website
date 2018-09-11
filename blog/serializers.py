@@ -86,11 +86,11 @@ class ArticleSerializer(serializers.ModelSerializer):
     likes = ArticleLikesSerializer(source='articlelikes_set',  many=True, read_only=True)
     article_tags = serializers.PrimaryKeyRelatedField(queryset=ArticleTags.objects.all(), many=True)
     _s3_image_path = serializers.CharField(read_only=True)
-    short_description = serializers.CharField(source='get_summary_as_markdown', read_only=True)
-    
+    short_description = serializers.CharField(source='get_summary', read_only=True)
+    article_comments = serializers.IntegerField(source='get_all_comments', read_only=True)
     class Meta:
         model = Article
-        fields = ('id','_s3_image_path', 'article_author', 'article_title','short_description', 'article_image', 'article_category','likes','article_tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
+        fields = ('id', 'created','_s3_image_path','article_comments', 'article_author', 'article_title','short_description', 'article_image', 'article_category','likes','article_tags', 'article_subcategory', 'article_content', 'article_author', 'article_state', 'article_slug')
 
 
     def to_internal_value(self, data):

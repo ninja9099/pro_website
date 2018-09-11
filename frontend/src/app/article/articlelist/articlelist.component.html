@@ -22,8 +22,8 @@
                 </div>
                 <div class="description">
                     <h1>{{article.article_title| slice:0:30}}</h1>
-                    <h2>Opening a door to the future</h2>
-                    <p>{{article.article_content | slice:0:80}}</p>
+                    <h2 [innerHTML]="article.short_description |  slice:0:20"></h2>
+                    <p [innerHTML]="article.article_content | slice:0:80"></p>
                     <app-like-component [objectid]="article.id" *ngIf="article.id"><i class="fa fa-thumbs-up"></i></app-like-component>
                     <p class="read-more">
                         <a routerLink='/article/{{article.id}}'>Read More</a>

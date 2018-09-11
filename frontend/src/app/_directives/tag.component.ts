@@ -3,7 +3,7 @@ import { ApiService } from '../_services/api.service';
 
 @Component({
     selector: 'app-tag',
-    template: `<a class='tags' [routerLink] ="['/tags/', tagid]">{{tag.name}}</a>`,
+    templateUrl: './tag.component.html',
     styleUrls: ['./tag.component.css'],
 })
 export class CustomTagComponent implements OnInit, OnChanges {
