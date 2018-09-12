@@ -7,7 +7,7 @@ import { GlobalVars } from '../app.component';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, On{
 
   private article: object;
   private article_followings: any[];
@@ -25,8 +25,7 @@ export class ArticleComponent implements OnInit {
     this._apiService.getArticle(article_id).subscribe((data: object) => {
       this.article = data;
       this._apiService.getUser(this.article['article_author']).subscribe(data => {
-          // tslint:disable-next-line:no-debugger
-          debugger;
+          this.article_author = data;
       },
       error =>{
         console.log('could not get the data try again later');

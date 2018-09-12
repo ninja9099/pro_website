@@ -54,10 +54,12 @@ class Base64ImageField(serializers.ImageField):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    
+    full_name = serializers.CharField(source="get_full_name", read_only=True)
+    avatar = serializers.CharField(source="get_profile_image", read_only=True)
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ('id', 'username', 'birth_date',
+                  'email', 'avatar', 'full_name', 'self_intro')
         # exclude = ('password', 'groups', 'article_written', 'user_permissions' )
 
 class GroupSerializer(serializers.ModelSerializer):

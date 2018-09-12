@@ -317,10 +317,7 @@ def user_detail(request, user_id):
 
     if request.method == 'GET':
         serializer = UserSerializer(user)
-        import pdb
-        pdb.set_trace()
-        from django.http import HttpResponse, JsonResponse
-        return JsonResponse(serializer.data, status=201)
+        return Response(serializer.data)
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
