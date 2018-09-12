@@ -11,14 +11,14 @@ from autoslug import AutoSlugField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.functional import cached_property
 import uuid
-from django.conf import settings
+from django.contrib.auth import get_user_model
 
 import boto3
 
 
 
 def upload_to_s3(image, key):
-    s3 = boto3.client("s3", region_name="us-west-2", aws_access_key_id="", aws_secret_access_key="")
+    s3 = boto3.client("s3", region_name="", aws_access_key_id="", aws_secret_access_key="")
 
     res = s3.put_object(Body=image, Bucket='', Key=key)
     try:
@@ -30,7 +30,7 @@ def upload_to_s3(image, key):
 
 
 
-User = settings.AUTH_USER_MODEL
+User = get_user_model()
 ARTICLE_IMAGE_PATH = settings.IMAGE_PATH + 'article_images'
 
 class ArticleTags(models.Model):

@@ -24,8 +24,6 @@ SECRET_KEY = 'tu5euh-)*w$=8k(g#i0ltr7ogrl)pd6)kr!j3@_wv!&2oz-8ne'
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-LOGIN_URL = '/login/'
-AUTH_USER_MODEL = 'user_profile.User'
 # Application definition
 EMAIL_ADMIN = "kamanipankaj9099@gmail.com"
 
@@ -64,7 +62,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'pro_website.urls'
-
+AUTH_USER_MODEL = 'user_profile.User'
 ADMIN_TITLE = "lifeinaBits - Admin"
 
 TEMPLATES = [
@@ -129,11 +127,6 @@ REST_FRAMEWORK = {
 
 # auth backends
 AUTHENTICATION_BACKENDS = (
-    
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.yahoo.YahooOpenId',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -154,19 +147,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-SOCIAL_AUTH_PIPELINE = (
-        'social.pipeline.social_auth.social_details',
-        'social.pipeline.social_auth.social_uid',
-        'social.pipeline.social_auth.auth_allowed',
-        'social.pipeline.social_auth.social_user',
-        'social.pipeline.user.get_username',
-        'social.pipeline.user.create_user',
-        'social.pipeline.social_auth.associate_user',
-        'social.pipeline.social_auth.load_extra_data',
-        'social.pipeline.user.user_details',
-        'user_profile.views.user_details'
-    )
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -226,4 +206,4 @@ CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:9000'
 )
 
-S3_BASE_URL = "https://s3-us-west-2.amazonaws.com/image-bucket-data-design/"
+S3_BASE_URL = ""

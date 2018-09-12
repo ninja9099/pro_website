@@ -38,6 +38,9 @@ export class ApiService {
     return body || {};
   }
 
+  getUser(id) {
+    return this.http.get(this.base_url + 'users/' + id + this.format).map(this.processData).catch(this.catchError);
+  }
 
   getArticle(id) {
     return this.http.get(this.base_url +'articles/' +  id + this.format).map(this.processData).catch(this.catchError);

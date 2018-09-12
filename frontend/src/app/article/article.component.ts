@@ -9,26 +9,28 @@ import { GlobalVars } from '../app.component';
 })
 export class ArticleComponent implements OnInit {
 
-  private article: IArticle[];
+  private article: object;
   private article_followings: any[];
-  private article_author: any[];
+  private article_author: object;
   private artilce_list: any[];
 
-  constructor(private _route: ActivatedRoute, private _ApiService: ApiService) {
+  constructor(private _route: ActivatedRoute, private _apiService: ApiService) {
    }
   ngOnInit() {
-     // tslint:disable-next-line:no-debugger
-      debugger;
-    // tslint:disable-next-line:no-debugger
     const id = +this._route.snapshot.paramMap.get('id');
     this.getArticle(id);
   }
 
   public getArticle(article_id) {
-    this._ApiService.getArticle(article_id).subscribe((data: IArticle[]) => {
-      // tslint:disable-next-line:no-debugger
-      debugger;
+    this._apiService.getArticle(article_id).subscribe((data: object) => {
       this.article = data;
+      this._apiService.getUser(this.article['article_author']).subscribe(data => {
+          // tslint:disable-next-line:no-debugger
+          debugger;
+      },
+      error =>{
+        console.log('could not get the data try again later');
+      });
     });
   }
 }

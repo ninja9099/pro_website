@@ -14,7 +14,7 @@
                         <li class="tags">
                             <ul>
                                 <li *ngFor="let tag of article.article_tags"> 
-                                    <app-tag *ngIf="tag" [tagid]="tag"></app-tag>
+                                    <app-tag *ngIf="tag" [tagid]="tag" [behaveClass]="normal"></app-tag>
                                 </li>
                             </ul>
                         </li>

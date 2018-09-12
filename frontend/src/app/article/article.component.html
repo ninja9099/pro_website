@@ -11,9 +11,10 @@
         <hr>
         <p [innerHTML]="article.article_content"></p>
       </div>
-          <h3> Article tagged under...</h3>
-          <hr>
-          <app-tag *ngFor="let tag of article.article_tags"  [tagid]="tag"></app-tag>
+          <h3>filed under...</h3>
+          <div class="tag-container">
+            <app-tag *ngFor="let tag of article.article_tags" [behaveClass]="'tags'"  [tagid]="tag"></app-tag>
+          </div>
           <hr>
       <!-- <h3 class="author-heading barlow">Author</h3> -->
       <div class="author">

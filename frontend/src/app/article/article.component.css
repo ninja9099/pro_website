@@ -9,6 +9,7 @@
   margin: 0 auto;
   color: #fff;
 }
+.tag-container{padding:10px !important;}
 .article-heading > .article-title>h2{padding: 20px; text-align: center; word-break: break-all; font-family: 'Raleway', sans-serif;}
 .article-heading > .article-title::after {
     display: block;

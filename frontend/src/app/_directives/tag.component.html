@@ -1,1 +1,1 @@
-<a class='tag' [routerLink] ="['/tags/', tagid]">{{tag.name}}</a>
+<a [ngClass]="{'tags': behaveClass === 'tags'}" [routerLink] ="['/tags/', tagid]">{{tag.name}}</a>

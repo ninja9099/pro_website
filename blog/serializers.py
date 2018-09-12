@@ -57,8 +57,8 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('id','url', 'username', 'email')
-        exclude = ('password', 'groups', 'article_written', 'user_permissions' )
+        fields = ('id', 'username', 'email')
+        # exclude = ('password', 'groups', 'article_written', 'user_permissions' )
 
 class GroupSerializer(serializers.ModelSerializer):
     
