@@ -12,10 +12,16 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 PROFILE_PIC_PATH = settings.IMAGE_PATH + 'profile_images/'
-cover_photo = 'static/src/images/user_profile/cover/'
 
 user_type_choices = [(1, 'Admin'), (2, 'Moderator'), (3, 'Normal')]
 default_image = settings.DEFAULT_USER_IMAGE
+
+class social_network(models.Model):
+    user_id = models.ForeignKey('User', related_name='social_networks')
+    site_name = models.CharField(max_length=255)
+    account = models.CharField(
+        max_length=255, help_text="please insert only id of your account")
+
 
 class User(AbstractUser):
 
@@ -24,6 +30,7 @@ class User(AbstractUser):
     birth_date = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to=PROFILE_PIC_PATH, default=default_image,blank=True)
     self_intro = models.CharField(max_length=255, blank=True)
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'

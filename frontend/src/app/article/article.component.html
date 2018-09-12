@@ -20,13 +20,14 @@
       <div class="author">
         <div class="author-wrapper">
           <div class="author-image">
-            <img [src]=article_author.avatar/>
+            <img [src]="article_author.avatar"/>
           </div>
           <div class="author-description">
             <h1>{{article_author.full_name}}</h1>
-            <h3>Sofware/Python Developer</h3>
-            <p> In sodales ante. Nulla ut massa mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum
-              tortor ...</p>
+            <h3>{{article_author.self_intro}}</h3>
+            <p> {{article_author.bio| slice:0:200}}...<br>
+                <a class="more-about-author" [routerLink]="['/author',  article_author.id]" >More About Author..</a>
+            </p>
             <div class="contact ltylw">
               <span class="share-span">
                 <a href="https://github.com/pam-odoo" rel="me noopener" target="_blank" title="GitHub">

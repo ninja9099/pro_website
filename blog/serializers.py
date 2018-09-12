@@ -1,7 +1,18 @@
 from django.contrib.auth.models import Group
-from user_profile.models import User
+from user_profile.models import User, social_network
 from rest_framework import serializers
 from blog.models import *
+
+
+class SocialSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = social_network
+        fields = ('user_id',
+                  'site_name',
+                  'account')
+
+
 
 class Base64ImageField(serializers.ImageField):
     """
@@ -56,9 +67,10 @@ class Base64ImageField(serializers.ImageField):
 class UserSerializer(serializers.ModelSerializer):
     full_name = serializers.CharField(source="get_full_name", read_only=True)
     avatar = serializers.CharField(source="get_profile_image", read_only=True)
+    networks = SocialSerializer(source="social_networks", many=True, read_only=True)
     class Meta:
         model = User
-        fields = ('id', 'username', 'birth_date',
+        fields = ('id', 'username', 'birth_date', 'bio', 'networks',
                   'email', 'avatar', 'full_name', 'self_intro')
         # exclude = ('password', 'groups', 'article_written', 'user_permissions' )
 

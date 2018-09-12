@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin, User
-from .models import User as MyUser
+from django.contrib.auth.admin import UserAdmin
+from .models import social_network, User as MyUser
 
 from django import forms
 from django.contrib import admin
@@ -78,7 +78,18 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
+class socialAccountAdmin(admin.ModelAdmin):
+    list_display = ('user_id',
+                     'site_name',
+                     'account')
+
+    list_filter = ('user_id',) 
+    search_fields = ('site_name',)
+
+    class Meta:
+        verbose_name = "Social Account"
+
+
+admin.site.register(social_network, socialAccountAdmin)
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserAdmin)
-
-admin.site.register(User, UserAdmin)
