@@ -19,6 +19,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { LoginCheckerService } from './_helpers/login-checker.service';
 import { JwtInterceptor } from './_helpers/jwtinterceptor.service';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -29,8 +30,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     FooterComponent,
     CommentComponent,
     HomepageComponent,
-    PageNotFoundComponent
-
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +41,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
     ReactiveFormsModule,
     UserModule,
     AngularFontAwesomeModule,
+    BrowserAnimationsModule,
     ToastModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomepageComponent, canActivate: [AuthGuard] },

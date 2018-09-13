@@ -7,7 +7,7 @@ import { GlobalVars } from '../app.component';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
-export class ArticleComponent implements OnInit, On{
+export class ArticleComponent implements OnInit {
 
   private article: object;
   private article_followings: any[];
