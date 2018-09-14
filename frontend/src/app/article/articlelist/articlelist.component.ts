@@ -20,6 +20,7 @@ export class ArticleListComponent implements OnInit {
     _gvars.context = 'blog';
    }
   ngOnInit() {
+    debugger;
     this.get_article_list(null, 10);
   }
   public get_article_list(range, limit) {

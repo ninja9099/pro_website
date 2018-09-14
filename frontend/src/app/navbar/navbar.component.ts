@@ -8,6 +8,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 
@@ -38,9 +39,15 @@ export class NavbarComponent {
   st = 0;
   constructor(public _loginService: LoginService, public _gvars: GlobalVars,
     private _elRef: ElementRef,
-     ) { }
-
-    
+    private _router: Router,
+     ) { 
+      _router.events.subscribe((val) => {
+        debugger;
+        this.navIsFixed = false;
+        this.state = 'fixed'
+        console.log(val instanceof NavigationEnd) 
+    });
+     }
   logOut() {
     this._loginService.logout();
     this._gvars.isLoggedIn = false;
