@@ -43,11 +43,11 @@ export class ApiService {
   }
 
   getArticle(id) {
-    return this.http.get(this.base_url +'articles/' +  id + this.format).map(this.processData).catch(this.catchError);
+    return this.http.get(this.base_url + 'articles/' +  id + this.format).map(this.processData).catch(this.catchError);
   }
 
-  getArticles(range, limit): Observable<any> {
-    return this.http.get(this.base_url +'articles/').map(this.processData).catch(this.catchError);
+  getArticles(range, limit, params=""): Observable<any> {
+    return this.http.get(this.base_url + 'articles/' + this.format + params).map(this.processData).catch(this.catchError);
   }
 
   getHomeResource(): Observable<any> {

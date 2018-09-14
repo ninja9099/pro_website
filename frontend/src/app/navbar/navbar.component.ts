@@ -32,6 +32,7 @@ export class NavbarComponent {
   public context: string = localStorage.getItem('context');
   public navIsFixed: boolean = false;
   public navIsNotFixed: boolean = false;
+  public isLoggedIn: boolean;
   state: string = 'fixed';
   lastScrollTop = 0;
   st = 0;
@@ -39,7 +40,7 @@ export class NavbarComponent {
     private _elRef: ElementRef,
      ) { }
 
-
+    
   logOut() {
     this._loginService.logout();
     this._gvars.isLoggedIn = false;

@@ -22,6 +22,14 @@
     border-color: #fff;
 }
 
+.grow {
+  -webkit-transition: height 2s; /* Safari */
+  transition: height 2s;
+}
+.grow > nav.navbar{
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
 .fixed_navbar{
     border-bottom: 1px solid #d8d8d8;
     width: 100%;
@@ -29,14 +37,17 @@
     position: fixed;
     top: 0;
     background:#fff;
-    z-index: 999;
+    z-index: 1;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .notfixed_navbar{
     transform: translateY(-100px);
 }
 
-.fixed_navbar > nav.navbar{margin-top: 5px !important;
+.fixed_navbar > nav.navbar{
+  margin-top: 5px !important;
   margin-bottom: 5px !important;
 }
 

@@ -7,11 +7,11 @@
             <div class="left col-lg-4">
                 <div class="photo-left">
                     <img class="photo" src="https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg" />
-                    <div class="active"></div>
+                    <div class="user-active"></div>
                 </div>
                 <h4 class="name">{{user.full_name}}</h4>
-                <p class="info">UI/UX Designer</p>
-                <p class="info">jane.doe@gmail.com</p>
+                <p class="info">{{user.self_intro}}</p>
+                <p class="info">{{user.email}}</p>
                 <div class="stats row">
                     <div class="stat col-xs-4" style="padding-right: 50px;">
                         <p class="number-stat">3,619</p>
@@ -26,8 +26,7 @@
                         <p class="desc-stat">Uploads</p>
                     </div>
                 </div>
-                <p class="desc">Hi ! My name is Jane Doe. I'm a UI/UX Designer from Paris, in France. I really enjoy
-                    photography and mountains.</p>
+                <p class="desc">{{user.bio}}</p>
                 <div class="social">
                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
                     <i class="fa fa-twitter-square" aria-hidden="true"></i>
@@ -35,34 +34,63 @@
                     <i class="fa fa-tumblr-square" aria-hidden="true"></i>
                 </div>
             </div>
-            <div class="right col-lg-8">
-                <ul class="nav">
-                    <li>Gallery</li>
-                    <li>Collections</li>
-                    <li>Groups</li>
-                    <li>About</li>
-                </ul>
+            <div class="right col-lg-8" id="#exTab1">
                 <span class="follow">Follow</span>
-                <div class="row gallery">
-                    <div class="col-md-4">
-                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774813-photo4.jpg" />
+                
+                <ul class="nav nav-pills">
+                    <li class="active">
+                        <a href="#1a" data-toggle="tab">Articles</a>
+                    </li>
+                    <li>
+                        <a href="#2a" data-toggle="tab">Reading Shelf</a>
+                    </li>
+                    <li>
+                        <a href="#3a" data-toggle="tab">About Me</a>
+                    </li>
+                </ul>
+                
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active" id="1a">
+
+                        <div class="example-2 card" *ngFor="let art of user_articles">
+                            <div class="wrapper">
+                                <div class="header">
+                                    <div class="date">
+                                        <span >{{art.created |date}}</span>
+                                    </div>
+                                    <ul class="menu-content">
+                                        <li>
+                                            <!-- <a href="#" class="fa fa-bookmark-o"></a> -->
+                                        </li>
+                                        <li><a href="#" class="fa fa-heart-o"><span>{{art.likes.length}}</span></a></li>
+                                        <!-- <li><a href="#" class="fa fa-comment-o"><span>3</span></a></li> -->
+                                    </ul>
+                                </div>
+                                <div class="data">
+                                    <div class="content">
+                                        <span class="author">Jane Doe</span>
+                                        <h1 class="title"><a href="#">{{art.article_title}}</a></h1>
+                                        <p class="text" [innerHtml]="art.article_content | slice: 0:50">
+                                            soundtrack, out today.</p>
+                                        <a [routerLink]="['/article', art.id]" class="button">Read more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+
                     </div>
-                    <div class="col-md-4">
-                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo5.jpg" />
+                    <div class="tab-pane" id="2a">
+                        <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
                     </div>
-                    <div class="col-md-4">
-                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo6.jpg" />
+                    <div class="tab-pane" id="3a">
+                        <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
                     </div>
-                    <div class="col-md-4">
-                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774817-photo1.jpg" />
-                    </div>
-                    <div class="col-md-4">
-                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774815-photo2.jpg" />
-                    </div>
-                    <div class="col-md-4">
-                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774816-photo3.jpg" />
+                    <div class="tab-pane" id="4a">
+                        <h3>We use css to change the background color of the content to be equal to the tab</h3>
                     </div>
                 </div>
+
             </div>
         </div>
     </main>

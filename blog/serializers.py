@@ -64,15 +64,7 @@ class Base64ImageField(serializers.ImageField):
         return extension
 
 
-class UserSerializer(serializers.ModelSerializer):
-    full_name = serializers.CharField(source="get_full_name", read_only=True)
-    avatar = serializers.CharField(source="get_profile_image", read_only=True)
-    networks = SocialSerializer(source="social_networks", many=True, read_only=True)
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'birth_date', 'bio', 'networks',
-                  'email', 'avatar', 'full_name', 'self_intro')
-        # exclude = ('password', 'groups', 'article_written', 'user_permissions' )
+
 
 class GroupSerializer(serializers.ModelSerializer):
     
@@ -119,6 +111,24 @@ class ArticleSerializer(serializers.ModelSerializer):
         data['article_tags'] = tags
         ret = super(ArticleSerializer, self).to_internal_value(data)
         return ret
+
+
+class UserSerializer(serializers.ModelSerializer):
+    full_name = serializers.CharField(source="get_full_name", read_only=True)
+    avatar = serializers.CharField(source="get_profile_image", read_only=True)
+    networks = SocialSerializer(
+        source="social_networks", many=True, read_only=True)
+    article_list = ArticleSerializer(
+        source="article_written", many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'article_list', 'username', 'birth_date', 'bio', 'networks',
+                  'email', 'avatar', 'full_name', 'self_intro')
+        # exclude = ('password', 'groups', 'article_written', 'user_permissions' )
+
+
+
 
 class CategorySerializer(serializers.ModelSerializer):
     

@@ -1,3 +1,4 @@
+.carousel-inner, .carousel,.slide{z-index: -9;}
 .carousel-inner > .item,  .carousel-inner > .item > img {height: 565px; width: 100%;}
 .carousel-caption {position: absolute; left: 20%; top: 20%; bottom: auto; right: auto;}
 .jumbo-heading {font-size: 120px;}

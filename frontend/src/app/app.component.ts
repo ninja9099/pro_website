@@ -13,11 +13,14 @@ export class AppComponent {
 @Injectable()
 export class GlobalVars implements OnInit {
   public isLoggedIn;
+  public user: string;
   public context: string ;
 
   ngOnInit() {
     if (localStorage.getItem('user')) {
       this.isLoggedIn = true;
+      this.user = localStorage.getItem('user_id');
+
     }
   }
 }

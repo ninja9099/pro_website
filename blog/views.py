@@ -13,8 +13,49 @@ from rest_framework.authtoken.models import Token
 from django.conf import settings
 from rest_framework.settings import api_settings
 from user_profile.models import User
+from django.db.models.query_utils import  Q
+from django.db import models
+from django.db.models.constants import LOOKUP_SEP
+
 
 User = get_user_model()
+
+
+def build_filters(queryset, query_params):
+    filters= {}
+    model = queryset.model
+    field_names = [f.name for f in model._meta.get_fields()]
+    
+    for filter_expr, value in query_params.items():
+        filter_bits = filter_expr.split(LOOKUP_SEP)
+        field_name = filter_bits.pop(0)
+        
+        if field_name not in field_names:
+            # It's not a field we know about. Move along citizen.
+            continue
+        field_instance = model._meta.get_field(field_name)
+
+        if hasattr(field_instance, '_related_fields'):
+            rel_fields = [f.name for f in field_instance.related_fields[0]]
+
+            if filter_bits:
+                lookup = filter_bits.pop()
+                if lookup in rel_fields:
+                    filters.update({filter_expr: value})
+                else:
+                    continue
+            else:
+                filters.update({filter_expr: value})
+        else:
+            filters.update({filter_expr: value})
+
+    query_set = queryset.filter(Q(**filters))
+    return query_set
+        
+
+
+    
+
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -29,11 +70,13 @@ def article_list(request):
     """
     List all code Articles, or create a new Article.
     """
-    
     queryset = Article.objects.all()
+    queryset = build_filters(queryset, request.query_params)
     pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
     paginator = pagination_class()
     page = paginator.paginate_queryset(queryset, request)
+
+
     if request.method == 'GET':
         serializer = ArticleSerializer(page, many=True)
         return paginator.get_paginated_response(serializer.data)
@@ -87,6 +130,7 @@ def tag_list(request):
     """
 
     queryset = ArticleTags.objects.all()
+    queryset = build_filters(queryset, request.query_params)
     pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
     paginator = pagination_class()
     page = paginator.paginate_queryset(queryset, request)
@@ -138,9 +182,10 @@ def category_list(request):
     """
     List all code Articles, or create a new Article.
     """
+    queryset = Category.objects.all()
+    queryset = build_filters(queryset, request.query_params)
     if request.method == 'GET':
-        category = Category.objects.all()
-        serializer = CategorySerializer(category, many=True)
+        serializer = CategorySerializer(queryset, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -181,18 +226,15 @@ def category_detail(request, pk):
 
 @csrf_exempt
 @api_view(['GET', 'POST'])
-def subcategory_list(request, cat_id=None):
+def subcategory_list(request):
     """
     List all code Articles, or create a new Article.
     """
     cat_id = request.query_params.get('catagory_id', None)
-
+    queryset = SubCategory.objects.all()
+    queryset = build_filters(queryset, request.query_params)
     if request.method == 'GET':
-        if cat_id:
-            subcategory = SubCategory.objects.filter(catagory_id=cat_id)
-        else:
-            subcategory = SubCategory.objects.all()
-        serializer = SubCategorySerializer(subcategory, many=True)
+        serializer = SubCategorySerializer(queryset, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -233,18 +275,16 @@ def subcategory_detail(request, pk):
 
 @csrf_exempt
 @api_view(['GET', 'POST'])
-def like_list(request, article_id=None):
+def like_list(request):
     """
     List all code Articles, or create a new Article.
     """
-    like_id = request.query_params.get('article_id', None)
 
+
+    queryset = ArticleLikes.objects.all()
+    queryset = build_filters(queryset, request.query_params)
     if request.method == 'GET':
-        if like_id:
-            like = ArticleLikes.objects.filter(article_id=like_id)
-        else:
-            like = ArticleLikes.objects.all()
-        serializer = ArticleLikesSerializer(like, many=True)
+        serializer = ArticleLikesSerializer(queryset, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -285,13 +325,14 @@ def like_detail(request, article_id):
 
 @csrf_exempt
 @api_view(['GET', 'POST'])
-def user_list(request, user_id=None):
+def user_list(request):
     """
     List all code Articles, or create a new Article.
     """
+    queryset = User.objects.all()
+    queryset = build_filters(queryset, request.query_params)
     if request.method == 'GET':
-        user = User.objects.all()
-        serializer = UserSerializer(user, many=True)
+        serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
