@@ -206,4 +206,7 @@ CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:9000'
 )
 
-S3_BASE_URL = ""
+try:
+    from local_settings import *
+except ImportError:
+    pass

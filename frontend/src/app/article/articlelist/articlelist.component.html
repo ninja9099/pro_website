@@ -8,7 +8,7 @@
                     <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
                     <ul class="details">
                         <li class="author">
-                            <a href="#"></a>
+                            <a [routerLink]="['/user/profile', article.article_author]">{{article.article_author}}</a>
                         </li>
                         <li class="date">{{article.created | date }}</li>
                         <li class="tags">

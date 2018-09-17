@@ -12,17 +12,19 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.functional import cached_property
 import uuid
 from django.contrib.auth import get_user_model
-
+from django.conf import settings
 import boto3
 
 
 
 def upload_to_s3(image, key):
-    s3 = boto3.client("s3", region_name="", aws_access_key_id="", aws_secret_access_key="")
+    import pdb; pdb.set_trace()
+    s3 = boto3.client("s3", region_name=settings.REGION_NAME,
+                      aws_access_key_id=settings.ACCESS_KEY_ID, aws_secret_access_key=settings.ACCESS_KEY_SECRETE)
 
-    res = s3.put_object(Body=image, Bucket='', Key=key)
+    res = s3.put_object(Body=image, Bucket=settings.S3_BUCKET, Key='images/' + key)
     try:
-        url = settings.S3_BASE_URL + str(key)
+        url = settings.S3_BASE_URL + '/' + settings.S3_BUCKET + '/images/' + key
     except :
         raise Exception("please define the s3 bcket path for image upload to s3 or remove that field from modal")
     return url
@@ -57,7 +59,7 @@ class Article(TimeStampedModel):
     article_state = models.CharField(choices=ARTICLE_STATES_CHOICES, default='draft', max_length=20)
     article_slug = AutoSlugField(unique=True,populate_from='article_title')
     article_tags = models.ManyToManyField(ArticleTags, related_name='tagged_articles', blank=True, verbose_name='tags')
-    # _s3_image_path = models.URLField(max_length=1000)
+    _s3_image_path = models.URLField(max_length=1000, blank=True)
 
     class Meta:
         verbose_name = _("Article")
@@ -116,8 +118,8 @@ class Article(TimeStampedModel):
         return markdown.markdown(self.get_summary(), safe_mode='escape')
 
     def save(self, *args, **kwargs):
-        # url = upload_to_s3(self.article_image, self.article_image.name)
-        # self._s3_image_path = url
+        url = upload_to_s3(self.article_image, self.article_image.name)
+        self._s3_image_path = url
         super(Article, self).save(*args, **kwargs)
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, TemplateRef, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, TemplateRef, ElementRef, AfterViewInit } from '@angular/core';
 import { LoginService } from '../_services/login.service';
 import { GlobalVars } from '../app.component';
 import {
@@ -28,7 +28,7 @@ import { Router, NavigationEnd } from '@angular/router';
     ])
   ]
 })
-export class NavbarComponent {
+export class NavbarComponent  implements OnInit {
 
   public context: string = localStorage.getItem('context');
   public navIsFixed: boolean = false;
@@ -37,12 +37,14 @@ export class NavbarComponent {
   state: string = 'fixed';
   lastScrollTop = 0;
   st = 0;
-  constructor(public _loginService: LoginService, public _gvars: GlobalVars,
-    private _elRef: ElementRef,
+  public user = localStorage.getItem('user_id');
+
+  constructor(
+    private _loginService: LoginService,
+    public _gvars: GlobalVars,
     private _router: Router,
-     ) { 
+     ) {
       _router.events.subscribe((val) => {
-        debugger;
         this.navIsFixed = false;
         this.state = 'fixed'
         console.log(val instanceof NavigationEnd) 
@@ -53,6 +55,13 @@ export class NavbarComponent {
     this._gvars.isLoggedIn = false;
     location.reload();
   }
+
+  ngOnInit(): void {
+   if (this._loginService._doCheckLogin()) {
+     this._gvars.isLoggedIn = true;
+   }
+  }
+
 
   @HostListener('window:scroll', ['$event'])
   doSomething(event) {
