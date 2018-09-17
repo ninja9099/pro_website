@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../_services/api.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-user-profile',
@@ -14,11 +15,13 @@ export class UserProfileComponent implements OnInit{
     user_articles: object[];
     constructor(
         private _router: ActivatedRoute,
-        private _apiService: ApiService) {
+        private _apiService: ApiService,
+        private _sanitizer: DomSanitizer
+        ) {
     }
+
+    
     ngOnInit() {
-        // tslint:disable-next-line:no-debugger
-        debugger;
         this.params = this._router.snapshot.paramMap.get('id');
         this.getUserDetails(this.params);
         this.getArrticleWritten(this.params);
@@ -32,7 +35,7 @@ export class UserProfileComponent implements OnInit{
             console.log('error is ==> ' + error);
         });
     }
-    getArrticleWritten(author_id){
+    getArrticleWritten(author_id) {
         this._apiService.getArticles(null, null, '&article_author=' + author_id + '&limit=' + 8).subscribe(data => {
              // tslint:disable-next-line:no-debugger
             debugger;
@@ -42,5 +45,8 @@ export class UserProfileComponent implements OnInit{
                 this.user_articles = data;
             }
         });
+    }
+    getSantizeUrl(url: string) {
+        return this._sanitizer.bypassSecurityTrustUrl(url);
     }
 }

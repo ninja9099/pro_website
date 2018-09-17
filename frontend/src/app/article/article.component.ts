@@ -15,9 +15,11 @@ export class ArticleComponent implements OnInit {
   private article_author: object;
   private artilce_list: any[];
 
-  constructor(private _route: ActivatedRoute,
+  constructor(
+    private _route: ActivatedRoute,
     private _apiService: ApiService,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer
+    ) {
    }
   ngOnInit() {
     const id = +this._route.snapshot.paramMap.get('id');

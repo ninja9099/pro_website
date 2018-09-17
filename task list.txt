@@ -11,3 +11,4 @@ Work to be done in the projec so far
 9.Add cat_article_list.html
 10.make comment posting ajax based
 11.Mail to author regarding the posting of Comment on article
+12. Implement ImageValidate directives

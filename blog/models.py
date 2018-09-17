@@ -10,24 +10,26 @@ from django.conf import settings
 from autoslug import AutoSlugField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.functional import cached_property
-import uuid
 from django.contrib.auth import get_user_model
-from django.conf import settings
-import boto3
+from aws import upload_to_s3
+# from django.conf import settings
+# import boto3
 
 
+# def upload_to_s3(image, key):
+#     import uuid
+#     file_name = str(uuid.uuid4())[:12]
+#     complete_file_name = "%s.%s" % (file_name, key.split('.')[-1])
 
-def upload_to_s3(image, key):
-    import pdb; pdb.set_trace()
-    s3 = boto3.client("s3", region_name=settings.REGION_NAME,
-                      aws_access_key_id=settings.ACCESS_KEY_ID, aws_secret_access_key=settings.ACCESS_KEY_SECRETE)
+#     s3 = boto3.client("s3", region_name=settings.REGION_NAME,
+#                       aws_access_key_id=settings.ACCESS_KEY_ID, aws_secret_access_key=settings.ACCESS_KEY_SECRETE)
 
-    res = s3.put_object(Body=image, Bucket=settings.S3_BUCKET, Key='images/' + key)
-    try:
-        url = settings.S3_BASE_URL + '/' + settings.S3_BUCKET + '/images/' + key
-    except :
-        raise Exception("please define the s3 bcket path for image upload to s3 or remove that field from modal")
-    return url
+#     res = s3.put_object(Body=image, Bucket=settings.S3_BUCKET, Key='images/' + complete_file_name)
+#     try:
+#         url = settings.S3_BASE_URL + '/' + settings.S3_BUCKET + '/images/' + complete_file_name
+#     except :
+#         raise Exception("please define the s3 bcket path for image upload to s3 or remove that field from modal")
+#     return url
 
 
 

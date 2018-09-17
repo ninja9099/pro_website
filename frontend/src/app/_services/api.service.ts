@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { IArticle } from '../_interfaces/article-interface.article';
 import 'rxjs/Rx';
@@ -13,8 +13,9 @@ const httpOptions = {
 
 @Injectable()
 export class ApiService {
-  constructor(private http: HttpClient, private _route: ActivatedRoute) {
-  }
+  constructor(private http: HttpClient,
+    private _route: ActivatedRoute,
+   ) {}
 
   format = '?format=json';
   base_url = 'http://127.0.0.1:8000/api/v1/';
@@ -28,9 +29,18 @@ export class ApiService {
   post_article = 'http://127.0.0.1:8000/api/v1/articles/';
   tags = this.base_url + 'tags/';
 
-  private catchError (error: any) {
+  private catchError(error: HttpErrorResponse) {
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    if (error instanceof HttpErrorResponse) {
+      Object.keys(error).forEach(data => {
+          if (data === 'error') {
+            console.log(error[data])
+          }
+        });
+    }
     console.log('request/response Error', error);
-    return Observable.throw(error.statusText);
+    return Observable.throw(error);
   }
 
   private processData(res: Response) {

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="left col-lg-4">
                 <div class="photo-left">
-                    <img class="photo" src="https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg" />
+                    <img class="photo" [src]="getSantizeUrl(user._s3_image_path)"/>
                     <div class="user-active"></div>
                 </div>
                 <h4 class="name">{{user.full_name}}</h4>

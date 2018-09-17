@@ -29,7 +29,7 @@ class Base64ImageField(serializers.ImageField):
         from django.core.files.base import ContentFile
         import base64
         import six
-        import uuid
+        import uuid 
 
         # Check if this is a base64 string
         if isinstance(data, six.string_types):
@@ -120,10 +120,9 @@ class UserSerializer(serializers.ModelSerializer):
         source="social_networks", many=True, read_only=True)
     article_list = ArticleSerializer(
         source="article_written", many=True, read_only=True)
-
     class Meta:
         model = User
-        fields = ('id', 'article_list', 'username', 'birth_date', 'bio', 'networks',
+        fields = ('id', '_s3_image_path',  'article_list', 'username', 'birth_date', 'bio', 'networks',
                   'email', 'avatar', 'full_name', 'self_intro')
         # exclude = ('password', 'groups', 'article_written', 'user_permissions' )
 

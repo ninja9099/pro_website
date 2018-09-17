@@ -129,12 +129,10 @@ export class BlogWritterComponent implements OnInit {
 
   updateArticle(updatedArticle, id) {
     this._ApiService.updateArticle(updatedArticle, id).subscribe(data => {
-      // tslint:disable-next-line:no-debugger
-      debugger;
       this.toastr.success('saved!', 'Success!');
     },
       error => {
-        this.toastr.success('error!', 'Error!');
+        this.toastr.success(error, 'Error!');
   });
   }
 

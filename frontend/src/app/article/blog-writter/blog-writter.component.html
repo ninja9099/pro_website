@@ -19,6 +19,9 @@
 					<li [class.has-error]="image.invalid && (image.dirty || image.touched)">
 						<label class="control-label" for="url">Image</label>
 						<input (change)="onFileChange($event)" class="box-input" [ngClass]="{invalid: image.invalid && (image.dirty || image.touched)}" type="file" name="article-image" required [(ngModel)]="article.article_image" #image="ngModel">
+						<p *ngIf="image.errors">
+							{{image.errors}}
+						</p>
 						<span>Your article poster (500*500)</span>
 					</li>
 					<li [class.has-error]="has_catError">
