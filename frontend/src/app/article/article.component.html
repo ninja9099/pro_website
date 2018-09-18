@@ -9,7 +9,7 @@
       </header>
       <div class="article-content">
         <hr>
-        <p [innerHTML]="article.article_content"></p>
+        <p [froalaView]="article.article_content"></p>
       </div>
           <h3>filed under...</h3>
           <div class="tag-container">
@@ -20,7 +20,7 @@
       <div class="author">
         <div class="author-wrapper">
           <div class="author-image">
-            <img [src]="article_author.avatar"/>
+            <img [src]="article_author._s3_image_path"/>
           </div>
           <div class="author-description">
             <h1>{{article_author.full_name}}</h1>

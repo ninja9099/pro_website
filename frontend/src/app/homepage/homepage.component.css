@@ -41,12 +41,13 @@
 .overlay-bg { bottom: 0;    content: "";    display: block;    height: 100%;    width: 100%;    position: absolute;    z-index: 0;    opacity: 1;    -webkit-transition: all 300ms ease-out;    -moz-transition: all 300ms ease-out;    -o-transition: all 300ms ease-out;    -ms-transition: all 300ms ease-out;    transition: all 300ms ease-out;}
 .search-form input{height: 50px !important; width: 80% !important; margin-right: -7px; border-radius: 0 !important;-webkit-box-shadow: none !important; box-shadow: none !important;}
 .search-form button { font-size: 24px; font-weight: bold; font-family: 'Roboto' sans-serif; min-width: 20%; border-radius: 0 !important; box-shadow: none ! important; height: 50px !important;}
-.search-row h2, .recent-row h2{font-weight: bold; margin:40px 0;}
+.search-row h2, .recent-row h2{font-weight: bold; margin:40px 0;font-family: 'Wire One', sans-serif;}
 
 /*recent row */
-.recent-box{align-items: flex-start; margin: 20px 0px; display: flex;flex-basis: 100%; flex-direction: row; justify-content: space-between;}
+.recent-box{align-items: flex-start; margin: 20px 0px; display: flex;flex-basis: 100%; flex-direction: row; justify-content: start;}
 .recent-box .recent-left{ margin-right: 40px;}
-.recent-box .recent-right h1  a{text-decoration: none; color: #484848;}
+.recent-box .recent-left  img {width: 200px;height: 200px;;}
+.recent-box .recent-right h1  a{font-size:25px; text-decoration: none; color: #484848;text-transform: capitalize;font-family: 'Poiret One', cursive;}
 .recent-box .recent-right h1  a:hover{color: #31bbab;}
 .recent-right h1{margin: 0;}
 .recent-right p{font-size: 20px; font-family: 'Roboto' sans-serif;}

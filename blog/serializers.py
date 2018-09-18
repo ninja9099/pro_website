@@ -4,6 +4,7 @@ from rest_framework import serializers
 from blog.models import *
 
 
+
 class SocialSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -148,3 +149,6 @@ class ArticleRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model= ArticleRating
         fields = ('id','user', 'article', 'article_ratings', 'feedbacks')
+
+
+

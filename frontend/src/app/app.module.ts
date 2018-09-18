@@ -20,7 +20,6 @@ import { LoginCheckerService } from './_helpers/login-checker.service';
 import { JwtInterceptor } from './_helpers/jwtinterceptor.service';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ImgaeValidatorDirective } from './shared/image-validate.directive';
 
 
 

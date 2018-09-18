@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from blog import views as api_views
 from rest_framework.authtoken import views
-from .views import CustomObtainAuthToken
+from .views import CustomObtainAuthToken, EditoreUploadImage
 
 
 urlpatterns = [
@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^likes/(?P<article_id>[0-9]+)/$', api_views.like_detail),
     url(r'^users/$', api_views.user_list),
     url(r'^users/(?P<user_id>[0-9]+)/$', api_views.user_detail),
+    url(r'^editor/image/', EditoreUploadImage.as_view(), name="editor_image_upload")
 ]

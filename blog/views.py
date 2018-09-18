@@ -16,6 +16,10 @@ from user_profile.models import User
 from django.db.models.query_utils import  Q
 from django.db import models
 from django.db.models.constants import LOOKUP_SEP
+from rest_framework.views import APIView
+from blog.aws import upload_to_s3
+from rest_framework.renderers import JSONRenderer
+
 
 
 User = get_user_model()
@@ -371,3 +375,21 @@ def user_detail(request, user_id):
     elif request.method == 'DELETE':
         User.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class EditoreUploadImage(APIView):
+
+    renderer_classes = (JSONRenderer, )
+    def get(self, request, *args, **kw):
+        import pdb
+        pdb.set_trace()
+        pass
+
+    def post(self, request, *args, **kw):
+        import pdb; pdb.set_trace()
+        key = 'article-images/' + request.FILES['file'].name
+        files = request.FILES['file']
+        url = upload_to_s3(files, key)
+        res = {"link": url}
+        return Response(res)
+        

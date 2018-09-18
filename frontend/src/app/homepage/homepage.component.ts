@@ -30,7 +30,7 @@ export class HomepageComponent implements OnInit {
 
   }
   ngOnInit() {
-    const limit = 10;
+    const limit = 3;
     this.recent_articles(limit);
   }
 
@@ -45,13 +45,11 @@ export class HomepageComponent implements OnInit {
 
   public recent_articles(limit) {
     this._ApiService.getRecentArticles(limit).subscribe((data: IArticle[]) => {
-      debugger;
-      this.articles = data;
+      this.articles = data['results'];
       console.log(this.articles);
     });
   }
   public showToast() {
     this.toastr.success('You are awesome!', 'Success!');
-    debugger;
   }
 }

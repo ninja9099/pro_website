@@ -36,7 +36,8 @@ export class BlogWritterComponent implements OnInit {
   }
 
   public options: Object = {
-    placeholder: "Edit Me",
+    placeholder: 'Edit Me',
+    imageUploadURL: 'http://localhost:8000/api/v1/editor/image/',
     events: {
       'froalaEditor.contentChanged': function (e, editor) {
         console.log(editor.selection.get());

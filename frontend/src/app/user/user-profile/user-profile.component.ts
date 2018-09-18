@@ -13,6 +13,7 @@ export class UserProfileComponent implements OnInit{
     user: object;
     params: string;
     user_articles: object[];
+    user_id: number;
     constructor(
         private _router: ActivatedRoute,
         private _apiService: ApiService,
@@ -20,7 +21,6 @@ export class UserProfileComponent implements OnInit{
         ) {
     }
 
-    
     ngOnInit() {
         this.params = this._router.snapshot.paramMap.get('id');
         this.getUserDetails(this.params);
@@ -37,8 +37,7 @@ export class UserProfileComponent implements OnInit{
     }
     getArrticleWritten(author_id) {
         this._apiService.getArticles(null, null, '&article_author=' + author_id + '&limit=' + 8).subscribe(data => {
-             // tslint:disable-next-line:no-debugger
-            debugger;
+
             if (data.hasOwnProperty('results')) {
                 this.user_articles = data.results;
             } else{

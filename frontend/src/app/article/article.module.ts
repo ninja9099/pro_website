@@ -12,6 +12,7 @@ import { AuthGuard } from '../_guards/auth.guard';
 import { CustomTagComponent } from '../_directives/tag.component';
 import { LikeComponent } from '../_directives/like-component/like-component.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { SafePipe } from '../_pipes/safe.pipe';
 
 
 @NgModule({
@@ -29,6 +30,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
       { path: 'write_new', component: BlogWritterComponent,  canActivate: [AuthGuard]} ]),
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
-  declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent, CustomTagComponent, LikeComponent ]
+  declarations: [ArticleComponent, BlogWritterComponent, ArticleListComponent, CustomTagComponent, LikeComponent, SafePipe]
 })
 export class ArticleModule { }

@@ -23,7 +23,6 @@ export class ApiService {
   articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/' + this.format;
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/' + this.format;
   home_resource = 'http://localhost:8000/api/v1/main/' + this.format;
-  recent_articles = 'http://127.0.0.1:8000/api/v1/main/index' + this.format;
   categories = 'http://127.0.0.1:8000/api/v1/category/' + this.format;
   subcategories = 'http://127.0.0.1:8000/api/v1/subcategory/' + this.format;
   post_article = 'http://127.0.0.1:8000/api/v1/articles/';
@@ -65,7 +64,9 @@ export class ApiService {
   }
 
   getRecentArticles(limit): Observable<any> {
-    return this.http.get(this.recent_articles + '&limit=' + limit).map(this.processData).catch(this.catchError);
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    return this.http.get(this.base_url + 'articles/' + this.format + '&limit=' + limit).map(this.processData).catch(this.catchError);
   }
   getCategories(): Observable<any> {
     return this.http.get(this.categories).map(this.processData).catch(this.catchError);

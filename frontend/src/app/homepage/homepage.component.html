@@ -146,42 +146,17 @@
   </div>
 </div>
 <div class="row recent-row">
-  <h2 class="text-left roboto-thin">Recent Post</h2>
+  <h2 class="text-left">Recent Post</h2>
   <div class="recent-wrap">
-    <div class="recent-box">
+    <div class="recent-box" *ngFor="let article of articles">
       <div class="recent-left">
-        <img src="assets/scream.jpg" />
+        <img [src]="article._s3_image_path"/>
       </div>
       <div class="recent-right">
         <h1>
-          <a href="#">Little Boy Scream</a>
+          <a href="#">{{article.article_title}}</a>
         </h1>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-          dummy text ever ...</p>
-      </div>
-    </div>
-    <div class="recent-box">
-      <div class="recent-left">
-        <img src="assets/scream.jpg" />
-      </div>
-      <div class="recent-right">
-        <h1>
-          <a href="#">Little Boy Scream</a>
-        </h1>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-          dummy text ever ...</p>
-      </div>
-    </div>
-    <div class="recent-box">
-      <div class="recent-left">
-        <img src="assets/scream.jpg" />
-      </div>
-      <div class="recent-right">
-        <h1>
-          <a href="#">Little Boy Scream</a>
-        </h1>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-          dummy text ever ...</p>
+        <p [innerHTML]="article.short_description"></p>
       </div>
     </div>
   </div>

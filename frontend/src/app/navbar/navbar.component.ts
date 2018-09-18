@@ -31,13 +31,13 @@ import { Router, NavigationEnd } from '@angular/router';
 export class NavbarComponent  implements OnInit {
 
   public context: string = localStorage.getItem('context');
-  public navIsFixed: boolean = false;
-  public navIsNotFixed: boolean = false;
+  public navIsFixed = false;
+  public navIsNotFixed = false;
   public isLoggedIn: boolean;
-  state: string = 'fixed';
+  state  = 'fixed';
   lastScrollTop = 0;
   st = 0;
-  public user = localStorage.getItem('user_id');
+  user: number;
 
   constructor(
     private _loginService: LoginService,
@@ -46,8 +46,8 @@ export class NavbarComponent  implements OnInit {
      ) {
       _router.events.subscribe((val) => {
         this.navIsFixed = false;
-        this.state = 'fixed'
-        console.log(val instanceof NavigationEnd) 
+        this.state = 'fixed';
+        console.log(val instanceof NavigationEnd);
     });
      }
   logOut() {
@@ -59,6 +59,7 @@ export class NavbarComponent  implements OnInit {
   ngOnInit(): void {
    if (this._loginService._doCheckLogin()) {
      this._gvars.isLoggedIn = true;
+     this.user = parseInt(localStorage.getItem('user_id'), 10);
    }
   }
 
