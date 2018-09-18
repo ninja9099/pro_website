@@ -36,11 +36,11 @@ export class UserProfileComponent implements OnInit{
         });
     }
     getArrticleWritten(author_id) {
-        this._apiService.getArticles(null, null, '&article_author=' + author_id + '&limit=' + 8).subscribe(data => {
+        this._apiService.getArticles({'article_author': author_id,  'limit': 8}).subscribe(data => {
 
             if (data.hasOwnProperty('results')) {
                 this.user_articles = data.results;
-            } else{
+            } else {
                 this.user_articles = data;
             }
         });

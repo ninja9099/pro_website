@@ -9,9 +9,15 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./articlelist.component.css']
 })
 export class ArticleListComponent implements OnInit {
-  public article_list: any[];
-  public data: any[];
-  public context: string = localStorage.getItem('context');
+  
+  public article_list: any[] = [];
+  data: any[];
+  context: string = localStorage.getItem('context');
+  is_more: boolean;
+  limit = 6;
+  offset = 0;
+  is_loading: boolean;
+
 
   constructor(private _route: ActivatedRoute,
     private _ApiService: ApiService,
@@ -20,13 +26,29 @@ export class ArticleListComponent implements OnInit {
     _gvars.context = 'blog';
    }
   ngOnInit() {
-    debugger;
     this.get_article_list(null, 10);
   }
-  public get_article_list(range, limit) {
-    this._ApiService.getArticles(null, limit).subscribe((data: Array<object>) => {
-      this.article_list = data['results'];
+
+
+  get_article_list(limit, offset) {
+    this._ApiService.getArticles({'limit': this.limit, 'offset': this.offset}).subscribe((data: Array<object>) => {
+      debugger;
+      this.offset = this.offset + 6;
+      this.article_list = this.article_list.concat(data['results']);
+      if (data['next']) {
+        this.is_more = true;
+      } else {
+        this.is_more = false;
+      }
+      this.is_loading = false;
       console.log(data);
     });
+  }
+
+  loadMore(event) {
+    this.is_loading = true;
+    setTimeout(() => {
+      this.get_article_list(null, 0);
+    }, 3000);
   }
 }

@@ -5,6 +5,7 @@ import { LoginCheckerService } from '../../_helpers/login-checker.service';
 import { ApiService } from '../../_services/api.service';
 import { ToastsManager } from 'ng2-toastr';
 import { CArticle } from '../../_interfaces/article-interface.article';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-writter',
@@ -21,18 +22,21 @@ export class BlogWritterComponent implements OnInit {
   has_catError = false;
   hasSubcatError = false;
   public article: CArticle;
+  public _params: object;
 
   constructor(public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,
     private _ApiService: ApiService,
     public vcr: ViewContainerRef,
     public toastr: ToastsManager,
+    private route: ActivatedRoute
   ) {
     _gvars.context = 'writer';
     if (_loginChecker.is_loggedin()) {
       _gvars.isLoggedIn = true;
     }
     this.toastr.setRootViewContainerRef(vcr);
+    this.route.params.subscribe(params => this._params = params);
   }
 
   public options: Object = {
@@ -51,10 +55,22 @@ export class BlogWritterComponent implements OnInit {
     const isDrfatPresent = localStorage.getItem('article');
     if (isDrfatPresent) {
       const do_confirm = confirm('do you want to continue edit of draft');
-      if (do_confirm){
-      this.article = Object.assign({}, JSON.parse(isDrfatPresent));
-      localStorage.removeItem('article');
+      if (do_confirm) {
+        this.article = Object.assign({}, JSON.parse(isDrfatPresent));
+        localStorage.removeItem('article');
       }
+    } else if (this._params.hasOwnProperty('edit')) {
+      // tslint:disable-next-line:no-debugger
+      debugger;
+        if (this._params.hasOwnProperty('article')) {
+          const edit_id = this._params['article'];
+          // tslint:disable-next-line:no-debugger
+          debugger;
+          this._ApiService.getArticle(edit_id).subscribe(data => {
+            this.fetchSubctgry(data['article_category'] );
+            this.article = Object.assign({}, data); });
+
+        }
     } else {
       this.article = new CArticle({
         article_content: null,
@@ -106,9 +122,9 @@ export class BlogWritterComponent implements OnInit {
     }
   }
 
-  fetchSubctgry(cat) {
+  fetchSubctgry(cat, params={}) {
     if (cat !== 'default') {
-      this._ApiService.getSubCategories(cat).subscribe(data => {
+      this._ApiService.getSubCategories(cat, params).subscribe(data => {
         for (const key in data) {
           if (data.hasOwnProperty(key)) {
           this.sub_categories.push(data[key]);
@@ -137,16 +153,13 @@ export class BlogWritterComponent implements OnInit {
   });
   }
 
-
   save() {
     if (this.article.article_id) {
-      let updatedArticle = this.preSave();
-      this.updateArticle(updatedArticle, this.article.article_id);
-      // tslint:disable-next-line:no-debugger
-      debugger;
+      const saved_article = this.preSave();
+      this.updateArticle(saved_article, this.article.article_id);
       return;
     }
-    let article = this.preSave();
+    const article = this.preSave();
     this._ApiService.saveArticle(article).subscribe(data => {
       console.log(data);
       this.toastr.success('You are awesome!', 'Success!');

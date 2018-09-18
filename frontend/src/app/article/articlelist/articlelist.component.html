@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="container-fluid">
         <h2 class="title"></h2>
@@ -23,7 +22,7 @@
                 <div class="description">
                     <h1>{{article.article_title| slice:0:30}}</h1>
                     <h2 [innerHTML]="article.short_description |  slice:0:20"></h2>
-                    <p [innerHTML]="article.article_content | slice:0:80"></p>
+                    <p [innerHTML]="article.article_content | slice:0:50"></p>
                     <app-like-component [objectid]="article.id" *ngIf="article.id"><i class="fa fa-thumbs-up"></i></app-like-component>
                     <p class="read-more">
                         <a routerLink='/article/{{article.id}}'>Read More</a>
@@ -31,6 +30,12 @@
                 </div>
             </div>
             
+        </div>
+        <div class="loader-wrap">
+            <img *ngIf="is_loading" class="loader-image" src="assets/loader.gif" />
+        </div>
+        <div class="loader-wrap">
+            <button *ngIf="!is_loading && is_more" (click)="loadMore($event)" class="btn loadmore-button">Load More</button>
         </div>
     </div>
 </div>

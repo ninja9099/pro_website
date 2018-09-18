@@ -34,17 +34,9 @@ export class HomepageComponent implements OnInit {
     this.recent_articles(limit);
   }
 
-  public home() {
-    this._ApiService.getHomeResource().subscribe((data: IResponse) => {
-      this.home_resources = data.objects;
-      console.log(this.home_resources);
-
-    });
-
-  }
 
   public recent_articles(limit) {
-    this._ApiService.getRecentArticles(limit).subscribe((data: IArticle[]) => {
+    this._ApiService.getArticles({ 'limit': 4, 'offset': 0}).subscribe((data: IArticle[]) => {
       this.articles = data['results'];
       console.log(this.articles);
     });

@@ -22,7 +22,6 @@ export class ApiService {
   get_token: string = this.base_url + 'api-token' + this.format;
   articleRatingUrl = 'http://127.0.0.1:8000/api/v1/rating/' + this.format;
   articleFollowingUrl = 'http://127.0.0.1:8000/api/v1/following/' + this.format;
-  home_resource = 'http://localhost:8000/api/v1/main/' + this.format;
   categories = 'http://127.0.0.1:8000/api/v1/category/' + this.format;
   subcategories = 'http://127.0.0.1:8000/api/v1/subcategory/' + this.format;
   post_article = 'http://127.0.0.1:8000/api/v1/articles/';
@@ -34,7 +33,7 @@ export class ApiService {
     if (error instanceof HttpErrorResponse) {
       Object.keys(error).forEach(data => {
           if (data === 'error') {
-            console.log(error[data])
+            console.log(error[data]);
           }
         });
     }
@@ -47,33 +46,41 @@ export class ApiService {
     return body || {};
   }
 
+  private getQueryString(params) {
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    let q_str = '';
+    for (let key in params) {
+      if (params.hasOwnProperty(key)) {
+        q_str = q_str + `&${key}=${params[key]}`;
+      }
+    }
+    return q_str;
+  }
+
+
   getUser(id) {
     return this.http.get(this.base_url + 'users/' + id + this.format).map(this.processData).catch(this.catchError);
   }
 
   getArticle(id) {
-    return this.http.get(this.base_url + 'articles/' +  id + this.format).map(this.processData).catch(this.catchError);
+    return this.http.get(this.base_url + 'articles/' + id + this.format).map(this.processData).catch(this.catchError);
   }
 
-  getArticles(range, limit, params=""): Observable<any> {
-    return this.http.get(this.base_url + 'articles/' + this.format + params).map(this.processData).catch(this.catchError);
+  getArticles(params: object): Observable<any> {
+    const query_string = this.getQueryString(params);
+    return this.http.get(this.base_url + 'articles/' + this.format + query_string).map(this.processData).catch(this.catchError);
   }
 
-  getHomeResource(): Observable<any> {
-    return this.http.get(this.home_resource).map(this.processData).catch(this.catchError);
-  }
 
-  getRecentArticles(limit): Observable<any> {
-    // tslint:disable-next-line:no-debugger
-    debugger;
-    return this.http.get(this.base_url + 'articles/' + this.format + '&limit=' + limit).map(this.processData).catch(this.catchError);
-  }
   getCategories(): Observable<any> {
     return this.http.get(this.categories).map(this.processData).catch(this.catchError);
   }
-  getSubCategories(catagory_id): Observable<any> {
+
+  getSubCategories(catagory_id, params): Observable<any> {
     return this.http.get(this.subcategories + '&catagory_id=' + catagory_id).map(this.processData).catch(this.catchError);
   }
+
   saveArticle(article): Observable<IArticle> {
     return this.http.post<any>(this.post_article, article).map(this.processData).catch(this.catchError);
   }
@@ -83,6 +90,7 @@ export class ApiService {
   getTag(id) {
     return this.http.get(this.tags + id + '/').map(this.processData).catch(this.catchError);
   }
+
   likeObject(objectid, likeobject): Observable <any> {
     // tslint:disable-next-line:no-debugger
     debugger;
