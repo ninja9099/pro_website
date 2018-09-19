@@ -26,7 +26,7 @@
             <h1>{{article_author.full_name}}</h1>
             <h3>{{article_author.self_intro}}</h3>
             <p> {{article_author.bio| slice:0:200}}...<br>
-                <a class="more-about-author" [routerLink]="['/author',  article_author.id]" >More About Author..</a>
+                <a class="more-about-author" [routerLink]="['/user/profile/',  article_author.id]" >More About Author..</a>
             </p>
             <div class="contact ltylw">
               <span class="share-span">

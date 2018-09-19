@@ -7,8 +7,26 @@
 .navbar-nav > li {display: inline-block; position: relative; padding: 0px;
     margin-right: 54px;}
 .navbar-nav > li > a{ text-transform: capitalize; padding: 0; font-size: 16px; color: #1C2220; line-height: 1.278;text-decoration: none; margin: 15px;}
-.navbar-nav > li:hover, .navbar-nav > li:hover > a {background-color: #31bbab !important; color: #fff;}
-.active, .active > a{background:#31bbab !important; color: #fff !important;}
+.navbar-nav > li:hover, .navbar-nav > li:hover > a { color: #000;}
+.active, .active > a{
+
+}
+li.active::before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0px;
+    bottom: 0;
+    background:var(--general-color);
+    height: 4px;
+    -webkit-transition-property: right;
+    transition-property: right;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;}
+
 .nav>li>a:hover, .nav>li>a:focus { background: none !important;}
 
 .profile-image{ width: 43px; height: 35px;}
@@ -31,7 +49,7 @@
   margin-bottom: 5px !important;
 }
 .fixed_navbar{
-    border-bottom: 1px solid #d8d8d8;
+    /* border-bottom: 1px solid #d8d8d8; */ /* border-bottom: 1px solid #d8d8d8; */
     width: 100%;
     box-shadow: 0px 1px 1px -2px #eee;
     position: fixed;
@@ -40,6 +58,7 @@
     z-index: 1;
     margin-right: auto;
     margin-left: auto;
+    background: var(--general-color);
 }
 
 .notfixed_navbar{
@@ -177,4 +196,60 @@
 }
 .hvr-underline-from-left:hover:before, .hvr-underline-from-left:focus:before, .hvr-underline-from-left:active:before {
   right: 0;
+}
+
+.fixed_navbar .navbar .profile-li >.dropdown > button {
+  background: var(--general-color);
+    color: #fff;
+    border: none;
+  }
+
+
+.fixed_navbar .navbar .navbar-nav > li > a{
+  color: #fff;
+}
+.fixed_navbar .navbar .navbar-nav li.active::before{
+  background-color: #fff;
+}
+.fixed_navbar .navbar .navbar-nav li.hvr-underline-from-left:hover::before{
+   background-color: #fff;
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 480px){
+	.navbar-toggle{
+		border: 1px solid #38c3b4 !important;
+		border-radius: 0px !important;
+	}
+	.navbar-toggle .icon-bar{
+		background: black !important;
+	}
+}
+/* Smartphones (portrait) ---------- */
+@media screen and (max-width: 320px){
+    /* styles */
+}
+/* Smartphones (landscape) ---------- */
+@media screen and (min-width: 321px){
+    /* styles */
+}
+/* Tablets, iPads (portrait and landscape) ---------- */
+@media screen and (min-width: 768px) and (max-width: 1024px){
+    /* styles */
+}
+/* Tablets, iPads (portrait) ---------- */
+@media screen and (min-width: 768px){
+    /* styles */
+}
+/* Tablets, iPads (landscape) ---------- */
+@media screen and (min-width: 1024px){
+    /* styles */
+}
+/* Desktops and laptops ---------- */
+@media screen and (min-width: 1224px){
+    /* styles */
+}
+/* Large screens ---------- */
+@media screen and (min-width: 1824px){
+    /* styles */
 }

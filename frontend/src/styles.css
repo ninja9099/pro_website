@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,200');
 @import url('https://fonts.googleapis.com/css?family=Poiret+One');
 @import url('https://fonts.googleapis.com/css?family=Wire+One');
+
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -23,3 +24,14 @@
 .j_slab{font-family: Josefin Slab, sans-serif !important}
 .roboto-thin{font-family:'Roboto', sans-serif !important; font-weight: 300;}
 .lobster{font-family: 'Lobster', cursive;}
+
+
+:root {
+  --navfix-color: #575656;
+  --general-color: #31bbab;
+  --general-colorlight: #31bbab;
+  --general-colordark: #2bae9f;
+  --white-color: #fff;
+  --footer-color: #747676fc
+
+}

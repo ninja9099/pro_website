@@ -52,7 +52,7 @@
     <div class="profile-widget">
       <div class="profile">
         <div class="profile-picture">
-          <img src="assets/4.jpg" style="height: 300px; width: 400px;">
+          <img src="assets/python.png" style="height: 300px; width: 400px;">
         </div>
         <dl class="profile-datablock roboto-thin">
           <h1>Why Should you hire Me</h1>
@@ -124,20 +124,8 @@
     </div>
   </div>
 </div>
-<div class="row pager-row">
-  <div class="pager-wrap">
-    <ul class="pagination">
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>...</li>
-      <li>Next</li>
-    </ul>
-  </div>
-</div>
 <div class="search-box search-row">
-  <h2 class="text-left roboto-thin">Search this Blog</h2>
+  <h2 class="text-center">Search this Blog</h2>
   <div class="search-wrapper">
     <form class="form-inline search-form">
       <input class="form-control" type="text" name="q" />
@@ -146,17 +134,25 @@
   </div>
 </div>
 <div class="row recent-row">
-  <h2 class="text-left">Recent Post</h2>
+  <h2 class="text-center">Recent Post</h2>
   <div class="recent-wrap">
     <div class="recent-box" *ngFor="let article of articles">
       <div class="recent-left">
         <img [src]="article._s3_image_path"/>
       </div>
+      <div class="_article-meta">
+        <div class="att-wrapper"><i class="fa fa-heart" aria-hidden="true"></i> <span [innerHTML]="article.likes.length"></span>
+        </div>
+        <div class="att-wrapper"><i class="fa fa-comments" aria-hidden="true"></i><span [innerHTML]="article.likes.length"></span>
+        </div>
+        <div class="att-wrapper"><i class="fa fa-tags" aria-hidden="true"></i><span [innerHTML]="article.article_tags.length"></span>
+        </div>
+      </div>
       <div class="recent-right">
         <h1>
-          <a href="#">{{article.article_title}}</a>
+          <a [routerLink]="['/article/', article.id]">{{article.article_title}}</a>
         </h1>
-        <p [innerHTML]="article.short_description"></p>
+        <div class="content" [innerHTML]="article.short_description"></div>
       </div>
     </div>
   </div>

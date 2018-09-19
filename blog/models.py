@@ -113,7 +113,7 @@ class Article(TimeStampedModel):
         return tag_dict.items()
 
     def get_summary(self):
-        return '{0}...'.format(self.article_content)
+        return '{0}'.format(self.article_content)
      
 
     def get_summary_as_markdown(self):

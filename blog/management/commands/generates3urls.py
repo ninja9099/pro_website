@@ -14,10 +14,11 @@ class Command(BaseCommand):
                    url = upload_to_s3(article.article_image.read(), key)
                    article._s3_image_path = url
                    article.save()
-                   self.stdout.write(self.style.SUCCESS(
-                       'Successfully uploaded the  "%s" to s3 url is "%s"' % (article, article.article_image)))
                 except:
-                    raise CommandError('Exception occured')
+                    self.stdout.write(
+                        "no image attached to the article %s" % (article))
                 
+                self.stdout.write(self.style.SUCCESS(
+                    'Successfully uploaded the  "%s" to s3 url is "%s"' % (article, article.article_image)))
 
             

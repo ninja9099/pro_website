@@ -32,7 +32,6 @@ export class ArticleListComponent implements OnInit {
 
   get_article_list(limit, offset) {
     this._ApiService.getArticles({'limit': this.limit, 'offset': this.offset}).subscribe((data: Array<object>) => {
-      debugger;
       this.offset = this.offset + 6;
       this.article_list = this.article_list.concat(data['results']);
       if (data['next']) {
