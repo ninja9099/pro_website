@@ -11,15 +11,25 @@
 .projects-row, .pager-row,.search-row, .recent-row{margin: 76px auto; max-width: 80%;}
 .profile-row{
 	background: url('assets/test2.jpg');
+	width: 100%;
 }
 .middle-profile{margin: 76px auto;
-    max-width: 80%;}
+	max-width: 80%;}
+.profile-widget .profile{
+	max-width: 1200px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;}
 .profile{display: flex;align-items: center;justify-content: space-around;}
 .profile-picture{width: 35%;}
 .profile-datablock{width: 50%;align-self: flex-start;}
 .profile-datablock h1{font-size: 50px;}
 .profile-data a{font-size: 40px; text-decoration: none;color: #4449;}
-.profile-text{font-size: 20px; }
+.profile-text{
+	font-size: 20px;
+	text-align: justify;
+	word-break: break-all;
+}
 .profile-link{ float: right; font-size: 19px; text-decoration: none; font-weight: bold;}
 .profile-link:after{content: ' \2192';}
 .projects h1{text-align: center; margin: 20px; margin-bottom: 40px;}
@@ -29,7 +39,7 @@
 
 
 .blog-grid{display: flex;align-items: flex-start; justify-content: space-between;flex-wrap: wrap;}
-.card-wrapper {overflow: hidden;float: left; position: relative; min-height: 300px; min-width: 300px;}
+.card-wrapper {overflow: hidden; position: relative; min-height: 300px; min-width: 300px;margin: 10px;}
 .photo-card{width: 300px; height: 300px; position: absolute; }
 .photo-card a {display: block; width: 100%; height: 100%;}
 .description-card{width: 300px; padding: 40px;    padding-bottom: 40px;padding-bottom: 40px;padding-bottom: 0;height: auto;position: absolute;bottom: 30px;}
