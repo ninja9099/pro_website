@@ -145,6 +145,10 @@
 
 
 @media screen and (min-width: 320px) and (max-width: 480px){
+	.middle-profile{margin: 9px auto;}
+	.profile-row{    
+		margin-right: 0px;
+		margin-left: 0px;}
 	.profile-picture {
 		height: 100%;
 		width: 100%;
@@ -157,6 +161,38 @@
 		width: 100%;
 		justify-content: center;
 	}
+	.profile-datablock h1 {
+		width: 100%;
+		text-align: center;
+		font-size: 27px;
+		font-family: 'Raleway';
+		font-weight: bold;
+	}
+	.profile-data{
+		text-align: center;
+	}
+	.profile-picture img{width: 100% !important;}
+	.navbar-nav  li{display: block !important;}
+	.carousel-inner > .item {height: 250px !important;}
+	.jumbo-heading{
+		font-size: 70px;
+	}
+	.carousel-caption{
+		text-align: center;
+		left: 20%;
+		left: 20%;
+    	top: 20%;
+    	bottom: auto;
+		right: 15%;}
+	.carousel-caption p{text-align: center;}
+	.jumbo-heading{font-size: 40px !important}
+	.caption-btn a{display: none;}
+	.projects >h1{font-family: Raleway !important;}
+	.projects h1:before, .projects h1:after{
+		width: 25px !important;
+		margin: 5px;
+		}
+
 }
 /* Smartphones (portrait) ---------- */
 @media screen and (max-width: 320px){

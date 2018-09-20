@@ -120,8 +120,8 @@ class Article(TimeStampedModel):
         return markdown.markdown(self.get_summary(), safe_mode='escape')
 
     def save(self, *args, **kwargs):
-        url = upload_to_s3(self.article_image, self.article_image.name)
-        self._s3_image_path = url
+        # url = upload_to_s3(self.article_image, self.article_image.name)
+        # self._s3_image_path = url
         super(Article, self).save(*args, **kwargs)
 
 

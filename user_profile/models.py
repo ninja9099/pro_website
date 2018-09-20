@@ -58,8 +58,8 @@ class User(AbstractUser):
             return settings.DEFAULT_USER_IMAGE
 
     def save(self, *args, **kwargs):
-        url = upload_to_s3(self.profile_picture, self.profile_picture.name)
-        self._s3_image_path = url
+        # url = upload_to_s3(self.profile_picture, self.profile_picture.name)
+        # self._s3_image_path = url
         super(User, self).save(*args, **kwargs)
 
 
