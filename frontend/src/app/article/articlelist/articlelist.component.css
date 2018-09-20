@@ -196,6 +196,21 @@ body{
   width: 100px;
   height: 100px;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px){
+  .card-container{
+    margin: 0px;
+  }
+  .blog-card{
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    flex-basis: 100%;
+  }
+	
+}
+
+
 @media (min-width: 640px) {
   .blog-card {
     flex-direction: row;
@@ -232,3 +247,21 @@ body{
     padding-left: 25px;
   }
 }
+/* Tablets, iPads (portrait) ---------- */
+@media screen and (min-width: 768px){
+    /* styles */
+}
+/* Tablets, iPads (landscape) ---------- */
+@media screen and (min-width: 1024px){
+    /* styles */
+}
+/* Desktops and laptops ---------- */
+@media screen and (min-width: 1224px){
+    /* styles */
+}
+/* Large screens ---------- */
+@media screen and (min-width: 1824px){
+    /* styles */
+}
+
+

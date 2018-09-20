@@ -76,7 +76,9 @@
     <div class="blog-grid">
       <div class="card-wrapper">
         <div class="photo-card">
-          <a href="localhost" style="background: url('https://2.bp.blogspot.com/-4YVmL-5TDh4/V7AguW7eSkI/AAAAAAAAA5E/iXoKjd8D0dgM4UQ6RXuQ7nwJV6tk0ilhwCLcB/s320/Untitled-4.png');background-size: cover;"></a>
+          <a href="localhost">
+            <img src='https://2.bp.blogspot.com/-4YVmL-5TDh4/V7AguW7eSkI/AAAAAAAAA5E/iXoKjd8D0dgM4UQ6RXuQ7nwJV6tk0ilhwCLcB/s320/Untitled-4.png'/>
+          </a> 
           <span class="overlay-bg"></span>
         </div>
         <div class="description-card">
@@ -91,33 +93,37 @@
       </div>
       <div class="card-wrapper">
         <div class="photo-card">
-          <a href="localhost" style="background: url('https://2.bp.blogspot.com/-4YVmL-5TDh4/V7AguW7eSkI/AAAAAAAAA5E/iXoKjd8D0dgM4UQ6RXuQ7nwJV6tk0ilhwCLcB/s320/Untitled-4.png');background-size: cover;"></a>
+          <a href="localhost">
+            <img src='https://2.bp.blogspot.com/-4YVmL-5TDh4/V7AguW7eSkI/AAAAAAAAA5E/iXoKjd8D0dgM4UQ6RXuQ7nwJV6tk0ilhwCLcB/s320/Untitled-4.png' />
+          </a>
           <span class="overlay-bg"></span>
         </div>
         <div class="description-card">
           <div class="info">
-            <!-- <date class="dosis">11th Oct 2018</date> -->
-            <h2 class="roboto-thin">
-              ExamFormula
+            <!-- <date class="dosis">11 Oct 2018</date> -->
+            <h2 class="roboto">
+              MobilePatterns
             </h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sodales, lorem a suscipit bibendum</p>
+           <p> 
+                ipsum dolor sit amet, consectetur adipiscing elit. 
+              Aenean sodales, lorem a suscipit bibendum</p>
           </div>
         </div>
       </div>
       <div class="card-wrapper">
         <div class="photo-card">
-          <a href="localhost" style="background: url('https://2.bp.blogspot.com/-4YVmL-5TDh4/V7AguW7eSkI/AAAAAAAAA5E/iXoKjd8D0dgM4UQ6RXuQ7nwJV6tk0ilhwCLcB/s320/Untitled-4.png');background-size: cover;"></a>
+          <a href="localhost">
+            <img src='https://2.bp.blogspot.com/-4YVmL-5TDh4/V7AguW7eSkI/AAAAAAAAA5E/iXoKjd8D0dgM4UQ6RXuQ7nwJV6tk0ilhwCLcB/s320/Untitled-4.png' />
+          </a>
           <span class="overlay-bg"></span>
         </div>
         <div class="description-card">
           <div class="info">
-            <!-- <date class="dosis">11th Oct 2018</date> -->
-            <h2 class="roboto-thin">
-              LifeInaBits
+            <!-- <date class="dosis">11 Oct 2018</date> -->
+            <h2 class="roboto">
+              MobilePatterns
             </h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sodales, lorem a suscipit bibendum,
-            </p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sodales, lorem a suscipit bibendum,</p>
           </div>
         </div>
       </div>
@@ -129,7 +135,7 @@
   <div class="search-wrapper">
     <form class="form-inline search-form">
       <input class="form-control" type="text" name="q" />
-      <button class="btn btn-primary form-control">Search</button>
+      <button class="btn btn-primary form-control"><i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
   </div>
 </div>
@@ -148,11 +154,9 @@
         <div class="att-wrapper"><i class="fa fa-tags" aria-hidden="true"></i><span [innerHTML]="article.article_tags.length"></span>
         </div>
       </div>
-      <div class="recent-right">
-        <h1>
+      <div class="recent-right"> 
           <a [routerLink]="['/article/', article.id]">{{article.article_title}}</a>
-        </h1>
-        <div class="content" [innerHTML]="article.short_description"></div>
+        <!-- <div class="content" [innerHTML]="article.short_description"></div> -->
       </div>
     </div>
   </div>

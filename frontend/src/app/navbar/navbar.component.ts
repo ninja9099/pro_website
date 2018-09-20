@@ -47,7 +47,7 @@ export class NavbarComponent  implements OnInit {
       _router.events.subscribe((val) => {
         this.navIsFixed = false;
         this.state = 'fixed';
-        console.log(val instanceof NavigationEnd);
+        // console.log(val instanceof NavigationEnd);
     });
      }
   logOut() {

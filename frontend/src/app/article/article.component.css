@@ -320,3 +320,97 @@ select{
 .more-about-author{
   float: right;
 }
+
+
+
+
+@media screen and (min-width: 320px) and (max-width: 480px){
+   
+  .blog-row{
+    display: flex; 
+    margin:0px;  
+    width: 100%; 
+    max-width: 100%;
+    justify-content: center;}
+   .main-wrapper{
+      display: flex;
+      flex-basis: 100%;
+      flex-direction: column;
+      flex-wrap: wrap;
+      margin: 10px 10px;
+      width: 90%;
+   }
+   .main-content{
+    
+    width: 100%;
+    max-width: 83%;
+    justify-content: center;
+    margin: auto;
+   }
+   .article-heading > .article-title > h2{
+     font-family: Barlow;
+    font-size: 19px;
+   }
+   .author-description p {display: none;}
+   .author-description h1{
+      font-size: 18px;
+      font-family: 'Roboto',sans-serif;;
+   }
+   .author-description h3{
+     display: none;
+      /* font-size: 18px; */
+      /* font-family: 'Roboto',sans-serif; */
+   }
+   .author-wrapper > .author-description{
+     margin: 20px;
+     font-family: 'Barlow',sans-serif;
+    font-size: 15px;
+    
+   }
+   .share-span > a > i{
+     font-size: 20px;
+   }
+   .comment-wrapper .comment-img img{
+     display: none;
+   }
+   .comment-wrapper .comment-body{
+     width: 100%;
+   }
+   .level-1 li, .level-2 li{
+     margin-bottom: 10px;
+   }
+   .author-image img{
+     width: 50px;
+     height: 50px;
+   }
+   .sidebar{width: 100%; display: flex; flex-direction: column-reverse;}
+   .sidebar-search{display: none;}
+}
+/* Smartphones (portrait) ---------- */
+@media screen and (max-width: 320px){
+    /* styles */
+}
+/* Smartphones (landscape) ---------- */
+@media screen and (min-width: 321px){
+    /* styles */
+}
+/* Tablets, iPads (portrait and landscape) ---------- */
+@media screen and (min-width: 768px) and (max-width: 1024px){
+    /* styles */
+}
+/* Tablets, iPads (portrait) ---------- */
+@media screen and (min-width: 768px){
+    /* styles */
+}
+/* Tablets, iPads (landscape) ---------- */
+@media screen and (min-width: 1024px){
+    /* styles */
+}
+/* Desktops and laptops ---------- */
+@media screen and (min-width: 1224px){
+    /* styles */
+}
+/* Large screens ---------- */
+@media screen and (min-width: 1824px){
+    /* styles */
+}

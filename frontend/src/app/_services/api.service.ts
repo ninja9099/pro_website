@@ -28,8 +28,6 @@ export class ApiService {
   tags = this.base_url + 'tags/';
 
   private catchError(error: HttpErrorResponse) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     if (error instanceof HttpErrorResponse) {
       Object.keys(error).forEach(data => {
           if (data === 'error') {
@@ -47,8 +45,6 @@ export class ApiService {
   }
 
   private getQueryString(params) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     let q_str = '';
     for (let key in params) {
       if (params.hasOwnProperty(key)) {
@@ -92,8 +88,6 @@ export class ApiService {
   }
 
   likeObject(objectid, likeobject): Observable <any> {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     return this.http.put(this.base_url + 'likes/' + objectid + '/', likeobject);
   }
 }

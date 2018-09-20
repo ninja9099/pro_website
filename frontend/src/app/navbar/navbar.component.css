@@ -15,6 +15,7 @@ div.grow{
     padding: 0;
     width: 100% !important;
     margin: auto !important;
+    z-index: 99;
 }
 li.active::before{
     content: "";
@@ -219,13 +220,35 @@ li.active::before{
 
 
 @media screen and (min-width: 320px) and (max-width: 480px){
-	.navbar-toggle{
-		border: 1px solid #38c3b4 !important;
-		border-radius: 0px !important;
+    .navbar {
+    /* margin: 51px 40px; */
+    margin: 20px 20px;
+}
+    .navbar-toggle{
+		border: 2px solid #232524 !important;
+    border-radius: 0 !important;
+    padding: 15px 10px;
+    margin-top: 0px !important; 
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+    cursor: pointer;
 	}
 	.navbar-toggle .icon-bar{
-		background: black !important;
-	}
+    background: black !important;
+    width: 35px;
+    height: 3px;
+    }
+    .navbar-nav > li {
+        display: block;
+        width: 100%;
+    }
+    li.active::before{
+        height: 1px;
+            
+    }
+    .container>.navbar-collapse{
+        background: rgb(56, 195, 180);
+    }
 }
 /* Smartphones (portrait) ---------- */
 @media screen and (max-width: 320px){

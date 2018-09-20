@@ -3,30 +3,32 @@
     <div class="main-content">
       <header class="article-heading">
         <div class="article-title">
-          <h2>{{article.article_title}}</h2>
+          <h2>{{article?.article_title}}</h2>
         </div>
-        <img [src]="getSantizeUrl(article._s3_image_path)" class="article-image">
+        <img [src]="getSantizeUrl(article?._s3_image_path)" class="article-image">
       </header>
       <div class="article-content">
         <hr>
-        <p [froalaView]="article.article_content"></p>
+        <p [froalaView]="article?.article_content"></p>
       </div>
           <h3>filed under...</h3>
           <div class="tag-container">
-            <app-tag *ngFor="let tag of article.article_tags" [behaveClass]="'tags'"  [tagid]="tag"></app-tag>
+            <app-tag *ngFor="let teg of article?.article_tags" [behaveClass]="'tags'"  [tagid]="teg"></app-tag>
           </div>
           <hr>
       <!-- <h3 class="author-heading barlow">Author</h3> -->
       <div class="author">
         <div class="author-wrapper">
           <div class="author-image">
-            <img [src]="article_author._s3_image_path"/>
+            <img [src]="article_author?._s3_image_path"/>
           </div>
           <div class="author-description">
-            <h1>{{article_author.full_name}}</h1>
-            <h3>{{article_author.self_intro}}</h3>
-            <p> {{article_author.bio| slice:0:200}}...<br>
-                <a class="more-about-author" [routerLink]="['/user/profile/',  article_author.id]" >More About Author..</a>
+            <h1>{{article_author?.full_name}}</h1>
+            <h3>{{article_author?.self_intro}}
+              <!-- <a class="more-about-author" [routerLink]="['/user/profile/',  article_author.id]">More About Author..</a> -->
+            </h3>
+            <p> {{article_author?.bio| slice:0:200}}...<br>
+                <a class="more-about-author" [routerLink]="['/user/profile/',  article_author?.id]" >More About Author..</a>
             </p>
             <div class="contact ltylw">
               <span class="share-span">
@@ -163,38 +165,10 @@
       <div class="related-posts box">
         <h3 class="text-left barlow">You may like</h3>
         <div class="related-wrapper">
-          <div class="item">
-            <div class="item-img">
-              <img src="assets/business.jpg">
-            </div>
-            <div class="item-meta">
-              <h3 class="item-heading"> Article first for the time</h3>
-              <!-- <date class="publication-date">7 -->
-                <!-- <sup>th</sup> March 2018 10:03 am</date> -->
-            </div>
-          </div>
-          <div class="item">
-            <div class="item-img">
-              <img src="assets/business.jpg">
-            </div>
-            <div class="item-meta">
-              <h3 class="item-heading">Article first for the time</h3>
-              <!-- <date class="publication-date">7 -->
-                <!-- <sup>th</sup> March 2018 10:03 am</date> -->
-            </div>
-          </div>
-          <div class="item">
-            <div class="item-img">
-              <img src="assets/business.jpg">
-            </div>
-            <div class="item-meta">
-              <h3 class="item-heading">Article first for the time</h3>
-              <!-- <date class="publication-date">7 -->
-                <!-- <sup>th</sup> March 2018 10:03 am</date> -->
-            </div>
-          </div>
+          
         </div>
       </div>
+      <div class="box" style="width: 100%; height: 200px;"></div>
       <div class="box" style="width: 100%; height: 200px;"></div>
       <div class="box news-letter">
         <div id="newsletter">
@@ -206,15 +180,14 @@
               Newsletter
             </div>
             <label for="email">
-              Send us your email, we'll make sure you never miss a thing!
+              we'll make sure you never miss a thing! 
             </label>
             <input type="text" placeholder="enter your email here" />
-            <input type="submit" value="subscribe now" />
+            <input type="submit" value="subscribe now"/>
           </form>
         </div>
         <div class="shadow"></div>
       </div>
-      <div class="box" style="width: 100%; height: 200px;"></div>
     </div>
   </div>
 </div>

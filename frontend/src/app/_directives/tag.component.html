@@ -1,1 +1,1 @@
-<a [ngClass]="{'tags': behaveClass === 'tags'}" [routerLink] ="['/tags/', tagid]">{{tag.name}}</a>
+<a *ngIf="tagid" [ngClass]="{'tags': behaveClass === 'tags'}" [routerLink] ="['/tags/', tagid]">{{tag?.name}}</a>
