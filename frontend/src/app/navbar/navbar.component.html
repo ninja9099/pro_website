@@ -30,29 +30,18 @@
           <li class="hvr-underline-from-left" id="login" *ngIf="!_gvars.isLoggedIn" [ngClass]="{active : _gvars.context == 'login'}">
             <a  [routerLink]="['/auth/login']">Login</a>
           </li>
-          <li class="profile-li" *ngIf="_gvars.isLoggedIn">
-              <div class="dropdown">
-                <a  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="true">
-                  <img class="profile-image" src="assets/django.png" />
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li>
-                    <a class="hvr-bounce-to-right" [routerLink]="['/user/profile/', user]">Profile</a>
-                  </li>
-                  <li>
-                    <a class="hvr-bounce-to-right" href="#">Another action</a>
-                  </li>
-                  <li>
-                    <a class="hvr-bounce-to-right" href="#">Something else here</a>
-                  </li>
-                  <li role="separator" class="divider"></li>
-                  <li>
-                    <a class="hvr-bounce-to-right" (click)="logOut()">Logout</a>
-                  </li>
-                </ul>
-              </div>
+          <li *ngIf="_gvars.isLoggedIn">
+              <a  class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="true">{{username}} <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li>
+                <a class="hvr-bounce-to-right" [routerLink]="['/user/profile/', user]">Profile</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <a class="hvr-bounce-to-right" (click)="logOut()">Logout</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

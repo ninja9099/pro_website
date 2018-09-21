@@ -9,6 +9,7 @@ import {
   transition
 } from '@angular/animations';
 import { Router, NavigationEnd } from '@angular/router';
+import { parse } from 'url';
 
 
 
@@ -34,6 +35,8 @@ export class NavbarComponent  implements OnInit {
   public navIsFixed = false;
   public navIsNotFixed = false;
   public isLoggedIn: boolean;
+  public username: string;
+
   state  = 'fixed';
   lastScrollTop = 0;
   st = 0;
@@ -60,6 +63,7 @@ export class NavbarComponent  implements OnInit {
    if (this._loginService._doCheckLogin()) {
      this._gvars.isLoggedIn = true;
      this.user = parseInt(localStorage.getItem('user_id'), 10);
+     this.username = JSON.parse(localStorage.getItem('user'));
    }
   }
 

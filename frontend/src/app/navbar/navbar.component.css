@@ -5,7 +5,8 @@
 .navbar-brand span.left{padding: 10px; padding: 9px 12px; background: #464646; color: #fff;}
 .navbar-brand span.right{padding: 10px; padding: 9px 12px; color: #464646 !important; letter-spacing: 3px;}
 .navbar-nav > li {display: inline-block; position: relative; padding: 0px;
-    margin-right: 54px;}
+    margin-right: 54px;
+cursor: pointer;}
 .navbar-nav > li > a{ text-transform: capitalize; padding: 0; font-size: 16px; color: #1C2220; line-height: 1.278;text-decoration: none; margin: 15px;}
 .navbar-nav > li:hover, .navbar-nav > li:hover > a { color: #000;}
 /* .active, .active > a{
@@ -246,8 +247,10 @@ li.active::before{
         height: 1px;
             
     }
-    .container>.navbar-collapse{
-        background: rgb(56, 195, 180);
+    .nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+        text-decoration: none;
+        background-color: transparent;
+    border-color: transparent;
     }
 }
 /* Smartphones (portrait) ---------- */

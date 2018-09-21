@@ -130,3 +130,9 @@ a.tags:hover {
   color: #FFF;  
   text-shadow: -1px -1px 0 rgba(153,102,51,0.3);  
 } 
+
+@media screen and (min-width: 320px) and (max-width: 480px){
+    a.tags{
+        margin: 0 10px 2px 0 !important;
+      }
+}

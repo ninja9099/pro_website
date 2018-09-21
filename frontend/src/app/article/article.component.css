@@ -385,6 +385,7 @@ select{
    }
    .sidebar{width: 100%; display: flex; flex-direction: column-reverse;}
    .sidebar-search{display: none;}
+   
 }
 /* Smartphones (portrait) ---------- */
 @media screen and (max-width: 320px){
