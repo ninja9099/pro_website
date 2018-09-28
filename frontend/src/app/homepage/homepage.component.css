@@ -1,5 +1,5 @@
 body{
-	background-color: #000;
+	background-color:#222629;
 }
 .main-back-wrapper{
 	width: 100%;
@@ -28,7 +28,7 @@ body{
     width: 110%;
     height: 167px;
     position: absolute;
-    background: #000;
+    background: #222629;
     transform: rotate(-4deg);
     bottom: -85px;
     left: -61px;
@@ -50,7 +50,7 @@ body{
 }
 .main-title{
 	font-family: 'Roboto';
-	color: #2f4f4fcc;
+	color: #fff;
 }
 .infotext{
 	color: #233744;
@@ -69,7 +69,7 @@ body{
 	margin: 76px auto; }
 .profile-row{
 	width: 100%;
-	background: #000;
+	background: #222629;
 }
 .projects-row{
 	background: #86c232cc;
@@ -83,20 +83,20 @@ body{
     width: 110%;
     height: 167px;
     position: absolute;
-    background: #000;
+    background: #222629;
     transform: rotate(-4deg);
     top: -85px;
     left: -61px;
 
 }
 .projects-row::after{
-	width: 100%;
+	width: 51%;
     content: '';
-    width: 110%;
     height: 167px;
     position: absolute;
-    background: #000;
-    transform: rotate(-4deg);
+    background: #222629;
+    -webkit-transform: rotate(-4deg);
+    transform: rotate(10deg);
     bottom: -85px;
     left: -61px;
 
@@ -172,12 +172,12 @@ letter-spacing: 2px;}
 .profile{display: flex;align-items: center;justify-content: space-around;}
 .profile-picture{width: 35%;}
 .profile-datablock{width: 50%;align-self: flex-start;}
-.profile-datablock h1{font-size: 50px;}
-.profile-data a{font-size: 40px; text-decoration: none;color: #4449;}
+.profile-datablock h1{font-size: 50px;color: #fff;}
+.profile-data a{font-size: 40px; text-decoration: none;color: #8a8a8a;}
 .profile-text{
 	font-size: 20px;
-	text-align: justify;
-	word-break: break-all;
+	text-align: center;
+	color: #8a8a8a;
 }
 .profile-link{ float: right; font-size: 19px; text-decoration: none; font-weight: bold;}
 .profile-link:after{content: ' \2192';}
@@ -190,6 +190,35 @@ letter-spacing: 2px;}
 .info date {color: #484848; font-size: 14px; background: #fff; padding: 2px 10px; margin-bottom: 20px;}
 .info h2{font-size: 30px; font-weight: bold;}
 .info p {line-height: 1.2; letter-spacing: 1px;text-align: justify; letter-spacing: 1.5px;}
+
+.search-row::before{
+	width: 51%;
+    content: '';
+    height: 167px;
+    position: absolute;
+    background: #222629;
+    -webkit-transform: rotate(-4deg);
+    transform: rotate(10deg);
+    bottom: -85px;
+    left: -61px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .search-form {display: flex;}
 .search-form input{height: 50px !important; width: 80% !important; margin-right: -7px; border-radius: 0 !important;-webkit-box-shadow: none !important; box-shadow: none !important;}
 .search-form button { font-size: 24px; font-weight: bold; font-family: 'Roboto' sans-serif; min-width: 20%; border-radius: 0 !important; box-shadow: none ! important; height: 50px !important;}
