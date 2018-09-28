@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'autoslug',
     'corsheaders',
     'django_seed',
+    'newsletter',
 ]
 
 MIDDLEWARE = [

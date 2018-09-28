@@ -1,13 +1,35 @@
 .navigation-full{box-shadow: 0px 1px 1px 0px #d8d8d8; width: 100% !important;}
 .nav-fix{overflow: hidden;position: fixed; top: 0;left: 0;right: 0;background: #fff;z-index: 9;width: 100%;}
 .navbar{margin: 20px 20px;}
-.navbar-brand{border: 2px solid #464646;font-size: 24px; padding: 0!important; position: relative; line-height: 1.9 !important;}
-.navbar-brand span.left{padding: 10px; padding: 9px 12px; background: #464646; color: #fff;}
-.navbar-brand span.right{padding: 10px; padding: 9px 12px; color: #464646 !important; letter-spacing: 3px;}
+.navbar-brand{
+    border: 2px solid #ffffff;
+    font-size: 24px; 
+    padding: 0!important; 
+    position: relative; 
+    line-height: 1.9 !important;}
+.navbar-brand span.left{
+    padding: 9px 12px; 
+    background: #ffffff;
+    color: #111010;}
+.navbar-brand span.right{
+    padding: 10px; 
+    padding: 9px 12px; 
+    color: #686363 !important; 
+    letter-spacing: 3px;}
 .navbar-nav > li {display: inline-block; position: relative; padding: 0px;
     margin-right: 54px;
 cursor: pointer;}
-.navbar-nav > li > a{ text-transform: capitalize; padding: 0; font-size: 16px; color: #1C2220; line-height: 1.278;text-decoration: none; margin: 15px;}
+.navbar-nav > li > a{text-transform: capitalize;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 1.278;
+    text-decoration: none;
+    margin: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
 .navbar-nav > li:hover, .navbar-nav > li:hover > a { color: #000;}
 /* .active, .active > a{
 
@@ -16,7 +38,8 @@ div.grow{
     padding: 0;
     width: 100% !important;
     margin: auto !important;
-    z-index: 99;
+    position: fixed;
+    z-index: 9;
 }
 li.active::before{
     content: "";
@@ -25,7 +48,7 @@ li.active::before{
     left: 0;
     right: 0px;
     bottom: 0;
-    background:var(--general-color);
+    background:#686363;
     height: 4px;
     -webkit-transition-property: right;
     transition-property: right;
@@ -34,7 +57,7 @@ li.active::before{
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;}
 
-.nav > li > a:hover, .nav> li >a:focus { background: none !important;}
+.nav > li > a:hover, .nav> li >a:focus { background: none !important;    color: #fff;}
 
 .profile-image{ width: 43px; height: 35px;}
 
@@ -63,6 +86,7 @@ li.active::before{
     top: 0;
     background:#fff;
     background: var(--general-color);
+    
 }
 
 .notfixed_navbar{
@@ -189,7 +213,7 @@ li.active::before{
   left: 0;
   right: 100%;
   bottom: 0;
-  background: #31bbab;
+  background:#fff;
   height: 4px;
   -webkit-transition-property: right;
   transition-property: right;
@@ -211,6 +235,8 @@ li.active::before{
 
 .fixed_navbar .navbar .navbar-nav > li > a{
   color: #fff;
+  font-weight: bold;
+  font-size: 18px;
 }
 .fixed_navbar .navbar .navbar-nav li.active::before{
   background-color: #fff;

@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('rest_framework.urls')),
     url(r'^api/v1/', include(api_urls)),
-    
+    url(r'^newsletter/', include('newsletter.urls')),
 ]   
 
 if settings.DEBUG:
