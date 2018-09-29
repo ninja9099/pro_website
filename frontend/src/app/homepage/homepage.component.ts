@@ -15,7 +15,7 @@ export class HomepageComponent implements OnInit {
 
   private articles: IArticle[];
   private home_resources: any[];
-
+  
   constructor(private _ApiService: ApiService,
     public _gvars: GlobalVars,
     public _loginChecker: LoginCheckerService,

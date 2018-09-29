@@ -4,6 +4,7 @@ body{
 .main-back-wrapper{
 	width: 100%;
 	height: 700px;
+	overflow: hidden;
 }
 .main-back {
 	width: 100%;
@@ -89,17 +90,16 @@ body{
     left: -61px;
 
 }
-.projects-row::after{
-	width: 51%;
+.projects::after{
+	width: 110%;
     content: '';
     height: 167px;
     position: absolute;
-    background: #222629;
+    background: #fff;
     -webkit-transform: rotate(-4deg);
-    transform: rotate(10deg);
-    bottom: -85px;
-    left: -61px;
-
+    transform: rotate(-4deg);
+    bottom: -99px;
+    left: -136px;
 }
 
 .projects-row h1{
@@ -122,7 +122,8 @@ body{
     margin-top: 148px;
     max-width: 80%;
     margin: auto;
-    margin-top: 148px;
+	margin-top: 148px;
+	overflow: hidden;
 }
 .service-box{
 	display: flex;
@@ -171,7 +172,7 @@ letter-spacing: 2px;}
     margin: auto;}
 .profile{display: flex;align-items: center;justify-content: space-around;}
 .profile-picture{width: 35%;}
-.profile-datablock{width: 50%;align-self: flex-start;}
+.profile-datablock{width: 50%;align-self: flex-start; text-align: center}
 .profile-datablock h1{font-size: 50px;color: #fff;}
 .profile-data a{font-size: 40px; text-decoration: none;color: #8a8a8a;}
 .profile-text{
@@ -191,25 +192,82 @@ letter-spacing: 2px;}
 .info h2{font-size: 30px; font-weight: bold;}
 .info p {line-height: 1.2; letter-spacing: 1px;text-align: justify; letter-spacing: 1.5px;}
 
-.search-row::before{
-	width: 51%;
-    content: '';
-    height: 167px;
-    position: absolute;
-    background: #222629;
-    -webkit-transform: rotate(-4deg);
-    transform: rotate(10deg);
-    bottom: -85px;
-    left: -61px;
+
+/* recent rows */
+.recent-box{
+	width: 30%;
 }
 
-
-
-
-
-
-
-
+  .container-fluid {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translateY(-50%) translateX(-50%);
+			transform: translateY(-50%) translateX(-50%);
+	width: 100%;
+  }
+  .media {
+	background-position: center;
+	background-size: cover;
+	height: 100%;
+	position: absolute;
+	transition: all 0.3s ease;
+	width: 100%;
+  }
+  figure {
+	height: 370px;
+	overflow: hidden;
+	position: relative;
+  }
+  figure a {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 3;
+  }
+  figure:hover .media {
+	-webkit-transform: scale(1.25);
+			transform: scale(1.25);
+  }
+  figcaption {
+	color: #252830;
+	height: calc(100% - 30px);
+	margin: 15px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 250px;
+  }
+  .body {
+	background-color: white;
+	bottom: 0;
+	padding: 15px;
+	position: absolute;
+	width: 100%;
+  }
+  svg {
+	height: inherit;
+	width: 100%;
+  }
+  svg text {
+	text-anchor: middle;
+  }
+  svg #alpha {
+	fill: white;
+  }
+  svg .title {
+	font-size: 28px;
+	font-family: "Montserrat";
+	letter-spacing: 5px;
+  }
+  svg #base {
+	fill: white;
+	-webkit-mask: url(#mask);
+	mask: url(#mask);
+  }
+  
 
 
 
@@ -234,36 +292,6 @@ letter-spacing: 2px;}
     margin: 0px;
     max-width: 100%;
 }
-/*recent row */
-.recent-box{
-	align-items: flex-start; 
-	margin: 10px 0px; 
-	display: flex;
-	flex-direction: row;
-	justify-content: start;
-	display: inline-block;
-    border: 1px solid #7070724a;
-	margin: 10px 30px;
-	width: 250px;
-	
-	border: 1px solid #cec6c6;
-	border-bottom: 2px solid #38c3b4;
-    border-radius: 3px;
-}
-.recent-box:hover{
-	box-shadow: 3px 3px 40px 0px #c8c6c6;
-}
-.recent-box .recent-right{height: 100px;padding:10px;margin: 0px; overflow: hidden;}
-.recent-box .recent-left  img {width: 100%; height: 200px;;}
-.recent-box .recent-right  a{
-	font-size:18px; 
-	text-decoration: none; 
-	color: #484848;
-	text-transform: capitalize;
-	font-family: Roboto;
-}
-.recent-box .recent-right  a:hover{color: #31bbab;}
-.recent-right {margin: 0;}
 
 :host ::ng-deep .content p {
 	color: #c0c2c2 !important;

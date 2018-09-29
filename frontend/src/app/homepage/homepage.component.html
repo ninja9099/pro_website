@@ -72,29 +72,49 @@
   <div class="search-wrapper">
     <form class="form-inline search-form">
       <input class="form-control" type="text" name="q" />
-      <button class="btn btn-primary form-control"><i class="fa fa-search" aria-hidden="true"></i></button>
+      <button style="background: #9dcc5a;
+    border-color: #86c232;" class="btn btn-primary form-control"><i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
   </div>
 </div>
 <div class="row recent-row">
   <h2 class="text-center">Recent Post</h2>
   <div class="recent-wrap">
-    <div class="recent-box" *ngFor="let article of articles">
-      <div class="recent-left">
-        <img [src]="article._s3_image_path"/>
-      </div>
-      <div class="_article-meta">
-        <div class="att-wrapper"><i class="fa fa-heart" aria-hidden="true"></i> <span [innerHTML]="article.likes.length"></span>
+     <div class="recent-box" *ngFor="let article of articles">
+        <div class="recent-left">
+          <div>
+              <figure>
+                <div class="media" [style.background-image]="'url(' + article._s3_image_path + ')'"></div>
+                <figcaption>
+                  <svg viewBox="0 0 200 200" version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <mask id="mask" x="0" y="0" width="100%" height="100%">
+                        <rect id="alpha" x="0" y="0" width="100%" height="100%"></rect>
+                        <text class="title" dx="50%" dy="2.5em">ENJOY</text>
+                        <text class="title" dx="50%" dy="3.5em">EVERY</text>
+                        <text class="title" dx="50%" dy="4.5em">MOMENT</text>
+                      </mask>
+                    </defs>
+                    <rect id="base" x="0" y="0" width="100%" height="100%"></rect>
+                  </svg>
+                  <div class="body">
+                    <p>Enamel pin selvage health goth edison bulb, venmo glossier tattooed hella butcher cred iPhone.</p>
+                  </div>
+                </figcaption>
+                <div class="_article-meta">
+                    <div class="att-wrapper"><i class="fa fa-heart" aria-hidden="true"></i> <span [innerHTML]="article.likes.length"></span>
+                    </div>
+                    <div class="att-wrapper"><i class="fa fa-comments" aria-hidden="true"></i><span [innerHTML]="article.likes.length"></span>
+                    </div>
+                    <div class="att-wrapper"><i class="fa fa-tags" aria-hidden="true"></i><span [innerHTML]="article.article_tags.length"></span>
+                    </div>
+                  </div>
+                  <div class="recent-right"> 
+                      
+                  </div>
+              </figure>
+          </div>
         </div>
-        <div class="att-wrapper"><i class="fa fa-comments" aria-hidden="true"></i><span [innerHTML]="article.likes.length"></span>
-        </div>
-        <div class="att-wrapper"><i class="fa fa-tags" aria-hidden="true"></i><span [innerHTML]="article.article_tags.length"></span>
-        </div>
-      </div>
-      <div class="recent-right"> 
-          <a [routerLink]="['/article/', article.id]">{{article.article_title}}</a>
-        <!-- <div class="content" [innerHTML]="article.short_description"></div> -->
-      </div>
     </div>
   </div>
 </div>
