@@ -192,87 +192,116 @@ letter-spacing: 2px;}
 .info h2{font-size: 30px; font-weight: bold;}
 .info p {line-height: 1.2; letter-spacing: 1px;text-align: justify; letter-spacing: 1.5px;}
 
-
-/* recent rows */
-.recent-box{
-	width: 30%;
-}
-
-  .container-fluid {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	-webkit-transform: translateY(-50%) translateX(-50%);
-			transform: translateY(-50%) translateX(-50%);
-	width: 100%;
-  }
-  .media {
-	background-position: center;
-	background-size: cover;
-	height: 100%;
-	position: absolute;
-	transition: all 0.3s ease;
-	width: 100%;
-  }
-  figure {
-	height: 370px;
+.recent-cards{
+	max-width: 350px;
+	max-height: 350px;
 	overflow: hidden;
 	position: relative;
-  }
-  figure a {
+	width: 350px;
+	height: 350px;
+	display: flex;
+    align-items: center;
+}
+
+.recent-cards::after{
+	content: '';
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    top: 0;
+    left: -96px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    background: #fff;
+}
+.recent-cards::before{
+	content: '';
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    bottom: 0;
+    right: -96px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    background: #fff;
+}
+
+.recent-cards-wrapper{
+	display: flex;
+	flex-direction: row;
+	flex-basis: 100%;
+	margin: 10%;
+	justify-content: space-around;
+}
+.background-holder{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
 	height: 100%;
-	left: 0;
+	background-size: cover;
+	background-position: center center;
+	-webkit-transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+	flex-shrink: 0;
+	z-index: -1;
+}
+.recent-cards:hover > .background-holder{
+	transform: scale(1.25);
+}
+.recent-cards:hover > .overlay::after{
+	content: '';
 	position: absolute;
 	top: 0;
-	width: 100%;
-	z-index: 3;
-  }
-  figure:hover .media {
-	-webkit-transform: scale(1.25);
-			transform: scale(1.25);
-  }
-  figcaption {
-	color: #252830;
-	height: calc(100% - 30px);
-	margin: 15px;
 	left: 0;
-	position: absolute;
-	top: 0;
-	width: 250px;
-  }
-  .body {
-	background-color: white;
+	right: 0;
 	bottom: 0;
-	padding: 15px;
+	background:#1a1212a6;
+	z-index: -1;
+	-webkit-transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+}
+
+.recent-cards:hover > .social-info{
+	transform: translateX(-80px)translateY(-80px);
+	-webkit-transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+}
+.card-meta{
+	margin: 10px;
+	width: 95%;
+	height: auto;
+}
+
+.card-meta h3{
+	font-size: 30px;
+	word-break: break-all;
+	justify-content: flex-start;
+	font-family: Abel, monospace;
+	color: #fff;
+	text-align: center;
+
+}
+.recent-cards .social-info{
 	position: absolute;
-	width: 100%;
-  }
-  svg {
-	height: inherit;
-	width: 100%;
-  }
-  svg text {
-	text-anchor: middle;
-  }
-  svg #alpha {
-	fill: white;
-  }
-  svg .title {
-	font-size: 28px;
-	font-family: "Montserrat";
-	letter-spacing: 5px;
-  }
-  svg #base {
-	fill: white;
-	-webkit-mask: url(#mask);
-	mask: url(#mask);
-  }
-  
+	
+	right: -30px;
+	bottom: -30px;
+	color: white;
+	font-family: Dosis;
+	font-size: 20px;
 
+}
 
-
-
-
+svg:not(:root){
+	fill: whitesmoke;
+}
 
 
 
@@ -280,12 +309,14 @@ letter-spacing: 2px;}
 .search-form {display: flex;}
 .search-form input{height: 50px !important; width: 80% !important; margin-right: -7px; border-radius: 0 !important;-webkit-box-shadow: none !important; box-shadow: none !important;}
 .search-form button { font-size: 24px; font-weight: bold; font-family: 'Roboto' sans-serif; min-width: 20%; border-radius: 0 !important; box-shadow: none ! important; height: 50px !important;}
-.search-row h2, .recent-row h2{
-	font-weight: 400;
-    margin: 40px 0;
-    font-family: 'Raleway', sans-serif;
-    font-size: 25px;
-    text-transform: uppercase;}
+.recent-row h2{
+    font-weight: bold;
+    color: #474b48;
+    letter-spacing: 2px;
+    word-spacing: 4px;
+    font-size: 40px;
+    font-family: Poiret One;
+}
 .search-row{
 	padding: 76px;
 	width: 100%;
@@ -305,7 +336,9 @@ letter-spacing: 2px;}
     flex-direction: row;
 	align-items: baseline;
 	flex-wrap: wrap;
-    justify-content: center;
+	justify-content: center;
+	max-width: 80%;
+    margin: auto;
 }
 .search-wrapper{
 	margin: 0px auto 58px auto;
