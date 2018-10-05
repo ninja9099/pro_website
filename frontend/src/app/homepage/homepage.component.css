@@ -29,7 +29,7 @@ body{
     width: 110%;
     height: 167px;
     position: absolute;
-    background: #222629;
+    background: #fff;
     transform: rotate(-4deg);
     bottom: -85px;
     left: -61px;
@@ -70,11 +70,10 @@ body{
 	margin: 76px auto; }
 .profile-row{
 	width: 100%;
-	background: #222629;
+	background: transparent;
+	position: relative !important;
 }
 .projects-row{
-	background: #86c232cc;
-	min-height: 800px;
 	overflow: hidden;
 	margin: auto;
 }
@@ -84,24 +83,36 @@ body{
     width: 110%;
     height: 167px;
     position: absolute;
-    background: #222629;
+    
     transform: rotate(-4deg);
     top: -85px;
     left: -61px;
 
 }
-.projects::after{
-	width: 110%;
-    content: '';
-    height: 167px;
-    position: absolute;
-    background: #fff;
-    -webkit-transform: rotate(-4deg);
-    transform: rotate(-4deg);
-    bottom: -99px;
-    left: -136px;
-}
 
+.teams-background{
+	background:url('assets/teams.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	filter: opacity(0.4);
+	z-index: -9;
+}
+.profile-row h1{
+	position: absolute;
+    left: 0;
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-size: 45px;
+    font-family: Poiret One;
+    font-weight: bold;
+    color: #b4b1b1;
+}
 .projects-row h1{
 	position: absolute;
     top: 31px;
@@ -110,10 +121,9 @@ body{
     display: block;
     width: 100%;
     font-size: 45px;
-    /* text-transform: uppercase; */
     font-family: Poiret One;
     font-weight: bold;
-    color: #eeeeee;
+    color: #b4b1b1;
 }
 .projects{
 	background: transparent;
@@ -150,19 +160,20 @@ body{
 	flex-basis: 100%;
 	padding: 10px;
 }
-.service-right h2 {font-family: Raleway;font-size: 30px; color: #6b6e70;font-weight: bold;
+.service-right h2 {font-family: 'Karla', sans-serif; font-size: 30px; color: #6b6e70;font-weight: bold;
 letter-spacing: 2px;}
 .service-right p{
 	text-align: justify;
     font-size: 19px;
-    color: #fffcfc;
     word-break: break-all;
-    font-family: Barlow;
+	font-family: 'Montserrat', sans-serif;
+	
 }
 .middle-profile{
 	margin: auto;
     max-width: 80%;
 	padding: 96px;
+	position: relative;
 	
 	}
 .profile-widget .profile{
@@ -171,14 +182,15 @@ letter-spacing: 2px;}
     align-items: center;
     margin: auto;}
 .profile{display: flex;align-items: center;justify-content: space-around;}
-.profile-picture{width: 35%;}
-.profile-datablock{width: 50%;align-self: flex-start; text-align: center}
+/* .profile-picture{width: 35%;} */
+.profile-datablock{width: 50%; text-align: center}
 .profile-datablock h1{font-size: 50px;color: #fff;}
 .profile-data a{font-size: 40px; text-decoration: none;color: #8a8a8a;}
 .profile-text{
 	font-size: 20px;
 	text-align: center;
 	color: #8a8a8a;
+	font-family: 'Montserrat', sans-serif;
 }
 .profile-link{ float: right; font-size: 19px; text-decoration: none; font-weight: bold;}
 .profile-link:after{content: ' \2192';}
@@ -203,28 +215,6 @@ letter-spacing: 2px;}
     align-items: center;
 }
 
-.recent-cards::after{
-	content: '';
-    position: absolute;
-    width: 200px;
-    height: 50px;
-    top: 0;
-    left: -96px;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    background: #fff;
-}
-.recent-cards::before{
-	content: '';
-    position: absolute;
-    width: 200px;
-    height: 50px;
-    bottom: 0;
-    right: -96px;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    background: #fff;
-}
 
 .recent-cards-wrapper{
 	display: flex;
@@ -312,10 +302,9 @@ svg:not(:root){
 .recent-row h2{
     font-weight: bold;
     color: #474b48;
-    letter-spacing: 2px;
     word-spacing: 4px;
     font-size: 40px;
-    font-family: Poiret One;
+    font-family: 'Karla', sans-serif;
 }
 .search-row{
 	padding: 76px;
