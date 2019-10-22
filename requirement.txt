@@ -44,7 +44,7 @@ maxminddb==1.4.0
 mccabe==0.6.1
 oauthlib==2.0.4
 olefile==0.44
-Pillow==5.1.0
+Pillow==6.2.0
 psycopg2==2.7.3.2
 pycodestyle==2.4.0
 pycparser==2.18

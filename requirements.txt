@@ -2,7 +2,7 @@ Django==1.11
 Mako==1.0.7
 Markdown==2.6.9
 MarkupSafe==1.0
-Pillow==5.1.0
+Pillow==6.2.0
 PyJWT==1.5.3
 argon2==0.1.10
 argon2-cffi==18.1.0
